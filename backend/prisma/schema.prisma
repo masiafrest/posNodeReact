@@ -22,8 +22,9 @@ model Cliente {
 
 model Usuario {
   id        Int      @id @default(autoincrement())
-  nombre    String?
-  email     String   @unique
+  nombre    String
+  password String
+  email     String   
   telefono  String?
   dirrecion String?
   rol       Rol      @default(VENDEDOR)
@@ -40,39 +41,38 @@ model Item {
   id         Int          @id @default(autoincrement())
   marca      String
   modelo     String
-  barcode    String
-  image_url  String
-  categorias Categoria[]
-  inventario Inventario[]
+  barcode    String?
+  image_url  String?
+  sku         String?
+  categorias Categoria[] 
+  inventarios Inventario[]
+  createdAt  DateTime     @default(now())
+}
+
+model Inventario {
+  id         Int          @id @default(autoincrement())
+  precio      Precio    @relation(fields: [precioId], references: [id])
+  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
+  item Item @relation(fields: [itemId], references: [id])
+  itemId  Int
+  precioId    Int
+  ubicacionId Int
+  color       String?
+  qty Int
   createdAt  DateTime     @default(now())
 }
 
 model Categoria {
   id        Int      @id @default(autoincrement())
-  item      Item     @relation(fields: [itemId], references: [id])
-  nombre    String
-  itemId    Int
+  nombre    String  @unique
+  items Item[]
   createdAt DateTime @default(now())
-}
-
-model Inventario {
-  id          Int       @id @default(autoincrement())
-  item        Item      @relation(fields: [itemId], references: [id])
-  itemId      Int
-  qty         Int
-  color       String?
-  sku         String
-  precio      Precio    @relation(fields: [precioId], references: [id])
-  precioId    Int
-  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
-  ubicacionId Int
-  createdAt   DateTime  @default(now())
 }
 
 model Precio {
   id         Int         @id @default(autoincrement())
-  precio     Decimal
-  precioMin  Decimal
+  precio     Decimal  @db.Decimal(4,2)
+  precioMin  Decimal  @db.Decimal(4,2)
   inventario Inventario?
   createdAt  DateTime    @default(now())
 }
@@ -83,6 +83,8 @@ model Ubicacion {
   tipo       String
   inventario Inventario?
   createdAt  DateTime    @default(now())
+
+  @@unique([dirrecion, tipo])
 }
 
 model Venta {
@@ -93,7 +95,7 @@ model Venta {
   clienteId Int
   Fecha     DateTime @default(now())
   credito Boolean
-  subTotal  Decimal
-  tax       Decimal
-  total     Decimal
+  subTotal  Decimal  @db.Decimal(4,2)
+  tax       Decimal  @db.Decimal(4,2)
+  total     Decimal  @db.Decimal(4,2)
 }

@@ -1,10 +1,33 @@
 type Query {
-  
-
+  items: [Item!]!
 }
 
 type Mutation {
+  signup(
+    email: String!
+    password: String!
+    nombre: String!
+    telefono: String
+    dirrecion: String
+    rol: Rol = VENDEDOR
+  ): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  postItem(
+    marca: String!
+    modelo: String!
+    barcode: String
+    color: String
+    sku: String
+    categorias: [CategoriaInput]
+    precio: Int
+    precioMin: Int
+    ubicacion: [UbicacionInput]
+  ): Item
+}
 
+type AuthPayload {
+  token: String
+  usuario: Usuario
 }
 
 type Cliente {
@@ -13,7 +36,7 @@ type Cliente {
   email: String!
   telefono: String
   dirrecion: String
-  createdAt: DateTime
+  createdAt: String
 }
 
 type Usuario {
@@ -22,71 +45,77 @@ type Usuario {
   email: String!
   telefono: String
   dirrecion: String
-  createdAt: DateTime
-  rol: Rol 
+  createdAt: String
+  rol: Rol
 }
 
 enum Rol {
   VENDEDOR
-    ADMIN
+  ADMIN
 }
 
-type Item{
+type Item {
   id: ID!
-  marca : String!
+  marca: String!
   modelo: String!
   barcode: String
   image_url: String
+  sku: String
   categorias: [Categoria!]!
-  inventario: [Inventario!]!
-  createdAt: DateTime
+  inventarios: [Inventario!]!
+  createdAt: String
+}
+
+type Inventario {
+  id: ID!
+  precioId: Int
+  ubicacionId: Int
+  color: String
+  precio: Precio
+  ubicacion: Ubicacion
+  qty: Int
+}
+
+input CategoriaInput {
+  nombre: String
 }
 
 type Categoria {
   id: ID!
+  itemId: Int
   nombre: String
-  itemId: Int
-  createdAt: DateTime
+  createdAt: String
   items: [Item!]
-}
-
-type Inventario {
-  id:ID!
-  item: Item
-  itemId: Int
-  qty: Int
-  color: String
-  sku: String
-  precio: Precio
-  precioId: Int
-  ubicacionId: Int
-  ubicacion: Ubicacion
-  createdAt: DateTime
 }
 
 type Precio {
   id: ID!
-  precio: float
-  precioMin: float
-  createdAt: DateTime
+  precio: Float
+  precioMin: Float
+  createdAt: String
+}
+
+input UbicacionInput {
+  dirrecion: String
+  tipo: String
 }
 
 type Ubicacion {
   id: ID!
   dirrecion: String
   tipo: String
-  createdAt: DateTime
+  createdAt: String
 }
 
 type Venta {
   id: ID!
-  usuario: Usuario
   usuarioId: Int
-  cliente: Cliente
   clienteId: Int
-  fecha: DateTime
-  credito: Boolean 
-  subTotal: float
-  tax: float
-  total: float
+  usuario: Usuario
+  cliente: Cliente
+  fecha: String
+  credito: Boolean
+  subTotal: Float
+  tax: Float
+  total: Float
 }
