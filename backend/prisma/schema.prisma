@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Cliente {
+  id        Int      @id @default(autoincrement())
+  nombre    String?
+  email     String   @unique
+  telefono  String?
+  dirrecion String?
+  createdAt DateTime @default(now())
+  venta     Venta?
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String?
+  email     String   @unique
+  telefono  String?
+  dirrecion String?
+  rol       Rol      @default(VENDEDOR)
+  venta     Venta?
+  createdAt DateTime @default(now())
+}
+
+enum Rol {
+  VENDEDOR
+  ADMIN
+}
+
+model Item {
+  id         Int          @id @default(autoincrement())
+  marca      String
+  modelo     String
+  barcode    String
+  image_url  String
+  categorias Categoria[]
+  Inventario Inventario[]
+  createdAt  DateTime     @default(now())
+}
+
+model Categoria {
+  id        Int      @id @default(autoincrement())
+  item      Item     @relation(fields: [itemId], references: [id])
+  nombre    String
+  itemId    Int
+  createdAt DateTime @default(now())
+}
+
+model Inventario {
+  id          Int       @id @default(autoincrement())
+  item        Item      @relation(fields: [itemId], references: [id])
+  itemId      Int
+  qty         Int
+  color       String?
+  sku         String
+  precio      Precio    @relation(fields: [precioId], references: [id])
+  precioId    Int
+  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
+  ubicacionId Int
+  createdAt   DateTime  @default(now())
+}
+
+model Precio {
+  id         Int         @id @default(autoincrement())
+  precio     Decimal
+  precioMin  Decimal
+  inventario Inventario?
+  createdAt  DateTime    @default(now())
+}
+
+model Ubicacion {
+  id         Int         @id @default(autoincrement())
+  dirrecion  String
+  tipo       String
+  inventario Inventario?
+  createdAt  DateTime    @default(now())
+}
+
+model Venta {
+  id        Int      @id @default(autoincrement())
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+  clienteId Int
+  Fecha     DateTime @default(now())
+  subTotal  Decimal
+  tax       Decimal
+  total     Decimal
+}
