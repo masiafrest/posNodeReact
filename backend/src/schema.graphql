@@ -1,7 +1,92 @@
 type Query {
+  
 
 }
 
 type Mutation {
 
+}
+
+type Cliente {
+  id: ID!
+  nombre: String
+  email: String!
+  telefono: String
+  dirrecion: String
+  createdAt: DateTime
+}
+
+type Usuario {
+  id: ID!
+  nombre: String
+  email: String!
+  telefono: String
+  dirrecion: String
+  createdAt: DateTime
+  rol: Rol 
+}
+
+enum Rol {
+  VENDEDOR
+    ADMIN
+}
+
+type Item{
+  id: ID!
+  marca : String!
+  modelo: String!
+  barcode: String
+  image_url: String
+  categorias: [Categoria!]!
+  inventario: [Inventario!]!
+  createdAt: DateTime
+}
+
+type Categoria {
+  id: ID!
+  nombre: String
+  itemId: Int
+  createdAt: DateTime
+  items: [Item!]
+}
+
+type Inventario {
+  id:ID!
+  item: Item
+  itemId: Int
+  qty: Int
+  color: String
+  sku: String
+  precio: Precio
+  precioId: Int
+  ubicacionId: Int
+  ubicacion: Ubicacion
+  createdAt: DateTime
+}
+
+type Precio {
+  id: ID!
+  precio: float
+  precioMin: float
+  createdAt: DateTime
+}
+
+type Ubicacion {
+  id: ID!
+  dirrecion: String
+  tipo: String
+  createdAt: DateTime
+}
+
+type Venta {
+  id: ID!
+  usuario: Usuario
+  usuarioId: Int
+  cliente: Cliente
+  clienteId: Int
+  fecha: DateTime
+  credito: Boolean 
+  subTotal: float
+  tax: float
+  total: float
 }

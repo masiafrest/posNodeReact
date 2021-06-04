@@ -43,7 +43,7 @@ model Item {
   barcode    String
   image_url  String
   categorias Categoria[]
-  Inventario Inventario[]
+  inventario Inventario[]
   createdAt  DateTime     @default(now())
 }
 
@@ -92,6 +92,7 @@ model Venta {
   cliente   Cliente  @relation(fields: [clienteId], references: [id])
   clienteId Int
   Fecha     DateTime @default(now())
+  credito Boolean
   subTotal  Decimal
   tax       Decimal
   total     Decimal
