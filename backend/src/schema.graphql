@@ -18,10 +18,10 @@ type Mutation {
     barcode: String
     color: String
     sku: String
-    categorias: [CategoriaInput]
+    categorias: [Categoria]
     precio: Int
     precioMin: Int
-    ubicacion: [UbicacionInput]
+    ubicacion: [Ubicacion]
   ): Item
 }
 
@@ -76,10 +76,6 @@ type Inventario {
   qty: Int
 }
 
-input CategoriaInput {
-  nombre: String
-}
-
 type Categoria {
   id: ID!
   itemId: Int
@@ -93,11 +89,6 @@ type Precio {
   precio: Float
   precioMin: Float
   createdAt: String
-}
-
-input UbicacionInput {
-  dirrecion: String
-  tipo: String
 }
 
 type Ubicacion {
