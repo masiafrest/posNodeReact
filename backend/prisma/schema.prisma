@@ -52,11 +52,11 @@ model Item {
 model Inventario {
   id         Int          @id @default(autoincrement())
   precio      Precio    @relation(fields: [precioId], references: [id])
-  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
-  item Item @relation(fields: [itemId], references: [id])
-  itemId  Int
   precioId    Int
+  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
   ubicacionId Int
+  item        Item      @relation(fields: [itemId], references: [id])
+  itemId      Int
   color       String?
   qty Int
   createdAt  DateTime     @default(now())
