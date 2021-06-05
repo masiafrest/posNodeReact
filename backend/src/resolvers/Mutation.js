@@ -23,12 +23,8 @@ function postItem(parent, args, ctx, info) {
             barcode,
             color,
             sku,
-            //categorias se supone q es un array 
-            //esta conexion como esta mal
             categorias: {
-                connect: {
-                    id: categorias.id
-                }
+                connect: categorias
             },
             inventarios: {
                 create: {
