@@ -82,8 +82,25 @@ function postUbicacion(parent, {
     })
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function delItem(parent, {
+    id
+}, ctx, info) {
+    return ctx.prisma.item.delete({
+        where: {
+            id
+        }
+    })
+}
+
 module.exports = {
     postItem,
     postCategoria,
-    postUbicacion
+    postUbicacion,
+    delItem
 }
