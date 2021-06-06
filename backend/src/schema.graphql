@@ -14,6 +14,7 @@ type Mutation {
     rol: Rol = VENDEDOR
   ): AuthPayload
   login(email: String!, password: String!): AuthPayload
+
   postItem(
     marca: String!
     modelo: String!
@@ -25,6 +26,8 @@ type Mutation {
     precioMin: Int
     ubicacion: [Ubicacion]
   ): Item
+  postCategoria(nombre: String!): Categoria
+  postUbicacion(dirrecion: String!, tipo:String!): Ubicacion
 }
 
 type AuthPayload {
