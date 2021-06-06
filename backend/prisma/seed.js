@@ -4,9 +4,7 @@ const prisma = new PrismaClient();
 async function main() {
   const sonia = await prisma.usuario.create({
     data: {
-      email: "cello",
       rol: "ADMIN",
-      telefono: "555",
       nombre: "sonia",
       password: "celloo",
     },
@@ -29,28 +27,27 @@ async function main() {
     data: {
       marca: "huawei",
       modelo: "y9p",
-      barcode: "000",
+      barcode: 000,
       sku: "1111",
       image_url: "abc",
+      qty: 30,
+      descripcion: "negro cop",
+      ubicacion: { connect: { id: ubicacion.id } },
       categorias: { connect: [{ id: categoriaLcd.id }] },
-      inventarios: {
-        create: [
-          {
-            qty: 30,
-            color: "negro",
-            ubicacion: { connect: { id: ubicacion.id } },
-            precio: {
-              create: {
-                precio: 10.1,
-                precioMin: 10.0,
-              },
-            },
-          },
-        ],
+      precio: {
+        create: {
+          precio: 10.1,
+          precioMin: 10.0,
+        },
       },
     },
+    include: {
+      categorias: true,
+      precio: true,
+      ubicacion: true,
+    },
   });
-  console.log(sonia);
+  console.log(item);
 }
 
 main()

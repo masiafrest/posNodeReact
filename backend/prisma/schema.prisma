@@ -24,9 +24,6 @@ model Usuario {
   id        Int      @id @default(autoincrement())
   nombre    String
   password String
-  email     String   
-  telefono  String?
-  dirrecion String?
   rol       Rol      @default(VENDEDOR)
   venta     Venta?
   createdAt DateTime @default(now())
@@ -41,31 +38,24 @@ model Item {
   id         Int          @id @default(autoincrement())
   marca      String
   modelo     String
-  barcode    String?
+  barcode    Int?
   image_url  String?
   sku         String?
-  categorias Categoria[] 
-  inventarios Inventario[]
-  createdAt  DateTime     @default(now())
-}
-
-model Inventario {
-  id         Int          @id @default(autoincrement())
-  precio      Precio    @relation(fields: [precioId], references: [id])
-  precioId    Int
-  ubicacion   Ubicacion @relation(fields: [ubicacionId], references: [id])
-  ubicacionId Int
-  item        Item      @relation(fields: [itemId], references: [id])
-  itemId      Int
-  color       String?
   qty Int
+  descripcion String?
+  precio Precio?
+  // precio Precio @relation(fields: [precioId], references: [id])
+  // precioId Int
+  ubicacion Ubicacion  @relation(fields: [ubicacionId], references: [id])
+  ubicacionId Int
+  categorias Categoria[] 
   createdAt  DateTime     @default(now())
 }
 
 model Categoria {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   nombre    String  @unique
-  items Item[]
+  item Item[]
   createdAt DateTime @default(now())
 }
 
@@ -73,7 +63,9 @@ model Precio {
   id         Int         @id @default(autoincrement())
   precio     Decimal  @db.Decimal(4,2)
   precioMin  Decimal  @db.Decimal(4,2)
-  inventario Inventario?
+  // item Item?
+  item Item @relation(fields:[itemId], references: [id])
+  itemId Int
   createdAt  DateTime    @default(now())
 }
 
@@ -81,7 +73,7 @@ model Ubicacion {
   id         Int         @id @default(autoincrement())
   dirrecion  String
   tipo       String
-  inventario Inventario?
+  items Item[]
   createdAt  DateTime    @default(now())
 
   @@unique([dirrecion, tipo])
