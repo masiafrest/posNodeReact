@@ -1,21 +1,19 @@
-const { ApolloServer } = require("apollo-server");
-const { PrismaClient } = require("@prisma/client");
+const {
+  ApolloServer
+} = require("apollo-server");
+const {
+  PrismaClient
+} = require("@prisma/client");
 const fs = require("fs");
 const path = require("path");
 const Query = require("./resolvers/Query");
+const Mutation = require("./resolvers/Mutation");
 
 const prisma = new PrismaClient();
 
-/**
- */
 const resolvers = {
   Query,
-  Mutation: {
-    postItem: async (parent, args, ctx, info) => {
-      console.log(args);
-      return args;
-    },
-  },
+  Mutation,
 };
 
 const server = new ApolloServer({
@@ -26,4 +24,6 @@ const server = new ApolloServer({
   },
 });
 
-server.listen().then(({ url }) => console.log(`Server is running on ${url}`));
+server.listen().then(({
+  url
+}) => console.log(`Server is running on ${url}`));
