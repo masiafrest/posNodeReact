@@ -83,7 +83,7 @@ function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function delItem(parent, { id }, ctx, info) {
-  return ctx.prisma.item.delete({
+  ctx.prisma.item.delete({
     where: {
       id,
     },

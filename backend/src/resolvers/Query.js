@@ -1,37 +1,35 @@
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
  */
-
 function items(parent, args, ctx, info) {
   return ctx.prisma.item.findMany({
     include: {
       categorias: true,
-      inventarios: {
-        include: {
-          precio: true,
-          ubicacion: true
-        }
-      },
+      precio: true,
+      ubicacion: true,
     },
   });
 }
 
-/** 
+/**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
 function categorias(parent, args, ctx, info) {
-  return ctx.prisma.categoria.findMany()
+  return ctx.prisma.categoria.findMany();
 }
 
 function ubicaciones(parent, args, ctx, info) {
-  return ctx.prisma.ubicacion.findMany()
+  return ctx.prisma.ubicacion.findMany();
 }
 
 module.exports = {
   items,
   categorias,
-  ubicaciones
+  ubicaciones,
 };
