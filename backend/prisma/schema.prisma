@@ -50,6 +50,7 @@ model Item {
   ubicacionId Int
   categorias Categoria[] 
   createdAt  DateTime     @default(now())
+  deleted Boolean @default(false)
 }
 
 model Categoria {

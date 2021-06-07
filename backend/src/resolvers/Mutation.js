@@ -53,7 +53,9 @@ function postItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postCategoria(parent, { nombre }, ctx, info) {
+function postCategoria(parent, {
+  nombre
+}, ctx, info) {
   return ctx.prisma.categoria.create({
     data: {
       nombre,
@@ -67,7 +69,10 @@ function postCategoria(parent, { nombre }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
+function postUbicacion(parent, {
+  dirrecion,
+  tipo
+}, ctx, info) {
   return ctx.prisma.ubicacion.create({
     data: {
       dirrecion,
@@ -82,11 +87,19 @@ function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function delItem(parent, { id }, ctx, info) {
-  ctx.prisma.item.delete({
+function softDelItem(parent, {
+  id
+}, ctx, info) {
+  return ctx.prisma.item.update({
     where: {
       id,
     },
+    data: {
+      deleted: true
+    },
+    select: {
+      deleted: true
+    }
   });
 }
 
@@ -94,5 +107,5 @@ module.exports = {
   postItem,
   postCategoria,
   postUbicacion,
-  delItem,
+  softDelItem,
 };
