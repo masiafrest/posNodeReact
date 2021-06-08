@@ -5,6 +5,7 @@
  * @param {{ prisma: Prisma }} ctx
  */
 function items(parent, args, ctx, info) {
+  console.log("item resolver");
   return ctx.prisma.item.findMany({
     include: {
       categorias: true,

@@ -1,7 +1,7 @@
 type Query {
   items: [Item]
   categorias: [Categoria]
-  ubicaciones:[Ubicacion]
+  ubicaciones: [Ubicacion]
 }
 
 type Mutation {
@@ -21,17 +21,25 @@ type Mutation {
     barcode: String
     color: String
     sku: String
-    categorias: [Categoria]
+    categorias: [CategoriaInput]
     precio: Int
     precioMin: Int
-    ubicacion: [Ubicacion]
+    ubicacion: [UbicacionInput]
   ): Item
   postCategoria(nombre: String!): Categoria
-  postUbicacion(dirrecion: String!, tipo:String!): Ubicacion
+  postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
 
-  updateItem(id: ID!, ): Item
+  updateItem(id: ID!): Item
 
-  softDelItem(id: ID!):Item
+  softDelItem(id: ID!): Item
+}
+
+input CategoriaInput {
+  nombre: String!
+}
+input UbicacionInput {
+  dirrecion: String!
+  tipo: String!
 }
 
 type AuthPayload {
@@ -71,19 +79,11 @@ type Item {
   image_url: String
   sku: String
   categorias: [Categoria!]!
-  inventarios: [Inventario!]!
+  ubicacion: [Ubicacion!]
+  precio: [Precio!]
+  qty: Int
   createdAt: String
   deleted: Boolean
-}
-
-type Inventario {
-  id: ID!
-  precioId: Int
-  ubicacionId: Int
-  color: String
-  precio: Precio
-  ubicacion: Ubicacion
-  qty: Int
 }
 
 type Categoria {
