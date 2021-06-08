@@ -1,5 +1,5 @@
 type Query {
-  items: [Item]
+  items(filter: String, skip: Int, take: Int): [Item]
   categorias: [Categoria]
   ubicaciones: [Ubicacion]
 }
@@ -78,6 +78,7 @@ type Item {
   barcode: String
   image_url: String
   sku: String
+  descripcion: String
   categorias: [Categoria!]!
   ubicacion: Ubicacion!
   precio: Precio!

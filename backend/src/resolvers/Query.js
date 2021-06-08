@@ -5,13 +5,27 @@
  * @param {{ prisma: Prisma }} ctx
  */
 function items(parent, args, ctx, info) {
-  console.log("item resolver");
+  const { filter, skip, take } = args;
+  const where = filter
+    ? {
+        OR: [
+          { marca: { contains: filter } },
+          { modelo: { contains: filter } },
+          { descripcion: { contains: filter } },
+          { sku: { contains: filter } },
+        ],
+      }
+    : {};
+
   return ctx.prisma.item.findMany({
+    where,
     include: {
       categorias: true,
       precio: true,
       ubicacion: true,
     },
+    skip,
+    take,
   });
 }
 
