@@ -9,7 +9,6 @@ function postItem(parent, args, ctx, info) {
     marca,
     modelo,
     barcode,
-    color,
     sku,
     categorias,
     precio,
@@ -53,9 +52,7 @@ function postItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postCategoria(parent, {
-  nombre
-}, ctx, info) {
+function postCategoria(parent, { nombre }, ctx, info) {
   return ctx.prisma.categoria.create({
     data: {
       nombre,
@@ -69,10 +66,7 @@ function postCategoria(parent, {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postUbicacion(parent, {
-  dirrecion,
-  tipo
-}, ctx, info) {
+function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
   return ctx.prisma.ubicacion.create({
     data: {
       dirrecion,
@@ -87,19 +81,17 @@ function postUbicacion(parent, {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function softDelItem(parent, {
-  id
-}, ctx, info) {
+function softDelItem(parent, { id }, ctx, info) {
   return ctx.prisma.item.update({
     where: {
       id,
     },
     data: {
-      deleted: true
+      deleted: true,
     },
     select: {
-      deleted: true
-    }
+      deleted: true,
+    },
   });
 }
 

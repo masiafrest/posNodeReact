@@ -79,8 +79,8 @@ type Item {
   image_url: String
   sku: String
   categorias: [Categoria!]!
-  ubicacion: [Ubicacion!]
-  precio: [Precio!]
+  ubicacion: Ubicacion!
+  precio: Precio!
   qty: Int
   createdAt: String
   deleted: Boolean

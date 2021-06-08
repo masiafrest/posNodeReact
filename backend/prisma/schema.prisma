@@ -51,6 +51,8 @@ model Item {
   categorias Categoria[] 
   createdAt  DateTime     @default(now())
   deleted Boolean @default(false)
+
+  @@unique([marca, modelo, barcode])
 }
 
 model Categoria {
