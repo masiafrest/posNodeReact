@@ -4,7 +4,7 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function items(parent, args, ctx, info) {
+async function items(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   const where = filter
     ? {

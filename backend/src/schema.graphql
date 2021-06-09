@@ -18,13 +18,15 @@ type Mutation {
   postItem(
     marca: String!
     modelo: String!
-    barcode: String
+    barcode: Int
     color: String
     sku: String
-    categorias: [CategoriaInput]
-    precio: Int
-    precioMin: Int
-    ubicacion: [UbicacionInput]
+    qty: Int
+    descripcion: String
+    categorias: [IdInput]
+    precio: Float
+    precioMin: Float
+    ubicacion: IdInput
   ): Item
   postCategoria(nombre: String!): Categoria
   postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
@@ -34,12 +36,8 @@ type Mutation {
   softDelItem(id: ID!): Item
 }
 
-input CategoriaInput {
-  nombre: String!
-}
-input UbicacionInput {
-  dirrecion: String!
-  tipo: String!
+input IdInput {
+  id: Int!
 }
 
 type AuthPayload {
