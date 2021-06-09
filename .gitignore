@@ -3,4 +3,5 @@ dev.db
 migrations
 .env
 docker_data
+build
 
