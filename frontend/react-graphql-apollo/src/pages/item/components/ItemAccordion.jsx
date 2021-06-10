@@ -9,13 +9,13 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-export default function ItemAccordion() {
+export default function ItemAccordion({item}) {
 	return (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
-        id="panel1a-header"
+        id={`panelSummay-${item.id}`}
       >
         <Typography>Accordion 1</Typography>
       </AccordionSummary>
