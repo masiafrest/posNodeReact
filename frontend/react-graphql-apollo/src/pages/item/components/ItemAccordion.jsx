@@ -1,30 +1,55 @@
-import React from 'react'
+import React from "react";
 import {
-	Accordion,
-	AccordionSummary,
-	AccordionDetails,
-	AccordionActions,
-	Typography,
-
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  AccordionActions,
+  Typography,
+  Divider,
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-export default function ItemAccordion({item}) {
-	return (
-    <Accordion>
+import EditDialogIcon from "./ItemEditDialogIcon";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+export default function ItemAccordion({ item }) {
+  const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
+  return (
+    <Accordion elevation={14}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
-        id={`panelSummay-${item.id}`}
+        id="panel1a-header"
       >
-        <Typography>Accordion 1</Typography>
+        <Typography>
+          {item.marca}, {item.modelo}, {item.descripcion}
+        </Typography>
       </AccordionSummary>
+      <Divider variant="middle" />
       <AccordionDetails>
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          qty: {item.qty}, precio:{item.precio.precio}, ubicacion:
+          {item.ubicacion.tipo},{item.ubicacion.dirrecion}, categorias:{" "}
+          {categorias}
         </Typography>
       </AccordionDetails>
+      <AccordionActions>
+        <EditDialogIcon />
+        <IconButton aria-label="addToCart">
+          <AddShoppingCartIcon color="action" />
+        </IconButton>
+        <IconButton aria-label="delete">
+          <DeleteIcon color="error" />
+        </IconButton>
+      </AccordionActions>
     </Accordion>
   );
 }

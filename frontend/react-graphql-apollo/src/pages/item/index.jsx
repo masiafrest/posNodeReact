@@ -3,7 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import ItemsList from "./components/ItemsList";
 
 export default function Item() {
-	const ITEM_QUERY = gql`{
+  const ITEM_QUERY = gql`{
             items (filter:${null}, 
             take: ${5}, 
             skip: ${0}
@@ -13,6 +13,8 @@ export default function Item() {
               modelo
               barcode
               sku
+              descripcion
+              qty
               categorias {
                 id
                 nombre
@@ -28,12 +30,12 @@ export default function Item() {
               }
             }
           }`;
-	const { data, loading, error } = useQuery(ITEM_QUERY);
-	console.log(data);
-	return (
-		<>
-			<div>item pages</div>;
-			<ItemsList data={data} />
-		</>
-	);
+  const { data, loading, error } = useQuery(ITEM_QUERY);
+  console.log(data);
+  return (
+    <>
+      <div>item pages</div>;
+      <ItemsList data={data} />
+    </>
+  );
 }
