@@ -47,6 +47,7 @@ export default function ItemAccordion({ item }) {
           <AddShoppingCartIcon color="action" />
         </IconButton>
         <IconButton aria-label="delete">
+            {/* add del dialog js*/}
           <DeleteIcon color="error" />
         </IconButton>
       </AccordionActions>
