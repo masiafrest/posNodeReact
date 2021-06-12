@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
-export default function ItemEditDialogIcon() {
+export default function ItemEditDialogIcon({itemId}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
