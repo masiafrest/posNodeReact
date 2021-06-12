@@ -16,24 +16,37 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
 
   postItem(
-    marca: String!
-    modelo: String!
-    barcode: Int
-    color: String
-    sku: String
-    qty: Int
-    descripcion: String
-    categorias: [IdInput]
-    precio: Float
-    precioMin: Float
-    ubicacion: IdInput
+    marca: string!
+    modelo: string!
+    barcode: int
+    color: string
+    sku: string
+    qty: int
+    descripcion: string
+    categorias: [idinput]
+    precio: float
+    preciomin: float
+    ubicacion: idinput
   ): Item
   postCategoria(nombre: String!): Categoria
   postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
 
-  updateItem(id: ID!): Item
+  updateItem(id: ID!, data: ItemInput!): Item
 
   softDelItem(id: ID!): Item
+}
+
+input ItemInput {
+  marca: string
+  modelo: string
+  barcode: int
+  color: string
+  sku: string
+  qty: int
+  descripcion: string
+  categorias: [idinput]
+  precio: float
+  preciomin: float
 }
 
 input IdInput {

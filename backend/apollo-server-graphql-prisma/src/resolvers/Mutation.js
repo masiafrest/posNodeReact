@@ -46,6 +46,42 @@ function postItem(parent, args, ctx, info) {
   });
 }
 
+//TODO updateItem
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function updateItem(parent, { id, data }, ctx, info) {
+  return ctx.prisma.item.update({
+    where: {
+      id,
+    },
+    data,
+  });
+}
+
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function softDelItem(parent, { id }, ctx, info) {
+  return ctx.prisma.item.update({
+    where: {
+      id,
+    },
+    data: {
+      deleted: true,
+    },
+    select: {
+      deleted: true,
+    },
+  });
+}
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -75,25 +111,6 @@ function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
   });
 }
 
-/**
- * @typedef { import("@prisma/client").PrismaClient } Prisma
- * @param {any} parent
- * @param {{ searchString: string }} args
- * @param {{ prisma: Prisma }} ctx
- */
-function softDelItem(parent, { id }, ctx, info) {
-  return ctx.prisma.item.update({
-    where: {
-      id,
-    },
-    data: {
-      deleted: true,
-    },
-    select: {
-      deleted: true,
-    },
-  });
-}
 
 module.exports = {
   postItem,
