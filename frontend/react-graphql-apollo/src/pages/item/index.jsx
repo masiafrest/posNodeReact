@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import ItemList from "./components/ItemList";
+import ItemList from "./ItemList";
 
 export default function Item() {
   const ITEM_QUERY = gql`{
@@ -31,11 +31,10 @@ export default function Item() {
             }
           }`;
   const { data, loading, error } = useQuery(ITEM_QUERY);
-  console.log(data);
   return (
     <>
       <div>item pages</div>;
-      <ItemList data={data} />
+      {loading ? <div>loading</div> : <ItemList items={data.items} />}
     </>
   );
 }
