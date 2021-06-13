@@ -1,4 +1,7 @@
 import React from "react";
+import { gql, useMutation } from "@apollo/client";
+import {ITEM_DATA} from '../../item'
+
 import {
   Dialog,
   DialogActions,
@@ -13,6 +16,13 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export default function ItemEditDialogIcon({itemId}) {
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = React.useState({})
+
+  const UPDATE_ITEM = gql`
+    mutation updateItem(id: ${itemId}, data: ${data}){
+
+    }
+  `
 
   const handleClickOpen = () => {
     setOpen(true);

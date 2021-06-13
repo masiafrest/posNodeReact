@@ -2,12 +2,8 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import ItemList from "./components/ItemList";
 
-export default function Item() {
-  const ITEM_QUERY = gql`{
-            items (filter:${null}, 
-            take: ${5}, 
-            skip: ${0}
-            ){
+  export const ITEM_DATA = gql`
+    fragment itemData on Item{
               id
               marca
               modelo
@@ -28,8 +24,20 @@ export default function Item() {
                 tipo
                 dirrecion
               }
+    } 
+  `
+
+export default function Item() {
+  const ITEM_QUERY = gql`{
+            items (filter:${null}, 
+            take: ${5}, 
+            skip: ${0}
+            ){
+              ...itemData
             }
-          }`;
+          }
+          ${ITEM_DATA} 
+          `;
   const { data, loading, error } = useQuery(ITEM_QUERY);
   return (
     <>
