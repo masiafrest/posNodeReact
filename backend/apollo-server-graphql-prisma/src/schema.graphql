@@ -16,17 +16,17 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
 
   postItem(
-    marca: string!
-    modelo: string!
-    barcode: int
-    color: string
-    sku: string
-    qty: int
-    descripcion: string
-    categorias: [idinput]
-    precio: float
-    preciomin: float
-    ubicacion: idinput
+    marca: String!
+    modelo: String!
+    barcode: Int
+    color: String
+    sku: String
+    qty: Int
+    descripcion: String
+    categorias: [IdInput]
+    precio: Float
+    preciomin: Float
+    ubicacion: IdInput
   ): Item
   postCategoria(nombre: String!): Categoria
   postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
@@ -37,16 +37,16 @@ type Mutation {
 }
 
 input ItemInput {
-  marca: string
-  modelo: string
-  barcode: int
-  color: string
-  sku: string
-  qty: int
-  descripcion: string
-  categorias: [idinput]
-  precio: float
-  preciomin: float
+  marca: String
+  modelo: String
+  barcode: Int
+  color: String
+  sku: String
+  qty: Int
+  descripcion: String
+  categorias: [IdInput]
+  precio: Float
+  preciomin: Float
 }
 
 input IdInput {
