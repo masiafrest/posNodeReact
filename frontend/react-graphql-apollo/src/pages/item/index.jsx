@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import ItemsList from "./components/ItemsList";
+import ItemList from "./components/ItemList";
 
 export default function Item() {
   const ITEM_QUERY = gql`{
@@ -35,7 +35,7 @@ export default function Item() {
   return (
     <>
       <div>item pages</div>;
-      <ItemsList data={data} />
+      <ItemList data={data} />
     </>
   );
 }
