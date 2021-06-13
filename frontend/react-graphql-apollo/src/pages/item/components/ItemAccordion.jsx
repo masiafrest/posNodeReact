@@ -7,11 +7,6 @@ import {
   Typography,
   Divider,
   IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@material-ui/core";
 
 import EditDialogIcon from "./ItemEditDialogIcon";
@@ -42,12 +37,12 @@ export default function ItemAccordion({ item }) {
         </Typography>
       </AccordionDetails>
       <AccordionActions>
-        <EditDialogIcon itemId={item.id}/>
+        <EditDialogIcon itemId={item.id} />
         <IconButton aria-label="addToCart">
           <AddShoppingCartIcon color="action" />
         </IconButton>
         <IconButton aria-label="delete">
-            {/* add del dialog js*/}
+          {/* add del dialog js*/}
           <DeleteIcon color="error" />
         </IconButton>
       </AccordionActions>

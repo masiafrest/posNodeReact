@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import ItemList from "./ItemList";
+import ItemList from "./components/ItemList";
 
 export default function Item() {
   const ITEM_QUERY = gql`{
