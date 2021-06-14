@@ -37,7 +37,7 @@ export default function ItemAccordion({ item }) {
         </Typography>
       </AccordionDetails>
       <AccordionActions>
-        <EditDialogIcon itemId={item.id} />
+        <EditDialogIcon item={item} />
         <IconButton aria-label="addToCart">
           <AddShoppingCartIcon color="action" />
         </IconButton>
