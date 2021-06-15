@@ -1,3 +1,9 @@
+const include = 
+{
+      categorias: true,
+      precio: true,
+      ubicacion: true,
+    }
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -16,8 +22,6 @@ function postItem(parent, args, ctx, info) {
     ubicacion,
     qty,
   } = args;
-  console.log("categorias", categorias);
-  console.log("ubicacion", ubicacion);
   return ctx.prisma.item.create({
     data: {
       marca,
@@ -38,11 +42,7 @@ function postItem(parent, args, ctx, info) {
         },
       },
     },
-    include: {
-      categorias: true,
-      precio: true,
-      ubicacion: true,
-    },
+    include ,
   });
 }
 
@@ -53,12 +53,23 @@ function postItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function updateItem(parent, { id, data }, ctx, info) {
+function updateItem(parent, args, ctx, info) {
+  const {id, marca, modelo, barcode, sku, qty, descripcion,
+     precio, precioMin, categorias} = args
+  console.log(args)
   return ctx.prisma.item.update({
     where: {
       id,
     },
-    data,
+    data:{
+      marca, modelo, barcode, sku, qty,descripcion,categorias,
+      precio: {
+        update:{
+          precio, precioMin
+        }
+      }
+    },
+   include 
   });
 }
 
@@ -116,5 +127,6 @@ module.exports = {
   postItem,
   postCategoria,
   postUbicacion,
+  updateItem,
   softDelItem,
 };

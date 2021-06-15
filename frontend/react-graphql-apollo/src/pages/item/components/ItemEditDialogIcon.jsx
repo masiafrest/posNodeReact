@@ -1,5 +1,6 @@
 import React from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import {ITEM_DATA} from '../../item'
 
 import {
   Dialog,
@@ -16,8 +17,6 @@ import EditIcon from "@material-ui/icons/Edit";
 export default function ItemEditDialogIcon({item}) {
   const [open, setOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState({
-    marca: '', modelo: '',
-    categorias: item.categorias
   })
   const UPDATE_ITEM = gql`
     mutation UpdateItem($id: Int!, $marca: String,
@@ -25,15 +24,16 @@ export default function ItemEditDialogIcon({item}) {
       $descripcion: String,  $precio: Float,
       $precioMin: Float, $categorias: [IdInput]
      ){
-      updateItem(id: $id, data: {
+      updateItem(id: $id, 
         marca: $marca, modelo: $modelo,
         barcode: $barcode, sku: $sku, qty: $qty, descripcion: $descripcion,
         precio: $precio, precioMin: $precioMin,
         categorias: $categorias
-      }){
-        id marca 
+      ){
+        ...itemData
       }
     }
+        ${ITEM_DATA}
   `
   const GET_CATEGORIAS = gql`{
     categorias{
@@ -50,16 +50,24 @@ export default function ItemEditDialogIcon({item}) {
   };
 
   const handleOnChange = (e) => {
+    console.log(e.target.value)
+    console.log(typeof e.target.value)
     if (e.target.name ==='categorias'){
       console.log('.......', e.target)
       setNewItem( { categorias: e.target.value })
+    } else if (e.target.name === 'precio' || e.target.name === 'precioMin'){
+    setNewItem({[ e.target.name ]: parseFloat( e.target.value )})
     }
+    else {
     setNewItem({[ e.target.name ]: e.target.value})
+    }
   }
 
   const handleOnSubmit = () => {
     console.log('submit....: ', newItem)
-    // updateItem({variables: { id: item.id*1, ...item} })
+    console.log(typeof newItem.precio)
+    updateItem({variables: {id: item.id*1, ...newItem} })
+    setOpen(false)
   }
 
   const handleClose = () => {
@@ -80,6 +88,7 @@ export default function ItemEditDialogIcon({item}) {
           <TextField
             autoFocus
             margin="dense"
+            placeholder={item.marca}
             name='marca'
             id="marca"
             label="marca"
@@ -87,41 +96,17 @@ export default function ItemEditDialogIcon({item}) {
             fullWidth
             onChange={handleOnChange}
           />
-          <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
-          <Select
-          style={{width: 300}}
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          value={item.categorias}
-          multiple
-          name='categorias'
-          onChange={handleOnChange}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div>
-              {selected.map((categoria) => (
-                <Chip key={categoria.id} label={categoria.nombre} />
-              ))}
-            </div>
-          )}
-          MenuProps={{
-  PaperProps: {
-    style: {
-      maxHeight: 48 * 4.5 + 8,
-      width: 250,
-    },
-  },
-}}
-        >
-          {
-            loading ? <MenuItem>loading</MenuItem> :
-          data.categorias.map((cat, idx, arr) => (
-            <MenuItem key={cat.nombre} value={arr[idx]} >
-              {cat.nombre}
-            </MenuItem>
-          ))}
-        </Select>
-
+          <TextField
+            autoFocus
+            margin="dense"
+            placeholder={item.precio.precio}
+            name='precio'
+            id="precio"
+            label="marca"
+            type="number"
+            fullWidth
+            onChange={handleOnChange}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

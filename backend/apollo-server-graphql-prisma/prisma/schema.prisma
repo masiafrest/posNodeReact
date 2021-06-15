@@ -23,7 +23,7 @@ model Cliente {
 model Usuario {
   id        Int      @id @default(autoincrement())
   nombre    String
-  password String
+  password  String
   rol       Rol      @default(VENDEDOR)
   venta     Venta?
   createdAt DateTime @default(now())
@@ -35,49 +35,49 @@ enum Rol {
 }
 
 model Item {
-  id         Int          @id @default(autoincrement())
-  marca      String
-  modelo     String
-  barcode    Int?
-  image_url  String?
+  id          Int         @id @default(autoincrement())
+  marca       String
+  modelo      String
+  barcode     Int?
+  image_url   String?
   sku         String?
-  qty Int
+  qty         Int
   descripcion String?
-  precio Precio?
+  precio      Precio?
   // precio Precio @relation(fields: [precioId], references: [id])
   // precioId Int
-  ubicacion Ubicacion  @relation(fields: [ubicacionId], references: [id])
+  ubicacion   Ubicacion   @relation(fields: [ubicacionId], references: [id])
   ubicacionId Int
-  categorias Categoria[] 
-  createdAt  DateTime     @default(now())
-  deleted Boolean @default(false)
+  categorias  Categoria[]
+  createdAt   DateTime    @default(now())
+  deleted     Boolean     @default(false)
 
   @@unique([marca, modelo, barcode])
 }
 
 model Categoria {
-  id        Int     @id @default(autoincrement())
-  nombre    String  @unique
-  item Item[]
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique
+  item      Item[]
   createdAt DateTime @default(now())
 }
 
 model Precio {
-  id         Int         @id @default(autoincrement())
-  precio     Decimal  @db.Decimal(4,2)
-  precioMin  Decimal  @db.Decimal(4,2)
+  id        Int      @id @default(autoincrement())
+  precio    Decimal  @db.Decimal(5, 2)
+  precioMin Decimal  @db.Decimal(5, 2)
   // item Item?
-  item Item @relation(fields:[itemId], references: [id])
-  itemId Int
-  createdAt  DateTime    @default(now())
+  item      Item     @relation(fields: [itemId], references: [id])
+  itemId    Int
+  createdAt DateTime @default(now())
 }
 
 model Ubicacion {
-  id         Int         @id @default(autoincrement())
-  dirrecion  String
-  tipo       String
-  items Item[]
-  createdAt  DateTime    @default(now())
+  id        Int      @id @default(autoincrement())
+  dirrecion String
+  tipo      String
+  items     Item[]
+  createdAt DateTime @default(now())
 
   @@unique([dirrecion, tipo])
 }
@@ -89,8 +89,8 @@ model Venta {
   cliente   Cliente  @relation(fields: [clienteId], references: [id])
   clienteId Int
   Fecha     DateTime @default(now())
-  credito Boolean
-  subTotal  Decimal  @db.Decimal(4,2)
-  tax       Decimal  @db.Decimal(4,2)
-  total     Decimal  @db.Decimal(4,2)
+  credito   Boolean
+  subTotal  Decimal  @db.Decimal(4, 2)
+  tax       Decimal  @db.Decimal(4, 2)
+  total     Decimal  @db.Decimal(4, 2)
 }

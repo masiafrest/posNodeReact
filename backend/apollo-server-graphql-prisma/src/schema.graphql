@@ -19,34 +19,43 @@ type Mutation {
     marca: String!
     modelo: String!
     barcode: Int
-    color: String
+    sku: String
+    qty: Int
+    descripcion: String
+    categorias: [IdInput]
+    ubicacion: IdInput
+    precio: Float
+    precioMin: Float
+  ): Item
+  postCategoria(nombre: String!): Categoria
+  postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
+
+  updateItem(
+    id: Int!
+    marca: String
+    modelo: String
+    barcode: Int
     sku: String
     qty: Int
     descripcion: String
     categorias: [IdInput]
     precio: Float
-    preciomin: Float
-    ubicacion: IdInput
+    precioMin: Float
   ): Item
-  postCategoria(nombre: String!): Categoria
-  postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
 
-  updateItem(id: ID!, data: ItemInput!): Item
-
-  softDelItem(id: ID!): Item
+  softDelItem(id: Int!): Item
 }
 
 input ItemInput {
   marca: String
   modelo: String
   barcode: Int
-  color: String
   sku: String
   qty: Int
   descripcion: String
   categorias: [IdInput]
   precio: Float
-  preciomin: Float
+  precioMin: Float
 }
 
 input IdInput {
