@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import {ITEM_DATA} from '../../item'
+import SelectCategoria from './SelectCategoria'
 
 import {
   Dialog,
@@ -16,8 +17,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export default function ItemEditDialogIcon({item}) {
   const [open, setOpen] = React.useState(false);
-  const [newItem, setNewItem] = React.useState({
-  })
+  const [newItem, setNewItem] = React.useState({})
   const UPDATE_ITEM = gql`
     mutation UpdateItem($id: Int!, $marca: String,
       $modelo: String, $barcode: Int, $sku: String, $qty: Int,
@@ -35,13 +35,6 @@ export default function ItemEditDialogIcon({item}) {
     }
         ${ITEM_DATA}
   `
-  const GET_CATEGORIAS = gql`{
-    categorias{
-      id nombre
-    }
-  }
-  `
-  const {data, loading, error} = useQuery(GET_CATEGORIAS)
 
   const [updateItem] = useMutation(UPDATE_ITEM)
 
@@ -50,12 +43,7 @@ export default function ItemEditDialogIcon({item}) {
   };
 
   const handleOnChange = (e) => {
-    console.log(e.target.value)
-    console.log(typeof e.target.value)
-    if (e.target.name ==='categorias'){
-      console.log('.......', e.target)
-      setNewItem( { categorias: e.target.value })
-    } else if (e.target.name === 'precio' || e.target.name === 'precioMin'){
+     if (e.target.name === 'precio' || e.target.name === 'precioMin'){
     setNewItem({[ e.target.name ]: parseFloat( e.target.value )})
     }
     else {
@@ -65,7 +53,6 @@ export default function ItemEditDialogIcon({item}) {
 
   const handleOnSubmit = () => {
     console.log('submit....: ', newItem)
-    console.log(typeof newItem.precio)
     updateItem({variables: {id: item.id*1, ...newItem} })
     setOpen(false)
   }
@@ -107,6 +94,7 @@ export default function ItemEditDialogIcon({item}) {
             fullWidth
             onChange={handleOnChange}
           />
+          <SelectCategoria categorias={item.categorias.map(e=> e.nombre)} setNewItem={setNewItem} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

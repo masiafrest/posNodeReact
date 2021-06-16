@@ -53,16 +53,40 @@ function postItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function updateItem(parent, args, ctx, info) {
+async function updateItem(parent, args, ctx, info) {
   const {id, marca, modelo, barcode, sku, qty, descripcion,
      precio, precioMin, categorias} = args
-  console.log(args)
+  console.log(args.categorias)
+  //update categorias disconnect and connect
+  let categoriasConnDisconn = {connect:[], disconnect:[]}
+  //get item categorias to compare to newCategorias
+  const item= await ctx.prisma.item.findUnique({where:{id}, include:{categorias: true}})
+  //if itemCategorias.id true, newCategorias.id false, disconnect 
+  const currCatIds = item.categorias.map(e => e.id)
+  categorias.forEach(obj => {
+    if (!currCatIds.includes(obj.id)){
+      categoriasConnDisconn.connect.push({id: obj.id})
+    }
+  })
+  currCatIds.forEach(id => {
+    categorias.forEach(obj => {
+    if (!currCatIds.includes(obj.id)){
+      categoriasConnDisconn.connect.push({id: obj.id})
+    } else if (id !== obj.id){
+      categoriasConnDisconn.disconnect.push({id})
+    }
+    })
+  })
+  console.log(categoriasConnDisconn)
+  //if itemCategorias.id false, newCategorias.id true, connect 
+  //if itemCategorias.id and newCategorias.id true or false ,do nothing 
   return ctx.prisma.item.update({
     where: {
       id,
     },
     data:{
-      marca, modelo, barcode, sku, qty,descripcion,categorias,
+      marca, modelo, barcode, sku, qty,descripcion,
+      categorias:categoriasConnDisconn,
       precio: {
         update:{
           precio, precioMin
