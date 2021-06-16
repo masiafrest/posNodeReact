@@ -1,6 +1,7 @@
 import React from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { ITEM_DATA } from "..";
+import SelectCategoria from './SelectCategoria'
 
 import {
   Dialog,
@@ -119,6 +120,7 @@ export default function ItemCreateDialogIcon() {
             fullWidth
             onChange={handleOnChange}
           />
+          <SelectCategoria categorias={[]} setNewItem={setNewItem} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
