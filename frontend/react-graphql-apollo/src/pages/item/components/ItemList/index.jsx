@@ -1,5 +1,5 @@
 import React from "react";
-import ItemAccordion from "../ItemAccordion";
+import ItemAccordion from "./ItemAccordion";
 
 export default function ItemList({ items }) {
   console.log(items);

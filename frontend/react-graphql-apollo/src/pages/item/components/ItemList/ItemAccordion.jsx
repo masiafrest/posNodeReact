@@ -9,10 +9,9 @@ import {
   IconButton,
 } from "@material-ui/core";
 
-import EditDialogIcon from "./ItemEditDialogIcon";
+import EditDialogIcon from "../ItemDialog";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function ItemAccordion({ item }) {

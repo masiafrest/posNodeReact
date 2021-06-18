@@ -1,6 +1,6 @@
 import React from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import {ITEM_DATA} from '../../item'
+import {  useMutation } from "@apollo/client";
+import { UPDATE_ITEM, POST_ITEM, GET_CATEGORIAS} from "../../graphql/mutation";
 import SelectCategoria from './SelectCategoria'
 
 import {
@@ -11,32 +11,18 @@ import {
   TextField,
   IconButton,
   Button,
-  Select, MenuItem, Chip, Input, InputLabel
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 
-export default function ItemEditDialogIcon({item}) {
+import EditIcon from "@material-ui/icons/Edit";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+export default function ItemEditDialogIcon({item = null}) {
   const [open, setOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState({})
-  const UPDATE_ITEM = gql`
-    mutation UpdateItem($id: Int!, $marca: String,
-      $modelo: String, $barcode: Int, $sku: String, $qty: Int,
-      $descripcion: String,  $precio: Float,
-      $precioMin: Float, $categorias: [IdInput]
-     ){
-      updateItem(id: $id, 
-        marca: $marca, modelo: $modelo,
-        barcode: $barcode, sku: $sku, qty: $qty, descripcion: $descripcion,
-        precio: $precio, precioMin: $precioMin,
-        categorias: $categorias
-      ){
-        ...itemData
-      }
-    }
-        ${ITEM_DATA}
-  `
+  console.log(newItem)
 
   const [updateItem] = useMutation(UPDATE_ITEM)
+  const [postItem] = useMutation(POST_ITEM);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,16 +30,17 @@ export default function ItemEditDialogIcon({item}) {
 
   const handleOnChange = (e) => {
      if (e.target.name === 'precio' || e.target.name === 'precioMin'){
-    setNewItem({[ e.target.name ]: parseFloat( e.target.value )})
+    setNewItem({...newItem, [ e.target.name ]: parseFloat( e.target.value )})
     }
     else {
-    setNewItem({[ e.target.name ]: e.target.value})
+    setNewItem({...newItem,[ e.target.name ]: e.target.value})
     }
   }
 
   const handleOnSubmit = () => {
     console.log('submit....: ', newItem)
-    updateItem({variables: {id: item.id*1, ...newItem} })
+    item ? updateItem({variables: {id: item.id*1, ...newItem} })
+    : postItem({ variables: { ...newItem } });
     setOpen(false)
   }
 
@@ -63,7 +50,12 @@ export default function ItemEditDialogIcon({item}) {
   return (
     <>
       <IconButton aria-label="edit" onClick={handleClickOpen}>
+        {
+          item ?
         <EditIcon color="primary" />
+           :
+        <AddCircleIcon color="primary" />
+        }
       </IconButton>
       <Dialog
         open={open}
@@ -75,7 +67,7 @@ export default function ItemEditDialogIcon({item}) {
           <TextField
             autoFocus
             margin="dense"
-            placeholder={item.marca}
+            placeholder={item?.marca}
             name='marca'
             id="marca"
             label="marca"
@@ -86,15 +78,15 @@ export default function ItemEditDialogIcon({item}) {
           <TextField
             autoFocus
             margin="dense"
-            placeholder={item.precio.precio}
+            placeholder={item?.precio.precio}
             name='precio'
             id="precio"
-            label="marca"
+            label="precio"
             type="number"
             fullWidth
             onChange={handleOnChange}
           />
-          <SelectCategoria categorias={item.categorias.map(e=> e.nombre)} setNewItem={setNewItem} />
+          <SelectCategoria categorias={item?.categorias.map(e=> e.nombre)} setNewItem={setNewItem} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

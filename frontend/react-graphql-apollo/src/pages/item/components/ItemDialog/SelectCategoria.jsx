@@ -46,12 +46,11 @@ function getStyles(name, catName, theme) {
   };
 }
 
-export default function SelectCategoria({categorias, setNewItem}) {
+export default function SelectCategoria({categorias= [], setNewItem}) {
   const classes = useStyles();
   const theme = useTheme();
   let catName
   const [selCatName, setSelCatName] = useState(categorias)
-  console.log(categorias)
 
   const GET_CATEGORIAS = gql`{
     categorias{
@@ -60,18 +59,18 @@ export default function SelectCategoria({categorias, setNewItem}) {
   }
   `
   const {data, loading, error} = useQuery(GET_CATEGORIAS)
-  useEffect(()=>{
-  catName = data.categorias.map(e => e.nombre)
-  },[data])
 
   useEffect(() => {
+    if(!loading){
+  catName = data.categorias.map(e => e.nombre)
     let catArr = [];
     selCatName.forEach((e) => {
       const id = data.categorias.find((obj) => obj.nombre === e).id*1;
       catArr.push({ id });
     });
-    setNewItem({categorias:catArr });
-  }, [selCatName]);
+    setNewItem(item => ( {...item, categorias:catArr } ));
+    }
+  }, [selCatName, data]);
 
   const handleChange = (event) => {
     setSelCatName(event.target.value);
@@ -80,15 +79,15 @@ export default function SelectCategoria({categorias, setNewItem}) {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
+        <InputLabel id="multiple-categorias-select">Chip</InputLabel>
         <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
+          labelId="multiple-categorias-select"
+          id="multiple-categorias-select"
           multiple
           name="categorias"
           value={selCatName}
           onChange={handleChange}
-          input={<Input id="select-multiple-chip" />}
+          input={<Input id="select-multiple-categorias-chip" />}
           renderValue={(selected) => (
             <div className={classes.chips}>
               {selected.map((value) => (
@@ -98,7 +97,9 @@ export default function SelectCategoria({categorias, setNewItem}) {
           )}
           MenuProps={MenuProps}
         >
-          {data.categorias.map((obj, idx) => (
+          {loading ? 
+          <MenuItem>loading</MenuItem>
+          : data.categorias.map((obj, idx) => (
             <MenuItem
               key={obj.nombre}
               value={obj.nombre}
