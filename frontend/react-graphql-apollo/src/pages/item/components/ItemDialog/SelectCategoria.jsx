@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Chip from "@material-ui/core/Chip";
+import {
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  Chip,
+  FormControl,
+  NativeSelect,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300
+    maxWidth: 300,
   },
   chips: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   chip: {
-    margin: 2
+    margin: 2,
   },
   noLabel: {
-    marginTop: theme.spacing(3)
-  }
+    marginTop: theme.spacing(3),
+  },
 }));
 
 const ITEM_HEIGHT = 48;
@@ -32,9 +35,9 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
+      width: 250,
+    },
+  },
 };
 
 function getStyles(name, catName, theme) {
@@ -42,33 +45,35 @@ function getStyles(name, catName, theme) {
     fontWeight:
       catName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
+        : theme.typography.fontWeightMedium,
   };
 }
 
-export default function SelectCategoria({categorias= [], setNewItem}) {
+export default function SelectCategoria({ categorias = [], setNewItem }) {
   const classes = useStyles();
   const theme = useTheme();
-  let catName
-  const [selCatName, setSelCatName] = useState(categorias)
+  let catName;
+  const [selCatName, setSelCatName] = useState(categorias);
 
-  const GET_CATEGORIAS = gql`{
-    categorias{
-      id nombre
+  const GET_CATEGORIAS = gql`
+    {
+      categorias {
+        id
+        nombre
+      }
     }
-  }
-  `
-  const {data, loading, error} = useQuery(GET_CATEGORIAS)
+  `;
+  const { data, loading, error } = useQuery(GET_CATEGORIAS);
 
   useEffect(() => {
-    if(!loading){
-  catName = data.categorias.map(e => e.nombre)
-    let catArr = [];
-    selCatName.forEach((e) => {
-      const id = data.categorias.find((obj) => obj.nombre === e).id*1;
-      catArr.push({ id });
-    });
-    setNewItem(item => ( {...item, categorias:catArr } ));
+    if (!loading) {
+      catName = data.categorias.map((e) => e.nombre);
+      let catArr = [];
+      selCatName.forEach((e) => {
+        const id = data.categorias.find((obj) => obj.nombre === e).id * 1;
+        catArr.push({ id });
+      });
+      setNewItem((item) => ({ ...item, categorias: catArr }));
     }
   }, [selCatName, data]);
 
@@ -77,7 +82,7 @@ export default function SelectCategoria({categorias= [], setNewItem}) {
   };
 
   return (
-    <div>
+    <>
       <FormControl className={classes.formControl}>
         <InputLabel id="multiple-categorias-select">Chip</InputLabel>
         <Select
@@ -97,19 +102,21 @@ export default function SelectCategoria({categorias= [], setNewItem}) {
           )}
           MenuProps={MenuProps}
         >
-          {loading ? 
-          <MenuItem>loading</MenuItem>
-          : data.categorias.map((obj, idx) => (
-            <MenuItem
-              key={obj.nombre}
-              value={obj.nombre}
-              style={getStyles(obj.nombre, selCatName, theme)}
-            >
-              {obj.nombre}
-            </MenuItem>
-          ))}
+          {loading ? (
+            <MenuItem>loading</MenuItem>
+          ) : (
+            data.categorias.map((obj, idx) => (
+              <MenuItem
+                key={obj.nombre}
+                value={obj.nombre}
+                style={getStyles(obj.nombre, selCatName, theme)}
+              >
+                {obj.nombre}
+              </MenuItem>
+            ))
+          )}
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 }
