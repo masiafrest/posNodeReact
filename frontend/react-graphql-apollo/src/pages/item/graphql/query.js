@@ -26,12 +26,14 @@ export const ITEM_DATA = gql`
 `;
 
  export const GET_ITEM= gql`{
-            items (filter:${null}, 
-            take: ${5}, 
-            skip: ${0}
+   query GetItems($filter: String, $take:Int, $skip: Int){
+            items (filter:$filter, 
+            take: $take, 
+            skip: $skip
             ){
               ...itemData
             }
           }
           ${ITEM_DATA} 
+   }
           `;
