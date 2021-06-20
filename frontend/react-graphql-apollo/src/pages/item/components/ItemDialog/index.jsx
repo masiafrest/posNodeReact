@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { UPDATE_ITEM, POST_ITEM, GET_CATEGORIAS } from "../../graphql/mutation";
+import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import SelectCategoria from "./SelectCategoria";
 
 import {
@@ -48,9 +48,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     setOpen(false);
   };
 
-  const renderTextInputs = () => {
-    return <TextField />;
-  };
   return (
     <>
       <IconButton aria-label="edit" onClick={handleClickOpen}>

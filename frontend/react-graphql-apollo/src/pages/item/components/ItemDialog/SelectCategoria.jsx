@@ -8,7 +8,6 @@ import {
   Select,
   Chip,
   FormControl,
-  NativeSelect,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +51,6 @@ function getStyles(name, catName, theme) {
 export default function SelectCategoria({ categorias = [], setNewItem }) {
   const classes = useStyles();
   const theme = useTheme();
-  let catName;
   const [selCatName, setSelCatName] = useState(categorias);
 
   const GET_CATEGORIAS = gql`
@@ -67,7 +65,6 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
 
   useEffect(() => {
     if (!loading) {
-      catName = data.categorias.map((e) => e.nombre);
       let catArr = [];
       selCatName.forEach((e) => {
         const id = data.categorias.find((obj) => obj.nombre === e).id * 1;
