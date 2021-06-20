@@ -97,16 +97,21 @@ export default function ItemEditDialogIcon({ item = null }) {
               label: "precio min",
               type: "number",
             },
+            {
+              name: "descripcion",
+              type: "text",
+            },
           ].map((field) => (
             <TextField
               autoFocus
               margin="dense"
               name={field.name}
               id={field.name}
-              label={field.name}
+              label={field.label ?? field.name}
               type={field.type}
               fullWidth
               onChange={handleOnChange}
+              multiline={field.name === 'descripcion'}
             />
           ))}
           <SelectCategoria
