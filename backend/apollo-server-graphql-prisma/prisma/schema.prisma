@@ -53,6 +53,7 @@ model Item {
   deleted     Boolean     @default(false)
   tsvector  Unsupported("tsvector")
 
+  @@index([tsvector])
   @@unique([marca, modelo, barcode])
 }
 

@@ -12,4 +12,5 @@ CREATE TRIGGER my_trigger
 BEFORE INSERT ON "Item"
 FOR EACH ROW
 EXECUTE PROCEDURE my_trigger_function();
-CREATE INDEX idx_fts_item ON "Item" USING gin(tsvector);
+-- prisma dont support gin 
+-- CREATE INDEX idx_fts_item ON "Item" USING gin(tsvector);
