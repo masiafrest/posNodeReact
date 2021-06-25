@@ -51,9 +51,9 @@ model Item {
   categorias  Categoria[]
   createdAt   DateTime    @default(now())
   deleted     Boolean     @default(false)
-  tsvector  Unsupported("tsvector")
+  tsvector  Unsupported("tsvector") @default(dbgenerated()) 
 
-  @@index([tsvector])
+  // @@index([tsvector])
   @@unique([marca, modelo, barcode])
 }
 
