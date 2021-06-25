@@ -9,7 +9,7 @@ async function items(parent, args, ctx, info) {
   let where = {};
 
   if (filter) {
-    const searchArr = filter.split(" ").map((e) => `${e}`.replace("'", ""));
+    const searchArr = filter.split(" ").map((e) => `%${e}%`.replace("'", ""));
     console.log(searchArr);
     console.log(searchArr.join("|"));
     const itemSearch = await ctx.prisma
