@@ -27,7 +27,7 @@ function NavBar() {
 
   const NavLinkOnClick = ({ to, children }) => (
     <NavLink to={to} onClick={toggleDrawer(false)}>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         {" "}
         {children}{" "}
       </Typography>
@@ -49,12 +49,14 @@ function NavBar() {
             <List>
               {["home", "item"].map((text, index) => (
                 <ListItem button key={text}>
-                  <ListItemText
+                  {/* <ListItemText
                     primary={text.toUpperCase()}
                     onClick={() => {
+                      toggleDrawer(false);
                       history.push("/" + text);
                     }}
-                  />
+                  /> */}
+                  <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
                 </ListItem>
               ))}
             </List>
