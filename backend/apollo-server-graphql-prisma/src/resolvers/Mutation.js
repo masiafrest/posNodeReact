@@ -23,7 +23,7 @@ function postItem(parent, args, ctx, info) {
     ubicacion,
     qty,
   } = args;
-  const search_text = [marca, modelo, sku, descripcion].join(" ");
+  const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
   return ctx.prisma.item.create({
     data: {
       marca,
