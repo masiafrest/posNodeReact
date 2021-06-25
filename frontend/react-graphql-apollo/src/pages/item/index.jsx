@@ -6,7 +6,7 @@ import CreateItemDialog from "./components/ItemDialog/";
 import FilterBar from "./components/FilterBar";
 
 export default function Item() {
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState("");
   const [take, setTake] = useState(5);
   const [skip, setSkip] = useState(0);
 
