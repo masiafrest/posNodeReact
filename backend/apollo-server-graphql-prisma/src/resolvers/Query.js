@@ -12,15 +12,16 @@ async function items(parent, args, ctx, info) {
     const searchArr = filter.split(" ").map((e) => `%${e}%`.replace("'", ""));
     console.log(searchArr);
     console.log(searchArr.join("|"));
-    const itemSearch = await ctx.prisma
-      .$queryRaw`SELECT id FROM "Item" where tsvector @@ to_tsquery('spanish',${searchArr.join(
-      "|"
-    )})`;
-    where = {
-      id: {
-        in: itemSearch.map((e) => e.id),
-      },
-    };
+    // const itemSearch = await ctx.prisma
+    //   .$queryRaw`SELECT id FROM "Item" where tsvector @@ to_tsquery('spanish',${searchArr.join(
+    //   "|"
+    // )})`;
+    // where = {
+    //   id: {
+    //     in: itemSearch.map((e) => e.id),
+    //   },
+    // };
+    where = {};
   }
 
   // where = filter
@@ -33,8 +34,20 @@ async function items(parent, args, ctx, info) {
   //       ],
   //     }
   //   : {};
+  const searchArr = filter.split(" ").map((e) => {
+    return {
+      search_text: {
+        contains: `%${e}%`.replace("'", ""),
+      },
+    };
+  });
+  console.log(searchArr);
+  console.log(searchArr.join("|"));
+
   return ctx.prisma.item.findMany({
-    where,
+    where: {
+      OR: searchArr,
+    },
     include: {
       categorias: true,
       precio: true,
