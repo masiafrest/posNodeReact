@@ -17,6 +17,7 @@ function postItem(parent, args, ctx, info) {
     barcode,
     sku,
     categorias,
+    descripcion,
     precio,
     precioMin,
     ubicacion,
@@ -29,6 +30,7 @@ function postItem(parent, args, ctx, info) {
       barcode,
       sku,
       qty,
+      descripcion,
       ubicacion: {
         connect: ubicacion,
       },
