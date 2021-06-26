@@ -15,6 +15,7 @@ async function items(parent, args, ctx, info) {
     };
   });
 
+  //maybe add sorting, para q aparezcan lo mas vendido primero
   return ctx.prisma.item.findMany({
     where: {
       OR: searchArr,
