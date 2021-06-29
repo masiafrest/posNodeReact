@@ -100,6 +100,7 @@ export default function ItemEditDialogIcon({ item = null }) {
             },
           ].map((field) => (
             <TextField
+              key={field.name}
               autoFocus
               margin="dense"
               name={field.name}
@@ -108,7 +109,7 @@ export default function ItemEditDialogIcon({ item = null }) {
               type={field.type}
               fullWidth
               onChange={handleOnChange}
-              multiline={field.name === 'descripcion'}
+              multiline={field.name === "descripcion"}
             />
           ))}
           <SelectCategoria

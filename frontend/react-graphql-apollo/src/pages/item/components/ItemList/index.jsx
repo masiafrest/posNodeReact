@@ -8,7 +8,7 @@ export default function ItemList({ items }) {
   return (
     <Grid container spacing={1}>
       {items.map((item) => (
-        <Grid item>
+        <Grid item key={`item-grid-${item.id}`}>
           <ItemAccordion item={item} key={`item-${item.id}`} />
         </Grid>
       ))}
