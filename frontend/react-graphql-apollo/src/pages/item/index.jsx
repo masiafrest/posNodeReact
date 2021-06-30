@@ -29,12 +29,7 @@ export default function Item() {
       }
     };
     const nextHandler = () => {
-      console.log("next data", data);
-      console.log("next page", page);
-      if (data?.items.length >= ITEMS_PER_PAGE) {
-        console.log("next");
-        history.push(`item/new/${page + 1}`);
-      }
+      history.push(`item/new/${page + 1}`);
     };
     return (
       <Button
@@ -63,8 +58,6 @@ export default function Item() {
   };
 
   const [filter, setFilter] = useState("");
-  // const [take, setTake] = useState(5);
-  // const [skip, setSkip] = useState(0);
   const { take, skip } = getQueryVariables(isNewPage, page);
 
   const { data, loading, error } = useQuery(GET_ITEMS, {
@@ -97,7 +90,9 @@ export default function Item() {
               <BtnNextPrevious isNext={false} />
             </Grid>
             <Grid item>
-              <BtnNextPrevious isNext={true} />
+              {data?.items.length >= ITEMS_PER_PAGE && (
+                <BtnNextPrevious isNext={true} />
+              )}
             </Grid>
           </Grid>
         </Container>
