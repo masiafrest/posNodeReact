@@ -17,8 +17,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function ItemEditDialogIcon({ item = null }) {
+  const initialItemState = { ubicacion: { id: 1 } };
   const [open, setOpen] = React.useState(false);
-  const [newItem, setNewItem] = React.useState({});
+  const [newItem, setNewItem] = React.useState(initialItemState);
   console.log(newItem);
 
   const [updateItem] = useMutation(UPDATE_ITEM);
@@ -31,20 +32,23 @@ export default function ItemEditDialogIcon({ item = null }) {
   const handleOnChange = (e) => {
     if (e.target.name === "precio" || e.target.name === "precioMin") {
       setNewItem({ ...newItem, [e.target.name]: parseFloat(e.target.value) });
+    } else if (e.target.type === "number") {
+      setNewItem({ ...newItem, [e.target.name]: parseInt(e.target.value) });
     } else {
       setNewItem({ ...newItem, [e.target.name]: e.target.value });
     }
   };
 
   const handleOnSubmit = () => {
-    console.log("submit....: ", newItem);
+    console.log("submit....: ", typeof newItem.marca);
     item
       ? updateItem({ variables: { id: item.id * 1, ...newItem } })
       : postItem({ variables: { ...newItem } });
-    setOpen(false);
+    handleClose();
   };
 
   const handleClose = () => {
+    setNewItem(initialItemState);
     setOpen(false);
   };
 
@@ -62,7 +66,9 @@ export default function ItemEditDialogIcon({ item = null }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Actualizar Datos</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {item ? "Actualizar Datos" : "Agregar Datos"}
+        </DialogTitle>
         <DialogContent>
           {[
             {
