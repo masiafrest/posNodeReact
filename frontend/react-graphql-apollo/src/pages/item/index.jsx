@@ -12,12 +12,39 @@ export default function Item() {
   const history = useHistory();
   const isNewPage = history.location.pathname.includes("new");
   const pageIndexParams = history.location.pathname.split("/");
-  const page = parseInt(pageIndexParams.length - (isNewPage ? 2 : 1));
-  const pageIndex = page ? (page - 1) * ITEMS_PER_PAGE : 0;
+  const page = parseInt(
+    isNewPage ? pageIndexParams[pageIndexParams.length - 1] : 1
+  );
   console.log("isnewpate:", isNewPage);
   console.log("pageIndexParams:", pageIndexParams);
   console.log("page:", page);
-  console.log("pageInex:", pageIndex);
+
+  const BtnNextPrevious = ({ isNext }) => {
+    const previousHandler = () => {
+      if (page === 2) {
+        history.push(`/item`);
+      }
+      if (page > 2) {
+        history.push(`item/new/${page - 1}`);
+      }
+    };
+    const nextHandler = () => {
+      console.log("next data", data);
+      console.log("next page", page);
+      if (data?.items.length >= ITEMS_PER_PAGE) {
+        console.log("next");
+        history.push(`item/new/${page + 1}`);
+      }
+    };
+    return (
+      <Button
+        variant="outlined"
+        onClick={isNext ? nextHandler : previousHandler}
+      >
+        {isNext ? "next" : "previous"}
+      </Button>
+    );
+  };
 
   const getQueryVariables = (isNewPage, page) => {
     const skip = isNewPage ? (page - 1) * ITEMS_PER_PAGE : 0;
@@ -67,50 +94,17 @@ export default function Item() {
         <Container>
           <Grid container>
             <Grid item>
-              <Button
-                onClick={() => {
-                  if (page === 2) {
-                    history.push(`/item`);
-                  }
-                  if (page > 2) {
-                    history.push(`/new/${page - 1}`);
-                  }
-                }}
-              >
-                previous
-              </Button>
+              <BtnNextPrevious isNext={false} />
             </Grid>
             <Grid item>
-              <Button
-                onClick={() => {
-                  console.log("next data", data);
-                  if (page <= data?.items.length / ITEMS_PER_PAGE) {
-                    const nextPage = page + 1;
-                    console.log("next");
-                    history.push(`item/new/${nextPage}`);
-                  }
-                }}
-              >
-                next
-              </Button>
+              <BtnNextPrevious isNext={true} />
             </Grid>
           </Grid>
         </Container>
       ) : (
         <Grid container>
           <Grid item>
-            <Button
-              onClick={() => {
-                console.log("next data", data);
-                if (page <= data?.items.length / ITEMS_PER_PAGE) {
-                  const nextPage = page + 1;
-                  console.log("next");
-                  history.push(`item/new/${nextPage}`);
-                }
-              }}
-            >
-              next
-            </Button>
+            <BtnNextPrevious isNext={true} />
           </Grid>
         </Grid>
       )}
