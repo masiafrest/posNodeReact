@@ -70,33 +70,35 @@ async function updateItem(parent, args, ctx, info) {
     precioMin,
     categorias,
   } = args;
-  console.log(args.categorias);
+  console.log("categorias ", categorias);
   //update categorias disconnect and connect
   let categoriasConnDisconn = { connect: [], disconnect: [] };
-  //get item categorias to compare to newCategorias
-  const item = await ctx.prisma.item.findUnique({
-    where: { id },
-    include: { categorias: true },
-  });
-  //if itemCategorias.id true, newCategorias.id false, disconnect
-  const currCatIds = item.categorias.map((e) => e.id);
-  categorias.forEach((obj) => {
-    if (!currCatIds.includes(obj.id)) {
-      categoriasConnDisconn.connect.push({ id: obj.id });
-    }
-  });
-  currCatIds.forEach((id) => {
+  if (categorias) {
+    //get item categorias to compare to newCategorias
+    const item = await ctx.prisma.item.findUnique({
+      where: { id },
+      include: { categorias: true },
+    });
+    //if itemCategorias.id true, newCategorias.id false, disconnect
+    const currCatIds = item.categorias.map((e) => e.id);
     categorias.forEach((obj) => {
       if (!currCatIds.includes(obj.id)) {
         categoriasConnDisconn.connect.push({ id: obj.id });
-      } else if (id !== obj.id) {
-        categoriasConnDisconn.disconnect.push({ id });
       }
     });
-  });
-  console.log(categoriasConnDisconn);
-  //if itemCategorias.id false, newCategorias.id true, connect
-  //if itemCategorias.id and newCategorias.id true or false ,do nothing
+    currCatIds.forEach((id) => {
+      categorias.forEach((obj) => {
+        if (!currCatIds.includes(obj.id)) {
+          categoriasConnDisconn.connect.push({ id: obj.id });
+        } else if (id !== obj.id) {
+          categoriasConnDisconn.disconnect.push({ id });
+        }
+      });
+    });
+    console.log(categoriasConnDisconn);
+    //if itemCategorias.id false, newCategorias.id true, connect
+    //if itemCategorias.id and newCategorias.id true or false ,do nothing
+  }
   return ctx.prisma.item.update({
     where: {
       id,

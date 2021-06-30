@@ -16,7 +16,8 @@ async function items(parent, args, ctx, info) {
   });
 
   //maybe add sorting, para q aparezcan lo mas vendido primero
-  return ctx.prisma.item.findMany({
+
+  const items = await ctx.prisma.item.findMany({
     where: {
       OR: searchArr,
     },
@@ -28,6 +29,9 @@ async function items(parent, args, ctx, info) {
     skip,
     take,
   });
+
+  // console.log("items: ", items);
+  return items;
 }
 
 /**
