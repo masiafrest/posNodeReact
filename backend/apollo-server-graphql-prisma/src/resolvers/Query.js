@@ -48,8 +48,19 @@ function ubicaciones(parent, args, ctx, info) {
   return ctx.prisma.ubicacion.findMany();
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function clientes(_, args, ctx) {
+  return ctx.prisma.cliente.findMany();
+}
+
 module.exports = {
   items,
   categorias,
   ubicaciones,
+  clientes,
 };

@@ -13,7 +13,7 @@ generator client {
 model Cliente {
   id        Int      @id @default(autoincrement())
   nombre    String?
-  email     String   @unique
+  email     String?  
   telefono  String?
   dirrecion String?
   createdAt DateTime @default(now())
