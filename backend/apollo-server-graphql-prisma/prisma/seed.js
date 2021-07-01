@@ -49,6 +49,14 @@ async function main() {
     },
   });
   console.log(item);
+
+  const cliente = await prisma.cliente.create({
+    data: {
+      nombre: "panacell",
+      telefono: "555-5555",
+      dirrecion: "dorado",
+    },
+  });
 }
 
 main()
