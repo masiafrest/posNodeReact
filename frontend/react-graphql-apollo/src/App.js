@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import NavBar from "./components/Navbar";
 import Item from "./pages/item";
+import Venta from "./pages/venta";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           <NavBar />
           <Switch>
             <Route path="/home">home</Route>
-            <Route path="/item/" component={Item} />
+            <Route path="/item" component={Item} />
             <Route path="/item/new/:page" component={Item} />
+            <Route path="/venta" component={Venta} />
           </Switch>
         </Router>
       </PersistGate>

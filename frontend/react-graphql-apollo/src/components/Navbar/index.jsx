@@ -47,7 +47,7 @@ function NavBar() {
             onClose={toggleDrawer(false)}
           >
             <List>
-              {["home", "item"].map((text, index) => (
+              {["home", "item", "venta"].map((text, index) => (
                 <ListItem button key={text}>
                   {/* <ListItemText
                     primary={text.toUpperCase()}
