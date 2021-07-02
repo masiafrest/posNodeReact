@@ -2,6 +2,7 @@ const { softDelItem, updateItem, postItem } = require("./controllers/item");
 const { postCliente } = require("./controllers/cliente");
 const { postUbicacion } = require("./controllers/ubicacion");
 const { postCategoria } = require("./controllers/categoria");
+const { signup, login } = require("./controllers/usuario");
 
 module.exports = {
   postItem,
@@ -10,4 +11,6 @@ module.exports = {
   updateItem,
   softDelItem,
   postCliente,
+  signup,
+  login,
 };
