@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { addUserId, delUserId } from "../recibo/reciboSlice";
+// import { addUserId, delUserId } from "../recibo/reciboSlice";
 
 const initialState = {
   authenticated: false,
@@ -61,7 +61,7 @@ export const signIn = (userData, history) => async (dispatch) => {
   try {
     dispatch(clearErrors());
     dispatch(startLoading());
-    res = await axios.post("auth/signin", userData);
+    // res = await axios.post("auth/signin", userData);
   } catch (err) {
     console.log(err);
     dispatch(doneLoading());
@@ -69,19 +69,19 @@ export const signIn = (userData, history) => async (dispatch) => {
     return;
   }
   dispatch(signinSucess(res.data));
-  dispatch(addUserId(res.data.usuario.id));
+  // dispatch(addUserId(res.data.usuario.id));
   dispatch(doneLoading());
   history.push("/");
 };
 
 export const signOut = () => (dispatch) => {
   dispatch(signoutSucess());
-  dispatch(delUserId());
+  // dispatch(delUserId());
   window.location.href = "/";
 };
 
 const setAuthorizationHeader = (token) => {
   const tokenStr = `Bearer ${token}`;
   localStorage.setItem("token", tokenStr); // setting token to local storage
-  axios.defaults.headers.common["Authorization"] = tokenStr; //setting authorize token to header in axios
+  // axios.defaults.headers.common["Authorization"] = tokenStr; //setting authorize token to header in axios
 };
