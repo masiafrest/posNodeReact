@@ -52,6 +52,7 @@ model Item {
   deleted     Boolean     @default(false)
   search_text String
   // tsvector  Unsupported("tsvector")? @default(dbgenerated()) 
+  venta VentaLinea?
 
   // @@index([tsvector])
   @@unique([marca, modelo, barcode])
@@ -95,4 +96,15 @@ model Venta {
   subTotal  Decimal  @db.Decimal(4, 2)
   tax       Decimal  @db.Decimal(4, 2)
   total     Decimal  @db.Decimal(4, 2)
+  lineas VentaLinea?
+}
+
+model VentaLinea {
+  id        Int      @id @default(autoincrement())
+  item Item @relation(fields: [itemId], references: [id])
+  itemId Int
+  venta Venta @relation(fields: [ventaId], references: [id])
+  ventaId Int
+  qty Int
+  precio Float
 }
