@@ -45,6 +45,15 @@ type Mutation {
     telefono: String
     dirrecion: String
   ): Cliente
+
+  postVenta(usuarioId: Int
+   clienteId: Int
+  credito: Boolean
+   subTotal: Float
+   tax: Float
+   total: Float
+   lineas: []
+  ) 
 }
 
 input ItemInput {
@@ -139,4 +148,12 @@ type Venta {
   subTotal: Float
   tax: Float
   total: Float
+  lineas: [VentaLinea]
+}
+
+type VentaLinea {
+  item: Item
+  itemId: Int
+  qty: Int
+  precio: Float
 }
