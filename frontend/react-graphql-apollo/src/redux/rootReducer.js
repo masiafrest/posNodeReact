@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userSlice from "./features/user/userSlice";
-// import reciboSlice from "./features/recibo/reciboSlice";
+import userSlice from "./features/userSlice";
+import reciboSlice from "./features/reciboSlice";
 
 const rootReducer = combineReducers({
   user: userSlice,
-  // recibo: reciboSlice,
+  recibo: reciboSlice,
 });
 
 export default rootReducer;
