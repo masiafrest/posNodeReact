@@ -2,11 +2,6 @@ import { useState } from "react";
 import { IconButton, TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import {
-  AddShoppingCart as AddShoppingCartIcon,
-  Search as SearchIcon,
-} from "@material-ui/icons/";
-
 export default function SearchField({
   data,
   loading,
@@ -17,20 +12,13 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.items || []}
+      options={data?.clientes || []}
       loading={loading} // query loading state
       getOptionLabel={(option) => {
-        const label = `${option.marca}, ${option.modelo}, ${option.descripcion}`;
+        const label = `${option.nombre} ${option.telefono}`;
         return label;
       }}
-      renderOption={(option) => (
-        <>
-          <span>{option.marca}</span>
-          <IconButton>
-            <AddShoppingCartIcon />
-          </IconButton>
-        </>
-      )}
+      renderOption={(option) => <span>{option.nombre}</span>}
       renderInput={(params) => {
         return (
           <TextField
