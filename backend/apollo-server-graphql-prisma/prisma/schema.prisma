@@ -94,9 +94,9 @@ model Venta {
   Fecha     DateTime @default(now())
   credito   Boolean
   subTotal  Decimal  @db.Decimal(4, 2)
-  tax       Decimal  @db.Decimal(4, 2)
+  tax       Decimal?  @db.Decimal(4, 2)
   total     Decimal  @db.Decimal(4, 2)
-  lineas VentaLinea?
+  lineas VentaLinea[]
 }
 
 model VentaLinea {

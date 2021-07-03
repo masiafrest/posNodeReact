@@ -4,7 +4,8 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postVenta(parent, {}, ctx, info) {
+function postVenta(parent, args, ctx, info) {
+  const { usuarioId, clienteId, credito, subTotal, tax, total, lineas } = args;
   return ctx.prisma.venta.create({
     data: {
       usuario: { connect: { id: usuarioId } },
@@ -13,6 +14,10 @@ function postVenta(parent, {}, ctx, info) {
       subTotal,
       tax,
       total,
+      lineas: {
+        // map a new array from the lineas
+        create: [],
+      },
     },
   });
 }
