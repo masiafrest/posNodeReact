@@ -57,7 +57,7 @@ type Mutation {
 }
 
 input VentalineaInput{
-  itemId: IdInput
+  itemId:Int 
   qty: Int
   precio: Float
   descripcion: String
