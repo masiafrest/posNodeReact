@@ -48,3 +48,5 @@
       1. tiene tabla con las siguiente col:
          1. col venta id(nullable) y devolucion id(notNullable porq para nota de credito siempre hay una devolucion)
          2. col valor del total de los item devuelto
+
+###descuento Global o linea

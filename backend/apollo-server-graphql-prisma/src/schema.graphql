@@ -46,23 +46,23 @@ type Mutation {
     dirrecion: String
   ): Cliente
 
-  postVenta(usuarioId: Int
-   clienteId: Int
-  credito: Boolean
-   subTotal: Float
-   tax: Float
-   total: Float
-   lineas: [VentalineaInput]
-  ) 
+  postVenta(
+    usuarioId: Int
+    clienteId: Int
+    credito: Boolean
+    subTotal: Float
+    tax: Float
+    total: Float
+    lineas: [VentalineaInput]
+  ): Boolean
 }
 
-input VentalineaInput{
+input VentalineaInput {
   itemId: IdInput
   qty: Int
   precio: Float
   descripcion: String
 }
-
 
 input ItemInput {
   marca: String
