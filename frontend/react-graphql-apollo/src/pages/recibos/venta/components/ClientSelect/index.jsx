@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_CLIENTS } from "../../grapql/query";
 import debounce from "lodash/debounce";
 
-export default function Header() {
+export default function ClientSelect() {
   const [searchTerm, setSearchTerm] = useState("");
   console.log(searchTerm);
   //query to get suggestions

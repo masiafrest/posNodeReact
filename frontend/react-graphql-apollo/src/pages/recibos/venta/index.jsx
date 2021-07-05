@@ -1,4 +1,4 @@
-import Header from "./components/Header";
+import ClientSelect from "./components/ClientSelect";
 export default function Venta() {
-  return <Header />;
+  return <ClientSelect />;
 }

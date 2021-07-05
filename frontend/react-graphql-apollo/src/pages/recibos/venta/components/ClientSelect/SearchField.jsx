@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, TextField } from "@material-ui/core";
+import {  TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 export default function SearchField({
