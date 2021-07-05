@@ -52,9 +52,17 @@ type Mutation {
    subTotal: Float
    tax: Float
    total: Float
-   lineas: []
+   lineas: [VentalineaInput]
   ) 
 }
+
+input VentalineaInput{
+  itemId: IdInput
+  qty: Int
+  precio: Float
+  descripcion: String
+}
+
 
 input ItemInput {
   marca: String
@@ -156,4 +164,5 @@ type VentaLinea {
   itemId: Int
   qty: Int
   precio: Float
+  descripcion: String
 }
