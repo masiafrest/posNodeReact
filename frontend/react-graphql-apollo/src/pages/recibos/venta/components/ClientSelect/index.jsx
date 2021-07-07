@@ -9,7 +9,12 @@ export default function ClientSelect() {
   const [searchTerm, setSearchTerm] = useState("");
   console.log("searchTerm", searchTerm);
   //query to get suggestions
-  const { data, loading } = useQuery(GET_CLIENTES);
+  const { data, loading } = useQuery(GET_CLIENTES, {
+    variables: {
+      filter: searchTerm,
+      skip: 0,
+    },
+  });
   const setSearchTermDebounced = debounce(setSearchTerm, 500);
 
   return (
@@ -18,7 +23,7 @@ export default function ClientSelect() {
         loading={loading}
         data={data} // search suggestions returned
         initialTerm={searchTerm}
-        updateSearchTerm={setSearchTerm}
+        updateSearchTerm={setSearchTermDebounced}
       />
     </>
   );

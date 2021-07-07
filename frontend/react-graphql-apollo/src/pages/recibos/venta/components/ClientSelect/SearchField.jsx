@@ -23,8 +23,6 @@ export default function SearchField({
       }
       // query loading state
       loading={loading}
-      filterSelectedOptions
-      includeInputInList
       getOptionLabel={(option) => `${option.nombre} ${option.telefono}`}
       onChange={(_, v) => {
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
