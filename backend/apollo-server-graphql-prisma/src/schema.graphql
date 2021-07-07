@@ -2,7 +2,7 @@ type Query {
   items(filter: String, skip: Int, take: Int): [Item]
   categorias: [Categoria]
   ubicaciones: [Ubicacion]
-  clientes: [Cliente]
+  clientes(filter: String, skip: Int, take: Int): [Cliente]
 }
 
 type Mutation {
