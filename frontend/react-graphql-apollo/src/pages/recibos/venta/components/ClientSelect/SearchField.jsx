@@ -16,7 +16,11 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={[...data?.clientes, { isComp: true, nombre: "comp" }] || []}
+      options={
+        data?.clientes
+          ? [...data?.clientes, { isComp: true, nombre: "comp" }]
+          : []
+      }
       // query loading state
       loading={loading}
       filterSelectedOptions
