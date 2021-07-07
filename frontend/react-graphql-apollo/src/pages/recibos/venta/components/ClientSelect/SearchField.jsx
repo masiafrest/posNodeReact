@@ -12,25 +12,32 @@ export default function SearchField({
 }) {
   const dispath = useDispatch();
   const clientId = useSelector((state) => state.recibo.venta.clienteId);
-  console.log("clientId", clientId);
   const [term, setTerm] = useState(initialTerm);
-  console.log("term", term);
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.clientes || []}
-      loading={loading} // query loading state
-      getOptionLabel={(option) => {
-        const label = `${option.nombre} ${option.telefono}`;
-        return label;
-      }}
-      getOptionSelected={(o) => o.id === clientId}
+      options={[...data?.clientes, { isComp: true, nombre: "comp" }] || []}
+      // query loading state
+      loading={loading}
+      filterSelectedOptions
+      includeInputInList
+      getOptionLabel={(option) => `${option.nombre} ${option.telefono}`}
       onChange={(_, v) => {
-        console.log("onchange autocomplete: ", v?.id);
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
       }}
-      // value={loading ? null : data?.clientes[0]}
-      renderOption={(option) => <span>{option.nombre}</span>}
+      value={
+        loading
+          ? null
+          : data?.clientes[data?.clientes.findIndex((e) => e.id === clientId)]
+      }
+      renderOption={(option) => {
+        return option.isComp ? (
+          <button onClick={() => console.log("click")}>agregar cliente</button>
+        ) : (
+          option.nombre
+        );
+      }}
+      // renderOption={(option) => <span>{option.nombre}</span>}
       renderInput={(params) => {
         return (
           <TextField
@@ -38,10 +45,7 @@ export default function SearchField({
             // fullWidth={false}
             //search term value
             value={term}
-            onChange={(e, v, a) => {
-              console.log("onchange: ", a);
-              console.log("onchange: ", v);
-              console.log("onchange: ", e.target.value);
+            onChange={(e) => {
               updateSearchTerm(e.target.value);
               setTerm(e.target.value);
             }}
