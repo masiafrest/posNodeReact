@@ -1,11 +1,9 @@
 import { useState } from "react";
+import AddBtn from "../AddBtn";
 import { IconButton, TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import {
-  AddShoppingCart as AddShoppingCartIcon,
-  Search as SearchIcon,
-} from "@material-ui/icons/";
+import { Search as SearchIcon } from "@material-ui/icons/";
 
 export default function SearchField({
   data,
@@ -26,9 +24,7 @@ export default function SearchField({
       renderOption={(option) => (
         <>
           <span>{option.marca}</span>
-          <IconButton>
-            <AddShoppingCartIcon />
-          </IconButton>
+          <AddBtn item={option} reciboTipo="venta" />
         </>
       )}
       renderInput={(params) => {
