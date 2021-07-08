@@ -31,7 +31,27 @@ function clientes(_, args, ctx) {
   });
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function updateCliente(_, { id, nombre, telefono, dirrecion }, ctx, __) {
+  return ctx.prisma.cliente.update({
+    where: {
+      id,
+    },
+    data: {
+      nombre,
+      telefono,
+      dirrecion,
+    },
+  });
+}
+
 module.exports = {
   postCliente,
+  updateCliente,
   clientes,
 };
