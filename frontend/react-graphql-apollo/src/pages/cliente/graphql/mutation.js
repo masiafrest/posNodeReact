@@ -22,7 +22,7 @@ export const UPDATE_CLIENTE = gql`
     $telefono: String
     $dirrecion: String
   ) {
-    updateItem(
+    updateCliente(
       id: $id
       nombre: $nombre
       telefono: $telefono

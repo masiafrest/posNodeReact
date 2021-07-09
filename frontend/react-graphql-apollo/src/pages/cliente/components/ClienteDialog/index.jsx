@@ -33,6 +33,8 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
   };
 
   const handleOnSubmit = () => {
+    console.log("newClient", newCliente);
+    console.log("cliente bool", cliente);
     cliente
       ? updateCliente({ variables: { id: cliente.id * 1, ...newCliente } })
       : postCliente({ variables: { ...newCliente } });
