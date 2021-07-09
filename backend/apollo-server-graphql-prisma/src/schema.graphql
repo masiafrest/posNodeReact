@@ -39,9 +39,11 @@ type Mutation {
 
   softDelItem(id: Int!): Item
 
-  postCliente(
+  postCliente(nombre: String, telefono: String, dirrecion: String): Cliente
+
+  updateCliente(
+    id: Int
     nombre: String
-    email: String
     telefono: String
     dirrecion: String
   ): Cliente

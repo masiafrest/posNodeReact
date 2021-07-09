@@ -38,6 +38,7 @@ function clientes(_, args, ctx) {
  * @param {{ prisma: Prisma }} ctx
  */
 function updateCliente(_, { id, nombre, telefono, dirrecion }, ctx, __) {
+  console.log(id, nombre);
   return ctx.prisma.cliente.update({
     where: {
       id,
