@@ -7,6 +7,7 @@ const { splitArrBySpace } = require("./utils");
  * @param {{ prisma: Prisma }} ctx
  */
 function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
+  console.log("postcliente");
   return ctx.prisma.cliente.create({
     data: { nombre, telefono, email, dirrecion },
   });
@@ -38,7 +39,7 @@ function clientes(_, args, ctx) {
  * @param {{ prisma: Prisma }} ctx
  */
 function updateCliente(_, { id, nombre, telefono, dirrecion }, ctx, __) {
-  console.log(id, nombre);
+  console.log("updatecliente", id, nombre);
   return ctx.prisma.cliente.update({
     where: {
       id,
