@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { POST_CLIENTE, UPDATE_CLIENTE } from "../../graphql/mutation";
 
 import {
@@ -19,10 +19,34 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
   const initialClienteState = {};
   const [open, setOpen] = React.useState(false);
   const [newCliente, setNewCliente] = React.useState(initialClienteState);
-  console.log(newCliente);
 
-  const [updateCliente] = useMutation(UPDATE_CLIENTE);
-  const [postCliente] = useMutation(POST_CLIENTE);
+  const [updateCliente, { loading: updateLoading, error: updateError }] =
+    useMutation(UPDATE_CLIENTE);
+  const [postCliente, { loading: postLoading, error: postError }] = useMutation(
+    POST_CLIENTE,
+    {
+      update(cache, { data: { postCliente } }) {
+        cache.modify({
+          fields: {
+            clientes(existingClientes = []) {
+              const newClienteRef = cache.writeFragment({
+                data: postCliente,
+                fragment: gql`
+                  fragment NewCliente on Cliente {
+                    id
+                    nombre
+                    telefono
+                    dirrecion
+                  }
+                `,
+              });
+              return [...existingClientes, newClienteRef];
+            },
+          },
+        });
+      },
+    }
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,14 +57,11 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
   };
 
   const handleOnSubmit = () => {
-    console.log("newClient", newCliente);
-    console.log("cliente bool", cliente);
     cliente
       ? updateCliente({ variables: { id: cliente.id * 1, ...newCliente } })
       : postCliente({ variables: { ...newCliente } });
     handleClose();
   };
-
   const handleClose = () => {
     setNewCliente(initialClienteState);
     setOpen(false);
@@ -96,7 +117,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
             Cancelar
           </Button>
           <Button onClick={handleOnSubmit} color="primary">
-            Actualizar
+            {cliente ? "Actualizar" : "Agregar"}
           </Button>
         </DialogActions>
       </Dialog>

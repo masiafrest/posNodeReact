@@ -5,6 +5,7 @@ import FilterBar from "./components/FilterBar";
 
 export default function Cliente() {
   const [filter, setFilter] = useState("");
+  const [perPage, setPerPage] = useState(10);
 
   return (
     <>
@@ -14,7 +15,7 @@ export default function Cliente() {
       {
         //filtro y barra de busqueda
       }
-      <ClienteList filter={filter} />
+      <ClienteList filter={filter} perPage={perPage} />
       <CreateClienteDialog />
     </>
   );

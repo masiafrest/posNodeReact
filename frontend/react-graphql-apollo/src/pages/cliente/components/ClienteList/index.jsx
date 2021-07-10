@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Container, Grid } from "@material-ui/core";
 import BtnNextPrevious from "./BtnNextPrevious";
 
-export default function ItemList({ filter }) {
+export default function ItemList({ filter, perPage }) {
   const CLIENTES_PER_PAGE = 2;
   const history = useHistory();
   const isNewPage = history.location.pathname.includes("new");
@@ -14,15 +14,18 @@ export default function ItemList({ filter }) {
     isNewPage ? pageIndexParams[pageIndexParams.length - 1] : 1
   );
 
-  const getQueryVariables = (isNewPage, page) => {
-    const skip = isNewPage ? (page - 1) * CLIENTES_PER_PAGE : 0;
-    const take = CLIENTES_PER_PAGE;
-    const orderBy = { createdAt: "desc" };
-    return { take, skip, orderBy };
-  };
-  const { take, skip } = getQueryVariables(isNewPage, page);
+  // const getQueryVariables = (isNewPage, page) => {
+  //   const skip = isNewPage ? (page - 1) * CLIENTES_PER_PAGE : 0;
+  //   const take = CLIENTES_PER_PAGE;
+  //   const orderBy = { createdAt: "desc" };
+  //   return { take, skip, orderBy };
+  // };
   const { data, loading, error } = useQuery(GET_CLIENTES, {
-    variables: { filter, take, skip },
+    variables: {
+      filter,
+      take: perPage,
+      skip: isNewPage ? (page - 1) * perPage : 0,
+    },
   });
 
   if (loading) return <div>loading</div>;
