@@ -52,7 +52,22 @@ function updateCliente(_, { id, nombre, telefono, dirrecion }, ctx, __) {
   });
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function delCliente(_, { id }, ctx, __) {
+  return ctx.prisma.cliente.delete({
+    where: {
+      id,
+    },
+  });
+}
+
 module.exports = {
+  delCliente,
   postCliente,
   updateCliente,
   clientes,
