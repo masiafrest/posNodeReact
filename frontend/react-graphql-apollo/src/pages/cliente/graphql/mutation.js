@@ -35,3 +35,14 @@ export const UPDATE_CLIENTE = gql`
     }
   }
 `;
+
+export const DEL_CLIENTE = gql`
+  mutation DelCliente($id: Int) {
+    delCliente(id: $id) {
+      id
+      nombre
+      telefono
+      dirrecion
+    }
+  }
+`;

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -11,11 +10,10 @@ import {
 } from "@material-ui/core";
 
 import EditDialogIcon from "../ClienteDialog";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import DelBtn from "./DelBtn";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-export default function ItemAccordion({ cliente }) {
+export default function ClientePaper({ cliente }) {
   return (
     <Paper elevation={14}>
       <Typography>
@@ -24,13 +22,7 @@ export default function ItemAccordion({ cliente }) {
       <Divider variant="middle" />
       <Typography>dirrecbion: {cliente.dirrecion} </Typography>
       <EditDialogIcon cliente={cliente} />
-      <IconButton aria-label="addToCart">
-        <AddShoppingCartIcon color="action" />
-      </IconButton>
-      <IconButton aria-label="delete">
-        {/* add del dialog js*/}
-        <DeleteIcon color="error" />
-      </IconButton>
+      <DelBtn id={cliente.id} />
     </Paper>
   );
 }

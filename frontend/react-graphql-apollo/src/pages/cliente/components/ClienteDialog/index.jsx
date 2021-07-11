@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { POST_CLIENTE, UPDATE_CLIENTE } from "../../graphql/mutation";
 
@@ -17,8 +17,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function ClienteEditDialogIcon({ cliente = null }) {
   const initialClienteState = {};
-  const [open, setOpen] = React.useState(false);
-  const [newCliente, setNewCliente] = React.useState(initialClienteState);
+  const [open, setOpen] = useState(false);
+  const [newCliente, setNewCliente] = useState(initialClienteState);
 
   const [updateCliente, { loading: updateLoading, error: updateError }] =
     useMutation(UPDATE_CLIENTE);
