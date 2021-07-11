@@ -2,7 +2,7 @@ type Query {
   items(filter: String, skip: Int, take: Int): [Item]
   categorias: [Categoria]
   ubicaciones: [Ubicacion]
-  clientes: [Cliente]
+  clientes(filter: String, skip: Int, take: Int): [Cliente]
 }
 
 type Mutation {
@@ -39,30 +39,32 @@ type Mutation {
 
   softDelItem(id: Int!): Item
 
-  postCliente(
+  postCliente(nombre: String, telefono: String, dirrecion: String): Cliente
+  updateCliente(
+    id: Int
     nombre: String
-    email: String
     telefono: String
     dirrecion: String
   ): Cliente
+  delCliente(id: Int): Cliente
 
-  postVenta(usuarioId: Int
-   clienteId: Int
-  credito: Boolean
-   subTotal: Float
-   tax: Float
-   total: Float
-   lineas: [VentalineaInput]
-  ) 
+  postVenta(
+    usuarioId: Int
+    clienteId: Int
+    credito: Boolean
+    subTotal: Float
+    tax: Float
+    total: Float
+    lineas: [VentalineaInput]
+  ): Boolean
 }
 
-input VentalineaInput{
-  itemId:Int 
+input VentalineaInput {
+  itemId: IdInput
   qty: Int
   precio: Float
   descripcion: String
 }
-
 
 input ItemInput {
   marca: String

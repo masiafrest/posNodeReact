@@ -1,6 +1,8 @@
 import { useState } from "react";
-import {  TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { addClienteId } from "../../../../../redux/features/reciboSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function SearchField({
   data,
@@ -8,24 +10,43 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
 }) {
+  const dispath = useDispatch();
+  const clientId = useSelector((state) => state.recibo.venta.clienteId);
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.clientes || []}
-      loading={loading} // query loading state
-      getOptionLabel={(option) => {
-        const label = `${option.nombre} ${option.telefono}`;
-        return label;
+      options={
+        data?.clientes
+          ? [...data?.clientes, { isComp: true, nombre: "comp" }]
+          : []
+      }
+      // query loading state
+      loading={loading}
+      getOptionLabel={(option) => `${option.nombre} ${option.telefono}`}
+      onChange={(_, v) => {
+        dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
       }}
-      renderOption={(option) => <span>{option.nombre}</span>}
+      value={
+        loading
+          ? null
+          : data?.clientes[data?.clientes.findIndex((e) => e.id === clientId)]
+      }
+      renderOption={(option) => {
+        return option.isComp ? (
+          <button onClick={() => console.log("click")}>agregar cliente</button>
+        ) : (
+          option.nombre
+        );
+      }}
+      // renderOption={(option) => <span>{option.nombre}</span>}
       renderInput={(params) => {
         return (
           <TextField
             {...params}
             // fullWidth={false}
-            value={term} //search term value
-            //update search term state on field change
+            //search term value
+            value={term}
             onChange={(e) => {
               updateSearchTerm(e.target.value);
               setTerm(e.target.value);

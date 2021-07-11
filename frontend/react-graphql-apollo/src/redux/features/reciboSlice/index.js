@@ -4,8 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   usuario_id: null,
   venta: {
-    empresa_cliente_id: null,
+    clienteId: null,
+    credito: false,
     lineas: [],
+    subTotal: 0,
+    tax: 0,
+    total: 0,
   },
   transferencia: {
     lineas: [],
@@ -24,13 +28,13 @@ const reciboSlice = createSlice({
       state.usuario_id = null;
     },
     addClienteId: (state, action) => {
-      console.log(action.payload);
-      const { empresa_cliente_id, reciboTipo } = action.payload;
+      console.log("action.payload", action.payload);
+      const { clienteId, reciboTipo } = action.payload;
       console.log(".......................");
-      console.log(empresa_cliente_id, reciboTipo);
+      console.log(clienteId, reciboTipo);
       if (reciboTipo === "venta") {
         console.log("---------------------");
-        state.venta.empresa_cliente_id = empresa_cliente_id.id;
+        state.venta.clienteId = clienteId;
       }
     },
     modQty: (state, action) => {

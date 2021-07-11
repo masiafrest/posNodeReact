@@ -1,3 +1,4 @@
+const { splitArrBySpace } = require("./utils");
 const include = {
   categorias: true,
   precio: true,
@@ -13,14 +14,8 @@ const include = {
 async function items(parent, args, ctx, info) {
   const { filter, skip, take } = args;
 
-  const searchArr = filter.split(" ").map((e) => {
-    return {
-      search_text: {
-        contains: `${e}`.replace("'", ""),
-      },
-    };
-  });
-
+  const searchArr = splitArrBySpace(filter, "item");
+  console.log(searchArr);
   //maybe add sorting, para q aparezcan lo mas vendido primero
 
   const items = await ctx.prisma.item.findMany({
