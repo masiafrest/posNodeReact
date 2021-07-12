@@ -3,6 +3,7 @@ import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
 import { useSelector, useDispatch } from "react-redux";
+import AddClientBtn from "../../../../cliente/components/ClienteDialog";
 
 export default function SearchField({
   data,
@@ -23,7 +24,12 @@ export default function SearchField({
       }
       // query loading state
       loading={loading}
-      getOptionLabel={(option) => `${option.nombre} ${option.telefono}`}
+      getOptionLabel={(option) => {
+        if (option.nombre === "comp") {
+          return "agregar cliente";
+        }
+        return `${option.nombre} ${option.telefono}`;
+      }}
       onChange={(_, v) => {
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
       }}
@@ -39,7 +45,6 @@ export default function SearchField({
           option.nombre
         );
       }}
-      // renderOption={(option) => <span>{option.nombre}</span>}
       renderInput={(params) => {
         return (
           <TextField
