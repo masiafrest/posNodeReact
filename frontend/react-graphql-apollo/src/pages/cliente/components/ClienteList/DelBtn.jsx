@@ -1,6 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { DEL_CLIENTE } from "../../graphql/mutation";
-import { Typography, Divider, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 
@@ -20,7 +20,10 @@ export default function DelBtn({ id }) {
   });
 
   return (
-    <IconButton onClick={() => delCliente({ variables: { id: id * 1 } })}>
+    <IconButton
+      disabled={loading}
+      onClick={() => delCliente({ variables: { id: id * 1 } })}
+    >
       <DeleteIcon />
     </IconButton>
   );
