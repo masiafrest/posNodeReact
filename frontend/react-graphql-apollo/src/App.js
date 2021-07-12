@@ -11,6 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import NavBar from "./components/Navbar";
 import Item from "./pages/item";
 import Cliente from "./pages/cliente";
+import Categoria from "./pages/categoria";
 import Venta from "./pages/recibos/venta";
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
               <Route path="/venta" component={Venta} />
               <Route path="/cliente" component={Cliente} />
               <Route path="/cliente/new/:page" component={Cliente} />
+              <Route path="/categoria" component={Categoria} />
+              <Route path="/categoria/new/:page" component={Categoria} />
             </Switch>
           </Router>
         </SnackbarProvider>

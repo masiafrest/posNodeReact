@@ -47,18 +47,20 @@ function NavBar() {
             onClose={toggleDrawer(false)}
           >
             <List>
-              {["home", "item", "venta", "cliente"].map((text, index) => (
-                <ListItem button key={text}>
-                  {/* <ListItemText
+              {["home", "item", "venta", "cliente", "categoria"].map(
+                (text, index) => (
+                  <ListItem button key={text}>
+                    {/* <ListItemText
                     primary={text.toUpperCase()}
                     onClick={() => {
                       toggleDrawer(false);
                       history.push("/" + text);
                     }}
                   /> */}
-                  <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
-                </ListItem>
-              ))}
+                    <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
+                  </ListItem>
+                )
+              )}
             </List>
           </Drawer>
         </Toolbar>

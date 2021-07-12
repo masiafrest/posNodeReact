@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
-import { GET_CLIENTES } from "../../graphql/query";
-import ClientePaper from "./ClientePaper";
+import { GET_CATEGORIAS } from "../../graphql/query";
+import CategoriaPaper from "./CategoriaPaper";
 import { useHistory } from "react-router-dom";
 import { Container, Grid } from "@material-ui/core";
 import BtnNextPrevious from "./BtnNextPrevious";
 
-export default function ItemList({ filter, perPage }) {
+export default function CategoriaList({ filter, perPage }) {
   const history = useHistory();
   const isNewPage = history.location.pathname.includes("new");
   const pageIndexParams = history.location.pathname.split("/");
@@ -19,7 +19,7 @@ export default function ItemList({ filter, perPage }) {
   //   const orderBy = { createdAt: "desc" };
   //   return { take, skip, orderBy };
   // };
-  const { data, loading, error } = useQuery(GET_CLIENTES, {
+  const { data, loading, error } = useQuery(GET_CATEGORIAS, {
     variables: {
       filter,
       take: perPage,
@@ -33,9 +33,12 @@ export default function ItemList({ filter, perPage }) {
   return (
     <>
       <Grid container spacing={1}>
-        {data.clientes.map((cliente) => (
-          <Grid item key={`cliente-grid-${cliente.id}`}>
-            <ClientePaper cliente={cliente} key={`cliente-${cliente.id}`} />
+        {data.categorias.map((categoria) => (
+          <Grid item key={`categoria-grid-${categoria.id}`}>
+            <CategoriaPaper
+              categoria={categoria}
+              key={`categoria-${categoria.id}`}
+            />
           </Grid>
         ))}
       </Grid>
@@ -46,7 +49,7 @@ export default function ItemList({ filter, perPage }) {
               <BtnNextPrevious isNext={false} page={page} history={history} />
             </Grid>
           )}
-          {data?.clientes.length >= perPage && (
+          {data?.categorias.length >= perPage && (
             <Grid item>
               <BtnNextPrevious isNext={true} page={page} history={history} />
             </Grid>

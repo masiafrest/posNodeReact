@@ -1,6 +1,6 @@
 type Query {
   items(filter: String, skip: Int, take: Int): [Item]
-  categorias: [Categoria]
+  categorias(filter: String, skip: Int, take: Int): [Categoria]
   ubicaciones: [Ubicacion]
   clientes(filter: String, skip: Int, take: Int): [Cliente]
 }
@@ -21,9 +21,6 @@ type Mutation {
     precio: Float
     precioMin: Float
   ): Item
-  postCategoria(nombre: String!): Categoria
-  postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
-
   updateItem(
     id: Int!
     marca: String
@@ -36,8 +33,13 @@ type Mutation {
     precio: Float
     precioMin: Float
   ): Item
-
   delItem(id: Int!): Item
+
+  postCategoria(nombre: String!): Categoria
+  updateCategoria(id: Int, nombre: String): Categoria
+  delCategoria(id: Int): Categoria
+
+  postUbicacion(dirrecion: String!, tipo: String!): Ubicacion
 
   postCliente(nombre: String, telefono: String, dirrecion: String): Cliente
   updateCliente(
