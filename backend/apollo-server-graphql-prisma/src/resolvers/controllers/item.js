@@ -159,16 +159,10 @@ async function updateItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function softDelItem(parent, { id }, ctx, info) {
-  return ctx.prisma.item.update({
+function delItem(parent, { id }, ctx, info) {
+  return ctx.prisma.item.delete({
     where: {
       id,
-    },
-    data: {
-      deleted: true,
-    },
-    select: {
-      deleted: true,
     },
   });
 }
@@ -177,5 +171,5 @@ module.exports = {
   items,
   postItem,
   updateItem,
-  softDelItem,
+  delItem,
 };

@@ -1,4 +1,4 @@
-const { softDelItem, updateItem, postItem } = require("./controllers/item");
+const { delItem, updateItem, postItem } = require("./controllers/item");
 const {
   postCliente,
   updateCliente,
@@ -13,7 +13,7 @@ module.exports = {
   postCategoria,
   postUbicacion,
   updateItem,
-  softDelItem,
+  delItem,
   postCliente,
   updateCliente,
   delCliente,

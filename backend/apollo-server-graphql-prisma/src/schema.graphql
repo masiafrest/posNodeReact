@@ -37,7 +37,7 @@ type Mutation {
     precioMin: Float
   ): Item
 
-  softDelItem(id: Int!): Item
+  delItem(id: Int!): Item
 
   postCliente(nombre: String, telefono: String, dirrecion: String): Cliente
   updateCliente(
