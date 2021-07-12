@@ -70,3 +70,11 @@ export const UPDATE_ITEM = gql`
   }
   ${ITEM_DATA}
 `;
+
+export const DEL_ITEM = gql`
+  mutation DelItem($id: Int!) {
+    delItem(id: $id) {
+      id
+    }
+  }
+`;
