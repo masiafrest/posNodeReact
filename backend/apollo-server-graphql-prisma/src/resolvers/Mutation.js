@@ -5,15 +5,21 @@ const {
   delCliente,
 } = require("./controllers/cliente");
 const { postUbicacion } = require("./controllers/ubicacion");
-const { postCategoria } = require("./controllers/categoria");
+const {
+  postCategoria,
+  updateCategoria,
+  delCategoria,
+} = require("./controllers/categoria");
 const { signup, login } = require("./controllers/usuario");
 
 module.exports = {
   postItem,
-  postCategoria,
-  postUbicacion,
   updateItem,
   delItem,
+  postCategoria,
+  updateCategoria,
+  delCategoria,
+  postUbicacion,
   postCliente,
   updateCliente,
   delCliente,
