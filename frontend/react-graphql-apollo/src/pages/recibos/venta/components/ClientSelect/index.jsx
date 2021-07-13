@@ -11,7 +11,7 @@ export default function ClientSelect() {
   //query to get suggestions
   const { data, loading } = useQuery(GET_CLIENTES, {
     variables: {
-      filter: searchTerm,
+      filter: searchTerm && "",
       skip: 0,
     },
   });

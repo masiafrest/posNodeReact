@@ -119,7 +119,7 @@ export default function ItemEditDialogIcon({ item = null }) {
             />
           ))}
           <SelectCategoria
-            categorias={item?.categorias.map((e) => e.nombre)}
+            categorias={item?.categorias?.map((e) => e.nombre)}
             setNewItem={setNewItem}
           />
         </DialogContent>

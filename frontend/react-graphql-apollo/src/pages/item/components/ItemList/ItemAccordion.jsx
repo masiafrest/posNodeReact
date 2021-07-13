@@ -1,6 +1,7 @@
 import React from "react";
 import EditDialogIcon from "../ItemDialog";
 import DelBtn from "../DelBtn";
+import AddBtn from "../AddBtn";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
@@ -38,9 +39,7 @@ export default function ItemAccordion({ item }) {
       </AccordionDetails>
       <AccordionActions>
         <EditDialogIcon item={item} />
-        <IconButton aria-label="addToCart">
-          <AddShoppingCartIcon color="action" />
-        </IconButton>
+        <AddBtn item={item} reciboTipo="venta" />
         <DelBtn id={item.id} />
       </AccordionActions>
     </Accordion>

@@ -55,14 +55,14 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
 
   const GET_CATEGORIAS = gql`
     {
-      categorias {
+      categorias(filter: "") {
         id
         nombre
       }
     }
   `;
   const { data, loading, error } = useQuery(GET_CATEGORIAS);
-
+  console.log(data);
   useEffect(() => {
     if (!loading) {
       let catArr = [];
@@ -81,7 +81,7 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
   return (
     <>
       <FormControl className={classes.formControl}>
-        <InputLabel id="multiple-categorias-select">Chip</InputLabel>
+        <InputLabel id="multiple-categorias-select">Categorias</InputLabel>
         <Select
           labelId="multiple-categorias-select"
           id="multiple-categorias-select"
@@ -102,7 +102,7 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
           {loading ? (
             <MenuItem>loading</MenuItem>
           ) : (
-            data.categorias.map((obj, idx) => (
+            data?.categorias?.map((obj, idx) => (
               <MenuItem
                 key={obj.nombre}
                 value={obj.nombre}

@@ -17,17 +17,10 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={
-        data?.clientes
-          ? [...data?.clientes, { isComp: true, nombre: "comp" }]
-          : []
-      }
+      options={data?.clientes}
       // query loading state
       loading={loading}
       getOptionLabel={(option) => {
-        if (option.nombre === "comp") {
-          return "agregar cliente";
-        }
         return `${option.nombre} ${option.telefono}`;
       }}
       onChange={(_, v) => {
@@ -38,13 +31,6 @@ export default function SearchField({
           ? null
           : data?.clientes[data?.clientes.findIndex((e) => e.id === clientId)]
       }
-      renderOption={(option) => {
-        return option.isComp ? (
-          <button onClick={() => console.log("click")}>agregar cliente</button>
-        ) : (
-          option.nombre
-        );
-      }}
       renderInput={(params) => {
         return (
           <TextField
@@ -59,6 +45,7 @@ export default function SearchField({
           />
         );
       }}
+      noOptionsText={<AddClientBtn />}
     />
   );
 }
