@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { TextField } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { TextField, Button } from "@material-ui/core";
+import Autocomplete, {
+  createFilterOptions,
+} from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
 import { useSelector, useDispatch } from "react-redux";
 import AddClientBtn from "../../../../cliente/components/ClienteDialog";
@@ -17,7 +19,7 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.clientes}
+      options={data?.clientes || []}
       // query loading state
       loading={loading}
       getOptionLabel={(option) => {
@@ -45,6 +47,7 @@ export default function SearchField({
           />
         );
       }}
+      debug={true}
       noOptionsText={<AddClientBtn />}
     />
   );

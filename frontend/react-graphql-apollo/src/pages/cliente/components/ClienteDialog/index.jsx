@@ -48,7 +48,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
     }
   );
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
     setOpen(true);
   };
 
@@ -69,13 +69,30 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
 
   return (
     <>
-      <IconButton aria-label="edit" onClick={handleClickOpen}>
-        {cliente ? (
-          <EditIcon color="primary" />
-        ) : (
-          <AddCircleIcon color="primary" />
-        )}
-      </IconButton>
+      {cliente ? (
+        <IconButton aria-label="edit" onClick={handleClickOpen}>
+          {cliente ? (
+            <EditIcon color="primary" />
+          ) : (
+            <AddCircleIcon color="primary" />
+          )}
+        </IconButton>
+      ) : (
+        <Button
+          variant="contained"
+          aria-label={cliente ? "edit" : "agregar"}
+          onClick={handleClickOpen}
+          startIcon={
+            cliente ? (
+              <EditIcon color="primary" />
+            ) : (
+              <AddCircleIcon color="primary" />
+            )
+          }
+        >
+          Agregar cliente
+        </Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import AddClientBtn from "../ClienteDialog";
 
 export default function SearchField({
   data,
@@ -31,6 +32,8 @@ export default function SearchField({
           />
         );
       }}
+      debug={true}
+      noOptionsText={<AddClientBtn />}
     />
   );
 }
