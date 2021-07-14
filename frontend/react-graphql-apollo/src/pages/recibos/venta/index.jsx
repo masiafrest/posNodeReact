@@ -1,5 +1,5 @@
 import ClientSelect from "./components/ClientSelect";
-import Table from "./components/Tabla";
+import TableContainer from "./components/TablaContainer";
 // import { useSelector } from "react-redux";
 // import { useSnackbar } from "notistack";
 // import ReactToPrint from "react-to-print";
@@ -9,7 +9,7 @@ export default function Venta() {
   return (
     <>
       <ClientSelect />
-      <Table />
+      <TableContainer />
     </>
   );
 }
