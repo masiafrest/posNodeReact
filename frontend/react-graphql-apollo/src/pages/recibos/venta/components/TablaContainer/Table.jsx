@@ -15,7 +15,6 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 // import ModQty from "../ModQty";
 
 export default function VentaTable({ items }) {
-  console.log("items ", items);
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
@@ -28,14 +27,17 @@ export default function VentaTable({ items }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items?.map((row, idx) => (
-            <TableRow key={row.id}>
+          {items?.map((item, idx) => (
+            <TableRow key={item.id}>
               <TableCell align="left">
+                {item.qty}
                 {/* <ModQty item={row} reciboTipo="venta" idx={idx} /> */}
               </TableCell>
-              <TableCell align="left"></TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="left">{item.descripcion}</TableCell>
+              <TableCell align="right">{item.precio.precio}</TableCell>
+              <TableCell align="right">
+                {item.precio.precio * item.qty}
+              </TableCell>
             </TableRow>
           ))}
           <TableRow>
