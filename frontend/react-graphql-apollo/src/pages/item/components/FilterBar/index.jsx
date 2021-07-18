@@ -4,25 +4,23 @@ import { GET_ITEMS } from "../../graphql/query";
 import SearchField from "./SearchField";
 import debounce from "lodash/debounce";
 
-export default function FilterBar() {
-  const [searchTerm, setSearchTerm] = useState("");
-
+export default function FilterBar({ setTake, setFilter, filter }) {
   //query to get suggestions
   const { data, loading } = useQuery(GET_ITEMS, {
     variables: {
-      filter: searchTerm,
+      filter,
       skip: 0,
     },
   });
 
-  const setSearchTermDebounced = debounce(setSearchTerm, 500);
+  const setSearchTermDebounced = debounce(setFilter, 500);
 
   return (
     <>
       <SearchField
         loading={loading}
         data={data} // search suggestions returned
-        initialTerm={searchTerm}
+        initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
       />
     </>

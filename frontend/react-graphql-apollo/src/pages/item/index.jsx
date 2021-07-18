@@ -5,16 +5,17 @@ import FilterBar from "./components/FilterBar";
 
 export default function Item() {
   const [filter, setFilter] = useState("");
+  const [take, setTake] = useState(10);
 
   return (
     <>
       <h1 style={{ textAlign: "center" }}>item pages</h1>
-      <FilterBar />
+      <FilterBar setTake={setTake} setFilter={setFilter} filter={filter} />
       <hr />
       {
         //filtro y barra de busqueda
       }
-      <ItemList filter={filter} />
+      <ItemList filter={filter} take={take} />
       <CreateItemDialog />
     </>
   );
