@@ -15,6 +15,9 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 // import ModQty from "../ModQty";
 
 export default function VentaTable({ items }) {
+  const subTotal = items.reduce((total, item) => {
+    return item.qty * item.precio.precio + total;
+  }, 0);
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
@@ -27,19 +30,21 @@ export default function VentaTable({ items }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items?.map((item, idx) => (
-            <TableRow key={item.id}>
-              <TableCell align="left">
-                {item.qty}
-                {/* <ModQty item={row} reciboTipo="venta" idx={idx} /> */}
-              </TableCell>
-              <TableCell align="left">{item.descripcion}</TableCell>
-              <TableCell align="right">{item.precio.precio}</TableCell>
-              <TableCell align="right">
-                {item.precio.precio * item.qty}
-              </TableCell>
-            </TableRow>
-          ))}
+          {items?.map(
+            ({ marca, modelo, precio: { precio }, descripcion, qty, id }) => (
+              <TableRow key={id}>
+                <TableCell align="left">
+                  {qty}
+                  {/* <ModQty item={row} reciboTipo="venta" idx={idx} /> */}
+                </TableCell>
+                <TableCell align="left">
+                  {marca} {modelo} {descripcion}
+                </TableCell>
+                <TableCell align="right">{precio}</TableCell>
+                <TableCell align="right">{precio * qty}</TableCell>
+              </TableRow>
+            )
+          )}
           <TableRow>
             <TableCell colSpan={4}>
               <IconButton
@@ -53,7 +58,7 @@ export default function VentaTable({ items }) {
           <TableRow>
             <TableCell rowSpan={3} />
             <TableCell colSpan={2}>Subtotal</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">{subTotal}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={1}>

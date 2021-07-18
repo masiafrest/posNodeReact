@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
 import SearchField from "./SearchField";

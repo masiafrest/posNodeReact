@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ClientSelect from "./components/ClientSelect";
 import TableContainer from "./components/TablaContainer";
 import SearchItem from "../../item/components/FilterBar";
@@ -7,10 +8,12 @@ import SearchItem from "../../item/components/FilterBar";
 // import ComponentToPrint from "../../components/ComponentToPrint";
 
 export default function Venta() {
+  const [filter, setFilter] = useState("");
+
   return (
     <>
       <ClientSelect />
-      <SearchItem />
+      <SearchItem filter={filter} setFilter={setFilter} />
       <TableContainer />
     </>
   );
