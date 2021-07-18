@@ -31,6 +31,7 @@ export default function SearchField({
         return (
           <TextField
             {...params}
+            label="buscar Item"
             // fullWidth={false}
             value={term} //search term value
             //update search term state on field change

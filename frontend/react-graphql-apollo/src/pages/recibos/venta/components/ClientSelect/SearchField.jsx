@@ -36,6 +36,8 @@ export default function SearchField({
       renderInput={(params) => {
         return (
           <TextField
+            label="cliente"
+            helperText="selecciona un cliente"
             {...params}
             // fullWidth={false}
             //search term value
