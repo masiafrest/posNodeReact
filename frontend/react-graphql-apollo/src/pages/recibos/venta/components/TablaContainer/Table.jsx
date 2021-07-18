@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   IconButton,
   Paper,
@@ -15,6 +16,7 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 // import ModQty from "../ModQty";
 
 export default function VentaTable({ items }) {
+  const [isTax, setIsTax] = useState(true);
   const subTotal = items.reduce((total, item) => {
     return item.qty * item.precio.precio + total;
   }, 0);
