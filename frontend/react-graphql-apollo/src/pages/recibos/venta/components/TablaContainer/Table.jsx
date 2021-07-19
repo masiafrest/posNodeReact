@@ -17,9 +17,14 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 
 export default function VentaTable({ items }) {
   const [isTax, setIsTax] = useState(true);
-  const subTotal = items.reduce((total, item) => {
-    return item.qty * item.precio.precio + total;
-  }, 0);
+
+  const subTotal = items
+    .reduce((total, item) => {
+      return item.qty * item.precio.precio + total;
+    }, 0)
+    .toFixed(2);
+  const tax = ((7 / 100) * subTotal).toFixed(2);
+  const total = subTotal + tax;
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
@@ -42,12 +47,12 @@ export default function VentaTable({ items }) {
                 <TableCell align="left">
                   {marca} {modelo} {descripcion}
                 </TableCell>
-                <TableCell align="right">{precio}</TableCell>
+                <TableCell align="right">{parseInt(precio)}</TableCell>
                 <TableCell align="right">{precio * qty}</TableCell>
               </TableRow>
             )
           )}
-          <TableRow>
+          <TableRow key="add-item">
             <TableCell colSpan={4}>
               <IconButton
                 size="small"
@@ -57,18 +62,18 @@ export default function VentaTable({ items }) {
               </IconButton>
             </TableCell>
           </TableRow>
-          <TableRow>
+          <TableRow key="subtotal">
             <TableCell rowSpan={3} />
             <TableCell colSpan={2}>Subtotal</TableCell>
             <TableCell align="right">{subTotal}</TableCell>
           </TableRow>
-          <TableRow>
+          <TableRow key="tax">
             <TableCell colSpan={1}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    // checked={isTax}
-                    // onChange={(e) => setIsTax(!isTax)}
+                    checked={isTax}
+                    onChange={() => setIsTax(!isTax)}
                     name="checkedB"
                     color="primary"
                   />
@@ -77,11 +82,11 @@ export default function VentaTable({ items }) {
               />
             </TableCell>
             <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">{tax}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="right">{total}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
