@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { round } from "lodash";
 import {
   IconButton,
   Paper,
@@ -18,13 +19,12 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 export default function VentaTable({ items }) {
   const [isTax, setIsTax] = useState(true);
 
-  const subTotal = items
-    .reduce((total, item) => {
-      return item.qty * item.precio.precio + total;
-    }, 0)
-    .toFixed(2);
-  const tax = ((7 / 100) * subTotal).toFixed(2);
-  const total = subTotal + tax;
+  const subTotal = items.reduce((total, item) => {
+    return round(item.qty * item.precio.precio + total, 2);
+  }, 0);
+  const tax = isTax ? round((7 / 100) * subTotal, 2) : 0;
+  const total = round(subTotal + tax, 2);
+  console.log(subTotal, tax, total);
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
@@ -47,8 +47,12 @@ export default function VentaTable({ items }) {
                 <TableCell align="left">
                   {marca} {modelo} {descripcion}
                 </TableCell>
-                <TableCell align="right">{parseInt(precio)}</TableCell>
-                <TableCell align="right">{precio * qty}</TableCell>
+                <TableCell align="right">
+                  {parseFloat(precio).toFixed(2)}
+                </TableCell>
+                <TableCell align="right">
+                  {parseFloat(precio * qty).toFixed(2)}
+                </TableCell>
               </TableRow>
             )
           )}
