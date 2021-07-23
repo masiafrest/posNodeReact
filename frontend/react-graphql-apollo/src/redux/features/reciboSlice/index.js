@@ -38,12 +38,11 @@ const reciboSlice = createSlice({
         state.venta.clienteId = clienteId;
       }
     },
-    modQty: (state, action) => {
+    editQty: (state, action) => {
       console.log(action.payload);
-      const tipoRecibo = action.payload.tipo;
-      let { idx, qty } = action.payload;
+      let { qty, tipo, idx } = action.payload;
       if (qty < 0) qty = 0;
-      state[tipoRecibo].lineas[idx].qty = qty;
+      state[tipo].lineas[idx].qty = qty;
     },
     pushLinea: (state, action) => {
       //TODO: revisar si existe o no el item pusheado, si qty del payload es mayor actualizar la qty
@@ -92,7 +91,7 @@ export const {
   delUserId,
   addClienteId,
   pushLinea,
-  modQty,
+  editQty,
   addRecibo,
   deleteLinea,
   addSubTotal,

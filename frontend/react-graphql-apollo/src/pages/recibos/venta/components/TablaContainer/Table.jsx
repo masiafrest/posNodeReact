@@ -19,6 +19,7 @@ import {
   addTax,
   addTotal,
 } from "../../../../../redux/features/reciboSlice";
+import QtyEdit from "./QtyEdit";
 
 export default function VentaTable({ items }) {
   const dispatch = useDispatch();
@@ -41,11 +42,13 @@ export default function VentaTable({ items }) {
         </TableHead>
         <TableBody>
           {items?.map(
-            ({ marca, modelo, precio: { precio }, descripcion, qty, id }) => (
+            (
+              { marca, modelo, precio: { precio }, descripcion, qty, id },
+              idx
+            ) => (
               <TableRow key={id}>
                 <TableCell align="left">
-                  {qty}
-                  {/* <ModQty item={row} reciboTipo="venta" idx={idx} /> */}
+                  <QtyEdit itemId={id} qty={qty} idx={idx} />
                 </TableCell>
                 <TableCell align="left">
                   {marca} {modelo} {descripcion}
