@@ -13,17 +13,20 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-
-// import ModQty from "../ModQty";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addSubTotal,
+  addTax,
+  addTotal,
+} from "../../../../../redux/features/reciboSlice";
 
 export default function VentaTable({ items }) {
+  const dispatch = useDispatch();
+  const { subTotal, tax, total } = useSelector((state) => state.recibo.venta);
   const [isTax, setIsTax] = useState(true);
-
-  const subTotal = items.reduce((total, item) => {
-    return round(item.qty * item.precio.precio + total, 2);
-  }, 0);
-  const tax = isTax ? round((7 / 100) * subTotal, 2) : 0;
-  const total = round(subTotal + tax, 2);
+  dispatch(addSubTotal(items));
+  dispatch(addTax(isTax ? round((7 / 100) * subTotal, 2) : 0));
+  dispatch(addTotal(round(subTotal + tax, 2)));
   console.log(subTotal, tax, total);
   return (
     <TableContainer component={Paper}>

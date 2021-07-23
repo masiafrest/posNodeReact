@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { round } from "lodash";
 
 //TODO: agregar recibo venta transferencia
 const initialState = {
@@ -72,6 +73,17 @@ const reciboSlice = createSlice({
       );
       state[tipoRecibo].lineas = newArr;
     },
+    addSubTotal: (state, action) => {
+      state.venta.subTotal = action.payload.reduce((total, item) => {
+        return round(item.qty * item.precio.precio + total, 2);
+      }, 0);
+    },
+    addTax: (state, action) => {
+      state.venta.tax = action.payload;
+    },
+    addTotal: (state, action) => {
+      state.venta.total = action.payload;
+    },
   },
 });
 
@@ -83,6 +95,9 @@ export const {
   modQty,
   addRecibo,
   deleteLinea,
+  addSubTotal,
+  addTax,
+  addTotal,
 } = reciboSlice.actions;
 
 export default reciboSlice.reducer;
