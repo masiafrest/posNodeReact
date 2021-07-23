@@ -1,5 +1,6 @@
 type Query {
   items(filter: String, skip: Int, take: Int): [Item]
+  item(id: Int!): Item
   categorias(filter: String, skip: Int, take: Int): [Categoria]
   ubicaciones: [Ubicacion]
   clientes(filter: String, skip: Int, take: Int): [Cliente]

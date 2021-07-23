@@ -12,12 +12,11 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
+  console.log("get items");
   const { filter, skip, take } = args;
 
   const searchArr = splitArrBySpace(filter, "item");
-  console.log(searchArr);
   //maybe add sorting, para q aparezcan lo mas vendido primero
-
   const items = await ctx.prisma.item.findMany({
     where: {
       OR: searchArr,
@@ -33,6 +32,26 @@ async function items(parent, args, ctx, info) {
 
   // console.log("items: ", items);
   return items;
+}
+
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+async function item(_, { id }, ctx, __) {
+  console.log("find item by id", id);
+  return await ctx.prisma.item.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      categorias: true,
+      precio: true,
+      ubicacion: true,
+    },
+  });
 }
 
 /**
@@ -169,6 +188,7 @@ function delItem(parent, { id }, ctx, info) {
 
 module.exports = {
   items,
+  item,
   postItem,
   updateItem,
   delItem,

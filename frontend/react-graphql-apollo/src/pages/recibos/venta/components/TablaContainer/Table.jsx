@@ -27,7 +27,7 @@ export default function VentaTable({ items }) {
   dispatch(addSubTotal(items));
   dispatch(addTax(isTax ? round((7 / 100) * subTotal, 2) : 0));
   dispatch(addTotal(round(subTotal + tax, 2)));
-  console.log(subTotal, tax, total);
+
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
