@@ -7,19 +7,19 @@ import SearchItem from "../../item/components/FilterBar";
 // import ReactToPrint from "react-to-print";
 // import ComponentToPrint from "../../components/ComponentToPrint";
 
-export const QtyError = createContext(null);
+export const IsError = createContext(null);
 
 export default function Venta() {
   const [filter, setFilter] = useState("");
-  const qtyError = useState({});
+  const isError = useState({ cliente: true });
 
   return (
     <>
-      <ClientSelect />
-      <SearchItem filter={filter} setFilter={setFilter} />
-      <QtyError.Provider value={qtyError}>
+      <IsError.Provider value={isError}>
+        <ClientSelect />
+        <archItem filter={filter} setFilter={setFilter} />
         <TableContainer />
-      </QtyError.Provider>
+      </IsError.Provider>
     </>
   );
 }

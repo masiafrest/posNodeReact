@@ -3,10 +3,10 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useSelector, useDispatch } from "react-redux";
 import { editQty } from "../../../../../redux/features/reciboSlice";
 import { useState, useContext } from "react";
-import { QtyError } from "../../../venta";
+import { IsError } from "../../../venta";
 
 export default function QtyEdit({ itemId, qty, idx }) {
-  const [isQtyError, setIsQtyError] = useContext(QtyError);
+  const [isQtyError, setIsQtyError] = useContext(IsError);
   const dispatch = useDispatch();
   const [getQty, { loading, data }] = useLazyQuery(
     gql`

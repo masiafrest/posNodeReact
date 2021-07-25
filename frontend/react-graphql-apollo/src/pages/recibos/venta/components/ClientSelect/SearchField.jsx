@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { TextField, Button } from "@material-ui/core";
+import { useState, useContext } from "react";
+import { IsError } from "../../../venta";
+
+import { TextField } from "@material-ui/core";
 import Autocomplete, {
   createFilterOptions,
 } from "@material-ui/lab/Autocomplete";
@@ -13,6 +15,7 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
 }) {
+  const [isError, setIsError] = useContext(IsError);
   const dispath = useDispatch();
   const clientId = useSelector((state) => state.recibo.venta.clienteId);
   const [term, setTerm] = useState(initialTerm);
@@ -27,6 +30,7 @@ export default function SearchField({
       }}
       onChange={(_, v) => {
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
+        setIsError({ ...isError, cliente: false });
       }}
       value={
         loading
@@ -37,7 +41,7 @@ export default function SearchField({
         return (
           <TextField
             label="cliente"
-            helperText="selecciona un cliente"
+            helperText={isError.cliente && "selecciona un cliente"}
             {...params}
             // fullWidth={false}
             //search term value
