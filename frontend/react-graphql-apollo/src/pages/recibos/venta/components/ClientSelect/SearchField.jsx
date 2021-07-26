@@ -29,8 +29,13 @@ export default function SearchField({
         return `${option.nombre} ${option.telefono}`;
       }}
       onChange={(_, v) => {
+        console.log("searchfield, cliente");
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
-        setIsError({ ...isError, cliente: false });
+        setIsError({
+          ...isError,
+          //cliente has id, is selected so false, to disable helpertext
+          cliente: v?.id ? false : true,
+        });
       }}
       value={
         loading

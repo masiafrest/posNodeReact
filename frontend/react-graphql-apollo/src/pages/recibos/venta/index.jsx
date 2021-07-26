@@ -17,7 +17,7 @@ export default function Venta() {
     <>
       <IsError.Provider value={isError}>
         <ClientSelect />
-        <archItem filter={filter} setFilter={setFilter} />
+        <SearchItem filter={filter} setFilter={setFilter} />
         <TableContainer />
       </IsError.Provider>
     </>
