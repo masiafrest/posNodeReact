@@ -1,10 +1,7 @@
 import { useState, useContext } from "react";
 import { IsError } from "../../../venta";
-
 import { TextField } from "@material-ui/core";
-import Autocomplete, {
-  createFilterOptions,
-} from "@material-ui/lab/Autocomplete";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
 import { useSelector, useDispatch } from "react-redux";
 import AddClientBtn from "../../../../cliente/components/ClienteDialog";

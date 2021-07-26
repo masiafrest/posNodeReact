@@ -19,7 +19,8 @@ import {
   addTax,
   addTotal,
 } from "../../../../../redux/features/reciboSlice";
-import QtyEdit from "./QtyEdit";
+import QtyEditField from "./QtyEditField";
+import DelBtn from "./DelBtn";
 
 export default function VentaTable({ items }) {
   const dispatch = useDispatch();
@@ -48,7 +49,8 @@ export default function VentaTable({ items }) {
             ) => (
               <TableRow key={id}>
                 <TableCell align="left">
-                  <QtyEdit itemId={id} qty={qty} idx={idx} />
+                  <DelBtn tipo="venta" id={id} />
+                  <QtyEditField itemId={id} qty={qty} idx={idx} />
                 </TableCell>
                 <TableCell align="left">
                   {marca} {modelo} {descripcion}

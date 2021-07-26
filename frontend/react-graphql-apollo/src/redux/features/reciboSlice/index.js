@@ -64,11 +64,11 @@ const reciboSlice = createSlice({
       const tipoRecibo = action.payload.tipo;
       state[tipoRecibo] = action.payload;
     },
-    deleteLinea: (state, action) => {
+    delLinea: (state, action) => {
       const tipoRecibo = action.payload.tipo;
       console.log(action.payload);
       const newArr = state[tipoRecibo].lineas.filter(
-        (linea) => linea.id !== action.payload.item_id
+        (linea) => linea.id !== action.payload.id
       );
       state[tipoRecibo].lineas = newArr;
     },
@@ -93,7 +93,7 @@ export const {
   pushLinea,
   editQty,
   addRecibo,
-  deleteLinea,
+  delLinea,
   addSubTotal,
   addTax,
   addTotal,
