@@ -11,7 +11,7 @@ export const IsError = createContext(null);
 
 export default function Venta() {
   const [filter, setFilter] = useState("");
-  const isError = useState({ cliente: true });
+  const isError = useState({ cliente: true, qty:{}, precio:{} });
 
   return (
     <>

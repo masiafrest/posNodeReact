@@ -41,7 +41,6 @@ const reciboSlice = createSlice({
     editQty: (state, action) => {
       console.log(action.payload);
       let { qty, tipo, idx } = action.payload;
-      if (qty < 0) qty = 0;
       state[tipo].lineas[idx].qty = qty;
     },
     editPrice: (state, action) => {

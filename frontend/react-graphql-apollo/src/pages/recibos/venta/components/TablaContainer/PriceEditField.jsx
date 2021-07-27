@@ -1,35 +1,21 @@
 import { TextField } from "@material-ui/core";
-// import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../redux/features/reciboSlice";
 import { useContext } from "react";
 import { IsError } from "../..";
 
 export default function PriceEditField({ itemId, precio, precioMin, idx }) {
-  const [isPriceError, setIsPriceError] = useContext(IsError);
+  const [isError, setIsError] = useContext(IsError);
   const dispatch = useDispatch();
-  // const [getPrice, { loading, data }] = useLazyQuery(
-  //   gql`
-  //     query getItemById($id: Int!) {
-  //       item(id: $id) {
-  //         precio {
-  //           precio
-  //           precioMin
-  //         }
-  //       }
-  //     }
-  //   `,
-  //   {
-  //     variables: { id: itemId * 1 },
-  //   }
-  // );
 
   const handleChange = (e) => {
+    setIsError(
+      oldValue => {
+        oldValue.precio[idx] = e.target.value < precioMin;
+        return oldValue
+      }
+    );
     if (e.target.value >= precioMin) {
-      setIsPriceError({
-        ...isPriceError,
-        [idx]: false,
-      });
       dispatch(
         editPrice({
           idx,
@@ -38,10 +24,13 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
         })
       );
     } else {
-      setIsPriceError({
-        ...isPriceError,
-        [idx]: true,
-      });
+      dispatch(
+        editPrice({
+          idx,
+          precio: precioMin,
+          tipo: "venta",
+        })
+      );
     }
   };
 
@@ -49,11 +38,12 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
     <TextField
       id="priceEdit"
       name="price"
-      error={isPriceError[idx]}
-      helperText={isPriceError[idx] ? `min ${precioMin}` : false}
+      error={isError.precio[idx]}
+      helperText={isError.precio[idx] ? `min ${precioMin}` : false}
       type="number"
       onChange={handleChange}
       value={precio}
+      inputProps={{step:'0.01', min:precioMin}}
     />
   );
 }

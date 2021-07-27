@@ -1,12 +1,10 @@
+import { useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editQty } from "../../../../../redux/features/reciboSlice";
-import { useState, useContext } from "react";
-import { IsError } from "../..";
 
 export default function QtyEditField({ itemId, qty, idx }) {
-  const [isQtyError, setIsQtyError] = useContext(IsError);
   const dispatch = useDispatch();
   const [getQty, { loading, data }] = useLazyQuery(
     gql`
@@ -20,13 +18,11 @@ export default function QtyEditField({ itemId, qty, idx }) {
       variables: { id: itemId * 1 },
     }
   );
+  useEffect(() => {
+    getQty()
+  }, [])
 
   const handleChange = (e) => {
-    if (e.target.value <= data?.item.qty) {
-      setIsQtyError({
-        ...isQtyError,
-        [idx]: false,
-      });
       dispatch(
         editQty({
           idx,
@@ -34,27 +30,19 @@ export default function QtyEditField({ itemId, qty, idx }) {
           tipo: "venta",
         })
       );
-    } else {
-      setIsQtyError({
-        ...isQtyError,
-        [idx]: true,
-      });
-    }
     getQty();
-    console.log("handleChage");
   };
 
   if (loading) return "loading";
-  console.log("data", data);
   return (
     <TextField
       id="qtyEdit"
       name="qty"
-      error={isQtyError[idx]}
-      helperText={isQtyError[idx] ? `max ${data?.item.qty}` : false}
+      helperText={data?.item.qty && `max ${ data?.item.qty }`}
       type="number"
       onChange={handleChange}
       value={qty}
+      inputProps={{min:0, max:data?.item.qty}}
     />
   );
 }
