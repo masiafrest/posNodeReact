@@ -75,6 +75,7 @@ const reciboSlice = createSlice({
         (linea) => linea.id !== action.payload.id
       );
       state[tipoRecibo].lineas = newArr;
+      state.venta.subTotal = getSubTotal(state.venta.lineas)
     },
     addTax: (state, action) => {
       state.venta.tax = action.payload;
