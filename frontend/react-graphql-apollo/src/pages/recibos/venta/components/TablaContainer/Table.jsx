@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { round } from "lodash";
 import {
-  IconButton,
   Paper,
   TableRow,
   TableHead,
@@ -12,7 +11,6 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
-import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addSubTotal,
@@ -20,6 +18,7 @@ import {
   addTotal,
 } from "../../../../../redux/features/reciboSlice";
 import QtyEditField from "./QtyEditField";
+import PriceEditField from "./PriceEditField";
 import DelBtn from "./DelBtn";
 
 export default function VentaTable({ items }) {
@@ -44,7 +43,14 @@ export default function VentaTable({ items }) {
         <TableBody>
           {items?.map(
             (
-              { marca, modelo, precio: { precio }, descripcion, qty, id },
+              {
+                marca,
+                modelo,
+                precio: { precio, precioMin },
+                descripcion,
+                qty,
+                id,
+              },
               idx
             ) => (
               <TableRow key={id}>
@@ -56,7 +62,12 @@ export default function VentaTable({ items }) {
                   {marca} {modelo} {descripcion}
                 </TableCell>
                 <TableCell align="right">
-                  {parseFloat(precio).toFixed(2)}
+                  <PriceEditField
+                    itemId={id}
+                    precio={precio}
+                    precioMin={precioMin}
+                    idx={idx}
+                  />
                 </TableCell>
                 <TableCell align="right">
                   {parseFloat(precio * qty).toFixed(2)}
