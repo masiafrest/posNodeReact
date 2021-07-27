@@ -64,14 +64,9 @@ export default function VentaTable({ items }) {
               </TableRow>
             )
           )}
-          <TableRow key="add-item">
+          <TableRow key="separator">
             <TableCell colSpan={4}>
-              <IconButton
-                size="small"
-                // onClick={onClickHandler}
-              >
-                <AddBoxIcon />
-              </IconButton>
+              <hr />
             </TableCell>
           </TableRow>
           <TableRow key="subtotal">
