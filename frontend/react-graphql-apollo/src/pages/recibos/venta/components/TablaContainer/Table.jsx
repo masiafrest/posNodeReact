@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addSubTotal,
   addTax,
   addTotal,
 } from "../../../../../redux/features/reciboSlice";
@@ -25,10 +24,8 @@ export default function VentaTable({ items }) {
   const dispatch = useDispatch();
   const { subTotal, tax, total } = useSelector((state) => state.recibo.venta);
   const [isTax, setIsTax] = useState(true);
-  dispatch(addSubTotal(items));
   dispatch(addTax(isTax ? round((7 / 100) * subTotal, 2) : 0));
   dispatch(addTotal(round(subTotal + tax, 2)));
-  console.log(items)
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">

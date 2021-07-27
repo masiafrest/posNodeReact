@@ -9,7 +9,6 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
 
   const handleChange = (e) => {
     const value = e.target.value
-    console.log(typeof value, value)
     dispatch(
       editPrice({
         idx,

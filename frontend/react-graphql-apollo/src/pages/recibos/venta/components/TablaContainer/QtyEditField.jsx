@@ -25,7 +25,6 @@ export default function QtyEditField({ itemId, qty, idx }) {
   const maxQty = data?.item.qty
   const handleChange = (e) => {
     const value = e.target.value
-    console.log('handle chage qty: ', e.target.value)
     dispatch(
       editQty({
         idx,
