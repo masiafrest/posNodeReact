@@ -29,23 +29,18 @@ const reciboSlice = createSlice({
       state.usuario_id = null;
     },
     addClienteId: (state, action) => {
-      console.log("action.payload", action.payload);
       const { clienteId, reciboTipo } = action.payload;
-      console.log(".......................");
-      console.log(clienteId, reciboTipo);
       if (reciboTipo === "venta") {
-        console.log("---------------------");
         state.venta.clienteId = clienteId;
       }
     },
     editQty: (state, action) => {
-      console.log(action.payload);
       let { qty, tipo, idx } = action.payload;
       state[tipo].lineas[idx].qty = qty;
     },
     editPrice: (state, action) => {
-      console.log(action.payload);
       let { price, tipo, idx } = action.payload;
+      console.log(price)
       if (price < 0) price = 0;
       state[tipo].lineas[idx].precio.precio = price;
     },
@@ -78,8 +73,9 @@ const reciboSlice = createSlice({
       state[tipoRecibo].lineas = newArr;
     },
     addSubTotal: (state, action) => {
-      state.venta.subTotal = action.payload.reduce((total, item) => {
-        return round(item.qty * item.precio.precio + total, 2);
+      const lineas = state.venta.lineas
+      state.venta.subTotal = action.payload.reduce((total, lineas) => {
+        return round(lineas.qty * parseFloat(lineas.precio.precio) + total, 2);
       }, 0);
     },
     addTax: (state, action) => {

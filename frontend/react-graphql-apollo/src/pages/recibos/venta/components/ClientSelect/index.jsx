@@ -7,7 +7,6 @@ import debounce from "lodash/debounce";
 
 export default function ClientSelect() {
   const [searchTerm, setSearchTerm] = useState("");
-  console.log("searchTerm", searchTerm);
   //query to get suggestions
   const { data, loading } = useQuery(GET_CLIENTES, {
     variables: {

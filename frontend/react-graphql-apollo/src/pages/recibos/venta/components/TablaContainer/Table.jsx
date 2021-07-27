@@ -28,7 +28,7 @@ export default function VentaTable({ items }) {
   dispatch(addSubTotal(items));
   dispatch(addTax(isTax ? round((7 / 100) * subTotal, 2) : 0));
   dispatch(addTotal(round(subTotal + tax, 2)));
-
+  console.log(items)
   return (
     <TableContainer component={Paper}>
       <Table style={{ minWidth: 300 }} padding="default" size="small">
@@ -53,15 +53,15 @@ export default function VentaTable({ items }) {
               },
               idx
             ) => (
-              <TableRow key={id}>
-                <TableCell align="left">
+              < TableRow key={id} >
+                <TableCell key={`qty-id-${idx}`} align="left">
                   <DelBtn tipo="venta" id={id} />
                   <QtyEditField itemId={id} qty={qty} idx={idx} />
                 </TableCell>
-                <TableCell align="left">
+                <TableCell key={`qty-descripcion-${idx}`} align="left">
                   {marca} {modelo} {descripcion}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell key={`qty-precio-${idx}`} align="right">
                   <PriceEditField
                     itemId={id}
                     precio={precio}
@@ -69,8 +69,8 @@ export default function VentaTable({ items }) {
                     idx={idx}
                   />
                 </TableCell>
-                <TableCell align="right">
-                  {parseFloat(precio * qty).toFixed(2)}
+                <TableCell key={`qty-total-${idx}`} align="right">
+                  {(precio * qty).toFixed(2)}
                 </TableCell>
               </TableRow>
             )
@@ -108,6 +108,6 @@ export default function VentaTable({ items }) {
           </TableRow>
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer >
   );
 }

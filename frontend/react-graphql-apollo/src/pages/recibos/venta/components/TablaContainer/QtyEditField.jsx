@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { TextField } from "@material-ui/core";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { editQty } from "../../../../../redux/features/reciboSlice";
 
@@ -20,17 +20,19 @@ export default function QtyEditField({ itemId, qty, idx }) {
   );
   useEffect(() => {
     getQty()
-  }, [])
+  }, [data])
 
+  const maxQty = data?.item.qty
   const handleChange = (e) => {
-      dispatch(
-        editQty({
-          idx,
-          qty: e.target.value,
-          tipo: "venta",
-        })
-      );
-    getQty();
+    const value = e.target.value
+    console.log('handle chage qty: ', e.target.value)
+    dispatch(
+      editQty({
+        idx,
+        qty: value > maxQty ? maxQty : value,
+        tipo: "venta",
+      })
+    );
   };
 
   if (loading) return "loading";
@@ -38,11 +40,11 @@ export default function QtyEditField({ itemId, qty, idx }) {
     <TextField
       id="qtyEdit"
       name="qty"
-      helperText={data?.item.qty && `max ${ data?.item.qty }`}
+      helperText={maxQty && `max ${maxQty}`}
       type="number"
       onChange={handleChange}
       value={qty}
-      inputProps={{min:0, max:data?.item.qty}}
+      inputProps={{ min: 0, max: maxQty }}
     />
   );
 }
