@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "dayjs": "^1.10.6",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "notistack": "^1.0.9",

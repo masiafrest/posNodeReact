@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { IsError } from "../../../venta";
+import { Client } from "../../../venta";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
@@ -12,7 +12,7 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
 }) {
-  const [isError, setIsError] = useContext(IsError);
+  const [client, setClient] = useContext(Client);
   const dispath = useDispatch();
   const clientId = useSelector((state) => state.recibo.venta.clienteId);
   const [term, setTerm] = useState(initialTerm);
@@ -28,10 +28,10 @@ export default function SearchField({
       onChange={(_, v) => {
         console.log("searchfield, cliente");
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
-        setIsError({
-          ...isError,
+        setClient({
+          ...v,
           //cliente has id, is selected so false, to disable helpertext
-          cliente: v?.id ? false : true,
+          error: v?.id ? false : true,
         });
       }}
       value={
@@ -43,7 +43,7 @@ export default function SearchField({
         return (
           <TextField
             label="cliente"
-            helperText={isError.cliente && "selecciona un cliente"}
+            helperText={client.error && "selecciona un cliente"}
             {...params}
             // fullWidth={false}
             //search term value
