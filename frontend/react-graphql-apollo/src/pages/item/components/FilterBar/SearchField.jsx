@@ -1,7 +1,6 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
-import { IsError } from '../../../recibos/venta'
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import AddBtn from "../AddBtn";
 import { TextField } from "@material-ui/core";
@@ -12,12 +11,11 @@ export default function SearchField({
   loading,
   initialTerm,
   updateSearchTerm,
-  recibo = false
+  recibo = false,
 }) {
-  const [isError, setIsError] = useContext(IsError);
-  const lineas = useSelector(state => state.recibo.venta.lineas)
+  const lineas = useSelector((state) => state.recibo.venta.lineas);
 
-  console.log('lineas arr', !lineas.length)
+  console.log("lineas arr", !lineas.length);
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
@@ -45,10 +43,7 @@ export default function SearchField({
             onChange={(e) => {
               updateSearchTerm(e.target.value);
               setTerm(e.target.value);
-              console.log('lineas arr', !lineas.length)
-              setIsError(oldValue => oldValue.items = !lineas.length)
             }}
-            helperText={isError.items && 'selecciona un item'}
           />
         );
       }}
