@@ -5,7 +5,7 @@ import SearchItem from "../../item/components/FilterBar";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from "./components/ComponentToPrint";
 import { useSelector } from "react-redux";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 // import { useSnackbar } from "notistack";
 
 export const Client = createContext(null);
