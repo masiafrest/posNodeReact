@@ -4,7 +4,7 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postVenta(parent, args, ctx, info) {
+async function postVenta(parent, args, ctx, info) {
   const { usuarioId, clienteId, credito, subTotal, tax, total, lineas } = args;
 
   const newLines = lineas.map((linea) => {
@@ -16,8 +16,7 @@ function postVenta(parent, args, ctx, info) {
       precio,
     };
   });
-  console.log("venta");
-  return ctx.prisma.venta.create({
+  const venta = await ctx.prisma.venta.create({
     data: {
       usuario: { connect: { id: usuarioId } },
       cliente: { connect: { id: clienteId } },
@@ -29,7 +28,12 @@ function postVenta(parent, args, ctx, info) {
         create: newLines,
       },
     },
+    include: {
+      lineas: true,
+    },
   });
+  console.log(venta);
+  return venta;
 }
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
