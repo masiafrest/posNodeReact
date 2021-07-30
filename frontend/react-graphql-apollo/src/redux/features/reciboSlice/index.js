@@ -16,7 +16,10 @@ const initialState = {
     lineas: [],
   },
 };
-const getSubTotal = (lineas) => lineas.reduce((total, linea) => { return round(linea.qty * linea.precio.precio + total, 2) }, 0)
+const getSubTotal = (lineas) =>
+  lineas.reduce((total, linea) => {
+    return round(linea.qty * linea.precio.precio + total, 2);
+  }, 0);
 const reciboSlice = createSlice({
   name: "recibos",
   initialState,
@@ -37,32 +40,21 @@ const reciboSlice = createSlice({
     editQty: (state, action) => {
       let { qty, tipo, idx } = action.payload;
       state[tipo].lineas[idx].qty = qty;
-      state.venta.subTotal = getSubTotal(state.venta.lineas)
+      state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     editPrice: (state, action) => {
       let { price, tipo, idx } = action.payload;
-      console.log(price)
+      console.log(price);
       if (price < 0) price = 0;
       state[tipo].lineas[idx].precio.precio = price;
       //refrest subtotal
-      state.venta.subTotal = getSubTotal(state.venta.lineas)
+      state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     pushLinea: (state, action) => {
       //TODO: revisar si existe o no el item pusheado, si qty del payload es mayor actualizar la qty
       const tipoRecibo = action.payload.tipo;
-      const hasId = state[tipoRecibo].lineas.some(
-        (linea) => linea.id === action.payload.id
-      );
-      if (hasId) {
-        state[tipoRecibo].lineas.filter((linea, idx) => {
-          if (linea.id === action.payload.id) {
-            state[tipoRecibo].lineas[idx] = action.payload;
-          }
-        });
-      } else {
-        state[tipoRecibo].lineas.push(action.payload);
-      }
-      state.venta.subTotal = getSubTotal(state.venta.lineas)
+      state[tipoRecibo].lineas.push(action.payload);
+      state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     addRecibo: (state, action) => {
       const tipoRecibo = action.payload.tipo;
@@ -75,7 +67,7 @@ const reciboSlice = createSlice({
         (linea) => linea.id !== action.payload.id
       );
       state[tipoRecibo].lineas = newArr;
-      state.venta.subTotal = getSubTotal(state.venta.lineas)
+      state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     addTax: (state, action) => {
       state.venta.tax = action.payload;

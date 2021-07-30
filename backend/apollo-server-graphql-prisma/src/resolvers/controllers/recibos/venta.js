@@ -6,6 +6,17 @@
  */
 function postVenta(parent, args, ctx, info) {
   const { usuarioId, clienteId, credito, subTotal, tax, total, lineas } = args;
+
+  const newLines = lineas.map((linea) => {
+    const { id, descripcion, precio, qty } = linea;
+    return {
+      itemId: id,
+      descripcion: `${descripcion}`,
+      qty,
+      precio,
+    };
+  });
+  console.log("venta");
   return ctx.prisma.venta.create({
     data: {
       usuario: { connect: { id: usuarioId } },
@@ -15,8 +26,7 @@ function postVenta(parent, args, ctx, info) {
       tax,
       total,
       lineas: {
-        // map a new array from the lineas
-        create: [],
+        create: newLines,
       },
     },
   });
@@ -27,11 +37,11 @@ function postVenta(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function venta(parent, args, ctx, info) {
+function ventas(parent, args, ctx, info) {
   return ctx.prisma.venta.findMany();
 }
 
 module.exports = {
-  categorias,
-  postCategoria,
+  ventas,
+  postVenta,
 };

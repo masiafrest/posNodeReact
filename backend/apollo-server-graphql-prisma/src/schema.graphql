@@ -4,6 +4,7 @@ type Query {
   categorias(filter: String, skip: Int, take: Int): [Categoria]
   ubicaciones: [Ubicacion]
   clientes(filter: String, skip: Int, take: Int): [Cliente]
+  ventas: [Venta]
 }
 
 type Mutation {
@@ -59,11 +60,12 @@ type Mutation {
     tax: Float
     total: Float
     lineas: [VentalineaInput]
-  ): Boolean
+  ): Venta
 }
 
 input VentalineaInput {
-  itemId: IdInput
+  id: Int
+  tipo: String
   qty: Int
   precio: Float
   descripcion: String
@@ -161,7 +163,7 @@ type Venta {
   subTotal: Float
   tax: Float
   total: Float
-  lineas: [VentaLinea]
+  lineas: [Item]
 }
 
 type VentaLinea {

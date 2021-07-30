@@ -12,15 +12,12 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addTax,
-  addTotal,
-} from "../../../../../redux/features/reciboSlice";
+import { addTax, addTotal } from "../../../../../redux/features/reciboSlice";
 import QtyEditField from "./QtyEditField";
 import PriceEditField from "./PriceEditField";
 import DelBtn from "./DelBtn";
 
-export default function VentaTable({ items }) {
+export default function VentaTable({ lineas }) {
   const dispatch = useDispatch();
   const { subTotal, tax, total } = useSelector((state) => state.recibo.venta);
   const [isTax, setIsTax] = useState(true);
@@ -38,40 +35,28 @@ export default function VentaTable({ items }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items?.map(
-            (
-              {
-                marca,
-                modelo,
-                precio: { precio, precioMin },
-                descripcion,
-                qty,
-                id,
-              },
-              idx
-            ) => (
-              < TableRow key={id} >
-                <TableCell key={`qty-id-${idx}`} align="left">
-                  <DelBtn tipo="venta" id={id} />
-                  <QtyEditField itemId={id} qty={qty} idx={idx} />
-                </TableCell>
-                <TableCell key={`qty-descripcion-${idx}`} align="left">
-                  {marca} {modelo} {descripcion}
-                </TableCell>
-                <TableCell key={`qty-precio-${idx}`} align="right">
-                  <PriceEditField
-                    itemId={id}
-                    precio={precio}
-                    precioMin={precioMin}
-                    idx={idx}
-                  />
-                </TableCell>
-                <TableCell key={`qty-total-${idx}`} align="right">
-                  {(precio * qty).toFixed(2)}
-                </TableCell>
-              </TableRow>
-            )
-          )}
+          {lineas?.map(({ precio, precioMin, descripcion, qty, id }, idx) => (
+            <TableRow key={id}>
+              <TableCell key={`qty-id-${idx}`} align="left">
+                <DelBtn tipo="venta" id={id} />
+                <QtyEditField itemId={id} qty={qty} idx={idx} />
+              </TableCell>
+              <TableCell key={`qty-descripcion-${idx}`} align="left">
+                {descripcion}
+              </TableCell>
+              <TableCell key={`qty-precio-${idx}`} align="right">
+                <PriceEditField
+                  itemId={id}
+                  precio={precio}
+                  precioMin={precioMin}
+                  idx={idx}
+                />
+              </TableCell>
+              <TableCell key={`qty-total-${idx}`} align="right">
+                {(precio * qty).toFixed(2)}
+              </TableCell>
+            </TableRow>
+          ))}
           <TableRow key="separator">
             <TableCell colSpan={4}>
               <hr />
@@ -105,6 +90,6 @@ export default function VentaTable({ items }) {
           </TableRow>
         </TableBody>
       </Table>
-    </TableContainer >
+    </TableContainer>
   );
 }

@@ -11,11 +11,23 @@ export default function AddBtn({ item, reciboTipo }) {
   return (
     <IconButton
       onClick={() => {
-        const newLinea = { ...item };
-        const hasId = lineas.some((linea) => linea.id === newLinea.id);
+        const {
+          id,
+          marca,
+          modelo,
+          precio: { precio, precioMin },
+          descripcion,
+        } = item;
+        const hasId = lineas.some((linea) => linea.id === id);
         if (!hasId) {
-          newLinea.tipo = reciboTipo;
-          newLinea.qty = 1;
+          const newLinea = {
+            id,
+            tipo: reciboTipo,
+            qty: 1,
+            descripcion: `${marca} ${modelo} ${descripcion}`,
+            precio,
+            precioMin,
+          };
           dispatch(pushLinea(newLinea));
           enqueueSnackbar("item agregado", {
             variant: "success",

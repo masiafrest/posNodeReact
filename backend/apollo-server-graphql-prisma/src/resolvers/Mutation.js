@@ -10,6 +10,7 @@ const {
   updateCategoria,
   delCategoria,
 } = require("./controllers/categoria");
+const { postVenta } = require("./controllers/recibos/venta");
 const { signup, login } = require("./controllers/usuario");
 
 module.exports = {
@@ -23,6 +24,7 @@ module.exports = {
   postCliente,
   updateCliente,
   delCliente,
+  postVenta,
   signup,
   login,
 };
