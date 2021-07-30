@@ -17,7 +17,7 @@ model Cliente {
   telefono  String?
   dirrecion String?
   createdAt DateTime @default(now())
-  venta     Venta?
+  reciboVenta     Venta[]
 }
 
 model Usuario {
@@ -25,7 +25,7 @@ model Usuario {
   nombre    String
   password  String
   rol       Rol      @default(VENDEDOR)
-  venta     Venta?
+  reciboVenta     Venta[]
   createdAt DateTime @default(now())
 }
 
@@ -53,7 +53,7 @@ model Item {
   deleted     Boolean     @default(false)
   search_text String
   // tsvector  Unsupported("tsvector")? @default(dbgenerated())
-  venta       VentaLinea?
+  lineaVenta       VentaLinea[]
 
   // @@index([tsvector])
   @@unique([marca, modelo, barcode])
@@ -88,9 +88,9 @@ model Ubicacion {
 
 model Venta {
   id        Int          @id @default(autoincrement())
-  usuario   Usuario      @relation(fields: [usuarioId], references: [id])
+  usuario   Usuario?      @relation(fields: [usuarioId], references: [id])
   usuarioId Int
-  cliente   Cliente      @relation(fields: [clienteId], references: [id])
+  cliente   Cliente?     @relation(fields: [clienteId], references: [id])
   clienteId Int
   Fecha     DateTime     @default(now())
   credito   Boolean
