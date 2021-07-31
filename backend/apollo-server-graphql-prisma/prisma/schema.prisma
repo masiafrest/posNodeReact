@@ -22,7 +22,7 @@ model Cliente {
 
 model Usuario {
   id        Int      @id @default(autoincrement())
-  nombre    String
+  nombre    String  @unique
   password  String
   rol       Rol      @default(VENDEDOR)
   reciboVenta     Venta[]
