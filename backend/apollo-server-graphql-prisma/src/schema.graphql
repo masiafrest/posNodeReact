@@ -163,10 +163,11 @@ type Venta {
   subTotal: Float
   tax: Float
   total: Float
-  lineas: [Item]
+  lineas: [VentaLinea]
 }
 
 type VentaLinea {
+  id: ID!
   item: Item
   itemId: Int
   qty: Int

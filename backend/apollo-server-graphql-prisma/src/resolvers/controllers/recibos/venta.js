@@ -42,7 +42,13 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function ventas(parent, args, ctx, info) {
-  return ctx.prisma.venta.findMany();
+  return ctx.prisma.venta.findMany({
+    include: {
+      cliente: true,
+      usuario: true,
+      lineas: true,
+    },
+  });
 }
 
 module.exports = {
