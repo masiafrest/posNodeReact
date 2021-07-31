@@ -173,41 +173,46 @@ mutation Login {
 ### recibo venta
 
 ```
-clienteId: '1',
-      credito: false,
-      lineas: [
-        {
-          __typename: 'Item',
-          id: '10',
-          marca: 'xiai',
-          modelo: 'sot',
-          barcode: '21233',
-          sku: 'xioas',
-          descripcion: 'pantalla lcd ol negra',
-          qty: 1,
-          categorias: [
-            {
-              __typename: 'Categoria',
-              id: '1',
-              nombre: 'Lcd'
-            }
-          ],
-          precio: {
-            __typename: 'Precio',
-            precio: 10.1,
-            precioMin: 9
-          },
-          ubicacion: {
-            __typename: 'Ubicacion',
-            id: '1',
-            tipo: 'tienda',
-            dirrecion: 'dorado'
-          },
-          tipo: 'venta'
-        }
-      ],
-      subTotal: 10.1,
-      tax: 0.71,
-      total: 10.81
+mutation PostVenta {
+  postVenta(
+    usuarioId: 1
+    clienteId: 1
+    credito: false
+    lineas: [
+      {
+        id: 12
+        tipo: "venta"
+        qty: 1
+        descripcion: "xiasdi sot pantalla lcd ol negra"
+        precio: 10.1
+      }
+    ]
+    subTotal: 10.1
+    tax: 0.71
+    total: 10.81
+  ) {
+    id
+    lineas {
+      id
+      descripcion
     }
+  }
+}
+
+query GetVentas {
+  ventas {
+    id
+    usuarioId
+    usuario {
+      id
+      nombre
+    }
+    lineas {
+      descripcion
+      qty
+      precio
+    }
+    total
+  }
+}
 ```
