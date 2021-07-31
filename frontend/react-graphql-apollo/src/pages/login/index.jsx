@@ -10,7 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "../../redux/features/userSlice";
-export default function Login() {
+export default function Login(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
