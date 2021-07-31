@@ -26,9 +26,9 @@ const userSlice = createSlice({
       state.loading = false;
     },
     signinSucess: (state, action) => {
+      console.log("state: ", action.payload);
       state.authenticated = true;
-      state.credentials = action.payload.usuario;
-      setAuthorizationHeader(action.payload.token);
+      state.credentials = action.payload;
     },
     signoutSucess: (state) => {
       state = initialState;
@@ -44,7 +44,9 @@ const userSlice = createSlice({
   },
 });
 
-const {
+export const {
+  setAuthenticated,
+  setUserCredential,
   startLoading,
   doneLoading,
   signinSucess,
@@ -52,7 +54,6 @@ const {
   setErrors,
   clearErrors,
 } = userSlice.actions;
-export const { setAuthenticated, setUserCredential } = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -83,5 +84,4 @@ export const signOut = () => (dispatch) => {
 const setAuthorizationHeader = (token) => {
   const tokenStr = `Bearer ${token}`;
   localStorage.setItem("token", tokenStr); // setting token to local storage
-  // axios.defaults.headers.common["Authorization"] = tokenStr; //setting authorize token to header in axios
 };

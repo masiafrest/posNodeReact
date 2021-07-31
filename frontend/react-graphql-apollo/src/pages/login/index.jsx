@@ -10,14 +10,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import { signIn } from "../../redux/features/userSlice";
+import { signinSucess } from "../../redux/features/userSlice";
 
 export default function Login(props) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [login, { data, error, loading }] = useMutation(
+  const [login, { data, loading, error }] = useMutation(
     gql`
-      mutation Login($nombre: String, $password: String) {
+      mutation Login($nombre: String!, $password: String!) {
         login(nombre: $nombre, password: $password) {
           token
           usuario {
@@ -27,18 +26,26 @@ export default function Login(props) {
           }
         }
       }
-    `
+    `,
+    {
+      errorPolicy: "all",
+      onCompleted: ({ login }) => {
+        if (login) {
+          console.log(login);
+          localStorage.setItem("token", login.token);
+          dispatch(signinSucess(login.usuario));
+          props.history.push("/home");
+        }
+      },
+    }
   );
-
   const initialValue = { nombre: "", password: "" };
   const [userData, setUserData] = useState(initialValue);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login({ variables: userData });
-    dispatch(signIn(userData, props.history));
+    // dispatch(signIn(userData, props.history));
   };
 
   const handleChange = (e) => {
@@ -47,6 +54,8 @@ export default function Login(props) {
       [e.target.name]: e.target.value.toLowerCase(),
     }));
   };
+
+  if (loading) return "loading";
 
   return (
     <Container maxWidth="sm" fixed>
@@ -72,7 +81,7 @@ export default function Login(props) {
           fullWidth
           error={error ? true : false}
         />
-        {error && <Typography variant="body2">{error}</Typography>}
+        {error && <Typography variant="body2">{error.message}</Typography>}
         <Button
           type="submit"
           variant="contained"
