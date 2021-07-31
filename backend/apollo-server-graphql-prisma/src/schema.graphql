@@ -103,8 +103,6 @@ type Cliente {
 type Usuario {
   id: ID!
   nombre: String
-  telefono: String
-  dirrecion: String
   createdAt: String
   rol: Rol
 }
