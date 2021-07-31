@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { gql, useMutation } from "@apollo/client";
 
 //MUI
 import Container from "@material-ui/core/Container";
@@ -10,9 +11,24 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "../../redux/features/userSlice";
+
 export default function Login(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [login, { data, error, loading }] = useMutation(
+    gql`
+      mutation Login($nombre: String, $password: String) {
+        login(nombre: $nombre, password: $password) {
+          token
+          usuario {
+            nombre
+            rol
+            id
+          }
+        }
+      }
+    `
+  );
 
   const initialValue = { nombre: "", password: "" };
   const [userData, setUserData] = useState(initialValue);
@@ -32,6 +48,7 @@ export default function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    login({ variables: userData });
     dispatch(signIn(userData, props.history));
   };
 
