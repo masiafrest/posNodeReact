@@ -1,9 +1,4 @@
-const jwt = require("jsonwebtoken");
-const { APP_SECRET } = require("./utils");
-
-const getToken = (userId) => {
-  return jwt.sign({ userId }, APP_SECRET);
-};
+const { APP_SECRET, getToken } = require("./utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
