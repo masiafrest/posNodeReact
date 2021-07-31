@@ -32,19 +32,8 @@ export default function Login(props) {
 
   const initialValue = { nombre: "", password: "" };
   const [userData, setUserData] = useState(initialValue);
-  const [errors, setErrors] = useState({
-    nombre: "",
-    password: "",
-    general: "",
-  });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user.errors) {
-      setErrors(user.errors);
-    }
-    setLoading(user.loading);
-  }, [user.errors, user.loading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,8 +60,7 @@ export default function Login(props) {
           value={userData.nombre}
           onChange={handleChange}
           fullWidth
-          helperText={errors.nombre}
-          error={errors.nombre ? true : false}
+          error={error ? true : false}
         />
         <TextField
           id="password"
@@ -82,12 +70,9 @@ export default function Login(props) {
           value={userData.password}
           onChange={handleChange}
           fullWidth
-          helperText={errors.password}
-          error={errors.password ? true : false}
+          error={error ? true : false}
         />
-        {errors.general && (
-          <Typography variant="body2">{errors.general}</Typography>
-        )}
+        {error && <Typography variant="body2">{error}</Typography>}
         <Button
           type="submit"
           variant="contained"
