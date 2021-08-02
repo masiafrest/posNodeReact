@@ -12,7 +12,7 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  console.log("get items", ctx.userId);
+  console.log("get items", ctx.currentUser);
   const { filter, skip, take } = args;
 
   const searchArr = splitArrBySpace(filter, "item");

@@ -15,7 +15,7 @@ async function signup(parent, { nombre, password, rol }, ctx, info) {
     },
   });
   console.log(user);
-  const token = getToken(user.id);
+  const token = getToken(user);
   return { token, usuario: user };
 }
 
@@ -39,7 +39,7 @@ async function login(parent, { nombre, password }, ctx, info) {
     throw new Error("contraseña incorrecta");
   }
 
-  const token = getToken(user.id);
+  const token = getToken(user);
   return { token, usuario: user };
 }
 

@@ -17,37 +17,26 @@ const splitArrBySpace = (filter, type) => {
   });
 };
 
-const getToken = (userId) => {
-  return jwt.sign({ userId }, APP_SECRET);
+const getToken = (user) => {
+  return jwt.sign(
+    { userId: user.id, userRol: user.rol, userNombre: user.nombre },
+    APP_SECRET
+  );
 };
 
-function getTokenPayload(token) {
-  return jwt.verify(token, APP_SECRET);
-}
-
-function getUserId(req, authToken) {
-  if (req) {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-      const token = authHeader.replace("Bearer ", "");
-      if (!token) {
-        throw new Error("No token found");
-      }
-      const { userId } = getTokenPayload(token);
-      return userId;
-    }
-  } else if (authToken) {
-    const { userId } = getTokenPayload(authToken);
-
-    return userId;
+function tradeTokenForUser(authToken) {
+  const token = authToken.replace("Bearer ", "");
+  if (!token) {
+    console.warn("No token found");
   }
-
-  throw new Error("Not authenticated");
+  const user = jwt.verify(token, APP_SECRET);
+  console.log("user", user);
+  return user;
 }
 
 module.exports = {
   APP_SECRET,
   splitArrBySpace,
   getToken,
-  getUserId,
+  tradeTokenForUser,
 };
