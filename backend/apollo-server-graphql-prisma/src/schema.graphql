@@ -53,7 +53,6 @@ type Mutation {
   delCliente(id: Int): Cliente
 
   postVenta(
-    usuarioId: Int
     clienteId: Int
     credito: Boolean
     subTotal: Float
