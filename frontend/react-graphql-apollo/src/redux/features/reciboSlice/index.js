@@ -16,10 +16,12 @@ const initialState = {
     lineas: [],
   },
 };
+
 const getSubTotal = (lineas) =>
   lineas.reduce((total, linea) => {
-    return round(linea.qty * linea.precio.precio + total, 2);
+    return round(linea.qty * linea.precio + total, 2);
   }, 0);
+
 const reciboSlice = createSlice({
   name: "recibos",
   initialState,
