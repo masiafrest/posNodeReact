@@ -3,7 +3,6 @@ import { round } from "lodash";
 
 //TODO: agregar recibo venta transferencia
 const initialState = {
-  usuario_id: null,
   venta: {
     clienteId: null,
     credito: false,
@@ -27,12 +26,6 @@ const reciboSlice = createSlice({
   initialState,
   reducers: {
     //TODO: add change qty reducer
-    addUserId: (state, action) => {
-      state.usuario_id = action.payload;
-    },
-    delUserId: (state) => {
-      state.usuario_id = null;
-    },
     addClienteId: (state, action) => {
       const { clienteId, reciboTipo } = action.payload;
       if (reciboTipo === "venta") {
@@ -81,8 +74,6 @@ const reciboSlice = createSlice({
 });
 
 export const {
-  addUserId,
-  delUserId,
   addClienteId,
   pushLinea,
   editQty,
