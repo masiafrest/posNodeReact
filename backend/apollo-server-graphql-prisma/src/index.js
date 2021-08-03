@@ -17,7 +17,7 @@ const server = new ApolloServer({
   typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf-8"),
   resolvers,
   context: ({ req }) => {
-    const authToken = req.headers.authorization;
+    const authToken = req.headers.authentication;
     return {
       ...req,
       prisma,

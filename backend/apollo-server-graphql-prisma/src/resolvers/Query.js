@@ -4,18 +4,21 @@ const { clientes } = require("./controllers/cliente");
 const { items, item } = require("./controllers/item");
 const { ventas } = require("./controllers/recibos/venta");
 
-const authenticated = (next) => (root, args, context, info) => {
-  if (!context.currentUser) {
-    throw new Error(`Unauthenticated!`);
-  }
+const { authenticated } = require('./authUtil')
 
-  return next(root, args, context, info);
-};
-module.exports = {
+const queries = {
   items,
   item,
   categorias,
   ubicaciones,
   clientes,
   ventas,
-};
+}
+
+let authQueries = {}
+
+for (query in queries) {
+  authQueries[query] = authenticated(queries[query])
+}
+
+module.exports = authQueries

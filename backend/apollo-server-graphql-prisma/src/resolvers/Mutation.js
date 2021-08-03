@@ -13,7 +13,9 @@ const {
 const { postVenta } = require("./controllers/recibos/venta");
 const { signup, login } = require("./controllers/usuario");
 
-module.exports = {
+const { authenticated } = require('./authUtil')
+
+const mutations = {
   postItem,
   updateItem,
   delItem,
@@ -27,4 +29,12 @@ module.exports = {
   postVenta,
   signup,
   login,
-};
+}
+
+let authMutations = {}
+
+for (mutation in mutations) {
+  authMutations[mutation] = authenticated(mutations[mutation])
+}
+
+module.exports = authMutations
