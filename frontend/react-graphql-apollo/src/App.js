@@ -27,7 +27,7 @@ if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(signOut);
-    window.location.href = "/signin"; //en logOutUser esta esta linea borrar una de las 2?
+    window.location.href = "/login"; //en logOutUser esta esta linea borrar una de las 2?
   } else {
     store.dispatch(setAuthenticated());
     store.dispatch(setUserCredential({ ...decodedToken }));

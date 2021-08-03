@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 //MUI
 import Container from "@material-ui/core/Container";
@@ -13,6 +14,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { signinSucess } from "../../redux/features/userSlice";
 
 export default function Login(props) {
+  const isAuth = useSelector((state) => state.user.authenticated);
+  const history = useHistory();
+  isAuth && history.push("/item");
+  console.log("login");
   const dispatch = useDispatch();
   const [login, { data, loading, error }] = useMutation(
     gql`
