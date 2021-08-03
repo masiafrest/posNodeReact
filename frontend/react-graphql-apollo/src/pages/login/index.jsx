@@ -34,7 +34,7 @@ export default function Login(props) {
           console.log(login);
           localStorage.setItem("token", login.token);
           dispatch(signinSucess(login.usuario));
-          props.history.push("/items");
+          props.history.push("/item");
         }
       },
     }
