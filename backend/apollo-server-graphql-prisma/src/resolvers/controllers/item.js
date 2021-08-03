@@ -25,6 +25,7 @@ async function items(parent, args, ctx, info) {
       categorias: true,
       precio: true,
       ubicacion: true,
+      lineaVenta: true,
     },
     skip,
     take,

@@ -125,6 +125,7 @@ type Item {
   qty: Int
   createdAt: String
   deleted: Boolean
+  lineaVenta: [VentaLinea]
 }
 
 type Categoria {
@@ -164,6 +165,7 @@ type Venta {
 }
 
 type VentaLinea {
+  ventaId: ID
   id: ID!
   item: Item
   itemId: Int

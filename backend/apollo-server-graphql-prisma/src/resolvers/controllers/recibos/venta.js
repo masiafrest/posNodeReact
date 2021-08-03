@@ -5,20 +5,22 @@
  * @param {{ prisma: Prisma }} ctx
  */
 async function postVenta(parent, args, ctx, info) {
-  const { usuarioId, clienteId, credito, subTotal, tax, total, lineas } = args;
+  const { clienteId, credito, subTotal, tax, total, lineas } = args;
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
     return {
-      itemId: id,
+      item: { connect: { id } },
+      // itemd: id,
       descripcion: `${descripcion}`,
       qty,
       precio,
     };
   });
+
   const venta = await ctx.prisma.venta.create({
     data: {
-      usuario: { connect: { id: usuarioId } },
+      usuario: { connect: { id: ctx.currentUser.id } },
       cliente: { connect: { id: clienteId } },
       credito,
       subTotal,
@@ -29,7 +31,9 @@ async function postVenta(parent, args, ctx, info) {
       },
     },
     include: {
-      lineas: true,
+      lineas: {
+        include: { item: true },
+      },
     },
   });
   console.log(venta);
