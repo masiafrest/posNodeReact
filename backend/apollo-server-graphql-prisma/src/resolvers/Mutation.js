@@ -31,10 +31,25 @@ const mutations = {
   login,
 }
 
-let authMutations = {}
+let authMutations = { ...mutations }
 
-for (mutation in mutations) {
-  authMutations[mutation] = authenticated(mutations[mutation])
+const authArr = [
+  'postItem',
+  'updateItem',
+  'delItem',
+  'postCategoria',
+  'updateCategoria',
+  'delCategoria',
+  'postUbicacion',
+  'postCliente',
+  'updateCliente',
+  'delCliente',
+  'postVenta',
+  'signup',
+]
+
+for (e of authArr) {
+  authMutations[e] = authenticated(mutations[e])
 }
 
 module.exports = authMutations

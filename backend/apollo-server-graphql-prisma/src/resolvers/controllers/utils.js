@@ -5,21 +5,21 @@ const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
     return type === "item"
       ? {
-          search_text: {
-            contains: `${e}`.replace("'", ""),
-          },
-        }
+        search_text: {
+          contains: `${e}`.replace("'", ""),
+        },
+      }
       : {
-          nombre: {
-            contains: `${e}`.replace("'", ""),
-          },
-        };
+        nombre: {
+          contains: `${e}`.replace("'", ""),
+        },
+      };
   });
 };
 
 const getToken = (user) => {
   return jwt.sign(
-    { userId: user.id, userRol: user.rol, userNombre: user.nombre },
+    user,
     APP_SECRET
   );
 };
