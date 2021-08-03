@@ -17,7 +17,6 @@ export default function Login(props) {
   const isAuth = useSelector((state) => state.user.authenticated);
   const history = useHistory();
   isAuth && history.push("/item");
-  console.log("login");
   const dispatch = useDispatch();
   const [login, { data, loading, error }] = useMutation(
     gql`

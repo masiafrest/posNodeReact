@@ -26,12 +26,14 @@ const userSlice = createSlice({
       state.loading = false;
     },
     signinSucess: (state, action) => {
-      console.log("state: ", action.payload);
       state.authenticated = true;
       state.credentials = action.payload;
     },
     signoutSucess: (state) => {
-      state = initialState;
+      state.authenticated = false;
+      state.credentials = {};
+      state.errors = null;
+      state.loading = false;
       localStorage.removeItem("token");
     },
     setErrors: (state, action) => {
@@ -57,7 +59,7 @@ export const {
 
 export default userSlice.reducer;
 
-export const signIn = (userData, history) => async (dispatch) => {
+export const signIn = (history) => async (dispatch) => {
   let res;
   try {
     dispatch(clearErrors());
@@ -77,8 +79,7 @@ export const signIn = (userData, history) => async (dispatch) => {
 
 export const signOut = () => (dispatch) => {
   dispatch(signoutSucess());
-  // dispatch(delUserId());
-  window.location.href = "/";
+  window.location.href = "/login";
 };
 
 const setAuthorizationHeader = (token) => {
