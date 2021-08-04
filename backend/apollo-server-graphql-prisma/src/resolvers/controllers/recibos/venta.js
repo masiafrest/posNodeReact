@@ -32,7 +32,9 @@ async function postVenta(parent, args, ctx, info) {
     },
     include: {
       lineas: {
-        include: { item: true },
+        include: {
+          item: true,
+        },
       },
     },
   });
@@ -50,7 +52,11 @@ function ventas(parent, args, ctx, info) {
     include: {
       cliente: true,
       usuario: true,
-      lineas: true,
+      lineas: {
+        include: {
+          item: true,
+        },
+      },
     },
   });
 }
