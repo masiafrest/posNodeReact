@@ -1,8 +1,6 @@
 import { TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../redux/features/reciboSlice";
-import { useContext } from "react";
-import { IsError } from "../..";
 
 export default function PriceEditField({ itemId, precio, precioMin, idx }) {
   const dispatch = useDispatch();

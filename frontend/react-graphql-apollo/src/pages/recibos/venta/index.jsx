@@ -5,7 +5,6 @@ import SearchItem from "../../item/components/FilterBar";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from "./components/ComponentToPrint";
 import { useSelector } from "react-redux";
-import { gql, useMutation } from "@apollo/client";
 // import { useSnackbar } from "notistack";
 
 export const Client = createContext(null);
@@ -22,7 +21,6 @@ export default function Venta() {
     dirrecion: "",
     telefono: "",
   });
-  console.log(client);
   return (
     <>
       <Client.Provider value={client}>
@@ -42,7 +40,7 @@ export default function Venta() {
         tax={tax}
         total={total}
       />
-      <button onClick={() => {}}>guardar</button>
+      <button onClick={() => { }}>guardar</button>
     </>
   );
 }

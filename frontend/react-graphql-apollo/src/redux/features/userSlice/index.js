@@ -66,13 +66,11 @@ export const signIn = (history) => async (dispatch) => {
     dispatch(startLoading());
     // res = await axios.post("auth/signin", userData);
   } catch (err) {
-    console.log(err);
     dispatch(doneLoading());
     dispatch(setErrors(err.response.data));
     return;
   }
   dispatch(signinSucess(res.data));
-  // dispatch(addUserId(res.data.usuario.id));
   dispatch(doneLoading());
   history.push("/");
 };
@@ -80,9 +78,4 @@ export const signIn = (history) => async (dispatch) => {
 export const signOut = () => (dispatch) => {
   dispatch(signoutSucess());
   window.location.href = "/login";
-};
-
-const setAuthorizationHeader = (token) => {
-  const tokenStr = `Bearer ${token}`;
-  localStorage.setItem("token", tokenStr); // setting token to local storage
 };

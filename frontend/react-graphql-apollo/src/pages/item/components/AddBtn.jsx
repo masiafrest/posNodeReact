@@ -7,7 +7,7 @@ import { useSnackbar } from "notistack";
 export default function AddBtn({ item, reciboTipo }) {
   const dispatch = useDispatch();
   const lineas = useSelector((state) => state.recibo.venta.lineas);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
       onClick={() => {

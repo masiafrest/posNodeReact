@@ -26,7 +26,6 @@ export default function SearchField({
         return `${option.nombre} ${option.telefono}`;
       }}
       onChange={(_, v) => {
-        console.log("searchfield, cliente");
         dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
         setClient({
           ...v,

@@ -18,7 +18,7 @@ export default function Login(props) {
   const history = useHistory();
   isAuth && history.push("/item");
   const dispatch = useDispatch();
-  const [login, { data, loading, error }] = useMutation(
+  const [login, { loading, error }] = useMutation(
     gql`
       mutation Login($nombre: String!, $password: String!) {
         login(nombre: $nombre, password: $password) {
@@ -35,7 +35,6 @@ export default function Login(props) {
       errorPolicy: "all",
       onCompleted: ({ login }) => {
         if (login) {
-          console.log(login);
           localStorage.setItem("token", login.token);
           dispatch(signinSucess(login.usuario));
           props.history.push("/item");

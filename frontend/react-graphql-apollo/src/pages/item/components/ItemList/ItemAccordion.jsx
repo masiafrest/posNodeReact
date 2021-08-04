@@ -4,8 +4,6 @@ import DelBtn from "../DelBtn";
 import AddBtn from "../AddBtn";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import DeleteIcon from "@material-ui/icons/Delete";
 import {
   Accordion,
   AccordionSummary,
@@ -13,7 +11,6 @@ import {
   AccordionActions,
   Typography,
   Divider,
-  IconButton,
 } from "@material-ui/core";
 
 export default function ItemAccordion({ item }) {

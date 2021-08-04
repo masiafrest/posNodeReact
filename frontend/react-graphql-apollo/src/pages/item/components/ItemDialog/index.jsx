@@ -21,7 +21,6 @@ export default function ItemEditDialogIcon({ item = null }) {
   const initialItemState = { ubicacion: { id: 1 } };
   const [open, setOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState(initialItemState);
-  console.log(newItem);
 
   const [updateItem] = useMutation(UPDATE_ITEM);
   const [postItem] = useMutation(
@@ -58,7 +57,6 @@ export default function ItemEditDialogIcon({ item = null }) {
   };
 
   const handleOnSubmit = () => {
-    console.log("submit....: ", typeof newItem.marca);
     item
       ? updateItem({ variables: { id: item.id * 1, ...newItem } })
       : postItem({ variables: { ...newItem } });

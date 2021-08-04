@@ -13,9 +13,6 @@ export default function SearchField({
   updateSearchTerm,
   recibo = false,
 }) {
-  const lineas = useSelector((state) => state.recibo.venta.lineas);
-
-  console.log("lineas arr", !lineas.length);
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete

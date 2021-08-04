@@ -61,8 +61,7 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
       }
     }
   `;
-  const { data, loading, error } = useQuery(GET_CATEGORIAS);
-  console.log(data);
+  const { data, loading } = useQuery(GET_CATEGORIAS);
   useEffect(() => {
     if (!loading) {
       let catArr = [];

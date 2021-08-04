@@ -6,7 +6,7 @@ import { useSnackbar } from "notistack";
 
 export default function DelBtn({ tipo, id }) {
   const dispatch = useDispatch();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
       onClick={() => {

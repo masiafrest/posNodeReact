@@ -18,6 +18,7 @@ export default function QtyEditField({ itemId, qty, idx }) {
       variables: { id: itemId * 1 },
     }
   );
+
   useEffect(() => {
     getQty()
   }, [data])
