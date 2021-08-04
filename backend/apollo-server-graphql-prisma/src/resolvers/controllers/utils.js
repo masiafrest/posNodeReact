@@ -5,23 +5,20 @@ const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
     return type === "item"
       ? {
-        search_text: {
-          contains: `${e}`.replace("'", ""),
-        },
-      }
+          search_text: {
+            contains: `${e}`.replace("'", ""),
+          },
+        }
       : {
-        nombre: {
-          contains: `${e}`.replace("'", ""),
-        },
-      };
+          nombre: {
+            contains: `${e}`.replace("'", ""),
+          },
+        };
   });
 };
 
 const getToken = (user) => {
-  return jwt.sign(
-    user,
-    APP_SECRET
-  );
+  return jwt.sign(user, APP_SECRET);
 };
 
 function tradeTokenForUser(authToken) {
@@ -30,7 +27,6 @@ function tradeTokenForUser(authToken) {
     console.warn("No token found");
   }
   const user = jwt.verify(token, APP_SECRET);
-  console.log("user", user);
   return user;
 }
 
