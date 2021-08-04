@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { pushLinea } from '../../../../redux/features/reciboSlice'
+import { pushLinea } from "../../../../redux/features/reciboSlice";
 import AddBtn, { addLinea } from "../AddBtn";
 import { useSnackbar } from "notistack";
 import { TextField } from "@material-ui/core";
@@ -14,35 +14,37 @@ export default function SearchField({
   updateSearchTerm,
   recibo = false,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const lineas = useSelector((state) => state.recibo.venta.lineas);
   const { enqueueSnackbar } = useSnackbar();
   const [term, setTerm] = useState(initialTerm);
-  const updateSearch = (term = '') => {
+  const updateSearch = (term = "") => {
     updateSearchTerm(term);
     setTerm(term);
-  }
+  };
+
+  const handleChange = (event, value, reason) => {
+    console.log(reason);
+    if (reason === "select-option") {
+      if (recibo) {
+        addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
+        updateSearch();
+      } else {
+        const selected = `${value.marca}, ${value.modelo}, ${value.descripcion}`;
+        updateSearch(selected);
+      }
+    }
+    if (reason === "clear") {
+      updateSearch();
+    }
+  };
+
   return (
     <Autocomplete
       // data suggestions return from query
       options={data?.items || []}
       loading={loading} // query loading state
-      onChange={(event, value, reason) => {
-        console.log(reason)
-        if (reason === 'select-option') {
-          if (recibo) {
-            addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, 'venta'
-            )
-            updateSearch()
-          } else {
-            const selected = `${value.marca}, ${value.modelo}, ${value.descripcion}`
-            updateSearch(selected)
-          }
-        }
-        if (reason === 'clear') {
-          updateSearch()
-        }
-      }}
+      onChange={handleChange}
       getOptionLabel={(option) => {
         const label = `${option.marca}, ${option.modelo}, ${option.descripcion}`;
         return label;

@@ -53,20 +53,21 @@ type Mutation {
   delCliente(id: Int): Cliente
 
   postVenta(
-    clienteId: Int
+    clienteId: ID
     credito: Boolean
     subTotal: Float
     tax: Float
     total: Float
-    lineas: [VentalineaInput]
+    lineas: [VentaLineaInput]
   ): Venta
 }
 
-input VentalineaInput {
-  id: Int
+input VentaLineaInput {
+  id: ID
   tipo: String
   qty: Int
   precio: Float
+  precioMin: Float
   descripcion: String
 }
 

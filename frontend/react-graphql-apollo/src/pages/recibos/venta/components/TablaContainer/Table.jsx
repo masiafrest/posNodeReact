@@ -38,7 +38,7 @@ export default function VentaTable({ lineas }) {
           {lineas?.map(({ precio, precioMin, descripcion, qty, id }, idx) => (
             <TableRow key={id}>
               <TableCell key={`qty-id-${idx}`} align="left">
-                <DelBtn tipo="venta" id={id} />
+                <DelBtn tipo="venta" id={id} idx={idx} />
                 <QtyEditField itemId={id} qty={qty} idx={idx} />
               </TableCell>
               <TableCell key={`qty-descripcion-${idx}`} align="left">

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { delLinea } from "../../../../../redux/features/reciboSlice";
 import { useSnackbar } from "notistack";
 
-export default function DelBtn({ tipo, id }) {
+export default function DelBtn({ tipo, id, idx }) {
   const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
 
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function DelBtn({ tipo, id }) {
           variant: "warning",
         });
         setShouldSubmit((oldValue) => {
-          delete oldValue.itemErrors[id];
+          delete oldValue.itemErrors[idx];
           return oldValue;
         });
       }}

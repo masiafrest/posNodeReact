@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
-import { ITEM_DATA } from '../../graphql/query'
+import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
 
 import {
@@ -23,24 +23,21 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [newItem, setNewItem] = React.useState(initialItemState);
 
   const [updateItem] = useMutation(UPDATE_ITEM);
-  const [postItem] = useMutation(
-    POST_ITEM,
-    {
-      update(cache, { data: { postItem } }) {
-        cache.modify({
-          fields: {
-            items(existingItems = []) {
-              const newItemRef = cache.writeFragment({
-                data: postItem,
-                fragment: ITEM_DATA
-              });
-              return [...existingItems, newItemRef]
-            }
-          }
-        })
-      }
-    }
-  );
+  const [postItem] = useMutation(POST_ITEM, {
+    update(cache, { data: { postItem } }) {
+      cache.modify({
+        fields: {
+          items(existingItems = []) {
+            const newItemRef = cache.writeFragment({
+              data: postItem,
+              fragment: ITEM_DATA,
+            });
+            return [...existingItems, newItemRef];
+          },
+        },
+      });
+    },
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
