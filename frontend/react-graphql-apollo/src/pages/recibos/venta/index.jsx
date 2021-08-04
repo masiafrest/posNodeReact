@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { PostVenta } from "./grapql/mutation";
 import { useSnackbar } from "notistack";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 export const ShouldSubmit = createContext(null);
 
@@ -51,7 +52,7 @@ export default function Venta() {
         <SearchItem filter={filter} setFilter={setFilter} recibo={true} />
         <TableContainer />
       </ShouldSubmit.Provider>
-
+      <FormControlLabel control={<Checkbox checked={true} />} label="Credito" />
       <ReactToPrint
         trigger={() => <button>imprimir</button>}
         content={() => componentRef.current}
