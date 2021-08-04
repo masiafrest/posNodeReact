@@ -17,7 +17,7 @@ export default function Venta() {
   const [filter, setFilter] = useState("");
   const shouldSubmit = useState({
     cliente: { error: false, selected: false },
-    itemErrors: {}
+    itemErrors: {},
   });
   return (
     <>
@@ -38,8 +38,9 @@ export default function Venta() {
         tax={tax}
         total={total}
       />
-      {Object.values(shouldSubmit[0].itemErrors).includes(true) && <span>si hay error</span>}
-      <button onClick={() => { }}>guardar</button>
+      {(Object.values(shouldSubmit[0].itemErrors).includes(true) ||
+        !shouldSubmit[0].cliente.selected) && <span>si hay error</span>}
+      <button onClick={() => {}}>guardar</button>
     </>
   );
 }
