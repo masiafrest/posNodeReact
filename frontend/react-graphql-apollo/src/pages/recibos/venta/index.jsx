@@ -54,6 +54,9 @@ export default function Venta() {
     },
     itemErrors: {},
   });
+  const hasError =
+    Object.values(shouldSubmit[0].itemErrors).includes(true) ||
+    !shouldSubmit[0].cliente.selected;
   return (
     <>
       <ShouldSubmit.Provider value={shouldSubmit}>
@@ -73,9 +76,11 @@ export default function Venta() {
         tax={tax}
         total={total}
       />
-      {(Object.values(shouldSubmit[0].itemErrors).includes(true) ||
-        !shouldSubmit[0].cliente.selected) && <span>si hay error</span>}
-      <button onClick={() => postVenta({ variables: { ...venta } })}>
+      {hasError && <span>si hay error</span>}
+      <button
+        disabled={hasError}
+        onClick={() => postVenta({ variables: { ...venta } })}
+      >
         guardar
       </button>
     </>
