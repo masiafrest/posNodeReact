@@ -10,6 +10,7 @@ export default function FilterBar({ take, setTake, setFilter, filter, recibo = f
     variables: {
       filter,
       skip: 0,
+      take: 10
     },
   });
 
@@ -24,16 +25,18 @@ export default function FilterBar({ take, setTake, setFilter, filter, recibo = f
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}
       />
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Typography>items por pagina</Typography>
-        <NativeSelect value={take} onChange={e => {
-          setTake(e.target.value * 1)
-        }}>
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-        </NativeSelect>
-      </div>
+      {recibo ||
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography>items por pagina</Typography>
+          <NativeSelect value={take} onChange={e => {
+            setTake(e.target.value * 1)
+          }}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </NativeSelect>
+        </div>
+      }
     </>
   );
 }

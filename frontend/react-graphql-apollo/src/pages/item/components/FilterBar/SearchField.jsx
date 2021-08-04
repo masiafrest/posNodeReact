@@ -18,21 +18,29 @@ export default function SearchField({
   const lineas = useSelector((state) => state.recibo.venta.lineas);
   const { enqueueSnackbar } = useSnackbar();
   const [term, setTerm] = useState(initialTerm);
+  const updateSearch = (term = '') => {
+    updateSearchTerm(term);
+    setTerm(term);
+  }
   return (
     <Autocomplete
       // data suggestions return from query
       options={data?.items || []}
       loading={loading} // query loading state
       onChange={(event, value, reason) => {
+        console.log(reason)
         if (reason === 'select-option') {
-          addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, 'venta'
-          )
+          if (recibo) {
+            addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, 'venta'
+            )
+            updateSearch()
+          } else {
+            const selected = `${value.marca}, ${value.modelo}, ${value.descripcion}`
+            updateSearch(selected)
+          }
         }
-        console.log('event top value', value)
-        console.log('event top reason', reason)
         if (reason === 'clear') {
-          updateSearchTerm('');
-          setTerm('');
+          updateSearch()
         }
       }}
       getOptionLabel={(option) => {
@@ -42,7 +50,7 @@ export default function SearchField({
       renderOption={(option) => (
         <>
           <span>{option.marca}</span>
-          <AddBtn item={option} reciboTipo="venta" />
+          {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
         </>
       )}
       renderInput={(params) => {
@@ -54,7 +62,6 @@ export default function SearchField({
             value={term} //search term value
             //update search term state on field change
             onChange={(e, v, r) => {
-              console.log('event', e)
               updateSearchTerm(e.target.value);
               setTerm(e.target.value);
             }}
