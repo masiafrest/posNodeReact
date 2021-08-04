@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Client } from "../../../venta";
+import { ShouldSubmit } from "../../../venta";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
@@ -12,7 +12,7 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
 }) {
-  const [client, setClient] = useContext(Client);
+  const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
   const dispath = useDispatch();
   const clientId = useSelector((state) => state.recibo.venta.clienteId);
   const [term, setTerm] = useState(initialTerm);
@@ -25,13 +25,30 @@ export default function SearchField({
       getOptionLabel={(option) => {
         return `${option.nombre} ${option.telefono}`;
       }}
-      onChange={(_, v) => {
-        dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
-        setClient({
-          ...v,
-          //cliente has id, is selected so false, to disable helpertext
-          error: v?.id ? false : true,
-        });
+      onChange={(_, v, r) => {
+        if (r === 'select-option') {
+          dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
+          setShouldSubmit({
+            ...shouldSubmit,
+            //cliente has id, is selected so false, to disable helpertext
+            cliente: {
+              ...v,
+              error: false,
+              selected: true
+            }
+          });
+        } else if (r === 'clear') {
+          dispath(addClienteId({ reciboTipo: "venta", clienteId: null }));
+          setShouldSubmit({
+            ...shouldSubmit,
+            //cliente has id, is selected so false, to disable helpertext
+            cliente: {
+              error: false,
+              selected: false
+            }
+          });
+
+        }
       }}
       value={
         loading
@@ -42,7 +59,7 @@ export default function SearchField({
         return (
           <TextField
             label="cliente"
-            helperText={client.error && "selecciona un cliente"}
+            helperText={shouldSubmit.cliente.selected || "selecciona un cliente"}
             {...params}
             // fullWidth={false}
             //search term value

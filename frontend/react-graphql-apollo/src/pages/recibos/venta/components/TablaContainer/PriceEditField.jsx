@@ -1,8 +1,11 @@
+import { useContext } from "react";
+import { ShouldSubmit } from '../../../venta'
 import { TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../redux/features/reciboSlice";
 
 export default function PriceEditField({ itemId, precio, precioMin, idx }) {
+  const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -10,10 +13,17 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
     dispatch(
       editPrice({
         idx,
-        price: value >= precioMin ? value : precioMin,
+        price: value,
         tipo: "venta",
       })
     );
+    setShouldSubmit({
+      ...shouldSubmit,
+      itemErrors: {
+        ...shouldSubmit.items,
+        [itemId]: !(value >= precioMin)
+      }
+    })
   };
 
   return (

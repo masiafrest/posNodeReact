@@ -7,7 +7,7 @@ import ComponentToPrint from "./components/ComponentToPrint";
 import { useSelector } from "react-redux";
 // import { useSnackbar } from "notistack";
 
-export const Client = createContext(null);
+export const ShouldSubmit = createContext(null);
 
 export default function Venta() {
   const componentRef = useRef();
@@ -15,19 +15,17 @@ export default function Venta() {
     (state) => state.recibo.venta
   );
   const [filter, setFilter] = useState("");
-  const client = useState({
-    error: true,
-    nombre: "",
-    dirrecion: "",
-    telefono: "",
+  const shouldSubmit = useState({
+    cliente: { error: false, selected: false },
+    itemErrors: {}
   });
   return (
     <>
-      <Client.Provider value={client}>
+      <ShouldSubmit.Provider value={shouldSubmit}>
         <ClientSelect />
         <SearchItem filter={filter} setFilter={setFilter} recibo={true} />
         <TableContainer />
-      </Client.Provider>
+      </ShouldSubmit.Provider>
       <ReactToPrint
         trigger={() => <button>imprimir</button>}
         content={() => componentRef.current}
@@ -35,11 +33,12 @@ export default function Venta() {
       <ComponentToPrint
         ref={componentRef}
         lineas={lineas}
-        client={client[0]}
+        client={shouldSubmit[0].cliente}
         subTotal={subTotal}
         tax={tax}
         total={total}
       />
+      {Object.values(shouldSubmit[0].itemErrors).includes(true) && <span>si hay error</span>}
       <button onClick={() => { }}>guardar</button>
     </>
   );

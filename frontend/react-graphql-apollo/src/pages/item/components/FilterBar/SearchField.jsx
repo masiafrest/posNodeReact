@@ -61,7 +61,7 @@ export default function SearchField({
             // fullWidth={false}
             value={term} //search term value
             //update search term state on field change
-            onChange={(e, v, r) => {
+            onChange={(e) => {
               updateSearchTerm(e.target.value);
               setTerm(e.target.value);
             }}
