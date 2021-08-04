@@ -56,7 +56,8 @@ export default function Venta() {
   });
   const hasError =
     Object.values(shouldSubmit[0].itemErrors).includes(true) ||
-    !shouldSubmit[0].cliente.selected;
+    !shouldSubmit[0].cliente.selected ||
+    Object.entries(shouldSubmit[0].itemErrors).length === 0;
   return (
     <>
       <ShouldSubmit.Provider value={shouldSubmit}>
@@ -64,6 +65,7 @@ export default function Venta() {
         <SearchItem filter={filter} setFilter={setFilter} recibo={true} />
         <TableContainer />
       </ShouldSubmit.Provider>
+
       <ReactToPrint
         trigger={() => <button>imprimir</button>}
         content={() => componentRef.current}
