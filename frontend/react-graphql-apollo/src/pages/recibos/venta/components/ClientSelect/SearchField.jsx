@@ -3,7 +3,7 @@ import { ShouldSubmit } from "../../../venta";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { addClienteId } from "../../../../../redux/features/reciboSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import AddClientBtn from "../../../../cliente/components/ClienteDialog";
 
 export default function SearchField({
@@ -14,7 +14,6 @@ export default function SearchField({
 }) {
   const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
   const dispath = useDispatch();
-  const clientId = useSelector((state) => state.recibo.venta.clienteId);
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
@@ -26,7 +25,7 @@ export default function SearchField({
         return `${option.nombre} ${option.telefono}`;
       }}
       onChange={(_, v, r) => {
-        if (r === 'select-option') {
+        if (r === "select-option") {
           dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
           setShouldSubmit({
             ...shouldSubmit,
@@ -34,32 +33,35 @@ export default function SearchField({
             cliente: {
               ...v,
               error: false,
-              selected: true
-            }
+              selected: true,
+            },
           });
-        } else if (r === 'clear') {
+        } else if (r === "clear") {
           dispath(addClienteId({ reciboTipo: "venta", clienteId: null }));
           setShouldSubmit({
             ...shouldSubmit,
             //cliente has id, is selected so false, to disable helpertext
             cliente: {
               error: false,
-              selected: false
-            }
+              selected: false,
+            },
           });
-
         }
       }}
       value={
         loading
           ? null
-          : data?.clientes[data?.clientes.findIndex((e) => e.id === clientId)]
+          : data?.clientes[
+              data?.clientes.findIndex((e) => e.id === shouldSubmit.cliente.id)
+            ]
       }
       renderInput={(params) => {
         return (
           <TextField
             label="cliente"
-            helperText={shouldSubmit.cliente.selected || "selecciona un cliente"}
+            helperText={
+              shouldSubmit.cliente.selected || "selecciona un cliente"
+            }
             {...params}
             // fullWidth={false}
             //search term value
