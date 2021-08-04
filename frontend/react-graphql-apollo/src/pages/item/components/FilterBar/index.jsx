@@ -3,7 +3,7 @@ import { GET_ITEMS } from "../../graphql/query";
 import SearchField from "./SearchField";
 import debounce from "lodash/debounce";
 
-export default function FilterBar({ setTake, setFilter, filter }) {
+export default function FilterBar({ setTake, setFilter, filter, recibo = false }) {
   //query to get suggestions
   const { data, loading } = useQuery(GET_ITEMS, {
     variables: {
@@ -21,6 +21,7 @@ export default function FilterBar({ setTake, setFilter, filter }) {
         data={data} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
+        recibo={recibo}
       />
     </>
   );

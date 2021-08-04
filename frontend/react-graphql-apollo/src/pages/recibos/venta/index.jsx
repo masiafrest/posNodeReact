@@ -25,7 +25,7 @@ export default function Venta() {
     <>
       <Client.Provider value={client}>
         <ClientSelect />
-        <SearchItem filter={filter} setFilter={setFilter} />
+        <SearchItem filter={filter} setFilter={setFilter} recibo={true} />
         <TableContainer />
       </Client.Provider>
       <ReactToPrint

@@ -13,14 +13,6 @@ export default function ItemList({ filter, take }) {
     isNewPage ? pageIndexParams[pageIndexParams.length - 1] : 1
   );
 
-  // const getQueryVariables = (isNewPage, page) => {
-  //   const skip = isNewPage ? (page - 1) * ITEMS_PER_PAGE : 0;
-  //   const take = ITEMS_PER_PAGE;
-  //   const orderBy = { createdAt: "desc" };
-  //   return { take, skip, orderBy };
-  // };
-  // const { skip } = getQueryVariables(isNewPage, page);
-
   const { data, loading, error } = useQuery(GET_ITEMS, {
     variables: { filter, take, skip: isNewPage ? (page - 1) * take : 0 },
   });
