@@ -41,7 +41,7 @@ const reciboSlice = createSlice({
       let { price, tipo, idx } = action.payload;
       console.log(price);
       if (price < 0) price = 0;
-      state[tipo].lineas[idx].precio.precio = price;
+      state[tipo].lineas[idx].precio = price;
       //refrest subtotal
       state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
