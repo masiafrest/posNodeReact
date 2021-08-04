@@ -5,12 +5,12 @@ import FilterBar from "./components/FilterBar";
 
 export default function Item() {
   const [filter, setFilter] = useState("");
-  const [take, setTake] = useState(10);
+  const [take, setTake] = useState(5);
 
   return (
     <>
       <h1 style={{ textAlign: "center" }}>item pages</h1>
-      <FilterBar setTake={setTake} setFilter={setFilter} filter={filter} />
+      <FilterBar take={take} setTake={setTake} setFilter={setFilter} filter={filter} />
       <hr />
       {
         //filtro y barra de busqueda
