@@ -4,7 +4,7 @@ import TableContainer from "./components/TablaContainer";
 import SearchItem from "../../item/components/FilterBar";
 import ReactToPrint from "react-to-print";
 import ComponentToPrint from "./components/ComponentToPrint";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { PostVenta } from "./grapql/mutation";
 import { useSnackbar } from "notistack";
@@ -13,6 +13,7 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 export const ShouldSubmit = createContext(null);
 
 export default function Venta() {
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [postVenta] = useMutation(PostVenta, {
     onCompleted(data) {
@@ -29,7 +30,7 @@ export default function Venta() {
 
   const componentRef = useRef();
   const venta = useSelector((state) => state.recibo.venta);
-  const { subTotal, tax, total, lineas } = venta;
+  const { subTotal, tax, total, lineas, credito } = venta;
   const [filter, setFilter] = useState("");
   const shouldSubmit = useState({
     cliente: {
@@ -52,7 +53,14 @@ export default function Venta() {
         <SearchItem filter={filter} setFilter={setFilter} recibo={true} />
         <TableContainer />
       </ShouldSubmit.Provider>
-      <FormControlLabel control={<Checkbox checked={true} />} label="Credito" />
+      <FormControlLabel
+        control={<Checkbox checked={credito} onChange={() => dispatch()} />}
+        label="Credito"
+      />
+      <FormControlLabel
+        control={<Checkbox checked={!credito} />}
+        label="Contado"
+      />
       <ReactToPrint
         trigger={() => <button>imprimir</button>}
         content={() => componentRef.current}

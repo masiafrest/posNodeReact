@@ -70,6 +70,9 @@ const reciboSlice = createSlice({
     addTotal: (state, action) => {
       state.venta.total = action.payload;
     },
+    toggleCredit: (state) => {
+      state.venta.credito = !state.venta.credito;
+    },
   },
 });
 
