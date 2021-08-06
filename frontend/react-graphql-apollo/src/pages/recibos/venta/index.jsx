@@ -47,7 +47,7 @@ export default function Venta() {
     },
     itemErrors: {},
   });
-
+  const { cliente } = shouldSubmit[0];
   const isClientSelected = !cliente.selected;
   const hasItems = lineas.length === 0;
 

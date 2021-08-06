@@ -84,7 +84,11 @@ export default function ItemEditDialogIcon({ item = null }) {
           {item ? "Actualizar Datos" : "Agregar Datos"}
         </DialogTitle>
         <DialogContent>
-          <DropzoneArea />
+          <DropzoneArea
+            acceptedFiles={["image/*"]}
+            dropzoneText={"Drag and drop an image here or click"}
+            onChange={(files) => console.log("Files:", files)}
+          />
           {[
             {
               name: "marca",
