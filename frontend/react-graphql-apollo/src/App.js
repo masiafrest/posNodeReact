@@ -3,6 +3,7 @@ import "./styles/App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import jwtDecode from "jwt-decode";
+import CloseSnackBar from "./components/CloseSnackBar";
 
 //redux
 import store, { persistor } from "./redux/store";
@@ -14,10 +15,7 @@ import {
   setUserCredential,
 } from "./redux/features/userSlice";
 
-import { IconButton } from '@material-ui/core'
-import CancelIcon from '@material-ui/icons/CancelPresentation';
-
-import AuthRoute from "./components/Navbar/AuthRoute";
+import AuthRoute from "./components/AuthRoute";
 import Login from "./pages/login";
 import NavBar from "./components/Navbar";
 import Item from "./pages/item";
@@ -44,9 +42,10 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <SnackbarProvider maxSnack={2}
-          action={<IconButton>
-            <CancelPresentationIcon />
-          </IconButton>}
+          action={key => (
+            <CloseSnackBar key={key} />
+          )
+          }
         >
           <Router>
             <NavBar />
