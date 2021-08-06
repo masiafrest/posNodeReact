@@ -61,11 +61,11 @@ export default function Venta() {
         <TableContainer />
       </ShouldSubmit.Provider>
       <FormControlLabel
-        control={<Checkbox checked={!credito} onChange={handleCreditoCheckBox} />}
+        control={<Checkbox checked={credito} onChange={handleCreditoCheckBox} />}
         label="Credito"
       />
       <FormControlLabel
-        control={<Checkbox checked={credito} onChange={handleCreditoCheckBox} />}
+        control={<Checkbox checked={!credito} onChange={handleCreditoCheckBox} />}
         label="Contado"
       />
       <ReactToPrint
