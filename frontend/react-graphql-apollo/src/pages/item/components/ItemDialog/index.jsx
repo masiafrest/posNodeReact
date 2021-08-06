@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
+import { DropzoneArea } from "material-ui-dropzone";
 
 import {
   Dialog,
@@ -83,6 +84,7 @@ export default function ItemEditDialogIcon({ item = null }) {
           {item ? "Actualizar Datos" : "Agregar Datos"}
         </DialogTitle>
         <DialogContent>
+          <DropzoneArea />
           {[
             {
               name: "marca",
