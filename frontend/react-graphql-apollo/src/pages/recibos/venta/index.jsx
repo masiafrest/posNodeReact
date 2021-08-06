@@ -8,7 +8,7 @@ import ReactToPrint from "react-to-print";
 import { useSnackbar } from "notistack";
 
 import { useSelector, useDispatch } from "react-redux";
-import { toggleCredit } from '../../../redux/features/reciboSlice'
+import { toggleCredit } from "../../../redux/features/reciboSlice";
 
 import { useMutation } from "@apollo/client";
 import { PostVenta } from "./grapql/mutation";
@@ -48,11 +48,10 @@ export default function Venta() {
     itemErrors: {},
   });
 
-  const { itemErrors, cliente } = shouldSubmit[0]
-  const isClientSelected = !cliente.selected
+  const isClientSelected = !cliente.selected;
   const hasItems = lineas.length === 0;
 
-  const handleCreditoCheckBox = () => dispatch(toggleCredit())
+  const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
     <>
       <ShouldSubmit.Provider value={shouldSubmit}>
@@ -61,11 +60,15 @@ export default function Venta() {
         <TableContainer />
       </ShouldSubmit.Provider>
       <FormControlLabel
-        control={<Checkbox checked={credito} onChange={handleCreditoCheckBox} />}
+        control={
+          <Checkbox checked={credito} onChange={handleCreditoCheckBox} />
+        }
         label="Credito"
       />
       <FormControlLabel
-        control={<Checkbox checked={!credito} onChange={handleCreditoCheckBox} />}
+        control={
+          <Checkbox checked={!credito} onChange={handleCreditoCheckBox} />
+        }
         label="Contado"
       />
       <ReactToPrint
@@ -81,9 +84,9 @@ export default function Venta() {
         total={total}
       />
       <ReactToPrint
-        trigger={() => <button
-          disabled={isClientSelected}
-        >imprimir y guardar</button>}
+        trigger={() => (
+          <button disabled={isClientSelected}>imprimir y guardar</button>
+        )}
         onBeforePrint={() =>
           postVenta({
             variables: { ...venta },
@@ -91,7 +94,7 @@ export default function Venta() {
         }
         content={() => componentRef.current}
       />
-      < button
+      <button
         disabled={isClientSelected}
         onClick={() =>
           postVenta({
@@ -100,7 +103,7 @@ export default function Venta() {
         }
       >
         guardar
-      </button >
+      </button>
       {isClientSelected && <span>por favor selecciona el cliente</span>}
       {hasItems && <span>por favor agrega un item</span>}
     </>

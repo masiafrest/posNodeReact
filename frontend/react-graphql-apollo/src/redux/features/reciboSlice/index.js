@@ -39,7 +39,6 @@ const reciboSlice = createSlice({
     },
     editPrice: (state, action) => {
       let { price, tipo, idx } = action.payload;
-      console.log(price);
       if (price < 0) price = 0;
       state[tipo].lineas[idx].precio = price;
       //refrest subtotal
@@ -57,7 +56,6 @@ const reciboSlice = createSlice({
     },
     delLinea: (state, action) => {
       const tipoRecibo = action.payload.tipo;
-      console.log(action.payload);
       const newArr = state[tipoRecibo].lineas.filter(
         (linea) => linea.id !== action.payload.id
       );
@@ -85,7 +83,7 @@ export const {
   delLinea,
   addTax,
   addTotal,
-  toggleCredit
+  toggleCredit,
 } = reciboSlice.actions;
 
 export default reciboSlice.reducer;
