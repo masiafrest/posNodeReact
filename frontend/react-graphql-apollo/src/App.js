@@ -14,6 +14,9 @@ import {
   setUserCredential,
 } from "./redux/features/userSlice";
 
+import { IconButton } from '@material-ui/core'
+import CancelIcon from '@material-ui/icons/CancelPresentation';
+
 import AuthRoute from "./components/Navbar/AuthRoute";
 import Login from "./pages/login";
 import NavBar from "./components/Navbar";
@@ -40,7 +43,11 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <SnackbarProvider maxSnack={2}>
+        <SnackbarProvider maxSnack={2}
+          action={<IconButton>
+            <CancelPresentationIcon />
+          </IconButton>}
+        >
           <Router>
             <NavBar />
             <Switch>
