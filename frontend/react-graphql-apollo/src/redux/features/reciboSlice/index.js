@@ -85,6 +85,7 @@ export const {
   delLinea,
   addTax,
   addTotal,
+  toggleCredit
 } = reciboSlice.actions;
 
 export default reciboSlice.reducer;

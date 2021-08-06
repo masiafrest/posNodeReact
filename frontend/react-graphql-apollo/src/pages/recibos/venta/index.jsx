@@ -2,12 +2,17 @@ import { useState, createContext, useRef } from "react";
 import ClientSelect from "./components/ClientSelect";
 import TableContainer from "./components/TablaContainer";
 import SearchItem from "../../item/components/FilterBar";
-import ReactToPrint from "react-to-print";
 import ComponentToPrint from "./components/ComponentToPrint";
+
+import ReactToPrint from "react-to-print";
+import { useSnackbar } from "notistack";
+
 import { useSelector, useDispatch } from "react-redux";
+import { toggleCredit } from '../../../redux/features/reciboSlice'
+
 import { useMutation } from "@apollo/client";
 import { PostVenta } from "./grapql/mutation";
-import { useSnackbar } from "notistack";
+
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 export const ShouldSubmit = createContext(null);
@@ -46,6 +51,7 @@ export default function Venta() {
     Object.values(shouldSubmit[0].itemErrors).includes(true) ||
     !shouldSubmit[0].cliente.selected ||
     lineas.length === 0;
+  const handleCreditoCheckBox = () => dispatch(toggleCredit())
   return (
     <>
       <ShouldSubmit.Provider value={shouldSubmit}>
@@ -54,11 +60,11 @@ export default function Venta() {
         <TableContainer />
       </ShouldSubmit.Provider>
       <FormControlLabel
-        control={<Checkbox checked={credito} onChange={() => dispatch()} />}
+        control={<Checkbox checked={!credito} onChange={handleCreditoCheckBox} />}
         label="Credito"
       />
       <FormControlLabel
-        control={<Checkbox checked={!credito} />}
+        control={<Checkbox checked={credito} onChange={handleCreditoCheckBox} />}
         label="Contado"
       />
       <ReactToPrint
