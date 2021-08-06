@@ -25,7 +25,7 @@ export default function FilterBar({ take, setTake, setFilter, filter, recibo = f
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}
       />
-      {recibo ||
+      {!recibo &&
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Typography>items por pagina</Typography>
           <NativeSelect value={take} onChange={e => {

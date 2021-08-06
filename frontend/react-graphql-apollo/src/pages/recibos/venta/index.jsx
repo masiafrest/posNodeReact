@@ -47,10 +47,11 @@ export default function Venta() {
     },
     itemErrors: {},
   });
-  const hasError =
-    Object.values(shouldSubmit[0].itemErrors).includes(true) ||
-    !shouldSubmit[0].cliente.selected ||
-    lineas.length === 0;
+
+  const { itemErrors, cliente } = shouldSubmit[0]
+  const isClientSelected = !cliente.selected
+  const hasItems = lineas.length === 0;
+
   const handleCreditoCheckBox = () => dispatch(toggleCredit())
   return (
     <>
@@ -79,9 +80,19 @@ export default function Venta() {
         tax={tax}
         total={total}
       />
-      {hasError && <span>si hay error</span>}
+      <ReactToPrint
+        trigger={() => <button
+          disabled={isClientSelected}
+          onClick={() =>
+            postVenta({
+              variables: { ...venta },
+            })
+          }
+        >imprimir y guardar</button>}
+        content={() => componentRef.current}
+      />
       <button
-        disabled={hasError}
+        disabled={isClientSelected}
         onClick={() =>
           postVenta({
             variables: { ...venta },
@@ -90,6 +101,8 @@ export default function Venta() {
       >
         guardar
       </button>
+      {isClientSelected && <span>por favor selecciona el cliente</span>}
+      {hasItems && <span>por favor agrega un item</span>}
     </>
   );
 }
