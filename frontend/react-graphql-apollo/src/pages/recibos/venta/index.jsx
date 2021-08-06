@@ -83,15 +83,15 @@ export default function Venta() {
       <ReactToPrint
         trigger={() => <button
           disabled={isClientSelected}
-          onClick={() =>
-            postVenta({
-              variables: { ...venta },
-            })
-          }
         >imprimir y guardar</button>}
+        onBeforePrint={() =>
+          postVenta({
+            variables: { ...venta },
+          })
+        }
         content={() => componentRef.current}
       />
-      <button
+      < button
         disabled={isClientSelected}
         onClick={() =>
           postVenta({
@@ -100,7 +100,7 @@ export default function Venta() {
         }
       >
         guardar
-      </button>
+      </button >
       {isClientSelected && <span>por favor selecciona el cliente</span>}
       {hasItems && <span>por favor agrega un item</span>}
     </>
