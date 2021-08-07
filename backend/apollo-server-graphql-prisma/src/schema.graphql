@@ -1,3 +1,5 @@
+scalar Upload
+
 type Query {
   items(filter: String, skip: Int, take: Int): [Item]
   item(id: Int!): Item
@@ -22,7 +24,9 @@ type Mutation {
     ubicacion: IdInput
     precio: Float
     precioMin: Float
+    file: Upload
   ): Item
+
   updateItem(
     id: Int!
     marca: String
@@ -62,6 +66,12 @@ type Mutation {
   ): Venta
 }
 
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 input VentaLineaInput {
   id: ID
   tipo: String
@@ -69,18 +79,6 @@ input VentaLineaInput {
   precio: Float
   precioMin: Float
   descripcion: String
-}
-
-input ItemInput {
-  marca: String
-  modelo: String
-  barcode: Int
-  sku: String
-  qty: Int
-  descripcion: String
-  categorias: [IdInput]
-  precio: Float
-  precioMin: Float
 }
 
 input IdInput {
@@ -127,6 +125,7 @@ type Item {
   createdAt: String
   deleted: Boolean
   lineaVenta: [VentaLinea]
+  images: [File]
 }
 
 type Categoria {
