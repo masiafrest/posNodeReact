@@ -87,7 +87,10 @@ export default function ItemEditDialogIcon({ item = null }) {
           <DropzoneArea
             acceptedFiles={["image/*"]}
             dropzoneText={"Drag and drop an image here or click"}
-            onChange={(files) => console.log("Files:", files)}
+            onChange={(files) => {
+              console.log("Files:", newItem);
+              setNewItem({ ...newItem, images: files })
+            }}
           />
           {[
             {

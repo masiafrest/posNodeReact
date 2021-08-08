@@ -24,7 +24,7 @@ type Mutation {
     ubicacion: IdInput
     precio: Float
     precioMin: Float
-    file: Upload
+    images: [ Upload ]
   ): Item
 
   updateItem(
