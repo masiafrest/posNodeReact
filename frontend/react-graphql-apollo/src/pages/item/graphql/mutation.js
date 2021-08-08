@@ -13,6 +13,7 @@ export const POST_ITEM = gql`
     $precioMin: Float
     $ubicacion: IdInput
     $categorias: [IdInput]
+    $images: [Upload]
   ) {
     postItem(
       marca: $marca
@@ -25,6 +26,7 @@ export const POST_ITEM = gql`
       precioMin: $precioMin
       categorias: $categorias
       ubicacion: $ubicacion
+      images: $images
     ) {
       ...itemData
     }

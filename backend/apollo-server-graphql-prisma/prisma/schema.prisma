@@ -7,26 +7,26 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialActions"]
 }
 
 model Cliente {
-  id        Int      @id @default(autoincrement())
-  nombre    String?
-  telefono  String?
-  dirrecion String?
-  createdAt DateTime @default(now())
-  reciboVenta     Venta[]
+  id          Int      @id @default(autoincrement())
+  nombre      String?
+  telefono    String?
+  dirrecion   String?
+  createdAt   DateTime @default(now())
+  reciboVenta Venta[]
 }
 
 model Usuario {
-  id        Int      @id @default(autoincrement())
-  nombre    String  @unique
-  password  String
-  rol       Rol      @default(VENDEDOR)
-  reciboVenta     Venta[]
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
+  password    String
+  rol         Rol      @default(VENDEDOR)
+  reciboVenta Venta[]
+  createdAt   DateTime @default(now())
 }
 
 enum Rol {
@@ -35,7 +35,7 @@ enum Rol {
 }
 
 model Item {
-  id          Int         @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   marca       String
   modelo      String
   barcode     Int?
@@ -46,14 +46,15 @@ model Item {
   precio      Precio?
   // precio Precio @relation(fields: [precioId], references: [id])
   // precioId Int
-  ubicacion   Ubicacion   @relation(fields: [ubicacionId], references: [id])
+  ubicacion   Ubicacion    @relation(fields: [ubicacionId], references: [id])
   ubicacionId Int
   categorias  Categoria[]
-  createdAt   DateTime    @default(now())
-  deleted     Boolean     @default(false)
+  createdAt   DateTime     @default(now())
+  deleted     Boolean      @default(false)
   search_text String
+  images      String
   // tsvector  Unsupported("tsvector")? @default(dbgenerated())
-  lineaVenta       VentaLinea[]
+  lineaVenta  VentaLinea[]
 
   // @@index([tsvector])
   @@unique([marca, modelo, barcode])
@@ -88,7 +89,7 @@ model Ubicacion {
 
 model Venta {
   id        Int          @id @default(autoincrement())
-  usuario   Usuario?      @relation(fields: [usuarioId], references: [id])
+  usuario   Usuario?     @relation(fields: [usuarioId], references: [id])
   usuarioId Int
   cliente   Cliente?     @relation(fields: [clienteId], references: [id])
   clienteId Int

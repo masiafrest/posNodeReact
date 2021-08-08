@@ -7,10 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 import {
   ApolloProvider,
   ApolloClient,
-  createHttpLink,
+  // createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { createUploadLink } from 'apollo-upload-client'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
@@ -21,13 +22,20 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-const httpLink = createHttpLink({
+// const httpLink = createHttpLink({
+//   uri: "http://localhost:4000/graphql",
+
+// });
+
+const uploadLink = createUploadLink({
   uri: "http://localhost:4000/graphql",
-});
+
+})
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
+
 });
 
 ReactDOM.render(

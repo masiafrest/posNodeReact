@@ -61,7 +61,7 @@ async function item(_, { id }, ctx, __) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postItem(parent, args, ctx, info) {
+async function postItem(parent, args, ctx, info) {
   const {
     marca,
     modelo,
@@ -73,8 +73,44 @@ function postItem(parent, args, ctx, info) {
     precioMin,
     ubicacion,
     qty,
+    images
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
+  console.log('images', images)
+  const storeUpload = async ({ stream, filename, mimetype }) => {
+    const { createWriteStream, mkdir } = require("fs");
+    mkdir("images", { recursive: true }, (err) => {
+      if (err) throw err;
+    });
+    const path = `images/${filename}`;
+    // Creates an images folder in the root directory
+    // (createWriteStream) writes our file to the images directory
+    return new Promise((resolve, reject) =>
+      stream
+        .pipe(createWriteStream(path))
+        .on("finish", () => resolve(path))
+        .on("error", reject)
+    );
+  };
+  const processUpload = async (upload) => {
+    const { createReadStream, filename, mimetype } = await upload;
+    const stream = createReadStream();
+    const file = await storeUpload({ stream, filename, mimetype });
+    return file;
+  };
+
+  const imagesPromises = images.map(async (image) => {
+    const newImage = await processUpload(image);
+    return newImage
+  })
+
+  let imagesPath =
+    await Promise.all(imagesPromises).then(
+      (res) =>
+        res
+    )
+  console.log('imagesPath: ', imagesPath)
+
   return ctx.prisma.item.create({
     data: {
       marca,
