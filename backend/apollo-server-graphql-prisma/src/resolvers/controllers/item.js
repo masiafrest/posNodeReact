@@ -110,9 +110,11 @@ async function postItem(parent, args, ctx, info) {
         res
     )
   console.log('imagesPath: ', imagesPath)
+  console.log('imagesPath join: ', imagesPath.join(', '))
 
   return ctx.prisma.item.create({
     data: {
+      image_url: imagesPath.join(', '),
       marca,
       modelo,
       barcode,

@@ -15,6 +15,7 @@ import {
 
 export default function ItemAccordion({ item }) {
   const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
+  console.log('item: ', item)
   return (
     <Accordion elevation={14}>
       <AccordionSummary
@@ -31,7 +32,7 @@ export default function ItemAccordion({ item }) {
         <Typography>
           qty: {item.qty}, precio:{item.precio.precio}, ubicacion:
           {item.ubicacion.tipo},{item.ubicacion.dirrecion}, categorias:{" "}
-          {categorias}
+          {categorias}, images: {item.image_url}
         </Typography>
       </AccordionDetails>
       <AccordionActions>
