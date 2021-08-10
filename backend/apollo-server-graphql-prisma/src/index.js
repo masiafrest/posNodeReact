@@ -28,9 +28,9 @@ async function startServer() {
         ...req,
         prisma,
         currentUser: authToken ? tradeTokenForUser(authToken) : null,
-      }
+      };
     },
-  })
+  });
 
   await server.start();
 
@@ -38,6 +38,7 @@ async function startServer() {
 
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
+  app.use(express.static("public"));
 
   server.applyMiddleware({ app });
 

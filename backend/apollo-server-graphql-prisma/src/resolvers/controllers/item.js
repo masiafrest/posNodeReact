@@ -73,16 +73,16 @@ async function postItem(parent, args, ctx, info) {
     precioMin,
     ubicacion,
     qty,
-    images
+    images,
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
-  console.log('images', images)
+  console.log("images", images);
   const storeUpload = async ({ stream, filename, mimetype }) => {
     const { createWriteStream, mkdir } = require("fs");
-    mkdir("images", { recursive: true }, (err) => {
+    mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
-    const path = `images/${filename}`;
+    const path = `public/images/items/${Date.now()}${filename}`;
     // Creates an images folder in the root directory
     // (createWriteStream) writes our file to the images directory
     return new Promise((resolve, reject) =>
@@ -101,20 +101,16 @@ async function postItem(parent, args, ctx, info) {
 
   const imagesPromises = images.map(async (image) => {
     const newImage = await processUpload(image);
-    return newImage
-  })
+    return newImage;
+  });
 
-  let imagesPath =
-    await Promise.all(imagesPromises).then(
-      (res) =>
-        res
-    )
-  console.log('imagesPath: ', imagesPath)
-  console.log('imagesPath join: ', imagesPath.join(', '))
+  let imagesPath = await Promise.all(imagesPromises).then((res) => res);
+  console.log("imagesPath: ", imagesPath);
+  console.log("imagesPath join: ", imagesPath.join(", "));
 
   return ctx.prisma.item.create({
     data: {
-      image_url: imagesPath.join(', '),
+      image_url: imagesPath.join(", "),
       marca,
       modelo,
       barcode,
