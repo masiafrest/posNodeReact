@@ -31,10 +31,11 @@ export default function ItemAccordion({ item }) {
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
+
         <Typography>
           qty: {qty}, precio:{precio}, ubicacion:
           {ubicacion.tipo},{ubicacion.dirrecion}, categorias:{" "}
-          {categorias}, images: {image_url}
+          {categorias}
         </Typography>
       </AccordionDetails>
       <AccordionActions>
