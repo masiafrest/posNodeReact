@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 
 export default function ItemAccordion({ item }) {
+  const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = item
   const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
   console.log('item: ', item)
   return (
@@ -24,21 +25,21 @@ export default function ItemAccordion({ item }) {
         id="panel1a-header"
       >
         <Typography>
-          {item.marca}, {item.modelo}, {item.descripcion}
+          {marca}, {modelo}, {descripcion}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
         <Typography>
-          qty: {item.qty}, precio:{item.precio.precio}, ubicacion:
-          {item.ubicacion.tipo},{item.ubicacion.dirrecion}, categorias:{" "}
-          {categorias}, images: {item.image_url}
+          qty: {qty}, precio:{precio}, ubicacion:
+          {ubicacion.tipo},{ubicacion.dirrecion}, categorias:{" "}
+          {categorias}, images: {image_url}
         </Typography>
       </AccordionDetails>
       <AccordionActions>
         <EditDialogIcon item={item} />
         <AddBtn item={item} reciboTipo="venta" />
-        <DelBtn id={item.id} />
+        <DelBtn id={id} />
       </AccordionActions>
     </Accordion>
   );
