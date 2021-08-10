@@ -2,9 +2,11 @@ import { useState, createContext, useRef } from "react";
 import ClientSelect from "./components/ClientSelect";
 import TableContainer from "./components/TablaContainer";
 import SearchItem from "../../item/components/FilterBar";
-import ComponentToPrint from "./components/ComponentToPrint";
 
+import PrintBtn from "./components/PrintBtn";
+import ComponentToPrint from "./components/ComponentToPrint";
 import ReactToPrint from "react-to-print";
+
 import { useSnackbar } from "notistack";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -71,28 +73,20 @@ export default function Venta() {
         }
         label="Contado"
       />
-      <ReactToPrint
-        trigger={() => <button>imprimir</button>}
-        content={() => componentRef.current}
+      <PrintBtn
+        btnComp={<button>imprimir</button>}
+        cliente={shouldSubmit[0].cliente}
       />
-      <ComponentToPrint
-        ref={componentRef}
-        lineas={lineas}
-        client={shouldSubmit[0].cliente}
-        subTotal={subTotal}
-        tax={tax}
-        total={total}
-      />
-      <ReactToPrint
-        trigger={() => (
+      <PrintBtn
+        btnComp={
           <button disabled={isClientSelected}>imprimir y guardar</button>
-        )}
+        }
         onBeforePrint={() =>
           postVenta({
             variables: { ...venta },
           })
         }
-        content={() => componentRef.current}
+        cliente={shouldSubmit[0].cliente}
       />
       <button
         disabled={isClientSelected}
