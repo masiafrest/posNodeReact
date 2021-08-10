@@ -38,7 +38,15 @@ async function startServer() {
 
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
-  app.use(express.static("public"));
+  // app.use('/uploads', express.static('public'));
+
+  app.get('/upload/item/:image', (req, res, next) => {
+    console.log(req.params.image)
+    const { image } = req.params
+    const pathDir = path.join(__dirname, `../public/images/items/${image}`)
+    console.log('pathDir', pathDir)
+    res.sendFile(pathDir)
+  })
 
   server.applyMiddleware({ app });
 

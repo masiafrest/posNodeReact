@@ -79,7 +79,7 @@ async function postItem(parent, args, ctx, info) {
   console.log("images", images);
   const storeUpload = async ({ stream, filename, mimetype }) => {
     const { createWriteStream, mkdir } = require("fs");
-    mkdir("public/images/items", { recursive: true }, (err) => {
+    await mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
     const path = `public/images/items/${Date.now()}${filename}`;
