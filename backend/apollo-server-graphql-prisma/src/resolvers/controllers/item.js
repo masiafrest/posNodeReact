@@ -82,13 +82,14 @@ async function postItem(parent, args, ctx, info) {
     await mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
-    const path = `public/images/items/${Date.now()}${filename}`;
+    const newFileName = `${Date.now()}${filename}`
+    const path = `public/images/items/${newFileName}`;
     // Creates an images folder in the root directory
     // (createWriteStream) writes our file to the images directory
     return new Promise((resolve, reject) =>
       stream
         .pipe(createWriteStream(path))
-        .on("finish", () => resolve(path))
+        .on("finish", () => resolve(newFileName))
         .on("error", reject)
     );
   };
