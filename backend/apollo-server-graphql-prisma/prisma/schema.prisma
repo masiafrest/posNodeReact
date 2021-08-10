@@ -52,7 +52,6 @@ model Item {
   createdAt   DateTime     @default(now())
   deleted     Boolean      @default(false)
   search_text String
-  images      String?
   // tsvector  Unsupported("tsvector")? @default(dbgenerated())
   lineaVenta  VentaLinea[]
 
