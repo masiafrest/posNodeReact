@@ -74,8 +74,8 @@ export const UPDATE_ITEM = gql`
 `;
 
 export const DEL_ITEM = gql`
-  mutation DelItem($id: Int!) {
-    delItem(id: $id) {
+  mutation DelItem($id: Int!, $paths: [String]) {
+    delItem(id: $id, paths: $paths) {
       id
     }
   }

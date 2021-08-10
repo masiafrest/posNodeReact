@@ -5,15 +5,15 @@ const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
     return type === "item"
       ? {
-          search_text: {
-            contains: `${e}`.replace("'", ""),
-          },
-        }
+        search_text: {
+          contains: `${e}`.replace("'", ""),
+        },
+      }
       : {
-          nombre: {
-            contains: `${e}`.replace("'", ""),
-          },
-        };
+        nombre: {
+          contains: `${e}`.replace("'", ""),
+        },
+      };
   });
 };
 
@@ -30,9 +30,40 @@ function tradeTokenForUser(authToken) {
   return user;
 }
 
+async function delImg(paths) {
+  const fs = require("fs");
+  const path = require("path");
+  let imgPath;
+
+  paths.map((element) => {
+    console.log('element, ', element)
+    imgPath = path.resolve("public/images/items", element);
+    console.log("imgs:, ", imgPath);
+    try {
+      if (fs.existsSync(imgPath)) {
+        console.log("The file exists.");
+        try {
+          fs.unlinkSync(imgPath);
+          //file removed
+          console.log(imgPath, "archivo eliminado");
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        console.log("The file does not exist.");
+        return "The file does not exist."
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+  console.log("delImg");
+}
+
 module.exports = {
   APP_SECRET,
   splitArrBySpace,
   getToken,
   tradeTokenForUser,
+  delImg
 };

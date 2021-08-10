@@ -39,7 +39,7 @@ type Mutation {
     precio: Float
     precioMin: Float
   ): Item
-  delItem(id: Int!): Item
+  delItem(id: Int!, paths: [String]): Item
 
   postCategoria(nombre: String!): Categoria
   updateCategoria(id: Int, nombre: String): Categoria

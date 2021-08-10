@@ -1,4 +1,5 @@
-const { splitArrBySpace } = require("./utils");
+const { splitArrBySpace, delImg } = require("./utils");
+
 const include = {
   categorias: true,
   precio: true,
@@ -214,7 +215,8 @@ async function updateItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function delItem(parent, { id }, ctx, info) {
+function delItem(parent, { id, paths }, ctx, info) {
+  delImg(paths)
   return ctx.prisma.item.delete({
     where: {
       id,
