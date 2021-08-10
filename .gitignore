@@ -4,4 +4,3 @@ migrations
 .env
 docker_data
 build
-public/images
