@@ -12,7 +12,10 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { addTax, addTotal } from "../../../../../redux/features/reciboSlice";
+import {
+  addTax,
+  addTotal,
+} from "../../../../../../../redux/features/reciboSlice";
 import QtyEditField from "./QtyEditField";
 import PriceEditField from "./PriceEditField";
 import DelBtn from "./DelBtn";

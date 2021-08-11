@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { ShouldSubmit } from "../../../venta";
+import { ShouldSubmit } from "../ReciboVenta";
 import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch } from "react-redux";
-import { delLinea } from "../../../../../redux/features/reciboSlice";
+import { delLinea } from "../../../../../../../redux/features/reciboSlice";
 import { useSnackbar } from "notistack";
 
 export default function DelBtn({ tipo, id, idx }) {

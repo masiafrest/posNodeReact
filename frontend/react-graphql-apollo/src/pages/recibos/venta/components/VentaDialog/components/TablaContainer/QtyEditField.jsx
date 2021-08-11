@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { TextField } from "@material-ui/core";
-import { gql, useLazyQuery, } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
-import { editQty } from "../../../../../redux/features/reciboSlice";
+import { editQty } from "../../../../../../../redux/features/reciboSlice";
 
 export default function QtyEditField({ itemId, qty, idx }) {
   const dispatch = useDispatch();
@@ -20,12 +20,12 @@ export default function QtyEditField({ itemId, qty, idx }) {
   );
 
   useEffect(() => {
-    getQty()
-  }, [data])
+    getQty();
+  }, [data]);
 
-  const maxQty = data?.item.qty
+  const maxQty = data?.item.qty;
   const handleChange = (e) => {
-    const value = e.target.value
+    const value = e.target.value;
     dispatch(
       editQty({
         idx,

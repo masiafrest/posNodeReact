@@ -4,7 +4,6 @@ import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
 import { DropzoneArea } from "material-ui-dropzone";
-import { ReactNativeFile } from 'apollo-upload-client';
 
 import {
   Dialog,
@@ -90,7 +89,7 @@ export default function ItemEditDialogIcon({ item = null }) {
             dropzoneText={"Drag and drop an image here or click"}
             onChange={(files) => {
               console.log("Files:", files);
-              setNewItem({ ...newItem, images: files })
+              setNewItem({ ...newItem, images: files });
             }}
           />
           {[
@@ -151,9 +150,12 @@ export default function ItemEditDialogIcon({ item = null }) {
             Cancelar
           </Button>
           <Button onClick={handleOnSubmit} color="primary">
-            {item ? 'Actualizar' : 'Agregar'}
+            {item ? "Actualizar" : "Agregar"}
           </Button>
-          <Button onClick={() => console.log('new item:', newItem)} color="primary">
+          <Button
+            onClick={() => console.log("new item:", newItem)}
+            color="primary"
+          >
             console.log(newItem)
           </Button>
         </DialogActions>

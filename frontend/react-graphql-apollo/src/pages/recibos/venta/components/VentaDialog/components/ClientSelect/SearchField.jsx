@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import { ShouldSubmit } from "../../../venta";
+import { ShouldSubmit } from "../ReciboVenta";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { addClienteId } from "../../../../../redux/features/reciboSlice";
+import { addClienteId } from "../../../../../../../redux/features/reciboSlice";
 import { useDispatch } from "react-redux";
-import AddClientBtn from "../../../../cliente/components/ClienteDialog";
+import AddClientBtn from "../../../../../../cliente/components/ClienteDialog";
 
 export default function SearchField({
   data,

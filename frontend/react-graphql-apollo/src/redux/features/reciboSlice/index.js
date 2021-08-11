@@ -25,6 +25,10 @@ const reciboSlice = createSlice({
   name: "recibos",
   initialState,
   reducers: {
+    resetState: (state, action) => {
+      const { reciboTipo } = action.payload;
+      state[reciboTipo] = initialState.venta;
+    },
     //TODO: add change qty reducer
     addClienteId: (state, action) => {
       const { clienteId, reciboTipo } = action.payload;
@@ -75,6 +79,7 @@ const reciboSlice = createSlice({
 });
 
 export const {
+  resetState,
   addClienteId,
   pushLinea,
   editQty,

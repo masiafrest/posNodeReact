@@ -1,7 +1,7 @@
 import SearchField from "./SearchField";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_CLIENTES } from "../../../../cliente/graphql/query";
+import { GET_CLIENTES } from "../../../../../../cliente/graphql/query";
 import debounce from "lodash/debounce";
 // import { useSelector, useDispatch } from "react-redux";
 
