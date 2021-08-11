@@ -30,7 +30,6 @@ export default function ItemList({ filter, take, view }) {
               view ?
                 <ItemCard item={item} key={`item-${item.id}`} />
                 :
-
                 <ItemAccordion item={item} key={`item-${item.id}`} />
             }
           </Grid>
