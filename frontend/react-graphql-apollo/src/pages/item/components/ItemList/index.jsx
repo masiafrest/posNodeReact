@@ -1,11 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
-import ItemAccordion from "./ItemAccordion";
 import { useHistory } from "react-router-dom";
 import { Container, Grid } from "@material-ui/core";
+import ItemCard from './ItemCard'
+import ItemAccordion from "./ItemAccordion";
 import BtnNextPrevious from "./BtnNextPrevious";
 
-export default function ItemList({ filter, take }) {
+export default function ItemList({ filter, take, view }) {
   const history = useHistory();
   const isNewPage = history.location.pathname.includes("new");
   const pageIndexParams = history.location.pathname.split("/");
@@ -25,7 +26,13 @@ export default function ItemList({ filter, take }) {
       <Grid container spacing={1}>
         {data.items.map((item) => (
           <Grid item key={`item-grid-${item.id}`}>
-            <ItemAccordion item={item} key={`item-${item.id}`} />
+            {
+              view ?
+                <ItemCard item={item} key={`item-${item.id}`} />
+                :
+
+                <ItemAccordion item={item} key={`item-${item.id}`} />
+            }
           </Grid>
         ))}
       </Grid>

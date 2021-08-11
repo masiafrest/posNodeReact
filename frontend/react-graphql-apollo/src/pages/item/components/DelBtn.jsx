@@ -5,7 +5,6 @@ import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function DelBtn({ id, paths }) {
-  console.log('paths:', paths)
   const [delItem, { loading, error }] = useMutation(DEL_ITEM, {
     update(cache, { data: { delItem } }) {
       cache.modify({

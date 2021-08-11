@@ -16,8 +16,9 @@ import {
 export default function ItemAccordion({ item }) {
   const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = item
   const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
-  const imgArr = image_url.split(', ')
-  console.log('item: ', image_url.split(', '))
+  const url = 'http://localhost:4000/upload/item/'
+  const imgArr = image_url.split(', ').map(image => url + image)
+
   return (
     <Accordion elevation={14}>
       <AccordionSummary
@@ -30,8 +31,7 @@ export default function ItemAccordion({ item }) {
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
-      <AccordionDetails>
-
+      <AccordionDetails >
         <Typography>
           qty: {qty}, precio:{precio}, ubicacion:
           {ubicacion.tipo},{ubicacion.dirrecion}, categorias:{" "}
