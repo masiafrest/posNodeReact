@@ -11,7 +11,8 @@ export default function Item() {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>item pages</h1>
-      <FilterBar takeState={takeState}
+      <FilterBar
+        takeState={takeState}
         filterState={filterState}
         viewState={viewState}
       />
@@ -19,7 +20,11 @@ export default function Item() {
       {
         //filtro y barra de busqueda
       }
-      <ItemList filter={filterState[0]} take={takeState[0]} view={viewState[0]} />
+      <ItemList
+        filter={filterState[0]}
+        take={takeState[0]}
+        view={viewState[0]}
+      />
       <CreateItemDialog />
     </>
   );

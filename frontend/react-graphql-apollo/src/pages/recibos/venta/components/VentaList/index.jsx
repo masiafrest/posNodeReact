@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
 import { useHistory } from "react-router-dom";
 import { Container, Grid } from "@material-ui/core";
-import ItemCard from "./ItemCard";
-import ItemAccordion from "./ItemAccordion";
+import VentaCard from "./ItemCard";
+import VentaAccordion from "./ItemAccordion";
 import PaginationBtn from "./PaginationBtn";
 
 export default function ItemList({ filter, take, view }) {
@@ -38,12 +38,12 @@ export default function ItemList({ filter, take, view }) {
         <Grid container>
           {isNewPage && (
             <Grid item>
-              <PaginationBtn isNext={false} page={page} history={history} />
+              <BtnNextPrevious isNext={false} page={page} history={history} />
             </Grid>
           )}
           {data?.items.length >= take && (
             <Grid item>
-              <PaginationBtn isNext={true} page={page} history={history} />
+              <BtnNextPrevious isNext={true} page={page} history={history} />
             </Grid>
           )}
         </Grid>

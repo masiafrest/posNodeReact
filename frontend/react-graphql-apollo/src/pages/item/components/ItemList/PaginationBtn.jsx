@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 
-export default function BtnNextPrevious({ isNext, history, page }) {
+export default function PaginationBtn({ isNext, history, page }) {
   const previousHandler = () => {
     if (page === 2) {
       history.push(`/item`);

@@ -10,3 +10,31 @@ export const GET_CLIENTES = gql`
     }
   }
 `;
+
+export const GET_VENTAS = gql`
+  query getVentas {
+    ventas {
+      id
+      fecha
+      credito
+      subTotal
+      tax
+      total
+      usuario {
+        id
+        nombre
+        rol
+      }
+      cliente {
+        nombre
+        telefono
+        dirrecion
+      }
+      lineas {
+        qty
+        precio
+        descripcion
+      }
+    }
+  }
+`;
