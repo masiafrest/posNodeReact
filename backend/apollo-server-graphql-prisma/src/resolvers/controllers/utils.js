@@ -4,7 +4,6 @@ const APP_SECRET = "secrectWord";
 const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
     const contains = `${e}`.replace("'", "")
-    console.log('splitArrBySpace: ', contains, 'e: ', e)
 
     if (type === 'item') return ({
       search_text: {
