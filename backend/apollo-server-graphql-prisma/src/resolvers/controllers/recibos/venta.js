@@ -59,9 +59,9 @@ async function ventas(parent, args, ctx, info) {
 
   const ventas = await ctx.prisma.venta.findMany({
     where: {
-      cliente: {
-        OR: nombreArr
-      },
+      // cliente: {
+      //   OR: nombreArr 
+      // },
       lineas: {
         some: {
           item: {

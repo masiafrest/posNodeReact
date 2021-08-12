@@ -19,7 +19,7 @@ export default function FilterBar({
     [view, setView] = viewState;
   }
   const [filter, setFilter] = filterState;
-
+  //TODO maybe change searchbar without autocomplete en recibos ventas
   //query to get suggestions
   const { data, loading } = useQuery(GET_VENTAS, {
     variables: {

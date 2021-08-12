@@ -31,7 +31,8 @@ export default function SearchField({
       onChange={handleChange}
       getOptionLabel={({ cliente, lineas }) => {
         const lineasLabel = lineas.map((linea) => linea.descripcion);
-        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel}`;
+        console.log('lineas label:', lineasLabel.join(' '))
+        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel.join(' ')}`;
         return label;
       }}
       renderInput={(params) => {
