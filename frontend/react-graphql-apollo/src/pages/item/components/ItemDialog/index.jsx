@@ -4,6 +4,7 @@ import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
 import { DropzoneArea } from "material-ui-dropzone";
+import { useSnackbar } from "notistack";
 
 import {
   Dialog,
@@ -19,6 +20,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function ItemEditDialogIcon({ item = null }) {
+  const { enqueueSnackbar } = useSnackbar();
   const initialItemState = { ubicacion: { id: 1 } };
   const [open, setOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState(initialItemState);
@@ -36,6 +38,19 @@ export default function ItemEditDialogIcon({ item = null }) {
             return [...existingItems, newItemRef];
           },
         },
+      });
+    },
+    onCompleted(data) {
+      const updatedMsg = `item actualizado`;
+      const addedMsg = `item agregado`;
+      enqueueSnackbar(item ? updatedMsg : addedMsg, {
+        variant: "success",
+      });
+      handleClose();
+    },
+    onError(error) {
+      enqueueSnackbar("hubo un error en server", {
+        variant: "error",
       });
     },
   });
@@ -58,7 +73,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     item
       ? updateItem({ variables: { id: item.id * 1, ...newItem } })
       : postItem({ variables: { ...newItem } });
-    // handleClose();
   };
 
   const handleClose = () => {
@@ -88,7 +102,6 @@ export default function ItemEditDialogIcon({ item = null }) {
             acceptedFiles={["image/*"]}
             dropzoneText={"Drag and drop an image here or click"}
             onChange={(files) => {
-              console.log("Files:", files);
               setNewItem({ ...newItem, images: files });
             }}
           />
