@@ -27,9 +27,9 @@ export default function ItemList({ filter, take, view }) {
         {data.items.map((item) => (
           <Grid item key={`item-grid-${item.id}`}>
             {view ? (
-              <ItemCard item={item} key={`item-${item.id}`} />
+              <VentaCard item={item} key={`item-${item.id}`} />
             ) : (
-              <ItemAccordion item={item} key={`item-${item.id}`} />
+              <VentaAccordion item={item} key={`item-${item.id}`} />
             )}
           </Grid>
         ))}
@@ -38,12 +38,12 @@ export default function ItemList({ filter, take, view }) {
         <Grid container>
           {isNewPage && (
             <Grid item>
-              <BtnNextPrevious isNext={false} page={page} history={history} />
+              <PaginationBtn isNext={false} page={page} history={history} />
             </Grid>
           )}
           {data?.items.length >= take && (
             <Grid item>
-              <BtnNextPrevious isNext={true} page={page} history={history} />
+              <PaginationBtn isNext={true} page={page} history={history} />
             </Grid>
           )}
         </Grid>
