@@ -16,8 +16,7 @@ async function items(parent, args, ctx, info) {
   console.log("get items", ctx.currentUser);
   const { filter, skip, take } = args;
 
-  const searchArr = splitArrBySpace(filter, "item");
-  console.log('item searchArr:', searchArr)
+  const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
   const items = await ctx.prisma.item.findMany({
     where: {
@@ -84,7 +83,7 @@ async function postItem(parent, args, ctx, info) {
     await mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
-    const newFileName = `${Date.now()}${filename}`
+    const newFileName = `${Date.now()}${filename}`;
     const path = `public/images/items/${newFileName}`;
     // Creates an images folder in the root directory
     // (createWriteStream) writes our file to the images directory
@@ -217,7 +216,7 @@ async function updateItem(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function delItem(parent, { id, paths }, ctx, info) {
-  delImg(paths)
+  delImg(paths);
   return ctx.prisma.item.delete({
     where: {
       id,

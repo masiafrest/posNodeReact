@@ -20,7 +20,7 @@ function postCategoria(parent, { nombre }, ctx, info) {
  */
 function categorias(parent, args, ctx, info) {
   const { filter, skip, take } = args;
-  const searchArr = splitArrBySpace(filter);
+  const searchArr = splitArrBySpace(filter, "nombre");
   console.log(searchArr);
   return ctx.prisma.categoria.findMany({
     where: {

@@ -24,8 +24,6 @@ async function startServer() {
     resolvers,
     context: ({ req }) => {
       const authToken = req.headers.authorization;
-      console.log("req.headers:", req.headers);
-      console.log("authToken:", authToken);
       return {
         ...req,
         prisma,

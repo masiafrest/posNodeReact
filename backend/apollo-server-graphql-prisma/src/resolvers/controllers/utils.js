@@ -1,26 +1,12 @@
 const jwt = require("jsonwebtoken");
 const APP_SECRET = "secrectWord";
 
-const splitArrBySpace = (filter, type) => {
-  return filter.split(" ").map((e) => {
-    const contains = `${e}`.replace("'", "");
-
-    if (type === "item")
-      return {
-        search_text: {
-          contains,
-        },
-      };
-
-    if (type === "venta")
-      return {
-        descripcion: {
-          contains,
-        },
-      };
+const splitArrBySpace = (words, key) => {
+  return words.split(" ").map((e) => {
+    const contains = `${e}`.replace(" ", "");
 
     return {
-      nombre: {
+      [key]: {
         contains,
       },
     };
@@ -46,7 +32,6 @@ async function delImg(paths) {
   let imgPath;
 
   paths.map((element) => {
-    console.log("element, ", element);
     imgPath = path.resolve("public/images/items", element);
     console.log("imgs:, ", imgPath);
     try {

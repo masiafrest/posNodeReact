@@ -21,7 +21,7 @@ function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
  */
 function clientes(_, args, ctx) {
   const { filter, skip, take } = args;
-  const searchArr = splitArrBySpace(filter);
+  const searchArr = splitArrBySpace(filter, "nombre");
   console.log(searchArr);
   return ctx.prisma.cliente.findMany({
     where: {

@@ -1,5 +1,3 @@
-const { splitArrBySpace } = require("../utils");
-
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -50,24 +48,43 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  console.log("ventas");
+  console.log("filter venta:", args);
+  const { splitArrBySpace } = require("../utils");
   const { filter, skip, take } = args;
-  const nombreArr = splitArrBySpace(filter);
-  const descriptionArr = splitArrBySpace(filter, "venta");
-  console.log("filter venta:", filter);
-  console.log("Arr:", descriptionArr);
+  const nombreArr = splitArrBySpace(filter, "nombre");
+  const descriptionArr = splitArrBySpace(filter, "descripcion");
+  console.log("nombreArr:", nombreArr);
+  console.log("descriArr:", descriptionArr);
+
+  const hasClient =
+    (await ctx.prisma.venta.count({
+      where: {
+        OR: {
+          cliente: {
+            OR: nombreArr,
+          },
+        },
+      },
+    })) > 0;
+
+  const hasLineas =
+    (await ctx.prisma.venta.count({
+      where: {
+        OR: {
+          lineas: {
+            some: {
+              OR: descriptionArr,
+            },
+          },
+        },
+      },
+    })) > 0;
 
   const ventas = await ctx.prisma.venta.findMany({
     where: {
       OR: {
-        cliente: {
-          OR: nombreArr,
-        },
-        lineas: {
-          some: {
-            OR: descriptionArr,
-          },
-        },
+        cliente: hasClient ? { OR: nombreArr } : {},
+        lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
       },
     },
     include: {
