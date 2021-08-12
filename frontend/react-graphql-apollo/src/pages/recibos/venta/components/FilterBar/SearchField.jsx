@@ -31,18 +31,9 @@ export default function SearchField({
       onChange={handleChange}
       getOptionLabel={({ cliente, lineas }) => {
         const lineasLabel = lineas.map((linea) => linea.descripcion);
-        const label = `
-				${lineasLabel}	
-				${cliente.nombre}
-				${cliente.telefono}
-				`;
+        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel}`;
         return label;
       }}
-      renderOption={(option) => (
-        <>
-          <span>{option.marca}</span>
-        </>
-      )}
       renderInput={(params) => {
         return (
           <TextField

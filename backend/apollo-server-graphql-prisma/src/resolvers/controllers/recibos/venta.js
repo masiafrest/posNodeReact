@@ -42,19 +42,36 @@ async function postVenta(parent, args, ctx, info) {
   });
   return venta;
 }
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function ventas(parent, args, ctx, info) {
+async function ventas(parent, args, ctx, info) {
+  console.log('ventas')
   const { filter, skip, take } = args;
-  const searchArr = splitArrBySpace(filter);
   console.log("filter venta:", filter);
-  console.log(searchArr);
-  return ctx.prisma.venta.findMany({
-    where: {},
+  const searchArr = splitArrBySpace(filter, 'venta')
+  console.log('nombre: ', nombre)
+  console.log('search text: ', search_text)
+
+  return await ctx.prisma.venta.findMany({
+    where: {
+      OR: {
+        cliente: {
+          OR: splitArrBySpace(filter)
+        },
+        // lineas: 
+        //   some: {
+        //     item: {
+        //       OR: splitArrBySpace(filter, 'item')
+        //     }
+        //   }
+        // }
+      },
+    },
     include: {
       cliente: true,
       usuario: true,

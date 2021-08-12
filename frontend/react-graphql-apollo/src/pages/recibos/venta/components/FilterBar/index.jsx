@@ -18,9 +18,7 @@ export default function FilterBar({
     [take, setTake] = takeState;
     [view, setView] = viewState;
   }
-
   const [filter, setFilter] = filterState;
-  console.log(take)
 
   //query to get suggestions
   const { data, loading } = useQuery(GET_VENTAS, {

@@ -3,17 +3,28 @@ const APP_SECRET = "secrectWord";
 
 const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
-    return type === "item"
-      ? {
-        search_text: {
-          contains: `${e}`.replace("'", ""),
-        },
+    const contains = `${e}`.replace("'", "")
+    console.log('splitArrBySpace: ', contains, 'e: ', e)
+
+    if (type === 'item') return ({
+      search_text: {
+        contains
       }
-      : {
-        nombre: {
-          contains: `${e}`.replace("'", ""),
-        },
-      };
+    })
+
+    if (type === 'venta') return ({
+      nombre: {
+        contains
+      },
+      search_text: { contains }
+
+    })
+
+    return {
+      nombre: {
+        contains
+      },
+    };
   });
 };
 

@@ -17,6 +17,7 @@ async function items(parent, args, ctx, info) {
   const { filter, skip, take } = args;
 
   const searchArr = splitArrBySpace(filter, "item");
+  console.log('item searchArr:', searchArr)
   //maybe add sorting, para q aparezcan lo mas vendido primero
   const items = await ctx.prisma.item.findMany({
     where: {
