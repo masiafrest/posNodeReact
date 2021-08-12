@@ -12,8 +12,8 @@ export const GET_CLIENTES = gql`
 `;
 
 export const GET_VENTAS = gql`
-  query getVentas {
-    ventas {
+  query getVentas($filter: String, $take: Int, $skip: Int) {
+    ventas(filter: $filter, take: $take, skip: $skip) {
       id
       fecha
       credito

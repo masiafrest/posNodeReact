@@ -6,7 +6,7 @@ type Query {
   categorias(filter: String, skip: Int, take: Int): [Categoria]
   ubicaciones: [Ubicacion]
   clientes(filter: String, skip: Int, take: Int): [Cliente]
-  ventas: [Venta]
+  ventas(filter: String, skip: Int, take: Int): [Venta]
 }
 
 type Mutation {
@@ -24,7 +24,7 @@ type Mutation {
     ubicacion: IdInput
     precio: Float
     precioMin: Float
-    images: [ Upload ]
+    images: [Upload]
   ): Item
 
   updateItem(

@@ -58,7 +58,8 @@ export default function SearchField({
       renderInput={(params) => {
         return (
           <TextField
-            label="cliente"
+            variant="outlined"
+            label="Buscar cliente"
             helperText={
               shouldSubmit.cliente.selected || "selecciona un cliente"
             }

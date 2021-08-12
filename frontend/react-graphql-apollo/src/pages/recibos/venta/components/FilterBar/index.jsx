@@ -20,6 +20,7 @@ export default function FilterBar({
   }
 
   const [filter, setFilter] = filterState;
+  console.log(take)
 
   //query to get suggestions
   const { data, loading } = useQuery(GET_VENTAS, {
@@ -30,6 +31,7 @@ export default function FilterBar({
     },
   });
 
+  console.log("filter bar, venta, data:", data);
   const setSearchTermDebounced = debounce(setFilter, 500);
 
   return (
@@ -44,7 +46,7 @@ export default function FilterBar({
       {!recibo && (
         <>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Typography>items por pagina</Typography>
+            <Typography>recibos por pagina</Typography>
             <NativeSelect
               value={take}
               onChange={(e) => {

@@ -45,13 +45,26 @@ export default function SearchField({
       options={data?.items || []}
       loading={loading} // query loading state
       onChange={handleChange}
-      getOptionLabel={(option) => {
-        const label = `${option.marca}, ${option.modelo}, ${option.descripcion}`;
+      getOptionLabel={({
+        marca,
+        modelo,
+        descripcion,
+        categorias,
+        precio: { precio },
+        ubicacion,
+        sku,
+        barcode,
+      }) => {
+        const label = `${marca} ${modelo} ${descripcion} ${categorias.nombre} ${ubicacion.tipo} ${ubicacion.dirrecion} ${sku}
+        ${barcode} 
+        `;
         return label;
       }}
       renderOption={(option) => (
         <>
-          <span>{option.marca}</span>
+          <span>
+            {option.marca}, {option.modelo}, {option.descripcion}
+          </span>
           {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
         </>
       )}
@@ -59,6 +72,7 @@ export default function SearchField({
         return (
           <TextField
             {...params}
+            variant="outlined"
             label="buscar Item"
             // fullWidth={false}
             value={term} //search term value

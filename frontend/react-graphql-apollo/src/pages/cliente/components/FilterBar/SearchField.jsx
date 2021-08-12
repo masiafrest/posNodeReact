@@ -23,6 +23,7 @@ export default function SearchField({
           <TextField
             {...params}
             // fullWidth={false}
+            variant="outlined"
             value={term} //search term value
             //update search term state on field change
             onChange={(e) => {

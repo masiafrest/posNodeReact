@@ -1,3 +1,5 @@
+const { splitArrBySpace } = require("../utils");
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -47,7 +49,12 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function ventas(parent, args, ctx, info) {
+  const { filter, skip, take } = args;
+  const searchArr = splitArrBySpace(filter);
+  console.log("filter venta:", filter);
+  console.log(searchArr);
   return ctx.prisma.venta.findMany({
+    where: {},
     include: {
       cliente: true,
       usuario: true,
@@ -57,6 +64,8 @@ function ventas(parent, args, ctx, info) {
         },
       },
     },
+    skip,
+    take,
   });
 }
 

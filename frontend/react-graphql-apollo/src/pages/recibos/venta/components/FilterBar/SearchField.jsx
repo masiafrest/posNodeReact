@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
@@ -13,8 +12,6 @@ export default function SearchField({
   recibo = false,
 }) {
   const dispatch = useDispatch();
-  const lineas = useSelector((state) => state.recibo.venta.lineas);
-  const { enqueueSnackbar } = useSnackbar();
   const [term, setTerm] = useState(initialTerm);
   const updateSearch = (term = "") => {
     updateSearchTerm(term);
@@ -29,11 +26,16 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.items || []}
+      options={data?.ventas || []}
       loading={loading} // query loading state
       onChange={handleChange}
-      getOptionLabel={(option) => {
-        const label = `${option.marca}, ${option.modelo}, ${option.descripcion}`;
+      getOptionLabel={({ cliente, lineas }) => {
+        const lineasLabel = lineas.map((linea) => linea.descripcion);
+        const label = `
+				${lineasLabel}	
+				${cliente.nombre}
+				${cliente.telefono}
+				`;
         return label;
       }}
       renderOption={(option) => (
@@ -45,7 +47,8 @@ export default function SearchField({
         return (
           <TextField
             {...params}
-            label="buscar Item"
+            variant="outlined"
+            label="buscar recibo "
             // fullWidth={false}
             value={term} //search term value
             //update search term state on field change
