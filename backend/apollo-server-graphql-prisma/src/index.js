@@ -1,8 +1,8 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
+
 const { PrismaClient } = require("@prisma/client");
-const { finished } = require("stream/promises");
 
 const fs = require("fs");
 const path = require("path");
@@ -24,6 +24,8 @@ async function startServer() {
     resolvers,
     context: ({ req }) => {
       const authToken = req.headers.authorization;
+      console.log("req.headers:", req.headers);
+      console.log("authToken:", authToken);
       return {
         ...req,
         prisma,
@@ -40,13 +42,13 @@ async function startServer() {
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
   // app.use('/uploads', express.static('public'));
 
-  app.get('/upload/item/:image', (req, res, next) => {
-    console.log(req.params.image)
-    const { image } = req.params
-    const pathDir = path.join(__dirname, `../public/images/items/${image}`)
-    console.log('pathDir', pathDir)
-    res.sendFile(pathDir)
-  })
+  app.get("/upload/item/:image", (req, res, next) => {
+    console.log(req.params.image);
+    const { image } = req.params;
+    const pathDir = path.join(__dirname, `../public/images/items/${image}`);
+    console.log("pathDir", pathDir);
+    res.sendFile(pathDir);
+  });
 
   server.applyMiddleware({ app });
 

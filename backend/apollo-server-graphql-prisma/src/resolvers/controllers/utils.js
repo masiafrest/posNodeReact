@@ -3,25 +3,25 @@ const APP_SECRET = "secrectWord";
 
 const splitArrBySpace = (filter, type) => {
   return filter.split(" ").map((e) => {
-    const contains = `${e}`.replace("'", "")
+    const contains = `${e}`.replace("'", "");
 
-    if (type === 'item') return ({
-      search_text: {
-        contains
-      }
-    })
+    if (type === "item")
+      return {
+        search_text: {
+          contains,
+        },
+      };
 
-    if (type === 'venta') return ({
-      nombre: {
-        contains
-      },
-      search_text: { contains }
-
-    })
+    if (type === "venta")
+      return {
+        descripcion: {
+          contains,
+        },
+      };
 
     return {
       nombre: {
-        contains
+        contains,
       },
     };
   });
@@ -32,12 +32,12 @@ const getToken = (user) => {
 };
 
 function tradeTokenForUser(authToken) {
-  const token = authToken.replace("Bearer ", "");
+  const splitedAuthToken = authToken.split(" ");
+  const token = splitedAuthToken[1];
   if (!token) {
     console.warn("No token found");
   }
-  const user = jwt.verify(token, APP_SECRET);
-  return user;
+  return jwt.verify(token, APP_SECRET);
 }
 
 async function delImg(paths) {
@@ -46,7 +46,7 @@ async function delImg(paths) {
   let imgPath;
 
   paths.map((element) => {
-    console.log('element, ', element)
+    console.log("element, ", element);
     imgPath = path.resolve("public/images/items", element);
     console.log("imgs:, ", imgPath);
     try {
@@ -61,7 +61,7 @@ async function delImg(paths) {
         }
       } else {
         console.log("The file does not exist.");
-        return "The file does not exist."
+        return "The file does not exist.";
       }
     } catch (err) {
       console.error(err);
@@ -75,5 +75,5 @@ module.exports = {
   splitArrBySpace,
   getToken,
   tradeTokenForUser,
-  delImg
+  delImg,
 };

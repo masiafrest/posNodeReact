@@ -1,0 +1,20 @@
+{
+  "name": "pos-node-react",
+  "version": "1.0.0",
+  "description": "pos and inventory",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd frontend/react-graphql-apollo && npm run start",
+    "dev": "cd backend/apollo-server-graphql-prisma && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/masiafrest/posNodeReact.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masiafrest/posNodeReact/issues"
+  },
+  "homepage": "https://github.com/masiafrest/posNodeReact#readme"
+}

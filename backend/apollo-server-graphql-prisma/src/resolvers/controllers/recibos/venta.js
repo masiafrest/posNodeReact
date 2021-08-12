@@ -50,25 +50,25 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  console.log('ventas')
+  console.log("ventas");
   const { filter, skip, take } = args;
-  const nombreArr = splitArrBySpace(filter)
-  const searchTextArr = splitArrBySpace(filter, 'item')
+  const nombreArr = splitArrBySpace(filter);
+  const descriptionArr = splitArrBySpace(filter, "venta");
   console.log("filter venta:", filter);
-  console.log('searchTextArr:', searchTextArr)
+  console.log("Arr:", descriptionArr);
 
   const ventas = await ctx.prisma.venta.findMany({
     where: {
-      // cliente: {
-      //   OR: nombreArr 
-      // },
-      lineas: {
-        some: {
-          item: {
-            OR: searchTextArr
-          }
-        }
-      }
+      OR: {
+        cliente: {
+          OR: nombreArr,
+        },
+        lineas: {
+          some: {
+            OR: descriptionArr,
+          },
+        },
+      },
     },
     include: {
       cliente: true,
@@ -83,7 +83,7 @@ async function ventas(parent, args, ctx, info) {
     take,
   });
 
-  return ventas
+  return ventas;
 }
 
 module.exports = {
