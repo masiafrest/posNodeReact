@@ -80,13 +80,15 @@ async function ventas(parent, args, ctx, info) {
       },
     })) > 0;
 
-  const ventas = await ctx.prisma.venta.findMany({
-    where: {
-      OR: {
-        cliente: hasClient ? { OR: nombreArr } : {},
-        lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
-      },
+  const where = {
+    OR: {
+      cliente: hasClient ? { OR: nombreArr } : {},
+      lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
     },
+  };
+
+  const ventas = await ctx.prisma.venta.findMany({
+    where,
     include: {
       cliente: true,
       usuario: true,
@@ -100,7 +102,11 @@ async function ventas(parent, args, ctx, info) {
     take,
   });
 
-  return ventas;
+  const count = await ctx.prisma.venta.findMany({
+    where,
+  });
+
+  return { ventas, count };
 }
 
 module.exports = {
