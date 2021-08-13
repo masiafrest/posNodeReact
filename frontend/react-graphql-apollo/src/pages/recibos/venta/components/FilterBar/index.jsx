@@ -36,7 +36,7 @@ export default function FilterBar({
     <>
       <SearchField
         loading={loading}
-        data={data} // search suggestions returned
+        data={data?.ventas?.ventas || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}

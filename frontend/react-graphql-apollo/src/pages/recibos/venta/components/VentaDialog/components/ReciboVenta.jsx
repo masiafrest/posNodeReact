@@ -14,6 +14,7 @@ import {
 } from "../../../../../../redux/features/reciboSlice";
 
 import { useMutation } from "@apollo/client";
+import { VENTA_DATA } from "../../../grapql/query";
 import { PostVenta } from "../../../grapql/mutation";
 
 import { Checkbox, FormControlLabel } from "@material-ui/core";
@@ -24,6 +25,19 @@ export default function ReciboVenta({ closeDialog }) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [postVenta] = useMutation(PostVenta, {
+    update(cache, { data: { postVenta } }) {
+      cache.modify({
+        fields: {
+          items(existingItems = []) {
+            const newItemRef = cache.writeFragment({
+              data: postVenta,
+              fragment: VENTA_DATA,
+            });
+            return [...existingItems.ventas, newItemRef];
+          },
+        },
+      });
+    },
     onCompleted(data) {
       enqueueSnackbar(`recibo añadido`, {
         variant: "success",

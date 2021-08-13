@@ -49,7 +49,7 @@ export default function ItemEditDialogIcon({ item = null }) {
       handleClose();
     },
     onError(error) {
-      console.log(error)
+      console.log(error);
       enqueueSnackbar("hubo un error en server", {
         variant: "error",
       });

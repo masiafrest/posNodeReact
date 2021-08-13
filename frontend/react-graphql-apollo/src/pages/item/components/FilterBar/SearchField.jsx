@@ -42,7 +42,7 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.items || []}
+      options={data}
       loading={loading} // query loading state
       onChange={handleChange}
       getOptionLabel={({

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import VentaDialog from "./components/VentaDialog";
 // import VentaList from "./components/VentaList";
 import FilterBar from "./components/FilterBar/index.jsx";
@@ -7,6 +7,7 @@ export default function Venta() {
   const filterState = useState("");
   const takeState = useState(5);
   const viewState = useState(false);
+  const pageState = useState(1);
 
   return (
     <>

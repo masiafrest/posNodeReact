@@ -26,13 +26,15 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.ventas || []}
+      options={data}
       loading={loading} // query loading state
       onChange={handleChange}
       getOptionLabel={({ cliente, lineas }) => {
         const lineasLabel = lineas.map((linea) => linea.descripcion);
-        console.log('lineas label:', lineasLabel.join(' '))
-        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel.join(' ')}`;
+        console.log("lineas label:", lineasLabel.join(" "));
+        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel.join(
+          " "
+        )}`;
         return label;
       }}
       renderInput={(params) => {

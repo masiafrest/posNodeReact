@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { FilterBarState } from '../../'
 import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
 import SearchField from "./SearchField";
@@ -9,14 +8,13 @@ import { NativeSelect, Typography, Switch, Grid } from "@material-ui/core";
 import CardViewIcon from "@material-ui/icons/ViewModule";
 import PaperViewIcon from "@material-ui/icons/Dehaze";
 
-export default function FilterBar({
-  recibo = false,
-}) {
-  const { pageState: [page, setPage],
+export default function FilterBar({ context, recibo = false }) {
+  const {
+    pageState: [page, setPage],
     filterState: [filter, setFilter],
     takeState: [take, setTake],
-    viewState: [view, setView]
-  } = useContext(FilterBarState)
+    viewState: [view, setView],
+  } = useContext(context);
 
   //query to get suggestions
   const { data, loading } = useQuery(GET_ITEMS, {
@@ -33,7 +31,7 @@ export default function FilterBar({
     <>
       <SearchField
         loading={loading}
-        data={data} // search suggestions returned
+        data={data?.items?.items || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}
@@ -46,7 +44,7 @@ export default function FilterBar({
               value={take}
               onChange={(e) => {
                 setTake(e.target.value * 1);
-                setPage(1)
+                setPage(1);
               }}
             >
               <option value={5}>5</option>
