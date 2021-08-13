@@ -1,4 +1,3 @@
-import { useState, createContext } from "react";
 import PagesLayout from "../../components/PagesLayout";
 
 import FilterBar from "./components/FilterBar";
