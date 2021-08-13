@@ -18,10 +18,13 @@ async function items(parent, args, ctx, info) {
 
   const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
+
+  const where = {
+    OR: searchArr,
+  }
+
   const items = await ctx.prisma.item.findMany({
-    where: {
-      OR: searchArr,
-    },
+    where,
     include: {
       categorias: true,
       precio: true,
@@ -30,10 +33,15 @@ async function items(parent, args, ctx, info) {
     },
     skip,
     take,
+
   });
 
+  const count = await ctx.prisma.item.count({
+    where
+  })
+
   // console.log("items: ", items);
-  return items;
+  return { items, count };
 }
 
 /**

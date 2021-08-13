@@ -1,12 +1,17 @@
 scalar Upload
 
 type Query {
-  items(filter: String, skip: Int, take: Int): [Item]
+  items(filter: String, skip: Int, take: Int): ItemQuery 
   item(id: Int!): Item
   categorias(filter: String, skip: Int, take: Int): [Categoria]
   ubicaciones: [Ubicacion]
   clientes(filter: String, skip: Int, take: Int): [Cliente]
   ventas(filter: String, skip: Int, take: Int): [Venta]
+}
+
+type ItemQuery {
+  items: [Item]
+  count: Int
 }
 
 type Mutation {
