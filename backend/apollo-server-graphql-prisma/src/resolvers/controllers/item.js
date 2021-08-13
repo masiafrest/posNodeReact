@@ -13,7 +13,7 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  console.log("get items", ctx.currentUser);
+  console.log("get items", args);
   const { filter, skip, take } = args;
 
   const searchArr = splitArrBySpace(filter, "search_text");
@@ -40,7 +40,6 @@ async function items(parent, args, ctx, info) {
     where
   })
 
-  // console.log("items: ", items);
   return { items, count };
 }
 
@@ -85,7 +84,7 @@ async function postItem(parent, args, ctx, info) {
     images,
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
-  console.log("images", images);
+
   const storeUpload = async ({ stream, filename, mimetype }) => {
     const { createWriteStream, mkdir } = require("fs");
     await mkdir("public/images/items", { recursive: true }, (err) => {
@@ -115,10 +114,8 @@ async function postItem(parent, args, ctx, info) {
   });
 
   let imagesPath = await Promise.all(imagesPromises).then((res) => res);
-  console.log("imagesPath: ", imagesPath);
-  console.log("imagesPath join: ", imagesPath.join(", "));
 
-  return ctx.prisma.item.create({
+  return await ctx.prisma.item.create({
     data: {
       image_url: imagesPath.join(", "),
       marca,

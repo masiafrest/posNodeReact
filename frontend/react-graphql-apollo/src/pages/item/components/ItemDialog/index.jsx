@@ -35,7 +35,7 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
-            return [...existingItems, newItemRef];
+            return [...existingItems.items, newItemRef];
           },
         },
       });
