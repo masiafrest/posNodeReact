@@ -12,13 +12,13 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
 }) {
-  const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
+  const { shouldSubmit: [shouldSubmit, setShouldSubmit] } = useContext(ShouldSubmit);
   const dispath = useDispatch();
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.clientes || []}
+      options={data}
       // query loading state
       loading={loading}
       getOptionLabel={(option) => {
@@ -51,9 +51,9 @@ export default function SearchField({
       value={
         loading
           ? null
-          : data?.clientes[
-              data?.clientes.findIndex((e) => e.id === shouldSubmit.cliente.id)
-            ]
+          : data[
+          data.findIndex((e) => e.id === shouldSubmit.cliente.id)
+          ]
       }
       renderInput={(params) => {
         return (

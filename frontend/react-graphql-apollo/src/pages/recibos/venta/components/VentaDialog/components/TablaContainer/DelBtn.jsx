@@ -7,7 +7,7 @@ import { delLinea } from "../../../../../../../redux/features/reciboSlice";
 import { useSnackbar } from "notistack";
 
 export default function DelBtn({ tipo, id, idx }) {
-  const [shouldSubmit, setShouldSubmit] = useContext(ShouldSubmit);
+  const { shouldSubmit: [shouldSubmit, setShouldSubmit] } = useContext(ShouldSubmit);
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTES } from "../../../../../../cliente/graphql/query";
 import debounce from "lodash/debounce";
-// import { useSelector, useDispatch } from "react-redux";
 
 export default function ClientSelect() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,6 +11,7 @@ export default function ClientSelect() {
     variables: {
       filter: searchTerm && "",
       skip: 0,
+      take: 5
     },
   });
   const setSearchTermDebounced = debounce(setSearchTerm, 500);
@@ -20,7 +20,7 @@ export default function ClientSelect() {
     <>
       <SearchField
         loading={loading}
-        data={data} // search suggestions returned
+        data={data?.clientes.query || []} // search suggestions returned
         initialTerm={searchTerm}
         updateSearchTerm={setSearchTermDebounced}
       />

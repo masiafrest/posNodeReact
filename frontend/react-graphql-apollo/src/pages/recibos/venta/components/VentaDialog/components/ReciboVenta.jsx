@@ -69,12 +69,16 @@ export default function ReciboVenta({ closeDialog }) {
   const isClientSelected = !cliente.selected;
   const hasItems = lineas.length === 0;
 
+  const reciboState = {
+    shouldSubmit,
+    filterState
+  }
   const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
     <>
-      <ShouldSubmit.Provider value={shouldSubmit}>
+      <ShouldSubmit.Provider value={reciboState}>
         <ClientSelect />
-        <SearchItem filterState={filterState} recibo={true} />
+        <SearchItem context={ShouldSubmit} recibo={true} />
         <TableContainer />
       </ShouldSubmit.Provider>
       <FormControlLabel
