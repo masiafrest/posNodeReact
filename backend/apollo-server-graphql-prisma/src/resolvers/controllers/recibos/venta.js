@@ -98,6 +98,9 @@ async function ventas(parent, args, ctx, info) {
     },
     skip,
     take,
+    orderBy: {
+      fecha: "desc",
+    },
   });
 
   const count = await ctx.prisma.venta.count({

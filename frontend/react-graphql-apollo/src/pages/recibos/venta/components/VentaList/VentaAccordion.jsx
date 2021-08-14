@@ -13,7 +13,6 @@ import {
 
 export default function VentaAccordion({ venta }) {
   const { fecha, usuario, cliente, total } = venta;
-
   return (
     <Accordion elevation={14}>
       <AccordionSummary
@@ -22,8 +21,10 @@ export default function VentaAccordion({ venta }) {
         id="panel1a-header"
       >
         <Typography>
-          Fecha:{dayjs(fecha).format("DD-MMM-YYYY")}, Cliente:{cliente.nombre},
-          Total:{total}, Vendedor:{usuario.nombre}
+          Fecha:
+          {dayjs(fecha).format("MMM-DD-YYYY")}, Cliente:
+          {cliente.nombre}, Total:
+          {total}, Vendedor:{usuario.nombre}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />

@@ -9,7 +9,7 @@ import {
   Table,
   TableBody,
 } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addTax,
   addTotal,
