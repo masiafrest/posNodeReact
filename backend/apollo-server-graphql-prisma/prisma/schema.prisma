@@ -92,7 +92,7 @@ model Venta {
   usuarioId Int
   cliente   Cliente?     @relation(fields: [clienteId], references: [id])
   clienteId Int
-  Fecha     DateTime     @default(now())
+  fecha     DateTime     @default(now())
   credito   Boolean
   subTotal  Decimal      @db.Decimal(4, 2)
   tax       Decimal?     @db.Decimal(4, 2)
