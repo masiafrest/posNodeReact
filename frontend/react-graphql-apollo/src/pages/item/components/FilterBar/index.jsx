@@ -9,22 +9,19 @@ import CardViewIcon from "@material-ui/icons/ViewModule";
 import PaperViewIcon from "@material-ui/icons/Dehaze";
 
 export default function FilterBar({ context, recibo = false }) {
-  const Context = useContext(context)
-  console.log('Context: ', Context)
-  let page, setPage, take, setTake, view, setView
+  const Context = useContext(context);
+  let page, setPage, take, setTake, view, setView;
+
   if (!recibo) {
     ({
       pageState: [page, setPage],
       takeState: [take, setTake],
       viewState: [view, setView],
-    } = Context)
+    } = Context);
   }
 
   const {
     filterState: [filter, setFilter],
-    // pageState: [page, setPage],
-    // takeState: [take, setTake],
-    // viewState: [view, setView],
   } = Context;
 
   //query to get suggestions

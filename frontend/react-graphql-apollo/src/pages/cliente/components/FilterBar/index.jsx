@@ -9,7 +9,7 @@ export default function FilterBar({ context }) {
     pageState: [page, setPage],
     filterState: [filter, setFilter],
     takeState: [take, setTake],
-    viewState: [view, setView],
+    // viewState: [view, setView],
   } = useContext(context);
 
   //query to get suggestions

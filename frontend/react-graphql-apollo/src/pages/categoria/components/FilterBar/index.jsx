@@ -9,7 +9,7 @@ export default function FilterBar({ context }) {
     pageState: [page, setPage],
     filterState: [filter, setFilter],
     takeState: [take, setTake],
-    viewState: [view, setView],
+    // viewState: [view, setView],
   } = useContext(context);
 
   //query to get suggestions
@@ -28,7 +28,6 @@ export default function FilterBar({ context }) {
       <SearchField
         loading={loading}
         data={data?.categorias.query || []} // search suggestions returned
-        // data={data?.query.categorias || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
       />
