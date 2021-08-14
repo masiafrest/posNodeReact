@@ -1,16 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const GET_CLIENTES = gql`
-  query getClientes {
-    clientes {
-      id
-      nombre
-      telefono
-      dirrecion
-    }
-  }
-`;
-
 export const VENTA_DATA = gql`
   fragment ventaData on Venta {
     id
