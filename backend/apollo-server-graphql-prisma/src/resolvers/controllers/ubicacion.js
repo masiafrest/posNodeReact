@@ -14,7 +14,9 @@ function postUbicacion(parent, { dirrecion, tipo }, ctx, info) {
 }
 
 function ubicaciones(parent, args, ctx, info) {
-  return ctx.prisma.ubicacion.findMany();
+  const query = ctx.prisma.ubicacion.findMany();
+  const count = ctx.prisma.ubicacion.count()
+  return { query, count }
 }
 
 module.exports = {

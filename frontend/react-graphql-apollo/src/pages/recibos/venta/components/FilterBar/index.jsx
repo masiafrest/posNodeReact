@@ -30,14 +30,13 @@ export default function FilterBar({ context, recibo = false }) {
     },
   });
 
-  console.log("filter bar, venta, data:", data);
   const setSearchTermDebounced = debounce(setFilter, 500);
 
   return (
     <>
       <SearchField
         loading={loading}
-        data={data?.ventas?.ventas || []} // search suggestions returned
+        data={data?.ventas?.query || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}

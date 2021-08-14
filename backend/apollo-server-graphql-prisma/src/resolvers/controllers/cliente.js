@@ -19,17 +19,22 @@ function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function clientes(_, args, ctx) {
+async function clientes(_, args, ctx) {
   const { filter, skip, take } = args;
   const searchArr = splitArrBySpace(filter, "nombre");
-  console.log(searchArr);
-  return ctx.prisma.cliente.findMany({
-    where: {
-      OR: searchArr,
-    },
-    skip,
+  const where = {
+    OR: searchArr,
+  }
+
+  const query = await ctx.prisma.cliente.findMany({
+    where, skip,
     take,
   });
+  const count = await ctx.prisma.cliente.count({
+    where
+  })
+
+  return { query, count }
 }
 
 /**

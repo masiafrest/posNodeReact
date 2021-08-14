@@ -25,7 +25,26 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [open, setOpen] = React.useState(false);
   const [newItem, setNewItem] = React.useState(initialItemState);
 
-  const [updateItem] = useMutation(UPDATE_ITEM);
+  const onCompleted = (data) => {
+    const updatedMsg = `item actualizado`;
+    const addedMsg = `item agregado`;
+    enqueueSnackbar(item ? updatedMsg : addedMsg, {
+      variant: "success",
+    });
+    handleClose();
+  }
+
+  const onError = (error) => {
+    console.log(error);
+    enqueueSnackbar("hubo un error en server", {
+      variant: "error",
+    });
+  }
+
+  const [updateItem] = useMutation(UPDATE_ITEM, {
+    onCompleted,
+    onError,
+  });
   const [postItem] = useMutation(POST_ITEM, {
     update(cache, { data: { postItem } }) {
       cache.modify({
@@ -35,25 +54,13 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
-            return [...existingItems.items, newItemRef];
+            return [...existingItems.query, newItemRef];
           },
         },
       });
     },
-    onCompleted(data) {
-      const updatedMsg = `item actualizado`;
-      const addedMsg = `item agregado`;
-      enqueueSnackbar(item ? updatedMsg : addedMsg, {
-        variant: "success",
-      });
-      handleClose();
-    },
-    onError(error) {
-      console.log(error);
-      enqueueSnackbar("hubo un error en server", {
-        variant: "error",
-      });
-    },
+    onCompleted,
+    onError
   });
 
   const handleClickOpen = () => {

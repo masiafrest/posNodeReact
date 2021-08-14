@@ -42,9 +42,12 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <SnackbarProvider maxSnack={2}
-          action={key => (
-            <CloseSnackBar key={key} />
-          )
+          action={key => {
+            console.log('action snackbar, key: ', key)
+            return (
+              <CloseSnackBar key={key} />
+            )
+          }
           }
         >
           <Router>

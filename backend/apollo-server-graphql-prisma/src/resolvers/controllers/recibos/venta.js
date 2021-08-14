@@ -38,6 +38,7 @@ async function postVenta(parent, args, ctx, info) {
       },
     },
   });
+
   return venta;
 }
 
@@ -48,13 +49,10 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  console.log("filter venta:", args);
   const { splitArrBySpace } = require("../utils");
   const { filter, skip, take } = args;
   const nombreArr = splitArrBySpace(filter, "nombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
-  console.log("nombreArr:", nombreArr);
-  console.log("descriArr:", descriptionArr);
 
   const hasClient =
     (await ctx.prisma.venta.count({
@@ -87,7 +85,7 @@ async function ventas(parent, args, ctx, info) {
     },
   };
 
-  const ventas = await ctx.prisma.venta.findMany({
+  const query = await ctx.prisma.venta.findMany({
     where,
     include: {
       cliente: true,
@@ -102,11 +100,11 @@ async function ventas(parent, args, ctx, info) {
     take,
   });
 
-  const count = await ctx.prisma.venta.findMany({
+  const count = await ctx.prisma.venta.count({
     where,
   });
 
-  return { ventas, count };
+  return { query, count };
 }
 
 module.exports = {

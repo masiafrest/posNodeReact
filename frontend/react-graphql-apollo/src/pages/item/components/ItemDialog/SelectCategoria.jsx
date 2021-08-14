@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIAS } from '../../../categoria/graphql/query'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Input,
@@ -53,20 +54,19 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
   const theme = useTheme();
   const [selCatName, setSelCatName] = useState(categorias);
 
-  const GET_CATEGORIAS = gql`
-    {
-      categorias(filter: "") {
-        id
-        nombre
-      }
+  const { data, loading } = useQuery(GET_CATEGORIAS, {
+    variables: {
+      filter: '',
+      take: 5,
+      skip: 0
     }
-  `;
-  const { data, loading } = useQuery(GET_CATEGORIAS);
+  });
+
   useEffect(() => {
     if (!loading) {
       let catArr = [];
       selCatName.forEach((e) => {
-        const id = data.categorias.find((obj) => obj.nombre === e).id * 1;
+        const id = data.categorias.query.find((obj) => obj.nombre === e).id * 1;
         catArr.push({ id });
       });
       setNewItem((item) => ({ ...item, categorias: catArr }));
@@ -101,7 +101,7 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
           {loading ? (
             <MenuItem>loading</MenuItem>
           ) : (
-            data?.categorias?.map((obj, idx) => (
+            data?.categorias?.query.map((obj, idx) => (
               <MenuItem
                 key={obj.nombre}
                 value={obj.nombre}

@@ -1,4 +1,4 @@
-import {  useContext } from "react";
+import { useContext } from "react";
 
 import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
@@ -23,7 +23,7 @@ export default function ItemList({ context }) {
   if (loading) return <div>loading</div>;
   if (error) return `${error}`;
 
-  const pages = Math.round(data.items.count / take);
+  const pages = Math.ceil(data.items.count / take);
   //TODO add grid, a swipable to del, maybe a materialUiContainer too
   return (
     <>
@@ -35,7 +35,7 @@ export default function ItemList({ context }) {
         }}
       />
       <Grid container spacing={1}>
-        {data.items.items.map((item) => (
+        {data.items.query.map((item) => (
           <Grid item key={`item-grid-${item.id}`}>
             {view ? (
               <ItemCard item={item} key={`item-${item.id}`} />

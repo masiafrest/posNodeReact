@@ -23,7 +23,7 @@ async function items(parent, args, ctx, info) {
     OR: searchArr,
   }
 
-  const items = await ctx.prisma.item.findMany({
+  const query = await ctx.prisma.item.findMany({
     where,
     include: {
       categorias: true,
@@ -40,7 +40,7 @@ async function items(parent, args, ctx, info) {
     where
   })
 
-  return { items, count };
+  return { query, count };
 }
 
 /**

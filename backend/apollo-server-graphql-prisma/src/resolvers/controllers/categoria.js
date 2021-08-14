@@ -18,17 +18,26 @@ function postCategoria(parent, { nombre }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function categorias(parent, args, ctx, info) {
+async function categorias(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   const searchArr = splitArrBySpace(filter, "nombre");
-  console.log(searchArr);
-  return ctx.prisma.categoria.findMany({
-    where: {
-      OR: searchArr,
-    },
-    skip,
+
+  const where = {
+    OR: searchArr,
+  }
+
+  const query = await ctx.prisma.categoria.findMany({
+    where, skip,
     take,
   });
+
+  const count = await ctx.prisma.categoria.count({
+    where
+  })
+
+  return {
+    query, count
+  }
 }
 
 /**

@@ -33,7 +33,7 @@ export default function ReciboVenta({ closeDialog }) {
               data: postVenta,
               fragment: VENTA_DATA,
             });
-            return [...existingItems.ventas, newItemRef];
+            return [...existingItems.query, newItemRef];
           },
         },
       });

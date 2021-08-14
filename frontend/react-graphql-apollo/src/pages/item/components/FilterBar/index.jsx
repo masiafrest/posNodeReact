@@ -31,7 +31,7 @@ export default function FilterBar({ context, recibo = false }) {
     <>
       <SearchField
         loading={loading}
-        data={data?.items?.items || []} // search suggestions returned
+        data={data?.items?.query || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}

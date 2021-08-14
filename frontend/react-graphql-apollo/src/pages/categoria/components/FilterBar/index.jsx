@@ -27,7 +27,7 @@ export default function FilterBar({ context }) {
     <>
       <SearchField
         loading={loading}
-        data={data?.categorias || []} // search suggestions returned
+        data={data?.categorias.query || []} // search suggestions returned
         // data={data?.query.categorias || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}

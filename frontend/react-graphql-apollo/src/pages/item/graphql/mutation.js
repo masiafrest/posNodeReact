@@ -33,14 +33,6 @@ export const POST_ITEM = gql`
   }
   ${ITEM_DATA}
 `;
-export const GET_CATEGORIAS = gql`
-  {
-    categorias {
-      id
-      nombre
-    }
-  }
-`;
 
 export const UPDATE_ITEM = gql`
   mutation UpdateItem(

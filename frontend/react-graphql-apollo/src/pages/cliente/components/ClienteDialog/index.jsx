@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { POST_CLIENTE, UPDATE_CLIENTE } from "../../graphql/mutation";
+import { CLIENTE_DATA } from "../../graphql/query";
+import { useSnackbar } from "notistack";
 
 import {
   Dialog,
@@ -16,13 +18,30 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function ClienteEditDialogIcon({ cliente = null }) {
+  const { enqueueSnackbar } = useSnackbar()
   const initialClienteState = {};
   const [open, setOpen] = useState(false);
   const [newCliente, setNewCliente] = useState(initialClienteState);
 
-  const [updateCliente, { loading: updateLoading, error: updateError }] =
-    useMutation(UPDATE_CLIENTE);
-  const [postCliente, { loading: postLoading, error: postError }] = useMutation(
+  const onCompleted = (data) => {
+    const updatedMsg = `cliente actualizado`;
+    const addedMsg = `cliente agregado`;
+    enqueueSnackbar(cliente ? updatedMsg : addedMsg, {
+      variant: "success",
+    });
+    handleClose();
+  }
+
+  const onError = (error) => {
+    console.log(error);
+    enqueueSnackbar("hubo un error en server", {
+      variant: "error",
+    });
+  }
+
+  const [updateCliente] =
+    useMutation(UPDATE_CLIENTE, { onCompleted, onError });
+  const [postCliente] = useMutation(
     POST_CLIENTE,
     {
       update(cache, { data: { postCliente } }) {
@@ -31,20 +50,14 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
             clientes(existingClientes = []) {
               const newClienteRef = cache.writeFragment({
                 data: postCliente,
-                fragment: gql`
-                  fragment NewCliente on Cliente {
-                    id
-                    nombre
-                    telefono
-                    dirrecion
-                  }
-                `,
+                fragment: CLIENTE_DATA,
               });
-              return [...existingClientes, newClienteRef];
+              return [...existingClientes.query, newClienteRef];
             },
           },
         });
       },
+      onCompleted, onError
     }
   );
 

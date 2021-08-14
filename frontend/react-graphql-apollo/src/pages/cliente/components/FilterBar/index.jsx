@@ -1,28 +1,34 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENTES } from "../../graphql/query";
 import SearchField from "./SearchField";
 import debounce from "lodash/debounce";
 
-export default function FilterBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function FilterBar({ context }) {
+  const {
+    pageState: [page, setPage],
+    filterState: [filter, setFilter],
+    takeState: [take, setTake],
+    viewState: [view, setView],
+  } = useContext(context);
 
   //query to get suggestions
   const { data, loading } = useQuery(GET_CLIENTES, {
     variables: {
-      filter: searchTerm,
+      filter,
+      take,
       skip: 0,
     },
   });
 
-  const setSearchTermDebounced = debounce(setSearchTerm, 500);
+  const setSearchTermDebounced = debounce(setFilter, 500);
 
   return (
     <>
       <SearchField
         loading={loading}
-        data={data} // search suggestions returned
-        initialTerm={searchTerm}
+        data={data?.clientes.query} // search suggestions returned
+        initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
       />
     </>

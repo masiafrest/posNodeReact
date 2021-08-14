@@ -12,7 +12,7 @@ export default function SearchField({
   return (
     <Autocomplete
       // data suggestions return from query
-      options={data?.categorias || []}
+      options={data}
       loading={loading} // query loading state
       getOptionLabel={(option) => `${option.nombre}`}
       renderInput={(params) => {
