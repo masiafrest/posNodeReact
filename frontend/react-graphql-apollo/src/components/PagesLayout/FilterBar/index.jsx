@@ -1,13 +1,17 @@
 import { useContext } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ITEMS } from "../../graphql/query";
 import SearchField from "./SearchField";
 import debounce from "lodash/debounce";
 
 import SelectItemPerPage from "./components/SelectItemPerPage";
 import ViewSwitcher from "./components/ViewSwitcher";
 
-export default function FilterBar({ context, filters = false, query = "" }) {
+export default function FilterBar({
+  context,
+  filters = false,
+  getQuery,
+  queryType,
+}) {
   const Context = useContext(context);
   let page, setPage, take, setTake, view, setView;
 
@@ -24,7 +28,7 @@ export default function FilterBar({ context, filters = false, query = "" }) {
   } = Context;
 
   //query to get suggestions
-  const { data, loading } = useQuery(GET_ITEMS, {
+  const { data, loading, error } = useQuery(getQuery, {
     variables: {
       filter,
       skip: 0,
@@ -34,11 +38,14 @@ export default function FilterBar({ context, filters = false, query = "" }) {
 
   const setSearchTermDebounced = debounce(setFilter, 500);
 
+  if (loading) return <div>loading</div>;
+  if (error) return `${error}`;
+
   return (
     <>
       <SearchField
         loading={loading}
-        data={data?.items?.query || []} // search suggestions returned
+        data={data[queryType].query || []} // search suggestions returned
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
         recibo={recibo}
