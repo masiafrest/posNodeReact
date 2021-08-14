@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import {  useContext } from "react";
 
 import { useQuery } from "@apollo/client";
 import { GET_ITEMS } from "../../graphql/query";
@@ -15,7 +15,6 @@ export default function ItemList({ context }) {
     takeState: [take, setTake],
     viewState: [view, setView],
   } = useContext(context);
-  console.log("page: ", page);
   const skip = page === 1 ? 0 : (page - 1) * take;
   const { data, loading, error } = useQuery(GET_ITEMS, {
     variables: { filter, take, skip },
@@ -23,8 +22,8 @@ export default function ItemList({ context }) {
 
   if (loading) return <div>loading</div>;
   if (error) return `${error}`;
+
   const pages = Math.round(data.items.count / take);
-  console.log("pages: ", pages);
   //TODO add grid, a swipable to del, maybe a materialUiContainer too
   return (
     <>

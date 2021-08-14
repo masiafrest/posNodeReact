@@ -7,6 +7,7 @@ import CreateItemDialog from "./components/ItemDialog/";
 export default function Item() {
   return (
     <PagesLayout
+      title="item pages"
       FilterBar={FilterBar}
       List={ItemList}
       CreateDialog={CreateItemDialog}

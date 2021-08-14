@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_VENTAS } from "../../grapql/query";
 import SearchField from "./SearchField";
@@ -7,18 +8,18 @@ import { NativeSelect, Typography, Switch, Grid } from "@material-ui/core";
 import CardViewIcon from "@material-ui/icons/ViewModule";
 import PaperViewIcon from "@material-ui/icons/Dehaze";
 
-export default function FilterBar({
-  takeState,
-  filterState,
-  viewState,
-  recibo = false,
-}) {
-  let take, setTake, view, setView;
-  if (!recibo) {
-    [take, setTake] = takeState;
-    [view, setView] = viewState;
-  }
-  const [filter, setFilter] = filterState;
+export default function FilterBar({ context, recibo = false }) {
+  const {
+    pageState: [page, setPage],
+    filterState: [filter, setFilter],
+    takeState: [take, setTake],
+    viewState: [view, setView],
+  } = useContext(context);
+  // let take, setTake, view, setView;
+  // if (!recibo) {
+  //   [take, setTake] = takeState;
+  //   [view, setView] = viewState;
+  // }
   //TODO maybe change searchbar without autocomplete en recibos ventas
   //query to get suggestions
   const { data, loading } = useQuery(GET_VENTAS, {

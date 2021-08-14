@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 
 const FilterBarState = createContext(null);
 
-export default function PagesLayout({ FilterBar, List, CreateDialog }) {
+export default function PagesLayout({ title, FilterBar, List, CreateDialog }) {
   const filterState = useState("");
   const takeState = useState(5);
   const viewState = useState(false);
@@ -17,7 +17,7 @@ export default function PagesLayout({ FilterBar, List, CreateDialog }) {
 
   return (
     <FilterBarState.Provider value={filterBarState}>
-      <h1 style={{ textAlign: "center" }}>item pages</h1>
+      <h1 style={{ textAlign: "center" }}>{title.toUpperCase()}</h1>
       <FilterBar context={FilterBarState} />
       <hr />
       <List context={FilterBarState} />
