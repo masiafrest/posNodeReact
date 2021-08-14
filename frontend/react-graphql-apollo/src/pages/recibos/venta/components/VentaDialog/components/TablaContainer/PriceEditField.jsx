@@ -19,10 +19,7 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
     );
     setShouldSubmit({
       ...shouldSubmit,
-      itemErrors: {
-        ...shouldSubmit.items,
-        [itemId]: !(value >= precioMin),
-      },
+      isPriceError: !(value >= precioMin)
     });
   };
 

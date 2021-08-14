@@ -18,10 +18,12 @@ export default function DelBtn({ tipo, id, idx }) {
         enqueueSnackbar("item borrado", {
           variant: "warning",
         });
-        setShouldSubmit((oldValue) => {
-          delete oldValue.itemErrors[idx];
-          return oldValue;
-        });
+        setShouldSubmit(
+          {
+            ...shouldSubmit,
+            isPriceError: false
+          }
+        );
       }}
     >
       <DeleteIcon />

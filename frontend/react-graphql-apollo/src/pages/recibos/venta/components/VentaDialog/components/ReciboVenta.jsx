@@ -63,10 +63,9 @@ export default function ReciboVenta({ closeDialog }) {
       error: false,
       selected: false,
     },
-    itemErrors: {},
+    isPriceError: false
   });
-  const { cliente } = shouldSubmit[0];
-  const isClientSelected = !cliente.selected;
+  const { cliente: { selected }, isPriceError } = shouldSubmit[0];
   const hasItems = lineas.length === 0;
 
   const reciboState = {
@@ -99,7 +98,7 @@ export default function ReciboVenta({ closeDialog }) {
       />
       <PrintBtn
         btnComp={
-          <button disabled={isClientSelected}>imprimir y guardar</button>
+          <button disabled={!selected || isPriceError}>imprimir y guardar</button>
         }
         onBeforePrint={() =>
           postVenta({
@@ -109,7 +108,7 @@ export default function ReciboVenta({ closeDialog }) {
         cliente={shouldSubmit[0].cliente}
       />
       <button
-        disabled={isClientSelected}
+        disabled={!selected || isPriceError}
         onClick={() =>
           postVenta({
             variables: { ...venta },
@@ -118,8 +117,9 @@ export default function ReciboVenta({ closeDialog }) {
       >
         guardar
       </button>
-      {isClientSelected && <span>por favor selecciona el cliente</span>}
+      {!selected && <span>por favor selecciona el cliente</span>}
       {hasItems && <span>por favor agrega un item</span>}
+      {isPriceError && <span>error precio</span>}
     </>
   );
 }
