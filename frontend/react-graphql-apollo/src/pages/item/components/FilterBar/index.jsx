@@ -60,25 +60,21 @@ export default function FilterBar({ context, recibo = false }) {
               <option value={20}>20</option>
             </NativeSelect>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Typography component="div">
-              <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item>
-                  <PaperViewIcon />
-                </Grid>
-                <Grid item>
-                  <Switch
-                    checked={view}
-                    onChange={() => setView(!view)}
-                    name="viewSwitch"
-                  />
-                </Grid>
-                <Grid item>
-                  <CardViewIcon />
-                </Grid>
-              </Grid>
-            </Typography>
-          </div>
+          <Grid component="label" container alignItems="center" spacing={1}>
+            <Grid item>
+              <PaperViewIcon />
+            </Grid>
+            <Grid item>
+              <Switch
+                checked={view}
+                onChange={() => setView(!view)}
+                name="viewSwitch"
+              />
+            </Grid>
+            <Grid item>
+              <CardViewIcon />
+            </Grid>
+          </Grid>
         </>
       )}
     </>

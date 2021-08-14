@@ -15,6 +15,8 @@ import {
   setUserCredential,
 } from "./redux/features/userSlice";
 
+import Container from "@material-ui/core/Container";
+
 import AuthRoute from "./components/AuthRoute";
 import Login from "./pages/login";
 import NavBar from "./components/Navbar";
@@ -41,27 +43,27 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <SnackbarProvider maxSnack={2}
-          action={key => {
-            console.log('action snackbar, key: ', key)
-            return (
-              <CloseSnackBar key={key} />
-            )
-          }
-          }
+        <SnackbarProvider
+          maxSnack={2}
+          action={(key) => {
+            console.log("action snackbar, key: ", key);
+            return <CloseSnackBar key={key} />;
+          }}
         >
           <Router>
             <NavBar />
             <Switch>
-              <Route path="/login" component={Login} />
-              <AuthRoute path="/home">home</AuthRoute>
-              <AuthRoute path="/item" component={Item} />
-              <AuthRoute path="/item/new/:page" component={Item} />
-              <AuthRoute path="/venta" component={Venta} />
-              <AuthRoute path="/cliente" component={Cliente} />
-              <AuthRoute path="/cliente/new/:page" component={Cliente} />
-              <AuthRoute path="/categoria" component={Categoria} />
-              <AuthRoute path="/categoria/new/:page" component={Categoria} />
+              <Container>
+                <Route path="/login" component={Login} />
+                <AuthRoute path="/home">home</AuthRoute>
+                <AuthRoute path="/item" component={Item} />
+                <AuthRoute path="/item/new/:page" component={Item} />
+                <AuthRoute path="/venta" component={Venta} />
+                <AuthRoute path="/cliente" component={Cliente} />
+                <AuthRoute path="/cliente/new/:page" component={Cliente} />
+                <AuthRoute path="/categoria" component={Categoria} />
+                <AuthRoute path="/categoria/new/:page" component={Categoria} />
+              </Container>
             </Switch>
           </Router>
         </SnackbarProvider>
