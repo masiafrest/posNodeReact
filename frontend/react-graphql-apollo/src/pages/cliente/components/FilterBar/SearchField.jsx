@@ -64,7 +64,7 @@ export default function SearchField({
             selected: false,
           },
         });
-        enqueueSnackbar(`cliente ${v.nombre} borrado`, {
+        enqueueSnackbar(`cliente borrado`, {
           variant: "warning",
         });
       }
