@@ -1,4 +1,6 @@
 import { NativeSelect, Typography, Switch, Grid } from "@material-ui/core";
+import CardViewIcon from "@material-ui/icons/ViewModule";
+import PaperViewIcon from "@material-ui/icons/Dehaze";
 
 export default function ViewSwitcher({ view, setView }) {
   return (
