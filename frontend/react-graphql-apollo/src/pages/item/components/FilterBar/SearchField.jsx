@@ -68,19 +68,17 @@ export default function SearchField({
           {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
         </>
       )}
+      inputValue={term}
+      onInputChange={(e, value) => {
+        updateSearchTerm(value);
+        setTerm(value);
+      }}
       renderInput={(params) => {
         return (
           <TextField
             {...params}
             variant="outlined"
             label="buscar Item"
-            // fullWidth={false}
-            value={term} //search term value
-            //update search term state on field change
-            onChange={(e) => {
-              updateSearchTerm(e.target.value);
-              setTerm(e.target.value);
-            }}
           />
         );
       }}

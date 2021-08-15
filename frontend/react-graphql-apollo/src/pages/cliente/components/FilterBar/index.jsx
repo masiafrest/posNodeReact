@@ -12,7 +12,6 @@ export default function FilterBar({ context }) {
     // viewState: [view, setView],
   } = useContext(context);
 
-  //query to get suggestions
   const { data, loading } = useQuery(GET_CLIENTES, {
     variables: {
       filter,
@@ -27,7 +26,7 @@ export default function FilterBar({ context }) {
     <>
       <SearchField
         loading={loading}
-        data={data?.clientes.query} // search suggestions returned
+        data={data?.clientes.query}
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
       />

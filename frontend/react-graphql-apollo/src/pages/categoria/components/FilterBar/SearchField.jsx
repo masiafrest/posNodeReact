@@ -11,9 +11,8 @@ export default function SearchField({
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
-      // data suggestions return from query
       options={data}
-      loading={loading} // query loading state
+      loading={loading}
       getOptionLabel={(option) => `${option.nombre}`}
       inputValue={term}
       onInputChange={(e, value) => {
@@ -22,13 +21,10 @@ export default function SearchField({
       }}
       renderInput={(params) => {
         return (
-          <>
-            <span>term: {term}, initialTerm:{initialTerm}</span>
-            <TextField
-              {...params}
-            // fullWidth={false}
-            />
-          </>
+          <TextField
+            {...params}
+            variant="outlined"
+          />
         );
       }}
     />

@@ -37,19 +37,17 @@ export default function SearchField({
         )}`;
         return label;
       }}
+      inputValue={term}
+      onInputChange={(e, value) => {
+        updateSearchTerm(value);
+        setTerm(value);
+      }}
       renderInput={(params) => {
         return (
           <TextField
             {...params}
             variant="outlined"
             label="buscar recibo "
-            // fullWidth={false}
-            value={term} //search term value
-            //update search term state on field change
-            onChange={(e) => {
-              updateSearchTerm(e.target.value);
-              setTerm(e.target.value);
-            }}
           />
         );
       }}

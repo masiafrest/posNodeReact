@@ -12,9 +12,15 @@ export default function SearchField({
   const [term, setTerm] = useState(initialTerm);
   return (
     <Autocomplete
-      // data suggestions return from query
       options={data}
-      loading={loading} // query loading state
+      loading={loading}
+      debug={true}
+      noOptionsText={<AddClientBtn />}
+      inputValue={term}
+      onInputChange={(e, value) => {
+        updateSearchTerm(value);
+        setTerm(value);
+      }}
       getOptionLabel={(option) =>
         `${option.nombre}, ${option.telefono}, ${option.dirrecion}`
       }
@@ -22,19 +28,10 @@ export default function SearchField({
         return (
           <TextField
             {...params}
-            // fullWidth={false}
             variant="outlined"
-            value={term} //search term value
-            //update search term state on field change
-            onChange={(e) => {
-              updateSearchTerm(e.target.value);
-              setTerm(e.target.value);
-            }}
           />
         );
       }}
-      debug={true}
-      noOptionsText={<AddClientBtn />}
     />
   );
 }
