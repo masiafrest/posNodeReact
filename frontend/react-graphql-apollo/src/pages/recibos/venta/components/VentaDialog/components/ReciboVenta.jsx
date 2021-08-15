@@ -1,6 +1,6 @@
 import { useState, createContext } from "react";
-import ClientSelect from "./ClientSelect";
 import TableContainer from "./TablaContainer";
+import SearchClient from '../../../../../cliente/components/FilterBar'
 import SearchItem from "../../../../../item/components/FilterBar";
 
 import PrintBtn from "./PrintBtn";
@@ -76,7 +76,7 @@ export default function ReciboVenta({ closeDialog }) {
   return (
     <>
       <ShouldSubmit.Provider value={reciboState}>
-        <ClientSelect />
+        <SearchClient context={ShouldSubmit} recibo={true} />
         <SearchItem context={ShouldSubmit} recibo={true} />
         <TableContainer />
       </ShouldSubmit.Provider>

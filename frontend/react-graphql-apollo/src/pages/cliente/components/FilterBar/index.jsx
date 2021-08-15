@@ -4,13 +4,21 @@ import { GET_CLIENTES } from "../../graphql/query";
 import SearchField from "./SearchField";
 import debounce from "lodash/debounce";
 
-export default function FilterBar({ context }) {
+export default function FilterBar({ context, recibo = false }) {
+  const Context = useContext(context);
+  let page, setPage, take, setTake, view, setView;
+
+  if (!recibo) {
+    ({
+      pageState: [page, setPage],
+      takeState: [take, setTake],
+      viewState: [view, setView],
+    } = Context);
+  }
+
   const {
-    pageState: [page, setPage],
     filterState: [filter, setFilter],
-    takeState: [take, setTake],
-    // viewState: [view, setView],
-  } = useContext(context);
+  } = Context;
 
   const { data, loading } = useQuery(GET_CLIENTES, {
     variables: {
@@ -26,9 +34,11 @@ export default function FilterBar({ context }) {
     <>
       <SearchField
         loading={loading}
-        data={data?.clientes.query}
+        data={data?.clientes.query || []}
         initialTerm={filter}
         updateSearchTerm={setSearchTermDebounced}
+        recibo={recibo}
+        context={Context.shouldSubmit}
       />
     </>
   );
