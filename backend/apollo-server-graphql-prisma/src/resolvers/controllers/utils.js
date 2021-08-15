@@ -2,15 +2,15 @@ const jwt = require("jsonwebtoken");
 const APP_SECRET = "secrectWord";
 
 const splitArrBySpace = (words, key) => {
-  return words.split(" ").map((e) => {
-    const contains = `${e}`.replace(" ", "");
-
+  const noSpace = words.split(" ").filter((e, i, a) => a.length > 0 && e !== '')
+  return noSpace.map((e) => {
+    const contains = `${e}`.replace("", "");
     return {
       [key]: {
         contains,
       },
     };
-  });
+  })
 };
 
 const getToken = (user) => {

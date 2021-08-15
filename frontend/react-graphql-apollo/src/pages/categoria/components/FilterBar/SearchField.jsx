@@ -15,18 +15,20 @@ export default function SearchField({
       options={data}
       loading={loading} // query loading state
       getOptionLabel={(option) => `${option.nombre}`}
+      inputValue={term}
+      onInputChange={(e, value) => {
+        updateSearchTerm(value);
+        setTerm(value);
+      }}
       renderInput={(params) => {
         return (
-          <TextField
-            {...params}
+          <>
+            <span>term: {term}, initialTerm:{initialTerm}</span>
+            <TextField
+              {...params}
             // fullWidth={false}
-            value={term} //search term value
-            //update search term state on field change
-            onChange={(e) => {
-              updateSearchTerm(e.target.value);
-              setTerm(e.target.value);
-            }}
-          />
+            />
+          </>
         );
       }}
     />
