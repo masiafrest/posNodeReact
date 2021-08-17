@@ -38,23 +38,30 @@ async function startServer() {
 
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
-  // app.use('/uploads', express.static('public'));
+
   app.use(
     express.static(
-      path.join(__dirname, "../../frontend/react-graphql-apollo", "build")
+      path.join(__dirname, "../../../frontend/react-graphql-apollo", "build")
     )
   );
 
-  app.use((req, res, next) => {
-    res.sendFile(
-      path.join(
-        __dirname,
-        "../../../frontend/react-graphql-apollo",
-        "build",
-        "index.html"
-      )
-    );
-  });
+  const { networkInterfaces } = require("os");
+  const nets = networkInterfaces();
+  const results = Object.create(null); // Or just '{}', an empty object
+
+  for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+      // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+      if (net.family === "IPv4" && !net.internal) {
+        if (!results[name]) {
+          results[name] = [];
+        }
+        results[name].push(net.address);
+      }
+    }
+  }
+
+  console.log("result", results);
 
   app.get("/upload/item/:image", (req, res, next) => {
     console.log(req.params.image);
