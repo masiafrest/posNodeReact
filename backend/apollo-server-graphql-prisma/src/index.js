@@ -39,6 +39,22 @@ async function startServer() {
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
   // app.use('/uploads', express.static('public'));
+  app.use(
+    express.static(
+      path.join(__dirname, "../../frontend/react-graphql-apollo", "build")
+    )
+  );
+
+  app.use((req, res, next) => {
+    res.sendFile(
+      path.join(
+        __dirname,
+        "../../../frontend/react-graphql-apollo",
+        "build",
+        "index.html"
+      )
+    );
+  });
 
   app.get("/upload/item/:image", (req, res, next) => {
     console.log(req.params.image);

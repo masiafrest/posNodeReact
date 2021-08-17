@@ -4,8 +4,10 @@
   "description": "pos and inventory",
   "main": "index.js",
   "scripts": {
-    "start": "cd frontend/react-graphql-apollo && npm run start",
-    "dev": "cd backend/apollo-server-graphql-prisma && npm run dev"
+    "start-react": "cd frontend/react-graphql-apollo && npm run start",
+    "start-server": "cd backend/apollo-server-graphql-prisma && npm run start",
+    "dev": "cd backend/apollo-server-graphql-prisma && npm run dev",
+    "start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)"
   },
   "repository": {
     "type": "git",
