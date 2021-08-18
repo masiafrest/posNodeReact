@@ -3,20 +3,34 @@ import { DEL_CATEGORIA } from "../graphql/mutation";
 import { IconButton } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useSnackbar } from "notistack";
 
 export default function DelBtn({ id }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [delCategoria, { loading, error }] = useMutation(DEL_CATEGORIA, {
     update(cache, { data: { delCategoria } }) {
       cache.modify({
         fields: {
           categorias(existingCategorias = [], { readField }) {
-            return existingCategorias.filter(
+            return existingCategorias.query.filter(
               (categoriaRef) => id !== readField("id", categoriaRef)
             );
           },
         },
       });
     },
+    onCompleted(data) {
+      const { nombre } = data.delCategoria
+      enqueueSnackbar(`categoria ${nombre} eliminado`, {
+        variant: "success",
+      });
+    },
+    onError(e) {
+      enqueueSnackbar(e.message, {
+        variant: "warning",
+      });
+    }
   });
 
   return (

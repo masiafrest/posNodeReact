@@ -27,8 +27,7 @@ export default function DelBtn({ id, paths }) {
       });
     },
     onError(e) {
-      console.error('error:', e)
-      enqueueSnackbar(`error`, {
+      enqueueSnackbar(e.message, {
         variant: "warning",
       });
     }

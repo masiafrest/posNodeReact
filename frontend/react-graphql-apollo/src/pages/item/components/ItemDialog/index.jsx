@@ -54,7 +54,8 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
-            return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
+            console.log('arr lenght: ', existingData.query.length > 0)
+            return existingData.query.length > 0 ? [...existingData.query, newDataRef] : [newDataRef]
           },
         },
       });
