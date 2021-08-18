@@ -13,7 +13,7 @@ export default function List({ view,
             >
                 {data?.map((item) => (
                     <Grid item key={`item-grid-${item.id}`}
-                        sm={12}
+                        sm={6} md={4}
                     >
                         {
                             view ? (
