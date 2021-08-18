@@ -4,7 +4,6 @@ export default function List({ view,
     data,
     viewComp
 }) {
-
     const { Card, Accordion } = viewComp
     //TODO add grid, a swipable to del, maybe a materialUiContainer too
     return (

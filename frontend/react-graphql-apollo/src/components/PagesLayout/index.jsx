@@ -1,8 +1,8 @@
 import { useState, createContext } from "react";
 import { useQuery } from "@apollo/client";
 
-import FilterBar from "./FilterBar";
-import List from "./List";
+import FilterBar from "./components/FilterBar";
+import List from "./components/List";
 import Pagination from "@material-ui/lab/Pagination";
 
 const FilterBarState = createContext(null);
@@ -18,6 +18,7 @@ export default function PagesLayout({
   const takeState = useState(5);
   const viewState = useState(false);
   const pageState = useState(1);
+
   const filterBarState = {
     filterState,
     takeState,

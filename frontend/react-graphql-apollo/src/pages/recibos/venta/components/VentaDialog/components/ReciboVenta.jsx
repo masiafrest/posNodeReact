@@ -1,6 +1,6 @@
 import { useState, createContext } from "react";
 import TableContainer from "./TablaContainer";
-import FilterBar from "../../../../../../components/PagesLayout/FilterBar";
+import FilterBar from "../../../../../../components/PagesLayout/components/FilterBar";
 import SearchClient from '../../../../../cliente/components/SearchField'
 import SearchItem from "../../../../../item/components/SearchField";
 
