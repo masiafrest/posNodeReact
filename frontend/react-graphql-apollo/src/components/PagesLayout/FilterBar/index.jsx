@@ -7,7 +7,8 @@ import CardViewIcon from "@material-ui/icons/ViewModule";
 import PaperViewIcon from "@material-ui/icons/Dehaze";
 
 export default function FilterBar({
-    context, recibo = false,
+    context,
+    recibo = false,
     SearchField,
     getQuery,
     queryType
@@ -49,6 +50,7 @@ export default function FilterBar({
                 initialTerm={filter}
                 updateSearchTerm={setSearchTermDebounced}
                 recibo={recibo}
+                context={context}
             />
             {!recibo && (
                 <>

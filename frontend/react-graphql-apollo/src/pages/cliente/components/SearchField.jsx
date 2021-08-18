@@ -17,9 +17,10 @@ export default function SearchField({
   recibo = false,
   context
 }) {
+  const Context = useContext(context)
   let shouldSubmit, setShouldSubmit;
   if (recibo) {
-    ([shouldSubmit, setShouldSubmit] = context);
+    ({ shouldSubmit: [shouldSubmit, setShouldSubmit] } = Context);
   }
   const dispath = useDispatch();
   const { enqueueSnackbar } = useSnackbar();

@@ -1,7 +1,7 @@
 import React from "react";
-import EditDialogIcon from "../ItemDialog";
-import DelBtn from "../DelBtn";
-import AddBtn from "../AddBtn";
+import EditDialogIcon from "./ItemDialog";
+import DelBtn from "./DelBtn";
+import AddBtn from "./AddBtn";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
@@ -13,9 +13,9 @@ import {
   Divider,
 } from "@material-ui/core";
 
-export default function ItemAccordion({ item }) {
-  const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = item
-  const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
+export default function ItemAccordion({ data }) {
+  const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = data
+  const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
   const url = 'http://localhost:4000/upload/item/'
   const imgArr = image_url.split(', ').map(image => url + image)
 
@@ -39,8 +39,8 @@ export default function ItemAccordion({ item }) {
         </Typography>
       </AccordionDetails>
       <AccordionActions>
-        <EditDialogIcon item={item} />
-        <AddBtn item={item} reciboTipo="venta" />
+        <EditDialogIcon item={data} />
+        <AddBtn item={data} reciboTipo="venta" />
         <DelBtn id={id} paths={imgArr} />
       </AccordionActions>
     </Accordion>

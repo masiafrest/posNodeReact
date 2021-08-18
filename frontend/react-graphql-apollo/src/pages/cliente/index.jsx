@@ -1,19 +1,21 @@
 import PagesLayout from "../../components/PagesLayout";
 
+import ClientePaper from "./components/ClientePaper";
+import { getViewComp } from "../utils";
+
 import { GET_CLIENTES } from "./graphql/query";
-import ClienteList from "./components/ClienteList";
 import CreateClienteDialog from "./components/ClienteDialog";
 import SearchField from "./components/SearchField";
-import { GET_CATEGORIAS } from "../categoria/graphql/query";
 
 export default function Cliente() {
+  const viewComp = getViewComp(ClientePaper, ClientePaper)
   return (
     <PagesLayout
       title="clientes"
       SearchField={SearchField}
-      List={ClienteList}
       CreateDialog={CreateClienteDialog}
       getQuery={GET_CLIENTES}
+      viewComp={viewComp}
     />
   );
 }

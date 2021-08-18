@@ -1,7 +1,7 @@
 import ImgStepper from "./ImgStepper";
-import EditDialogIcon from "../ItemDialog";
-import DelBtn from "../DelBtn";
-import AddBtn from "../AddBtn";
+import EditDialogIcon from "./ItemDialog";
+import DelBtn from "./DelBtn";
+import AddBtn from "./AddBtn";
 
 import {
     Typography,
@@ -10,9 +10,9 @@ import {
     Card,
 } from "@material-ui/core/";
 
-export default function ItemCard({ item }) {
-    const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = item
-    const categorias = item.categorias.map((cat) => cat.nombre).join(", ");
+export default function ItemCard({ data }) {
+    const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = data
+    const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
     const imgFileName = image_url.split(', ')
 
     return (
@@ -29,8 +29,8 @@ export default function ItemCard({ item }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <EditDialogIcon item={item} />
-                <AddBtn item={item} reciboTipo="venta" />
+                <EditDialogIcon item={data} />
+                <AddBtn item={data} reciboTipo="venta" />
                 <DelBtn id={id} paths={imgFileName} />
             </CardActions>
         </Card>

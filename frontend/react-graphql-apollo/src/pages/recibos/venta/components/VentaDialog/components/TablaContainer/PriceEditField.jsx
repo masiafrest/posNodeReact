@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { ShouldSubmit } from "../ReciboVenta";
+import { ReciboState } from "../ReciboVenta";
 import { TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../../../redux/features/reciboSlice";
 
 export default function PriceEditField({ itemId, precio, precioMin, idx }) {
-  const { shouldSubmit: [shouldSubmit, setShouldSubmit] } = useContext(ShouldSubmit);
+  const { shouldSubmit: [shouldSubmit, setShouldSubmit] } = useContext(ReciboState);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {

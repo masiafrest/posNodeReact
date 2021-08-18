@@ -22,7 +22,7 @@ import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 
-export const ShouldSubmit = createContext(null);
+export const ReciboState = createContext(null);
 
 export default function ReciboVenta({ closeDialog }) {
   const dispatch = useDispatch();
@@ -78,14 +78,16 @@ export default function ReciboVenta({ closeDialog }) {
   const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
     <>
-      <ShouldSubmit.Provider value={reciboState}>
-        <FilterBar context={ShouldSubmit}
+      <ReciboState.Provider value={reciboState}>
+        <FilterBar
+          context={ReciboState}
           recibo={true}
           SearchField={SearchClient}
           getQuery={GET_CLIENTES}
           queryType='clientes'
         />
-        <FilterBar context={ShouldSubmit}
+        <FilterBar
+          context={ReciboState}
           recibo={true}
           SearchField={SearchItem}
           getQuery={GET_ITEMS}
@@ -93,7 +95,7 @@ export default function ReciboVenta({ closeDialog }) {
         />
         {/* <SearchItem context={ShouldSubmit} recibo={true} /> */}
         <TableContainer />
-      </ShouldSubmit.Provider>
+      </ReciboState.Provider>
       <FormControlLabel
         control={
           <Checkbox checked={credito} onChange={handleCreditoCheckBox} />
