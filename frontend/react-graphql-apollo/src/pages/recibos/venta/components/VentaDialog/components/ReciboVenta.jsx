@@ -1,7 +1,8 @@
 import { useState, createContext } from "react";
 import TableContainer from "./TablaContainer";
-import SearchClient from '../../../../../cliente/components/FilterBar'
-import SearchItem from "../../../../../item/components/FilterBar";
+import FilterBar from "../../../../../../components/PagesLayout/FilterBar";
+import SearchClient from '../../../../../cliente/components/SearchField'
+import SearchItem from "../../../../../item/components/SearchField";
 
 import PrintBtn from "./PrintBtn";
 
@@ -16,6 +17,8 @@ import {
 import { useMutation } from "@apollo/client";
 import { VENTA_DATA } from "../../../grapql/query";
 import { PostVenta } from "../../../grapql/mutation";
+import { GET_ITEMS } from "../../../../../item/graphql/query";
+import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 
@@ -76,8 +79,19 @@ export default function ReciboVenta({ closeDialog }) {
   return (
     <>
       <ShouldSubmit.Provider value={reciboState}>
-        <SearchClient context={ShouldSubmit} recibo={true} />
-        <SearchItem context={ShouldSubmit} recibo={true} />
+        <FilterBar context={ShouldSubmit}
+          recibo={true}
+          SearchField={SearchClient}
+          getQuery={GET_CLIENTES}
+          queryType='clientes'
+        />
+        <FilterBar context={ShouldSubmit}
+          recibo={true}
+          SearchField={SearchItem}
+          getQuery={GET_ITEMS}
+          queryType='items'
+        />
+        {/* <SearchItem context={ShouldSubmit} recibo={true} /> */}
         <TableContainer />
       </ShouldSubmit.Provider>
       <FormControlLabel

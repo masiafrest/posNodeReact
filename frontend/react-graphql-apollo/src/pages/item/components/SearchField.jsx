@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { pushLinea } from "../../../../redux/features/reciboSlice";
-import AddBtn, { addLinea } from "../AddBtn";
+import { pushLinea } from "../../../redux/features/reciboSlice";
+import AddBtn, { addLinea } from "./AddBtn";
 import { useSnackbar } from "notistack";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
