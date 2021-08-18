@@ -57,9 +57,11 @@ async function startServer() {
 
   server.applyMiddleware({ app });
 
-  await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
+  const PORT = process.env.PORT || 4000
+  await new Promise((resolve) => app.listen({ port: PORT }, resolve));
 
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  console.log(`🚀 Serve React build files ready at http://localhost:${PORT}`);
+  console.log(`🚀 Grahql Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 }
 
 startServer();
