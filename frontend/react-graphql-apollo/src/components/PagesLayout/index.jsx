@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import FilterBar from "./components/FilterBar";
 import List from "./components/List";
 import Pagination from "@material-ui/lab/Pagination";
+import { Grid } from "@material-ui/core";
 
 const FilterBarState = createContext(null);
 
@@ -51,20 +52,34 @@ export default function PagesLayout({
         <span> loading</span>
         :
         dataRes?.query?.length > 0 ?
-          <>
-            <List
-              view={view}
-              data={loading ? [] : dataRes.query}
-              viewComp={viewComp}
-            />
-            <Pagination
-              count={pages}
-              page={page}
-              onChange={(e, p) => {
-                setPage(p);
-              }}
-            />
-          </>
+          <Grid container
+            alignItems='center'
+            justify='center'
+            spacing={3}
+          // style={{ textAlign: 'center' }}
+          >
+            <Grid container item sm={12}
+              alignItems='center'
+              // justify='center'
+              spacing={2}
+            >
+              <List
+                view={view}
+                data={loading ? [] : dataRes.query}
+                viewComp={viewComp}
+              />
+            </Grid>
+            <Grid item>
+              <Pagination
+                count={pages}
+                page={page}
+                onChange={(e, p) => {
+                  setPage(p);
+                }}
+              />
+
+            </Grid>
+          </Grid>
           : <span>no hay item</span>
       }
       <CreateDialog />
