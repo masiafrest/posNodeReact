@@ -1,11 +1,13 @@
-import { Switch, Grid } from "@material-ui/core";
+import { Switch, Grid, FormControlLabel, FormGroup } from "@material-ui/core";
 
 import CardViewIcon from "@material-ui/icons/ViewModule";
 import PaperViewIcon from "@material-ui/icons/Dehaze";
 
 export default function SwitchView({ view, setView }) {
     return (
-        <Grid component="label" container alignItems="center" spacing={1}>
+        <Grid component="label" container alignItems="center"
+            alignContent='center'
+            spacing={0}>
             <Grid item>
                 <PaperViewIcon />
             </Grid>

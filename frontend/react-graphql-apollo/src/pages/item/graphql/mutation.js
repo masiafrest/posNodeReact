@@ -69,6 +69,9 @@ export const DEL_ITEM = gql`
   mutation DelItem($id: Int!, $paths: [String]) {
     delItem(id: $id, paths: $paths) {
       id
+      marca
+      modelo
+      descripcion
     }
   }
 `;

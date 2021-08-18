@@ -47,18 +47,26 @@ export default function PagesLayout({
         queryType={title}
       />
       <hr />
-      <List
-        view={view}
-        data={loading ? [] : dataRes.query}
-        viewComp={viewComp}
-      />
-      <Pagination
-        count={pages}
-        page={page}
-        onChange={(e, p) => {
-          setPage(p);
-        }}
-      />
+      {loading ?
+        <span> loading</span>
+        :
+        dataRes?.query?.length > 0 ?
+          <>
+            <List
+              view={view}
+              data={loading ? [] : dataRes.query}
+              viewComp={viewComp}
+            />
+            <Pagination
+              count={pages}
+              page={page}
+              onChange={(e, p) => {
+                setPage(p);
+              }}
+            />
+          </>
+          : <span>no hay item</span>
+      }
       <CreateDialog />
     </FilterBarState.Provider>
   );

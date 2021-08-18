@@ -26,6 +26,7 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [newItem, setNewItem] = React.useState(initialItemState);
 
   const onCompleted = (data) => {
+    console.log('data', data)
     const updatedMsg = `item actualizado`;
     const addedMsg = `item agregado`;
     enqueueSnackbar(item ? updatedMsg : addedMsg, {
@@ -35,8 +36,18 @@ export default function ItemEditDialogIcon({ item = null }) {
   }
 
   const onError = (error) => {
-    console.log(error);
-    enqueueSnackbar("hubo un error en server", {
+    console.log(typeof error.message);
+    console.log(error.message);
+    const generalMsg = "hubo un error en server"
+    const constraintMsg =
+      'Unique constraint failed on the fields: (`marca`, `modelo`, `barcode`)'
+
+    const isConstraint = error.message.includes(
+      'constraint')
+
+    const errorMsg = isConstraint ? constraintMsg : generalMsg
+
+    enqueueSnackbar(errorMsg, {
       variant: "error",
     });
   }
@@ -45,6 +56,7 @@ export default function ItemEditDialogIcon({ item = null }) {
     onCompleted,
     onError,
   });
+
   const [postItem] = useMutation(POST_ITEM, {
     update(cache, { data: { postItem } }) {
       cache.modify({
@@ -54,6 +66,7 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
+            console.log('update existingItems query:, ', existingItems)
             return [...existingItems.query, newItemRef];
           },
         },

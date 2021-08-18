@@ -8,9 +8,13 @@ export default function List({ view,
     //TODO add grid, a swipable to del, maybe a materialUiContainer too
     return (
         <>
-            <Grid container spacing={1}>
-                {data.map((item) => (
-                    <Grid item key={`item-grid-${item.id}`}>
+            <Grid container spacing={1}
+
+            >
+                {data?.map((item) => (
+                    <Grid item key={`item-grid-${item.id}`}
+                        sm={12}
+                    >
                         {
                             view ? (
                                 <Card data={item} key={`item-${item.id}`} />

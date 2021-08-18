@@ -1,11 +1,15 @@
 
-import { NativeSelect, Typography } from "@material-ui/core";
+import {
+    NativeSelect, Typography,
+    Grid
+} from "@material-ui/core";
 
 export default function SelectItemPerPage({
     take, setTake, setPage
 }) {
     return (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <
+            >
             <Typography>items por pagina</Typography>
             <NativeSelect
                 value={take}
@@ -18,6 +22,6 @@ export default function SelectItemPerPage({
                 <option value={10}>10</option>
                 <option value={20}>20</option>
             </NativeSelect>
-        </div>
+        </>
     )
 }
