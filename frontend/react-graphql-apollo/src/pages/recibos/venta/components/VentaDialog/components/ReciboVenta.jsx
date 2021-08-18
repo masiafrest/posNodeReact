@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import TableContainer from "./TablaContainer";
+import TableRecibo from './TablaContainer/VentaTable'
 import FilterBar from "../../../../../../components/PagesLayout/components/FilterBar";
 import SearchClient from '../../../../../cliente/components/SearchField'
 import SearchItem from "../../../../../item/components/SearchField";
@@ -49,7 +49,7 @@ export default function ReciboVenta({ closeDialog }) {
       closeDialog();
     },
     onError(e) {
-      enqueueSnackbar("hubo un error en el recibo o servidor", {
+      enqueueSnackbar(e.message, {
         variant: "warning",
       });
     },
@@ -94,7 +94,7 @@ export default function ReciboVenta({ closeDialog }) {
           queryType='items'
         />
         {/* <SearchItem context={ShouldSubmit} recibo={true} /> */}
-        <TableContainer />
+        <TableRecibo venta={venta} />;
       </ReciboState.Provider>
       <FormControlLabel
         control={

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import Table from "./VentaDialog/components/TablaContainer/Table";
+import Table from "./VentaDialog/components/TablaContainer/VentaTable";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {

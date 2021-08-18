@@ -13,11 +13,16 @@ import {
 export default function ItemCard({ data }) {
 	const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = data
 	const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
-	const imgFileName = image_url.split(', ')
+	const imgFileNameArr = image_url.split(', ')
 
 	return (
-		<Card>
-			<ImgStepper imgFileName={imgFileName} />
+		<Card
+			style={{
+				height: 450
+			}}
+		>
+			<ImgStepper
+				imgFileName={imgFileNameArr} />
 			<CardContent>
 				<Typography variant="h5" component="h2">
 					{`${marca} ${modelo} ${descripcion}`}

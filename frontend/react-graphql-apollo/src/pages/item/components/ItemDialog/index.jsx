@@ -47,6 +47,7 @@ export default function ItemEditDialogIcon({ item = null }) {
 
   const [postItem] = useMutation(POST_ITEM, {
     update(cache, { data: { postItem } }) {
+      console.log('postItem:', postItem)
       cache.modify({
         fields: {
           items(existingData = []) {
@@ -54,8 +55,7 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
-            console.log('arr lenght: ', existingData.query.length > 0)
-            return existingData.query.length > 0 ? [...existingData.query, newDataRef] : [newDataRef]
+            return existingData?.query ? [...existingData.query, newDataRef] : [newDataRef]
           },
         },
       });

@@ -14,7 +14,9 @@ export default function List({ view,
 				>
 					{
 						view ? (
-							<Card data={item} key={`item-${item.id}`} />
+							<Card
+								data={item} key={`item-${item.id}`}
+							/>
 						) : (
 							<Accordion data={item} key={`item-${item.id}`} />
 						)}

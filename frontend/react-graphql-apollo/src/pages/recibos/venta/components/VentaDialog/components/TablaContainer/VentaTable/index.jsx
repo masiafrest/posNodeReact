@@ -3,12 +3,14 @@ import { round } from "lodash";
 import {
   Paper,
   TableRow,
-  TableHead,
   TableContainer,
   TableCell,
   Table,
   TableBody,
+  Typography
 } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+
 import { useDispatch } from "react-redux";
 import {
   addTax,
@@ -20,7 +22,19 @@ import QtyEditField from "../QtyEditField";
 import PriceEditField from "../PriceEditField";
 import DelBtn from "../DelBtn";
 
+const useStyles = makeStyles(theme => (
+  {
+    styleRows: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      }
+    }
+  }
+))
+
 export default function VentaTable({ isVenta = true, venta }) {
+  const classes = useStyles()
+
   const dispatch = useDispatch();
   const { subTotal, tax, total, lineas } = venta;
   const [isTax, setIsTax] = useState(true);
@@ -29,7 +43,9 @@ export default function VentaTable({ isVenta = true, venta }) {
 
   const lineasTable = lineas?.map(
     ({ precio, precioMin, descripcion, qty, id }, idx) => (
-      <TableRow key={id}>
+      <TableRow
+        className={classes.styleRows}
+        key={id}>
         <TableCell key={`qty-id-${idx}`} align="left">
           {isVenta ? (
             <>
@@ -40,8 +56,11 @@ export default function VentaTable({ isVenta = true, venta }) {
             qty
           )}
         </TableCell>
-        <TableCell key={`qty-descripcion-${idx}`} align="left">
-          {descripcion}
+        <TableCell key={`qty-descripcion-${idx}`} align="center"
+        >
+          <Typography>
+            {descripcion}
+          </Typography>
         </TableCell>
         <TableCell key={`qty-precio-${idx}`} align="right">
           {isVenta ? (
@@ -58,19 +77,21 @@ export default function VentaTable({ isVenta = true, venta }) {
         <TableCell key={`qty-total-${idx}`} align="right">
           {(precio * qty).toFixed(2)}
         </TableCell>
-      </TableRow>
+      </TableRow >
     )
   );
 
   return (
     <TableContainer component={Paper}>
-      <Table style={{ minWidth: 300 }} padding="default" size="small">
+      <Table
+        style={{ minWidth: 300 }}
+        padding="none"
+        size="small">
         <TableHeader />
         <TableBody>
           {lineasTable}
           <TableRow key="separator">
             <TableCell colSpan={4}>
-              <hr />
             </TableCell>
           </TableRow>
           <TotalTable
