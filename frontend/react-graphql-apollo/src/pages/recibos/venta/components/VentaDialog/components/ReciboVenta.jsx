@@ -94,8 +94,9 @@ export default function ReciboVenta({ closeDialog }) {
           queryType='items'
         />
         {/* <SearchItem context={ShouldSubmit} recibo={true} /> */}
-        <TableRecibo venta={venta} />;
+        <TableRecibo venta={venta} />
       </ReciboState.Provider>
+
       <FormControlLabel
         control={
           <Checkbox checked={credito} onChange={handleCreditoCheckBox} />

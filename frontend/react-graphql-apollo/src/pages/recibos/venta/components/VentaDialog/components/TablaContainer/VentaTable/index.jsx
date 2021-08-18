@@ -75,7 +75,9 @@ export default function VentaTable({ isVenta = true, venta }) {
           )}
         </TableCell>
         <TableCell key={`qty-total-${idx}`} align="right">
-          {(precio * qty).toFixed(2)}
+          <Typography>
+            {(precio * qty).toFixed(2)}
+          </Typography>
         </TableCell>
       </TableRow >
     )
