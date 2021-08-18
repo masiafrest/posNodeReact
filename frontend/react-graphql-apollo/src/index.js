@@ -13,7 +13,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 
-const { localIp } = require("../../../getLocalIp");
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
@@ -26,10 +25,11 @@ const authLink = setContext((_, { headers }) => {
 });
 // const httpLink = createHttpLink({
 //   uri: "http://localhost:4000/graphql",
-
 // });
 
-console.log("local ip: ", localIp);
+// const { localIp } = require("../../../getLocalIp");
+// console.log("local ip: ", localIp);
+
 const uploadLink = createUploadLink({
   uri: "http://localhost:4000/graphql",
 });
