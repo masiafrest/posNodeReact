@@ -31,7 +31,7 @@ export default function ItemCard({ data }) {
             <CardActions>
                 <EditDialogIcon item={data} />
                 <AddBtn item={data} reciboTipo="venta" />
-                <DelBtn id={id} paths={imgFileName} />
+                <DelBtn id={id} paths={image_url} />
             </CardActions>
         </Card>
     );

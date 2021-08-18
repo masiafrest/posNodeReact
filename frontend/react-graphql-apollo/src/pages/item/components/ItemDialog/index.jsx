@@ -26,7 +26,6 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [newItem, setNewItem] = React.useState(initialItemState);
 
   const onCompleted = (data) => {
-    console.log('data', data)
     const updatedMsg = `item actualizado`;
     const addedMsg = `item agregado`;
     enqueueSnackbar(item ? updatedMsg : addedMsg, {
@@ -36,18 +35,7 @@ export default function ItemEditDialogIcon({ item = null }) {
   }
 
   const onError = (error) => {
-    console.log(typeof error.message);
-    console.log(error.message);
-    const generalMsg = "hubo un error en server"
-    const constraintMsg =
-      'Unique constraint failed on the fields: (`marca`, `modelo`, `barcode`)'
-
-    const isConstraint = error.message.includes(
-      'constraint')
-
-    const errorMsg = isConstraint ? constraintMsg : generalMsg
-
-    enqueueSnackbar(errorMsg, {
+    enqueueSnackbar(error.message, {
       variant: "error",
     });
   }
@@ -61,13 +49,12 @@ export default function ItemEditDialogIcon({ item = null }) {
     update(cache, { data: { postItem } }) {
       cache.modify({
         fields: {
-          items(existingItems = []) {
-            const newItemRef = cache.writeFragment({
+          items(existingData = []) {
+            const newDataRef = cache.writeFragment({
               data: postItem,
               fragment: ITEM_DATA,
             });
-            console.log('update existingItems query:, ', existingItems)
-            return [...existingItems.query, newItemRef];
+            return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
           },
         },
       });

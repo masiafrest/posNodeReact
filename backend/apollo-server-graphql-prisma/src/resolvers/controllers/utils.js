@@ -33,6 +33,7 @@ function tradeTokenForUser(authToken) {
 }
 
 async function delImg(paths) {
+  console.log('delImg paths:', paths)
   const fs = require("fs");
   const path = require("path");
   let imgPath;
@@ -58,7 +59,6 @@ async function delImg(paths) {
       console.error(err);
     }
   });
-  console.log("delImg");
 }
 
 module.exports = {

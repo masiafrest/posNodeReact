@@ -84,7 +84,7 @@ async function postItem(parent, args, ctx, info) {
     images,
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
-
+  console.log('post item images: ', images)
   const storeUpload = async ({ stream, filename, mimetype }) => {
     const { createWriteStream, mkdir } = require("fs");
     await mkdir("public/images/items", { recursive: true }, (err) => {

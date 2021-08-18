@@ -32,9 +32,8 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
     handleClose();
   }
 
-  const onError = (error) => {
-    console.log(error);
-    enqueueSnackbar("hubo un error en server", {
+  const onError = (e) => {
+    enqueueSnackbar(e.message, {
       variant: "error",
     });
   }
@@ -48,12 +47,12 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
       update(cache, { data: { postCategoria } }) {
         cache.modify({
           fields: {
-            categorias(existingCategorias = []) {
-              const newCategoriaRef = cache.writeFragment({
+            categorias(existingData = []) {
+              const newDataRef = cache.writeFragment({
                 data: postCategoria,
                 fragment: CATEGORIAS_DATA
               });
-              return [...existingCategorias.query, newCategoriaRef];
+              return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
             },
           },
         });

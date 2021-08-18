@@ -32,9 +32,8 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
     handleClose();
   }
 
-  const onError = (error) => {
-    console.log(error);
-    enqueueSnackbar("hubo un error en server", {
+  const onError = (e) => {
+    enqueueSnackbar(e.message, {
       variant: "error",
     });
   }
@@ -47,12 +46,12 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
       update(cache, { data: { postCliente } }) {
         cache.modify({
           fields: {
-            clientes(existingClientes = []) {
-              const newClienteRef = cache.writeFragment({
+            clientes(existingData = []) {
+              const newDataRef = cache.writeFragment({
                 data: postCliente,
                 fragment: CLIENTE_DATA,
               });
-              return [...existingClientes.query, newClienteRef];
+              return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
             },
           },
         });
