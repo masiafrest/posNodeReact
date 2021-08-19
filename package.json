@@ -4,6 +4,7 @@
   "description": "pos and inventory",
   "main": "index.js",
   "scripts": {
+    "prisma-migrate": "cd backend/apollo-server-graphql-prisma && npm run migrate ",
     "start-react": "cd frontend/react-graphql-apollo && npm run start",
     "start-server": "cd backend/apollo-server-graphql-prisma && npm run start",
     "dev": "cd backend/apollo-server-graphql-prisma && npm run dev",
