@@ -18,6 +18,7 @@ model Cliente {
   dirrecion   String?
   createdAt   DateTime @default(now())
   reciboVenta Venta[]
+  reciboDevolucion Devolucion[]
 }
 
 model Usuario {
@@ -26,6 +27,7 @@ model Usuario {
   password    String
   rol         Rol      @default(VENDEDOR)
   reciboVenta Venta[]
+  reciboDevolucion Devolucion[]
   createdAt   DateTime @default(now())
 }
 
@@ -44,18 +46,17 @@ model Item {
   qty         Int
   descripcion String?
   precio      Precio?
-  // precio Precio @relation(fields: [precioId], references: [id])
-  // precioId Int
   ubicacion   Ubicacion    @relation(fields: [ubicacionId], references: [id])
   ubicacionId Int
   categorias  Categoria[]
   createdAt   DateTime     @default(now())
   deleted     Boolean      @default(false)
   search_text String
-  // tsvector  Unsupported("tsvector")? @default(dbgenerated())
-  lineaVenta  VentaLinea[]
 
-  // @@index([tsvector])
+  lineaVenta  VentaLinea[]
+  lineaDevolucion DevolucionLinea[]
+  itemDevuelto DevolucionLinea[]  @relation("itemDevuelto")
+
   @@unique([marca, modelo, barcode])
 }
 
@@ -109,4 +110,33 @@ model VentaLinea {
   qty         Int
   precio      Float
   descripcion String
+}
+
+
+model Devolucion {
+  id        Int          @id @default(autoincrement())
+  usuario   Usuario?     @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  cliente   Cliente?     @relation(fields: [clienteId], references: [id])
+  clienteId Int
+  fecha     DateTime     @default(now())
+  lineas DevolucionLinea[]
+}
+
+model DevolucionLinea {
+  id          Int    @id @default(autoincrement())
+  devolucion  Devolucion @relation(fields: [devolucionId], references: [id])
+  devolucionId     Int
+
+  item        Item?  @relation(fields: [itemId], references: [id])
+  itemId      Int?
+  qty         Int
+  descripcion String
+
+  razon String
+
+  qtyDevuelto Int
+  descripcionDevuelto String
+  itemDevuelto Item?  @relation(name:"itemDevuelto", fields: [itemDevueltoId], references: [id])
+  itemDevueltoId      Int?
 }
