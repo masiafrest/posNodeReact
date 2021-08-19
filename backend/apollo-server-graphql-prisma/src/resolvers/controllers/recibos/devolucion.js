@@ -5,16 +5,30 @@
  * @param {{ prisma: Prisma }} ctx
  */
 async function postDevolucion(parent, args, ctx, info) {
-  const { clienteId, credito, subTotal, tax, total, lineas } = args;
+  const { clienteId, lineas } = args;
 
   const newLines = lineas.map((linea) => {
-    const { id, descripcion, precio, qty } = linea;
+    const {
+      id,
+      razon,
+      qty,
+      descripcion,
+      qtyDevuelto,
+      descripcionDevuelto,
+      itemDevueltoId,
+    } = linea;
     return {
       item: { connect: { id: id * 1 } },
-      // itemd: id,
-      descripcion: `${descripcion}`,
+      descripcion,
       qty,
-      precio,
+      itemDevueltoId: {
+        connect: {
+          id: itemDevueltoId * 1,
+        },
+      },
+      qtyDevuelto,
+      descripcionDevuelto,
+      razon,
     };
   });
 
@@ -22,10 +36,6 @@ async function postDevolucion(parent, args, ctx, info) {
     data: {
       usuario: { connect: { id: ctx.currentUser.id } },
       cliente: { connect: { id: clienteId * 1 } },
-      credito,
-      subTotal,
-      tax,
-      total,
       lineas: {
         create: newLines,
       },
