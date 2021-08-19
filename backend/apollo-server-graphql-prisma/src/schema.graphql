@@ -7,6 +7,7 @@ type Query {
   ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery
   clientes(filter: String, skip: Int, take: Int): ClienteQuery
   ventas(filter: String, skip: Int, take: Int): VentasQuery
+  devolucions(filter: String, skip: Int, take: Int): DevolucionesQuery
 }
 
 type ItemQuery {
@@ -15,6 +16,10 @@ type ItemQuery {
 }
 type VentasQuery {
   query: [Venta]
+  count: Int
+}
+type DevolucionesQuery {
+  query: [Devolucion]
   count: Int
 }
 
@@ -196,4 +201,28 @@ type VentaLinea {
   qty: Int
   precio: Float
   descripcion: String
+}
+
+type Devolucion {
+  id: ID!
+  usuarioId: Int
+  clienteId: Int
+  usuario: Usuario
+  cliente: Cliente
+  fecha: String
+  lineas: [DevolucionLinea]
+}
+
+type DevolucionLinea {
+  devolucionId: ID
+  id: ID!
+  item: Item
+  itemId: Int
+  qty: Int
+  descripcion: String
+  itemDevuelto: item
+  itemDevueltoId: Int
+  qtyDevuelto: Int
+  descripcionDevuelto: String
+  razon: String
 }
