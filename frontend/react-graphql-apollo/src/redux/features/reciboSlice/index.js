@@ -11,6 +11,10 @@ const initialState = {
     tax: 0,
     total: 0,
   },
+  devolucion: {
+    clienteId: null,
+    lineas: [],
+  },
   transferencia: {
     lineas: [],
   },
