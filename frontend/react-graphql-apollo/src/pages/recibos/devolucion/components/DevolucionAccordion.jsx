@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import Table from "./DevolucionDialog/components/TablaContainer/VentaTable";
+import Table from "./DevolucionDialog/components/TablaContainer/DevolucionTable";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
@@ -27,7 +27,7 @@ export default function VentaAccordion({ data }) {
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
-        <Table venta={data} isVenta={false} />
+        <Table venta={data} isDevolucion={false} />
       </AccordionDetails>
       {/* <AccordionActions></AccordionActions> */}
     </Accordion>

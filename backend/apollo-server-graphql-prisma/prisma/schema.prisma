@@ -55,7 +55,6 @@ model Item {
 
   lineaVenta  VentaLinea[]
   lineaDevolucion DevolucionLinea[]
-  itemDevuelto DevolucionLinea[]  @relation("itemDevuelto")
 
   @@unique([marca, modelo, barcode])
 }
@@ -131,12 +130,8 @@ model DevolucionLinea {
   item        Item?  @relation(fields: [itemId], references: [id])
   itemId      Int?
   qty         Int
+  precio      Float
   descripcion String
-
+  esItemDevolvuelto Boolean
   razon String
-
-  qtyDevuelto Int
-  descripcionDevuelto String
-  itemDevuelto Item?  @relation(name:"itemDevuelto", fields: [itemDevueltoId], references: [id])
-  itemDevueltoId      Int?
 }

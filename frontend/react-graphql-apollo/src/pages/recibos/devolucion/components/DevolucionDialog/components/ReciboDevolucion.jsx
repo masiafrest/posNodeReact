@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import TableRecibo from "./TablaContainer/VentaTable";
+import TableRecibo from "./TablaContainer/DevolucionTable";
 import FilterBar from "../../../../../../components/PagesLayout/components/FilterBar";
 import SearchClient from "../../../../../cliente/components/SearchField";
 import SearchItem from "../../../../../item/components/SearchField";

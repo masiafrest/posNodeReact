@@ -11,9 +11,10 @@ const {
   delCategoria,
 } = require("./controllers/categoria");
 const { postVenta } = require("./controllers/recibos/venta");
+const { postDevolucion } = require("./controllers/recibos/devolucion");
 const { signup, login } = require("./controllers/usuario");
 
-const { authenticated } = require('./authUtil')
+const { authenticated } = require("./authUtil");
 
 const mutations = {
   postItem,
@@ -26,30 +27,32 @@ const mutations = {
   postCliente,
   updateCliente,
   delCliente,
+  postDevolucion,
   postVenta,
   signup,
   login,
-}
+};
 
-let authMutations = { ...mutations }
+let authMutations = { ...mutations };
 
 const authArr = [
-  'postItem',
-  'updateItem',
-  'delItem',
-  'postCategoria',
-  'updateCategoria',
-  'delCategoria',
-  'postUbicacion',
-  'postCliente',
-  'updateCliente',
-  'delCliente',
-  'postVenta',
-  'signup',
-]
+  "postItem",
+  "updateItem",
+  "delItem",
+  "postCategoria",
+  "updateCategoria",
+  "delCategoria",
+  "postUbicacion",
+  "postCliente",
+  "updateCliente",
+  "delCliente",
+  "postVenta",
+  "postDevolucion",
+  "signup",
+];
 
 for (e of authArr) {
-  authMutations[e] = authenticated(mutations[e])
+  authMutations[e] = authenticated(mutations[e]);
 }
 
-module.exports = authMutations
+module.exports = authMutations;

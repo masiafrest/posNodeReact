@@ -2,13 +2,10 @@ const jwt = require("jsonwebtoken");
 const APP_SECRET = "secrectWord";
 
 const splitArrBySpace = (words, key) => {
-  console.log('words:', words)
-  const noCharWords = words.replace(/[^\w]/gi, ' ')
-  console.log('noChar: ', noCharWords)
-  const splited = noCharWords.split(" ")
-  const noSpace = splited.filter((e, i, a) => a.length > 0 && e !== '')
+  const noCharWords = words.replace(/[^\w]/gi, " ");
+  const splited = noCharWords.split(" ");
+  const noSpace = splited.filter((e, i, a) => a.length > 0 && e !== "");
 
-  console.log('nospace:', noSpace)
   return splited.map((e) => {
     const contains = `${e}`.replace("", "");
     return {
@@ -16,7 +13,7 @@ const splitArrBySpace = (words, key) => {
         contains,
       },
     };
-  })
+  });
 };
 
 const getToken = (user) => {
@@ -33,7 +30,7 @@ function tradeTokenForUser(authToken) {
 }
 
 async function delImg(paths) {
-  console.log('delImg paths:', paths)
+  console.log("delImg paths:", paths);
   const fs = require("fs");
   const path = require("path");
   let imgPath;

@@ -17,10 +17,8 @@ export const DEVOLUCION_DATA = gql`
     lineas {
       qty
       descripcion
-      qtyDevuelto
-      itemDevuelto
-      descripcionDevuelto
       razon
+      esItemDevolvuelto
     }
   }
 `;

@@ -12,7 +12,7 @@ export default function Devolucion() {
   const viewComp = getViewComp(DevolucionAccordion, DevolucionAccordion);
   return (
     <PagesLayout
-      title="ventas"
+      title="devoluciones"
       SearchField={SearchField}
       CreateDialog={DevolucionDialog}
       getQuery={GET_DEVOLUCIONES}

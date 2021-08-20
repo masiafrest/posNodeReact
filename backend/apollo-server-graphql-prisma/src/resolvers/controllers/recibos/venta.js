@@ -54,6 +54,8 @@ async function ventas(parent, args, ctx, info) {
   const nombreArr = splitArrBySpace(filter, "nombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
 
+  console.log("venta arg:", args);
+
   const hasClient =
     (await ctx.prisma.venta.count({
       where: {

@@ -63,6 +63,7 @@ async function devoluciones(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   const nombreArr = splitArrBySpace(filter, "nombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
+  console.log("devoluciones arg:", args);
 
   const hasClient =
     (await ctx.prisma.devolucion.count({

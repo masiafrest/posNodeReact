@@ -24,6 +24,7 @@ import Item from "./pages/item";
 import Cliente from "./pages/cliente";
 import Categoria from "./pages/categoria";
 import Venta from "./pages/recibos/venta";
+import Devolucion from "./pages/recibos/devolucion";
 
 const token = localStorage.token;
 if (token) {
@@ -59,6 +60,7 @@ function App() {
                 <AuthRoute path="/item" component={Item} />
                 <AuthRoute path="/item/new/:page" component={Item} />
                 <AuthRoute path="/venta" component={Venta} />
+                <AuthRoute path="/devolucion" component={Devolucion} />
                 <AuthRoute path="/cliente" component={Cliente} />
                 <AuthRoute path="/cliente/new/:page" component={Cliente} />
                 <AuthRoute path="/categoria" component={Categoria} />

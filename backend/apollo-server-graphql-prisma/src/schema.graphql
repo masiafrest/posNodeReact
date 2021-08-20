@@ -115,11 +115,11 @@ input DevolucionLineaInput {
   id: ID
   tipo: String
   qty: Int
+  precio: Float
+  precioMin: Float
   descripcion: String
-  itemDevueltoId: ID
-  qtyDevuelto: Int
-  descripcionDevuelto: String
   razon: String
+  esItemDevolvuelto: Boolean
 }
 
 input IdInput {
@@ -232,9 +232,6 @@ type DevolucionLinea {
   itemId: Int
   qty: Int
   descripcion: String
-  itemDevuelto: Item
-  itemDevueltoId: Int
-  qtyDevuelto: Int
-  descripcionDevuelto: String
   razon: String
+  esItemDevolvuelto: Boolean
 }
