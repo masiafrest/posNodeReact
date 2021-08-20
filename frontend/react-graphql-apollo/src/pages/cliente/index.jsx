@@ -8,7 +8,8 @@ import CreateClienteDialog from "./components/ClienteDialog";
 import SearchField from "./components/SearchField";
 
 export default function Cliente() {
-  const viewComp = getViewComp(ClientePaper, ClientePaper)
+  const viewComp = getViewComp(ClientePaper);
+  console.log("clientes vies", viewComp);
   return (
     <PagesLayout
       title="clientes"

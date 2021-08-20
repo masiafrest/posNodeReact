@@ -9,7 +9,7 @@ import DevolucionDialog from "./components/DevolucionDialog";
 import SearchField from "./components/SearchField";
 
 export default function Devolucion() {
-  const viewComp = getViewComp(DevolucionAccordion, DevolucionAccordion);
+  const viewComp = getViewComp(DevolucionAccordion);
   return (
     <PagesLayout
       title="devoluciones"

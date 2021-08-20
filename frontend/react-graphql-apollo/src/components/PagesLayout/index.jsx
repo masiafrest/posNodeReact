@@ -51,6 +51,7 @@ export default function PagesLayout({
           SearchField={SearchField}
           getQuery={getQuery}
           queryType={title}
+          hasViews={viewComp.Accordion ? true : false}
         />
       )}
       <hr />

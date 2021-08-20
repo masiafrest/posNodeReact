@@ -9,7 +9,7 @@ import VentaDialog from "./components/VentaDialog";
 import SearchField from "./components/SearchField";
 
 export default function Venta() {
-  const viewComp = getViewComp(VentaAccordion, VentaAccordion)
+  const viewComp = getViewComp(VentaAccordion);
   return (
     <PagesLayout
       title="ventas"
