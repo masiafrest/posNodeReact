@@ -32,13 +32,13 @@ export default function ItemEditDialogIcon({ item = null }) {
       variant: "success",
     });
     handleClose();
-  }
+  };
 
   const onError = (error) => {
     enqueueSnackbar(error.message, {
       variant: "error",
     });
-  }
+  };
 
   const [updateItem] = useMutation(UPDATE_ITEM, {
     onCompleted,
@@ -47,7 +47,7 @@ export default function ItemEditDialogIcon({ item = null }) {
 
   const [postItem] = useMutation(POST_ITEM, {
     update(cache, { data: { postItem } }) {
-      console.log('postItem:', postItem)
+      console.log("postItem:", postItem);
       cache.modify({
         fields: {
           items(existingData = []) {
@@ -55,13 +55,15 @@ export default function ItemEditDialogIcon({ item = null }) {
               data: postItem,
               fragment: ITEM_DATA,
             });
-            return existingData?.query ? [...existingData.query, newDataRef] : [newDataRef]
+            return existingData?.query
+              ? [...existingData.query, newDataRef]
+              : [newDataRef];
           },
         },
       });
     },
     onCompleted,
-    onError
+    onError,
   });
 
   const handleClickOpen = () => {
@@ -148,18 +150,18 @@ export default function ItemEditDialogIcon({ item = null }) {
               name: "descripcion",
               type: "text",
             },
-          ].map((field) => (
+          ].map(({ name, label, type }) => (
             <TextField
-              key={field.name}
-              autoFocus
+              key={name}
+              autoFocus={name === "marca"}
               margin="dense"
-              name={field.name}
-              id={field.name}
-              label={field.label ?? field.name}
-              type={field.type}
+              name={name}
+              id={name}
+              label={label ?? name}
+              type={type}
               fullWidth
               onChange={handleOnChange}
-              multiline={field.name === "descripcion"}
+              multiline={name === "descripcion"}
             />
           ))}
           <SelectCategoria

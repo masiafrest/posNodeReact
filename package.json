@@ -6,6 +6,7 @@
   "scripts": {
     "prisma-migrate": "cd backend/apollo-server-graphql-prisma && npm run migrate ",
     "start-react": "cd frontend/react-graphql-apollo && npm run start",
+    "serve": "cd frontend/react-graphql-apollo && npm run serve",
     "start-server": "cd backend/apollo-server-graphql-prisma && npm run start",
     "dev": "cd backend/apollo-server-graphql-prisma && npm run dev",
     "start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)"
