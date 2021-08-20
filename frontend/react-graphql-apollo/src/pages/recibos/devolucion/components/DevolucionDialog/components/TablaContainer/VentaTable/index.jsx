@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { round } from "lodash";
 import {
   Paper,
   TableRow,
@@ -12,14 +10,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch } from "react-redux";
-import {
-  addTax,
-  addTotal,
-} from "../../../../../../../../redux/features/reciboSlice";
 import TableHeader from "./TableHeader";
-import TotalTable from "./TotalTable";
 import QtyEditField from "../QtyEditField";
-import PriceEditField from "../PriceEditField";
 import DelBtn from "../DelBtn";
 
 const useStyles = makeStyles((theme) => ({
@@ -63,16 +55,7 @@ export default function DevolucionTable({ isDevolucion = true, devolucion }) {
           <Typography>{descripcion}</Typography>
         </TableCell>
         <TableCell key={`qty-precio-${idx}`} align="right">
-          {isDevolucion ? (
-            <PriceEditField
-              itemId={id}
-              precio={precio}
-              precioMin={precioMin}
-              idx={idx}
-            />
-          ) : (
-            precio
-          )}
+          precio
         </TableCell>
         <TableCell key={`qty-total-${idx}`} align="right">
           <Typography>{(precio * qty).toFixed(2)}</Typography>
@@ -90,14 +73,6 @@ export default function DevolucionTable({ isDevolucion = true, devolucion }) {
           <TableRow key="separator">
             <TableCell colSpan={4}></TableCell>
           </TableRow>
-          <TotalTable
-            subTotal={subTotal}
-            tax={tax}
-            total={total}
-            setIsTax={setIsTax}
-            isTax={isTax}
-            isDevolucion={isDevolucion}
-          />
         </TableBody>
       </Table>
     </TableContainer>
