@@ -111,7 +111,7 @@ input VentaLineaInput {
   precioMin: Float
   descripcion: String
 }
-input VentaLineaInput {
+input DevolucionLineaInput {
   id: ID
   tipo: String
   qty: Int
@@ -232,7 +232,7 @@ type DevolucionLinea {
   itemId: Int
   qty: Int
   descripcion: String
-  itemDevuelto: item
+  itemDevuelto: Item
   itemDevueltoId: Int
   qtyDevuelto: Int
   descripcionDevuelto: String
