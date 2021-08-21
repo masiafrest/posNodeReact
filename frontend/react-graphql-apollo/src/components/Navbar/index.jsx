@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 //MUI
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Switch,
   Typography,
   Drawer,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -25,7 +22,6 @@ function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const history = useHistory();
 
-  console.log("navbar", isAuth);
   const toggleDrawer = (isOpen) => (e) => {
     setIsDrawerOpen(isOpen);
   };

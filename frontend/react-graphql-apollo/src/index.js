@@ -23,19 +23,13 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// const { localIp } = require("../../../getLocalIp");
-// console.log("local ip: ", localIp);
-
 // const httpLink = createHttpLink({
 //   uri: "http://localhost:4000/graphql",
 // });
 
 const cellooIp = "192.168.1.104";
-const homeIp = "";
-const host = "localhost";
-const uri = `http://${cellooIp}:4000/graphql`;
-
-console.log("uri: ", uri);
+const host = process.env.NODE_ENV === 'development' ? "localhost" : cellooIp;
+const uri = `http://${host}:4000/graphql`;
 
 const uploadLink = createUploadLink({
   uri,
