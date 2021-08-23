@@ -62,7 +62,7 @@ export default function Login(props) {
 
   return (
     <Container maxWidth="sm" fixed>
-      <Typography variant="h2">SignIn</Typography>
+      <Typography variant="h2">Ingresar</Typography>
       <form noValidate onSubmit={handleSubmit}>
         <TextField
           id="nombre"
