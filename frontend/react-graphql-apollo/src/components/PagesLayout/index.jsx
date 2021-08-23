@@ -39,29 +39,33 @@ export default function PagesLayout({
 
   console.log("data", data);
   const dataRes = loading ? {} : data[title];
-  const hasData = loading ? {} : data[title].query?.length > 0;
+  const hasData = loading ? false : data[title].query?.length > 0;
   const pages = loading ? 1 : Math.ceil(dataRes.count / take);
 
   return (
-    <FilterBarState.Provider value={filterBarState}>
-      <h1 style={{ textAlign: "center" }}>{title.toUpperCase()}</h1>
-      {hasData && (
-        <FilterBar
-          context={FilterBarState}
-          SearchField={SearchField}
-          getQuery={getQuery}
-          queryType={title}
-          hasViews={viewComp.Accordion ? true : false}
-        />
-      )}
-      <hr />
-      <Grid
-        container
-        alignItems="center"
-        justify="center"
-        spacing={3}
-        // style={{ textAlign: 'center' }}
-      >
+    <Grid
+      container
+      alignItems="center"
+      justify="center"
+      justifyContent="center"
+      spacing={2}
+      // style={{ textAlign: 'center' }}
+    >
+      <FilterBarState.Provider value={filterBarState}>
+        <Grid item xs={12}>
+          <h1>{title.toUpperCase()}</h1>
+        </Grid>
+        {hasData && (
+          <Grid Item xs={12}>
+            <FilterBar
+              context={FilterBarState}
+              SearchField={SearchField}
+              getQuery={getQuery}
+              queryType={title}
+              hasViews={viewComp.Accordion ? true : false}
+            />
+          </Grid>
+        )}
         {loading ? (
           <span> loading</span>
         ) : hasData ? (
@@ -80,7 +84,7 @@ export default function PagesLayout({
                 viewComp={viewComp}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <Pagination
                 count={pages}
                 page={page}
@@ -91,12 +95,14 @@ export default function PagesLayout({
             </Grid>
           </>
         ) : (
-          <Grid item>
+          <Grid item xs={12}>
             <span>no hay item</span>
           </Grid>
         )}
-      </Grid>
-      <CreateDialog />
-    </FilterBarState.Provider>
+        <Grid item xs={12}>
+          <CreateDialog />
+        </Grid>
+      </FilterBarState.Provider>
+    </Grid>
   );
 }

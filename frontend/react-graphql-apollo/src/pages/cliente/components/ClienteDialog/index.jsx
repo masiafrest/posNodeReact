@@ -12,6 +12,7 @@ import {
   TextField,
   IconButton,
   Button,
+  Grid,
 } from "@material-ui/core";
 
 import EditIcon from "@material-ui/icons/Edit";
@@ -113,32 +114,39 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
           {cliente ? "Actualizar Datos" : "Agregar Datos"}
         </DialogTitle>
         <DialogContent>
-          {[
-            {
-              name: "nombre",
-              type: "text",
-            },
-            {
-              name: "telefono",
-              type: "text",
-            },
-            {
-              name: "dirrecion",
-              type: "text",
-            },
-          ].map((field) => (
-            <TextField
-              key={field.name}
-              autoFocus
-              margin="dense"
-              name={field.name}
-              id={field.name}
-              label={field.name}
-              type={field.type}
-              fullWidth
-              onChange={handleOnChange}
-            />
-          ))}
+          <Grid container spacing={1}>
+            {[
+              {
+                name: "nombre",
+                type: "text",
+                xs: 6,
+              },
+              {
+                name: "telefono",
+                type: "text",
+                xs: 6,
+              },
+              {
+                name: "dirrecion",
+                type: "text",
+                xs: 12,
+              },
+            ].map(({ name, type, xs }) => (
+              <Grid item xs={xs}>
+                <TextField
+                  key={name}
+                  autoFocus
+                  margin="dense"
+                  name={name}
+                  id={name}
+                  label={name}
+                  type={type}
+                  fullWidth
+                  onChange={handleOnChange}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
