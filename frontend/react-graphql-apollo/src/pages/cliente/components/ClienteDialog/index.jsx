@@ -18,7 +18,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function ClienteEditDialogIcon({ cliente = null }) {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
   const initialClienteState = {};
   const [open, setOpen] = useState(false);
   const [newCliente, setNewCliente] = useState(initialClienteState);
@@ -30,35 +30,34 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
       variant: "success",
     });
     handleClose();
-  }
+  };
 
   const onError = (e) => {
     enqueueSnackbar(e.message, {
       variant: "error",
     });
-  }
+  };
 
-  const [updateCliente] =
-    useMutation(UPDATE_CLIENTE, { onCompleted, onError });
-  const [postCliente] = useMutation(
-    POST_CLIENTE,
-    {
-      update(cache, { data: { postCliente } }) {
-        cache.modify({
-          fields: {
-            clientes(existingData = []) {
-              const newDataRef = cache.writeFragment({
-                data: postCliente,
-                fragment: CLIENTE_DATA,
-              });
-              return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
-            },
+  const [updateCliente] = useMutation(UPDATE_CLIENTE, { onCompleted, onError });
+  const [postCliente] = useMutation(POST_CLIENTE, {
+    update(cache, { data: { postCliente } }) {
+      cache.modify({
+        fields: {
+          clientes(existingData = []) {
+            const newDataRef = cache.writeFragment({
+              data: postCliente,
+              fragment: CLIENTE_DATA,
+            });
+            return existingData.query
+              ? [...existingData.query, newDataRef]
+              : [newDataRef];
           },
-        });
-      },
-      onCompleted, onError
-    }
-  );
+        },
+      });
+    },
+    onCompleted,
+    onError,
+  });
 
   const handleClickOpen = (e) => {
     setOpen(true);
