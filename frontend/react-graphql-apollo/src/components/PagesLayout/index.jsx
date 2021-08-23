@@ -55,43 +55,47 @@ export default function PagesLayout({
         />
       )}
       <hr />
-      {loading ? (
-        <span> loading</span>
-      ) : hasData ? (
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          spacing={3}
-          // style={{ textAlign: 'center' }}
-        >
-          <Grid
-            container
-            item
-            sm={12}
-            alignItems="center"
-            // justify='center'
-            spacing={2}
-          >
-            <List
-              view={view}
-              data={loading ? [] : dataRes.query}
-              viewComp={viewComp}
-            />
-          </Grid>
+      <Grid
+        container
+        alignItems="center"
+        justify="center"
+        spacing={3}
+        // style={{ textAlign: 'center' }}
+      >
+        {loading ? (
+          <span> loading</span>
+        ) : hasData ? (
+          <>
+            <Grid
+              container
+              item
+              sm={12}
+              alignItems="center"
+              // justify='center'
+              spacing={2}
+            >
+              <List
+                view={view}
+                data={loading ? [] : dataRes.query}
+                viewComp={viewComp}
+              />
+            </Grid>
+            <Grid item>
+              <Pagination
+                count={pages}
+                page={page}
+                onChange={(e, p) => {
+                  setPage(p);
+                }}
+              />
+            </Grid>
+          </>
+        ) : (
           <Grid item>
-            <Pagination
-              count={pages}
-              page={page}
-              onChange={(e, p) => {
-                setPage(p);
-              }}
-            />
+            <span>no hay item</span>
           </Grid>
-        </Grid>
-      ) : (
-        <span>no hay item</span>
-      )}
+        )}
+      </Grid>
       <CreateDialog />
     </FilterBarState.Provider>
   );
