@@ -1,29 +1,39 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const env = process.env.NODE_ENV;
+
 async function main() {
-  const sonia = await prisma.usuario.create({
+  const sonia = {
     data: {
       rol: "ADMIN",
       nombre: "sonia",
       password: "celloo",
     },
-  });
+  };
 
-  const ubicacion = await prisma.ubicacion.create({
+  const julio = {
+    data: {
+      rol: "ADMIN",
+      nombre: "julio",
+      password: "celloo",
+    },
+  };
+
+  const ubicacion = {
     data: {
       dirrecion: "dorado",
       tipo: "tienda",
     },
-  });
+  };
 
-  const categoriaLcd = await prisma.categoria.create({
+  const categoriaLcd = {
     data: {
-      nombre: "Lcd",
+      nombre: "lcd",
     },
-  });
+  };
 
-  const item = await prisma.item.create({
+  const item = {
     data: {
       marca: "huawei",
       modelo: "y9p",
@@ -47,16 +57,22 @@ async function main() {
       precio: true,
       ubicacion: true,
     },
-  });
-  console.log(item);
+  };
 
-  const cliente = await prisma.cliente.create({
+  const cliente = {
     data: {
       nombre: "panacell",
       telefono: "555-5555",
       dirrecion: "dorado",
     },
-  });
+  };
+
+  await prisma.usuario.create(sonia);
+  await prisma.usuario.create(julio);
+  await prisma.ubicacion.create(ubicacion);
+  env === "dev" && (await prisma.cliente.create(cliente));
+  env === "dev" && (await prisma.categoria.create(categoriaLcd));
+  env === "dev" && (await prisma.item.create(item));
 }
 
 main()

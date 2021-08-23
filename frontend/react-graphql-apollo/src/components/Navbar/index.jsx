@@ -51,25 +51,16 @@ function NavBar() {
             onClose={toggleDrawer(false)}
           >
             <List>
-              {[
-                "home",
-                "item",
-                "venta",
-                "cliente",
-                "categoria",
-                "devolucion",
-              ].map((text, index) => (
-                <ListItem button key={text}>
-                  {/* <ListItemText
-                    primary={text.toUpperCase()}
-                    onClick={() => {
-                      toggleDrawer(false);
-                      history.push("/" + text);
-                    }}
-                  /> */}
-                  <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
-                </ListItem>
-              ))}
+              <ListItem button key="home">
+                <NavLinkOnClick to={"/"}>home</NavLinkOnClick>
+              </ListItem>
+              {["item", "venta", "cliente", "categoria", "devolucion"].map(
+                (text, index) => (
+                  <ListItem button key={text}>
+                    <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
+                  </ListItem>
+                )
+              )}
               {isAuth && (
                 <ListItem
                   button

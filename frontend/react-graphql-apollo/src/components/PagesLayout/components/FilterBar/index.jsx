@@ -13,7 +13,7 @@ export default function FilterBar({
   SearchField,
   getQuery,
   queryType,
-  hasViews,
+  hasViews = true,
 }) {
   const Context = useContext(context);
   let page, setPage, take, setTake, view, setView;

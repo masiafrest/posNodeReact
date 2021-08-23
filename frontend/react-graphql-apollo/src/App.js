@@ -55,8 +55,11 @@ function App() {
             <NavBar />
             <Switch>
               <Container>
+                {/* <AuthRoute exact path="/">
+                  home
+                </AuthRoute> */}
+                <AuthRoute exact path="/" component={Item} />
                 <Route path="/login" component={Login} />
-                <AuthRoute path="/home">home</AuthRoute>
                 <AuthRoute path="/item" component={Item} />
                 <AuthRoute path="/item/new/:page" component={Item} />
                 <AuthRoute path="/venta" component={Venta} />
