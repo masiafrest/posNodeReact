@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_CATEGORIAS } from '../../../categoria/graphql/query'
+import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Input,
@@ -56,10 +56,10 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
 
   const { data, loading } = useQuery(GET_CATEGORIAS, {
     variables: {
-      filter: '',
+      filter: "",
       take: 5,
-      skip: 0
-    }
+      skip: 0,
+    },
   });
 
   useEffect(() => {
@@ -82,6 +82,9 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
       <FormControl className={classes.formControl}>
         <InputLabel id="multiple-categorias-select">Categorias</InputLabel>
         <Select
+          fullWidth
+          // native
+          variant="standard"
           labelId="multiple-categorias-select"
           id="multiple-categorias-select"
           multiple

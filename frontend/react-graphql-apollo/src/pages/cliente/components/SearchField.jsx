@@ -5,7 +5,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import { addClienteId } from "../../../redux/features/reciboSlice";
 import { useDispatch } from "react-redux";
-import AddClientBtn from './ClienteDialog'
+import AddClientBtn from "./ClienteDialog";
 
 import { useSnackbar } from "notistack";
 
@@ -15,12 +15,14 @@ export default function SearchField({
   initialTerm,
   updateSearchTerm,
   recibo = false,
-  context
+  context,
 }) {
-  const Context = useContext(context)
+  const Context = useContext(context);
   let shouldSubmit, setShouldSubmit;
   if (recibo) {
-    ({ shouldSubmit: [shouldSubmit, setShouldSubmit] } = Context);
+    ({
+      shouldSubmit: [shouldSubmit, setShouldSubmit],
+    } = Context);
   }
   const dispath = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -76,15 +78,11 @@ export default function SearchField({
     <Autocomplete
       options={data}
       loading={loading}
-      debug={true}
-      onChange={handleChange}
+      debug
       noOptionsText={<AddClientBtn />}
-      getOptionLabel={(o) =>
-        `${o.nombre}, ${o.telefono}, ${o.dirrecion}`
-      }
-      inputValue={
-        term
-      }
+      onChange={handleChange}
+      getOptionLabel={(o) => `${o.nombre}, ${o.telefono}, ${o.dirrecion}`}
+      inputValue={term}
       onInputChange={(e, value) => {
         updateSearchTerm(value);
         setTerm(value);
@@ -96,7 +94,8 @@ export default function SearchField({
             variant="outlined"
             label="Buscar cliente"
             helperText={
-              recibo && (shouldSubmit.cliente.selected || "selecciona un cliente")
+              recibo &&
+              (shouldSubmit.cliente.selected || "selecciona un cliente")
             }
           />
         );

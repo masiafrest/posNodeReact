@@ -18,7 +18,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function CategoriaEditDialogIcon({ categoria = null }) {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
   const initialCategoriaState = {};
   const [open, setOpen] = useState(false);
   const [newCategoria, setNewCategoria] = useState(initialCategoriaState);
@@ -30,35 +30,37 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
       variant: "success",
     });
     handleClose();
-  }
+  };
 
   const onError = (e) => {
     enqueueSnackbar(e.message, {
       variant: "error",
     });
-  }
+  };
 
-  const [updateCategoria] =
-    useMutation(UPDATE_CATEGORIA, {
-      onCompleted, onError
-    });
-  const [postCategoria] =
-    useMutation(POST_CATEGORIA, {
-      update(cache, { data: { postCategoria } }) {
-        cache.modify({
-          fields: {
-            categorias(existingData = []) {
-              const newDataRef = cache.writeFragment({
-                data: postCategoria,
-                fragment: CATEGORIAS_DATA
-              });
-              return existingData.query ? [...existingData.query, newDataRef] : [newDataRef]
-            },
+  const [updateCategoria] = useMutation(UPDATE_CATEGORIA, {
+    onCompleted,
+    onError,
+  });
+  const [postCategoria] = useMutation(POST_CATEGORIA, {
+    update(cache, { data: { postCategoria } }) {
+      cache.modify({
+        fields: {
+          categorias(existingData = []) {
+            const newDataRef = cache.writeFragment({
+              data: postCategoria,
+              fragment: CATEGORIAS_DATA,
+            });
+            return existingData.query
+              ? [...existingData.query, newDataRef]
+              : [newDataRef];
           },
-        });
-      },
-      onCompleted, onError
-    });
+        },
+      });
+    },
+    onCompleted,
+    onError,
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,8 +73,8 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
   const handleOnSubmit = () => {
     categoria
       ? updateCategoria({
-        variables: { id: categoria.id * 1, ...newCategoria },
-      })
+          variables: { id: categoria.id * 1, ...newCategoria },
+        })
       : postCategoria({ variables: { ...newCategoria } });
     handleClose();
   };
@@ -83,13 +85,19 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
 
   return (
     <>
-      <IconButton aria-label="edit" onClick={handleClickOpen}>
-        {categoria ? (
-          <EditIcon color="primary" />
-        ) : (
-          <AddCircleIcon color="primary" />
-        )}
-      </IconButton>
+      {categoria ? (
+        <IconButton aria-label="edit" onClick={handleClickOpen}>
+          {categoria ? (
+            <EditIcon color="primary" />
+          ) : (
+            <AddCircleIcon color="primary" />
+          )}
+        </IconButton>
+      ) : (
+        <Button variant="contained" onClick={handleClickOpen}>
+          {categoria ? "Editar categoria" : "Agregar categoria"}
+        </Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}

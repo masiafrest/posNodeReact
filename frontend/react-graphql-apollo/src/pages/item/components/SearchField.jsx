@@ -3,9 +3,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { pushLinea } from "../../../redux/features/reciboSlice";
 import AddBtn, { addLinea } from "./AddBtn";
+
 import { useSnackbar } from "notistack";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import AddItemBtn from "./ItemDialog";
 
 export default function SearchField({
   data,
@@ -44,6 +46,8 @@ export default function SearchField({
       // data suggestions return from query
       options={data}
       loading={loading} // query loading state
+      debug
+      noOptionsText={<AddItemBtn />}
       onChange={handleChange}
       getOptionLabel={({
         marca,
@@ -74,13 +78,7 @@ export default function SearchField({
         setTerm(value);
       }}
       renderInput={(params) => {
-        return (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="buscar Item"
-          />
-        );
+        return <TextField {...params} variant="outlined" label="buscar Item" />;
       }}
     />
   );

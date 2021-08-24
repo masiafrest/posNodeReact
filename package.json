@@ -4,12 +4,16 @@
   "description": "pos and inventory",
   "main": "index.js",
   "scripts": {
-    "prisma-migrate": "cd backend/apollo-server-graphql-prisma && npm run migrate ",
-    "start-react": "cd frontend/react-graphql-apollo && npm run start",
-    "serve": "cd frontend/react-graphql-apollo && npm run serve",
-    "start-server": "cd backend/apollo-server-graphql-prisma && npm run start",
-    "dev": "cd backend/apollo-server-graphql-prisma && npm run dev",
-    "start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)"
+    "server-migrate": "cd backend/apollo-server-graphql-prisma && npm run migrate ",
+    "server-migrate-reset-dev": "NODE_ENV=dev cd backend/apollo-server-graphql-prisma && npx prisma migrate reset ",
+    "server-migrate-reset-prod": "NODE_ENV=prod cd backend/apollo-server-graphql-prisma && npx prisma migrate reset ",
+    "server-start-prod": "NODE_ENV=prod cd backend/apollo-server-graphql-prisma && npm run start",
+    "server-start-dev": "NODE_ENV=dev cd backend/apollo-server-graphql-prisma && npm run dev",
+    "react-start": "cd frontend/react-graphql-apollo && npm run start",
+    "react-build": "cd frontend/react-graphql-apollo && npm run build",
+    "react-serve": "cd frontend/react-graphql-apollo && npm run serve",
+    "react-build-serve": "cd frontend/react-graphql-apollo && npm run build && npm run serve",
+    "react-start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)"
   },
   "repository": {
     "type": "git",

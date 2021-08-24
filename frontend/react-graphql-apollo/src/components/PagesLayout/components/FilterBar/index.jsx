@@ -13,7 +13,7 @@ export default function FilterBar({
   SearchField,
   getQuery,
   queryType,
-  hasViews,
+  hasViews = true,
 }) {
   const Context = useContext(context);
   let page, setPage, take, setTake, view, setView;
@@ -49,7 +49,11 @@ export default function FilterBar({
       alignItems="center"
       // style={{ textAlign: "center" }}
     >
-      <Grid item xs={hasViews ? 12 : 9} sm={hasViews ? 6 : 9}>
+      <Grid
+        item
+        xs={recibo ? 12 : hasViews ? 12 : 9}
+        sm={recibo ? 12 : hasViews ? 6 : 9}
+      >
         <SearchField
           data={loading ? [] : data[queryType]?.query}
           loading={loading}
