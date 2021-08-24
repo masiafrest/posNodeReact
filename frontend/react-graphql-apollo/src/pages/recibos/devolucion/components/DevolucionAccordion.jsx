@@ -27,7 +27,7 @@ export default function VentaAccordion({ data }) {
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
-        <Table venta={data} isDevolucion={false} />
+        <Table venta={data} isForView={true} />
       </AccordionDetails>
       {/* <AccordionActions></AccordionActions> */}
     </Accordion>

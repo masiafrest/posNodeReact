@@ -6,14 +6,15 @@ import {
   Table,
   TableBody,
   Typography,
+  Grid
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useDispatch } from "react-redux";
 import TableHeader from "./TableHeader";
 import QtyEditField from "../QtyEditField";
 import DelBtn from "../DelBtn";
 import PriceEditField from "../PriceEditField";
+
 const useStyles = makeStyles((theme) => ({
   styleRows: {
     "&:nth-of-type(odd)": {
@@ -22,12 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DevolucionTable({ isDevolucion = true, devolucion }) {
+export default function DevolucionTable({ isDevolucion = true, lineas }) {
   const classes = useStyles();
-
-  const dispatch = useDispatch();
-  const { lineas } = devolucion;
-
   const lineasDevolucionTable = lineas?.map(
     ({ descripcion, qty, id, precio, precioMin }, idx) => (
       <TableRow className={classes.styleRows} key={id}>
@@ -99,11 +96,23 @@ export default function DevolucionTable({ isDevolucion = true, devolucion }) {
   );
 
   return (
-    <TableContainer component={Paper}>
-      <Table style={{ minWidth: 300 }} padding="none" size="small">
-        <TableHeader />
-        <TableBody>{lineasTable}</TableBody>
-      </Table>
-    </TableContainer>
+    <Grid container spacing={4}>
+      <Grid item xs={12}>
+        <TableContainer component={Paper}>
+          <Table style={{ minWidth: 300 }} padding="none" size="small">
+            <TableHeader itemDevolucion={true} />
+            <TableBody>{lineasTable}</TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+      <Grid item xs={12}>
+        <TableContainer component={Paper}>
+          <Table style={{ minWidth: 300 }} padding="none" size="small">
+            <TableHeader />
+            <TableBody>{lineasDevolucionTable}</TableBody>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </Grid>
   );
 }

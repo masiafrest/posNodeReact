@@ -72,7 +72,7 @@ export default function ReciboDevolucion({ closeDialog }) {
     shouldSubmit,
     filterState,
   };
-
+  const linea = [{ descripcion: 'asdfa', qty: 12, id: 111, precio: 12.2, precioMin: 10 }]
   return (
     <>
       <ReciboState.Provider value={reciboState}>
@@ -90,8 +90,8 @@ export default function ReciboDevolucion({ closeDialog }) {
           getQuery={GET_ITEMS}
           queryType="items"
         />
-        {/* <SearchItem context={ShouldSubmit} recibo={true} /> */}
-        <TableRecibo devolucion={devolucion} />
+        <TableRecibo lineas={linea} />
+        {/* <TableRecibo lineas={lineas} /> */}
       </ReciboState.Provider>
 
       <PrintBtn

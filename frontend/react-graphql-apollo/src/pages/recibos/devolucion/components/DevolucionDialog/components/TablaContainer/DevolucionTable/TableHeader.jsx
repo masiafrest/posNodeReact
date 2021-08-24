@@ -1,6 +1,8 @@
 import { TableRow, TableHead, TableCell } from "@material-ui/core";
 
-export default function TableHeader() {
+export default function TableHeader({
+  itemDevolucion = false
+}) {
   return (
     <TableHead>
       <TableRow>
@@ -14,9 +16,13 @@ export default function TableHeader() {
         <TableCell width="50" align="right">
           Total
         </TableCell>
-        <TableCell width="50" align="right">
-          razon
-        </TableCell>
+        {
+          itemDevolucion && (
+            <TableCell width="50" align="right">
+              razon
+            </TableCell>
+          )
+        }
       </TableRow>
     </TableHead>
   );
