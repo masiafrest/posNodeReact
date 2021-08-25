@@ -13,7 +13,8 @@
     "react-build": "cd frontend/react-graphql-apollo && npm run build",
     "react-serve": "cd frontend/react-graphql-apollo && npm run serve",
     "react-build-serve": "cd frontend/react-graphql-apollo && npm run build && npm run serve",
-    "react-start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)"
+    "react-start-prod": "cd frontend/react-graphql-apollo && npm run build && (cd ../../backend/apollo-server-graphql-prisma && npm run start)",
+    "start-prod": "concurrently \"npm run react-serve\" \"npm run server-start-prod\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/masiafrest/posNodeReact/issues"
   },
-  "homepage": "https://github.com/masiafrest/posNodeReact#readme"
+  "homepage": "https://github.com/masiafrest/posNodeReact#readme",
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
 }
