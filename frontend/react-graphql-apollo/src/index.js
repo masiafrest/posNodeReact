@@ -12,6 +12,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
+import { getUrlHost } from "./utils";
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
@@ -26,7 +27,6 @@ const authLink = setContext((_, { headers }) => {
 // const httpLink = createHttpLink({
 //   uri: "http://localhost:4000/graphql",
 // });
-import { getUrlHost } from "./utils";
 const host = getUrlHost();
 const uri = `http://${host}:4000/graphql`;
 

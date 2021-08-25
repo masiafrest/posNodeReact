@@ -6,7 +6,7 @@ export default function ImgStepper({ imgFileName }) {
   const [activeStep, setActiveStep] = useState(0);
 
   const imgPlaceholder = "https://via.placeholder.com/200";
-  const host = getUrl();
+  const host = getUrlHost();
   const url = `http://${host}:4000/upload/item/`;
   const imgUrlArr =
     imgFileName[0] === "" ? [] : imgFileName.map((image) => url + image);
