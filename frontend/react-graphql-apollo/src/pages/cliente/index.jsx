@@ -1,7 +1,7 @@
 import PagesLayout from "../../components/PagesLayout";
 
 import ClientePaper from "./components/ClientePaper";
-import { getViewComp } from "../utils";
+import { getViewComp } from "../../utils";
 
 import { GET_CLIENTES } from "./graphql/query";
 import CreateClienteDialog from "./components/ClienteDialog";

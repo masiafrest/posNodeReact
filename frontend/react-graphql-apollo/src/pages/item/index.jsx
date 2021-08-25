@@ -4,13 +4,13 @@ import { GET_ITEMS } from "./graphql/query";
 
 import ItemCard from "./components/ItemCard";
 import ItemAccordion from "./components/ItemAccordion";
-import { getViewComp } from "../utils";
+import { getViewComp } from "../../utils";
 
 import SearchField from "./components/SearchField";
 import CreateItemDialog from "./components/ItemDialog/";
 
 export default function Item() {
-  const viewComp = getViewComp(ItemCard, ItemAccordion)
+  const viewComp = getViewComp(ItemCard, ItemAccordion);
   return (
     <PagesLayout
       title="items"

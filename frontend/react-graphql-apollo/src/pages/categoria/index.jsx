@@ -3,7 +3,7 @@ import PagesLayout from "../../components/PagesLayout";
 import { GET_CATEGORIAS } from "./graphql/query";
 
 import CategoriaPaper from "./components/CategoriaPaper";
-import { getViewComp } from "../utils";
+import { getViewComp } from "../../utils";
 
 import SearchField from "./components/SearchField";
 import CreateCategoriaDialog from "./components/CategoriaDialog";

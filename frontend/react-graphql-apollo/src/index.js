@@ -26,9 +26,8 @@ const authLink = setContext((_, { headers }) => {
 // const httpLink = createHttpLink({
 //   uri: "http://localhost:4000/graphql",
 // });
-
-const cellooIp = "192.168.1.104";
-const host = process.env.NODE_ENV === 'development' ? "localhost" : cellooIp;
+import { getUrlHost } from "./utils";
+const host = getUrlHost();
 const uri = `http://${host}:4000/graphql`;
 
 const uploadLink = createUploadLink({

@@ -3,7 +3,7 @@ import PagesLayout from "../../../components/PagesLayout";
 import { GET_DEVOLUCIONES } from "./grapql/query";
 
 import DevolucionAccordion from "./components/DevolucionAccordion";
-import { getViewComp } from "../../utils";
+import { getViewComp } from "../../../utils";
 
 import DevolucionDialog from "./components/DevolucionDialog";
 import SearchField from "./components/SearchField";
