@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { MobileStepper, Button, CardMedia } from "@material-ui/core/";
-import { getUrlHost } from "../../../../utils";
+import { getImgUrls } from "../../../../utils";
 
 export default function ImgStepper({ image_url }) {
   const [activeStep, setActiveStep] = useState(0);
   const IMGPLACEHOLDER = "https://via.placeholder.com/200";
-  const host = getUrlHost();
-  const url = `http://${host}:4000/upload/item/`;
 
-  const imgFileNameArr = image_url.split(", ");
-
-  const imgUrlArr =
-    imgFileNameArr[0] === "" ? [] : imgFileNameArr.map((image) => url + image);
+  const imgUrlArr = getImgUrls(image_url);
   const maxSteps = imgUrlArr.length;
 
   const activeImg = maxSteps === 0 ? IMGPLACEHOLDER : imgUrlArr[activeStep];

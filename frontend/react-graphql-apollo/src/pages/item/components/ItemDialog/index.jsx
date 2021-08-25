@@ -19,6 +19,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
+import { getImgUrls } from "../../../../utils";
 import Resizer from "react-image-file-resizer";
 
 export const resizeFile = (file) =>
@@ -36,6 +37,7 @@ export const resizeFile = (file) =>
       "base64"
     );
   });
+
 export const dataURIToFile = (dataURI, name) => {
   const splitDataURI = dataURI.split(",");
   const byteString =
@@ -50,6 +52,7 @@ export const dataURIToFile = (dataURI, name) => {
 };
 
 export default function ItemEditDialogIcon({ item = null }) {
+  console.log("items: ", item);
   const { enqueueSnackbar } = useSnackbar();
   const initialItemState = { ubicacion: { id: 1 } };
   const [open, setOpen] = React.useState(false);
@@ -121,6 +124,19 @@ export default function ItemEditDialogIcon({ item = null }) {
     setOpen(false);
   };
 
+  let initialImgFiles = [];
+  if (item) {
+    const imgUrls = getImgUrls(item.image_url);
+    imgUrls.forEach((url) => {
+      fetch(url, { mode: "cors" })
+        .then((res) => res.blob())
+        .then((imgBlob) => {
+          initialImgFiles.push(URL.createObjectURL(imgBlob));
+        })
+        .catch((e) => console.log("fetch error: ", e));
+    });
+  }
+
   return (
     <>
       {item ? (
@@ -148,6 +164,7 @@ export default function ItemEditDialogIcon({ item = null }) {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <DropzoneArea
+                initialFiles={initialImgFiles}
                 acceptedFiles={["image/*"]}
                 dropzoneText={"Drag and drop an image here or click"}
                 onChange={async (files) => {
@@ -214,22 +231,33 @@ export default function ItemEditDialogIcon({ item = null }) {
                 type: "text",
                 xs: 12,
               },
-            ].map(({ name, label, type, xs, sm }) => (
-              <Grid item xs={xs} sm={sm}>
-                <TextField
-                  key={name}
-                  autoFocus={name === "marca"}
-                  margin="dense"
-                  name={name}
-                  id={name}
-                  label={label ?? name}
-                  type={type}
-                  fullWidth
-                  onChange={handleOnChange}
-                  multiline={name === "descripcion"}
-                />
-              </Grid>
-            ))}
+            ].map(({ name, label, type, xs, sm }) => {
+              return (
+                <Grid item xs={xs} sm={sm}>
+                  <TextField
+                    key={name}
+                    placeholder={
+                      item
+                        ? name === "precio"
+                          ? item.precio.precio
+                          : name == "precioMin"
+                          ? item.precio.precioMin
+                          : item[name]
+                        : ""
+                    }
+                    autoFocus={name === "marca"}
+                    margin="dense"
+                    name={name}
+                    id={name}
+                    label={label ?? name}
+                    type={type}
+                    fullWidth
+                    onChange={handleOnChange}
+                    multiline={name === "descripcion"}
+                  />
+                </Grid>
+              );
+            })}
             <Grid item xs={12}>
               <SelectCategoria
                 categorias={item?.categorias?.map((e) => e.nombre)}
