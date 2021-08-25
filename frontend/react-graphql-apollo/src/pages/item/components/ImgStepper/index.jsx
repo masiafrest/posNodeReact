@@ -51,7 +51,7 @@ export default function ImgStepper({ image_url }) {
       src={activeImg}
       alt={"imagen del item"}
       width="300"
-      height="200"
+      height="300"
     />
   );
 
@@ -59,7 +59,7 @@ export default function ImgStepper({ image_url }) {
     <CardMedia
       style={{
         width: 300,
-        height: 200,
+        height: 300,
         margin: "auto",
       }}
       image={activeImg}

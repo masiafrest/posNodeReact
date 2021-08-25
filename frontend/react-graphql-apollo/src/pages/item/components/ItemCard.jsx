@@ -20,9 +20,9 @@ export default function ItemCard({ data }) {
 
   return (
     <Card
-      style={{
-        height: 450,
-      }}
+    // style={{
+    //   height: 450,
+    // }}
     >
       <ImgStepper image_url={image_url} />
       <CardContent>
