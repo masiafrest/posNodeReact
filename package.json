@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/masiafrest/posNodeReact#readme",
   "dependencies": {
-    "concurrently": "^6.2.1"
+    "concurrently": "^6.2.1",
+    "ntl": "^5.1.0"
   }
 }
