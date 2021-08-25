@@ -16,9 +16,38 @@ import {
   Button,
   Grid,
 } from "@material-ui/core";
-
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import Resizer from "react-image-file-resizer";
+
+export const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "base64"
+    );
+  });
+export const dataURIToFile = (dataURI, name) => {
+  const splitDataURI = dataURI.split(",");
+  const byteString =
+    splitDataURI[0].indexOf("base64") >= 0
+      ? atob(splitDataURI[1])
+      : decodeURI(splitDataURI[1]);
+  const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
+  console.log(mimeString);
+  const ia = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+  return new File([ia], name, { type: mimeString });
+};
 
 export default function ItemEditDialogIcon({ item = null }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -121,8 +150,21 @@ export default function ItemEditDialogIcon({ item = null }) {
               <DropzoneArea
                 acceptedFiles={["image/*"]}
                 dropzoneText={"Drag and drop an image here or click"}
-                onChange={(files) => {
-                  setNewItem({ ...newItem, images: files });
+                onChange={async (files) => {
+                  try {
+                    let fileBlobResize = [];
+                    for (let i = 0; i < files.length; i++) {
+                      const image = await resizeFile(files[i]);
+                      const newFile = dataURIToFile(image, files[i].name);
+                      fileBlobResize.push(newFile);
+                    }
+                    setNewItem({ ...newItem, images: fileBlobResize });
+                  } catch (e) {
+                    enqueueSnackbar(e.message, {
+                      variant: "error",
+                    });
+                    console.log(e);
+                  }
                 }}
               />
             </Grid>
