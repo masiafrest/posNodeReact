@@ -68,7 +68,7 @@ type Mutation {
     precioMin: Float
     images: [Upload]
   ): Item
-  delItem(id: Int!, paths: [String]): Item 
+  delItem(id: Int!): Item
 
   postCategoria(nombre: String!): Categoria
   updateCategoria(id: Int, nombre: String): Categoria

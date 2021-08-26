@@ -202,13 +202,24 @@ async function updateItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-async function delItem(parent, { id, paths }, ctx, info) {
-  await delImg(paths);
-  return await ctx.prisma.item.delete({
-    where: {
-      id,
+async function delItem(parent, { id }, ctx, info) {
+  const { image_url } = await ctx.prisma.item.findUnique({
+    where: { id },
+    select: {
+      image_url: true,
     },
   });
+
+  try {
+    await delImg(image_url);
+    return await ctx.prisma.item.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (e) {
+    return e;
+  }
 }
 
 module.exports = {

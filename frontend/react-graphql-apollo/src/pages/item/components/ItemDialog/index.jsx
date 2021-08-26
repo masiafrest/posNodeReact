@@ -219,20 +219,20 @@ export default function ItemEditDialogIcon({ item = null }) {
               },
             ].map(({ name, label, type, xs, sm }) => {
               return (
-                <Grid item xs={xs} sm={sm} key={'grid-' + name}>
+                <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
                     key={name}
-                    placeholder={
-                      item
-                        ? name === "precio"
-                          ? item.precio.precio.toString()
-                          : name == "precioMin"
-                            ? item.precio.precioMin.toString()
-                            : name === 'barcode'
-                              ? item[name].toString()
-                              : item[name]
-                        : ""
-                    }
+                    // placeholder={
+                    //   item
+                    //     ? name === "precio"
+                    //       ? item.precio.precio.toString()
+                    //       : name == "precioMin"
+                    //         ? item.precio.precioMin.toString()
+                    //         : name === 'barcode'
+                    //           ? item[name].toString()
+                    //           : item[name]
+                    //     : ""
+                    // }
                     autoFocus={name === "marca"}
                     margin="dense"
                     name={name}

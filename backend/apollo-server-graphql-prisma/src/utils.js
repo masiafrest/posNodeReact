@@ -32,36 +32,32 @@ function tradeTokenForUser(authToken) {
   return jwt.verify(token, APP_SECRET);
 }
 
-async function delImg(paths) {
-  console.log("delImg paths:", paths);
+async function delImg(strPaths) {
+  const paths = strPaths.split(", ");
   let imgPath;
   let isFileExist = false;
 
   // check if all path exist first, then del
   for (const p of paths) {
     imgPath = path.resolve("public/images/items", p);
-    try {
-      if (fs.existsSync(imgPath)) {
-        isFileExist = true;
-        console.log("The file exists.");
-      } else {
-        isFileExist = false;
-        console.log("The file does not exist.");
-        throw new Error("The file does not exist.");
-      }
-    } catch (err) {
-      console.error(err);
+    console.log("p:", p);
+    console.log("imgPaths:", imgPath);
+    if (fs.existsSync(imgPath)) {
+      isFileExist = true;
+      console.log("The file exists.");
+    } else {
+      isFileExist = false;
+      console.log("The file does not exist.");
+      throw new Error("The file does not exist.");
     }
   }
 
   //del img
-  if (isFileExist) {
-    for (const p of paths) {
-      imgPath = path.resolve("public/images/items", p);
-      //file removed
-      fs.unlinkSync(imgPath);
-      console.log(imgPath, "archivo eliminado");
-    }
+  for (const p of paths) {
+    imgPath = path.resolve("public/images/items", p);
+    //file removed
+    fs.unlinkSync(imgPath);
+    console.log(imgPath, "archivo eliminado");
   }
 }
 
