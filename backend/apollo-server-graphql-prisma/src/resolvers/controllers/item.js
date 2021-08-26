@@ -13,7 +13,6 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  console.log("get items", args);
   const { filter, skip, take } = args;
 
   const searchArr = splitArrBySpace(filter, "search_text");
@@ -49,7 +48,6 @@ async function items(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function item(_, { id }, ctx, __) {
-  console.log("find item by id", id);
   return await ctx.prisma.item.findUnique({
     where: {
       id,
@@ -143,19 +141,27 @@ async function updateItem(parent, args, ctx, info) {
   if (images) {
     console.log("update imgs", images);
     try {
+      console.log("deleting image........");
       delImg(item.image_url);
+      console.log("done deleting image........");
       //save img
+      console.log("saving image........");
       imagesPath = await saveImg(images);
-      console.log("update imgsPath", imagesPath);
+      console.log("done saving image........");
     } catch (e) {
       console.log(e);
       return e;
     }
   }
 
+  console.log("updating categoria........");
   //update categorias disconnect and connect
   let categoriasConnDisconn = { connect: [], disconnect: [] };
-  if (categorias) {
+  [].length;
+  if (categorias.length > 0) {
+    console.log("if categorias true");
+    console.log("categorias: ", categorias);
+
     //get item categorias to compare to newCategorias
     //if itemCategorias.id true, newCategorias.id false, disconnect
     const currCatIds = item.categorias.map((e) => e.id);
@@ -173,14 +179,17 @@ async function updateItem(parent, args, ctx, info) {
         }
       });
     });
-    console.log(categoriasConnDisconn);
+    console.log("done categoriaConnDisconn", categoriasConnDisconn);
   }
+  console.log("done updating cateoria........");
 
+  console.log("update imgsPath", imagesPath);
   return ctx.prisma.item.update({
     where: {
       id,
     },
     data: {
+      image_url: imagesPath,
       marca,
       modelo,
       barcode,
@@ -194,7 +203,6 @@ async function updateItem(parent, args, ctx, info) {
           precioMin,
         },
       },
-      image_url: imagesPath,
     },
     include,
   });
