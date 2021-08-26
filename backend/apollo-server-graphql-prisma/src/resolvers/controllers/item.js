@@ -83,10 +83,8 @@ async function postItem(parent, args, ctx, info) {
     images,
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
-  console.log("post item images: ", images);
 
   const imagesPath = await saveImg(images);
-  console.log("imagesPath:", imagesPath);
 
   return await ctx.prisma.item.create({
     data: {
@@ -141,12 +139,17 @@ async function updateItem(parent, args, ctx, info) {
   });
 
   //del img_url and save new
-  let imagesPath = item.image_url;
+  let imagesPath;
   if (images) {
-    delImg(imagesPath);
-
-    //save img
-    imagesPath = await saveImg(images);
+    console.log("update imgs", images);
+    try {
+      delImg(item.image_url);
+      //save img
+      imagesPath = await saveImg(images);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
   }
 
   //update categorias disconnect and connect
@@ -218,6 +221,7 @@ async function delItem(parent, { id }, ctx, info) {
       },
     });
   } catch (e) {
+    console.log(e);
     return e;
   }
 }

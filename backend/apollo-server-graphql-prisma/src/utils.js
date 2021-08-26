@@ -40,15 +40,12 @@ async function delImg(strPaths) {
   // check if all path exist first, then del
   for (const p of paths) {
     imgPath = path.resolve("public/images/items", p);
-    console.log("p:", p);
-    console.log("imgPaths:", imgPath);
     if (fs.existsSync(imgPath)) {
       isFileExist = true;
       console.log("The file exists.");
     } else {
       isFileExist = false;
-      console.log("The file does not exist.");
-      throw new Error("The file does not exist.");
+      throw new Error(`The file ${p} does not exist.`);
     }
   }
 
