@@ -35,26 +35,27 @@ function tradeTokenForUser(authToken) {
 async function delImg(strPaths) {
   const paths = strPaths.split(", ");
   let imgPath;
-  let isFileExist = false;
 
   // check if all path exist first, then del
   for (const p of paths) {
-    imgPath = path.resolve("public/images/items", p);
-    if (fs.existsSync(imgPath)) {
-      isFileExist = true;
-      console.log("The file exists.");
-    } else {
-      isFileExist = false;
-      throw new Error(`The file ${p} does not exist.`);
+    if (p !== "") {
+      imgPath = path.resolve("public/images/items", p);
+      if (fs.existsSync(imgPath)) {
+        console.log("The file exists.");
+      } else {
+        throw new Error(`The file ${p} does not exist.`);
+      }
     }
   }
 
   //del img
   for (const p of paths) {
-    imgPath = path.resolve("public/images/items", p);
-    //file removed
-    fs.unlinkSync(imgPath);
-    console.log(imgPath, "archivo eliminado");
+    if (p !== "") {
+      imgPath = path.resolve("public/images/items", p);
+      //file removed
+      fs.unlinkSync(imgPath);
+      console.log(imgPath, "archivo eliminado");
+    }
   }
 }
 
@@ -64,7 +65,7 @@ async function saveImg(images) {
     await mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
-    const newFileName = `${Date.now()}${filename}`;
+    const newFileName = `${Date.now()}-${filename}`;
     const path = `public/images/items/${newFileName}`;
     // Creates an images folder in the root directory
     // (createWriteStream) writes our file to the images directory
@@ -84,6 +85,7 @@ async function saveImg(images) {
   };
 
   const imagesPromises = images.map(async (image) => {
+    console.log("imagesPromise: ", image);
     const newImage = await processUpload(image);
     return newImage;
   });

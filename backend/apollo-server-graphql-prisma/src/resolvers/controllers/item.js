@@ -146,6 +146,7 @@ async function updateItem(parent, args, ctx, info) {
       delImg(item.image_url);
       //save img
       imagesPath = await saveImg(images);
+      console.log("update imgsPath", imagesPath);
     } catch (e) {
       console.log(e);
       return e;
@@ -193,7 +194,7 @@ async function updateItem(parent, args, ctx, info) {
           precioMin,
         },
       },
-      images: imagesPath,
+      image_url: imagesPath,
     },
     include,
   });
