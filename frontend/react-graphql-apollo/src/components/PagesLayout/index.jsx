@@ -46,17 +46,16 @@ export default function PagesLayout({
     <Grid
       container
       alignItems="center"
-      justify="center"
       justifyContent="center"
       spacing={2}
-      // style={{ textAlign: 'center' }}
+    // style={{ textAlign: 'center' }}
     >
       <FilterBarState.Provider value={filterBarState}>
         <Grid item xs={12}>
           <h1>{title.toUpperCase()}</h1>
         </Grid>
         {hasData && (
-          <Grid Item xs={12}>
+          <Grid item xs={12}>
             <FilterBar
               context={FilterBarState}
               SearchField={SearchField}
@@ -75,7 +74,6 @@ export default function PagesLayout({
               item
               sm={12}
               alignItems="center"
-              // justify='center'
               spacing={2}
             >
               <List

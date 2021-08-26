@@ -46,6 +46,7 @@ export const UPDATE_ITEM = gql`
     $precio: Float
     $precioMin: Float
     $categorias: [IdInput]
+    $images: [Upload]
   ) {
     updateItem(
       id: $id
@@ -58,6 +59,7 @@ export const UPDATE_ITEM = gql`
       precio: $precio
       precioMin: $precioMin
       categorias: $categorias
+      images: $images
     ) {
       ...itemData
     }

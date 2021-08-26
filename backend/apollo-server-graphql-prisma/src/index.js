@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const { ApolloServer } = require("apollo-server-express");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
 
@@ -36,6 +37,7 @@ async function startServer() {
   await server.start();
 
   const app = express();
+  app.use(cors())
 
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));
@@ -48,10 +50,8 @@ async function startServer() {
   console.log(localIp);
 
   app.get("/upload/item/:image", (req, res, next) => {
-    console.log(req.params.image);
     const { image } = req.params;
     const pathDir = path.join(__dirname, `../public/images/items/${image}`);
-    console.log("pathDir", pathDir);
     res.sendFile(pathDir);
   });
 

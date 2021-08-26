@@ -45,9 +45,9 @@ export default function FilterBar({
     <Grid
       container
       spacing={1}
-      justify="space-between"
+      justifyContent="space-between"
       alignItems="center"
-      // style={{ textAlign: "center" }}
+    // style={{ textAlign: "center" }}
     >
       <Grid
         item
@@ -65,7 +65,7 @@ export default function FilterBar({
       </Grid>
       {!recibo && (
         <>
-          <Grid item xs={hasViews ? 6 : 3} sm={3} alignContent="center">
+          <Grid item xs={hasViews ? 6 : 3} sm={3}>
             <SelectItemPerPage
               take={take}
               setTake={setTake}

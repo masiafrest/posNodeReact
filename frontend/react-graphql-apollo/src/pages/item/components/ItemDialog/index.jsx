@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
@@ -45,18 +45,16 @@ export const dataURIToFile = (dataURI, name) => {
       ? atob(splitDataURI[1])
       : decodeURI(splitDataURI[1]);
   const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
-  console.log(mimeString);
   const ia = new Uint8Array(byteString.length);
   for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
   return new File([ia], name, { type: mimeString });
 };
 
 export default function ItemEditDialogIcon({ item = null }) {
-  console.log("items: ", item);
   const { enqueueSnackbar } = useSnackbar();
   const initialItemState = { ubicacion: { id: 1 } };
-  const [open, setOpen] = React.useState(false);
-  const [newItem, setNewItem] = React.useState(initialItemState);
+  const [open, setOpen] = useState(false);
+  const [newItem, setNewItem] = useState(initialItemState);
 
   const onCompleted = (data) => {
     const updatedMsg = `item actualizado`;
@@ -80,7 +78,6 @@ export default function ItemEditDialogIcon({ item = null }) {
 
   const [postItem] = useMutation(POST_ITEM, {
     update(cache, { data: { postItem } }) {
-      console.log("postItem:", postItem);
       cache.modify({
         fields: {
           items(existingData = []) {
@@ -124,18 +121,7 @@ export default function ItemEditDialogIcon({ item = null }) {
     setOpen(false);
   };
 
-  let initialImgFiles = [];
-  if (item) {
-    const imgUrls = getImgUrls(item.image_url);
-    imgUrls.forEach((url) => {
-      fetch(url, { mode: "cors" })
-        .then((res) => res.blob())
-        .then((imgBlob) => {
-          initialImgFiles.push(URL.createObjectURL(imgBlob));
-        })
-        .catch((e) => console.log("fetch error: ", e));
-    });
-  }
+  const imgUrls = item ? getImgUrls(item.image_url) : [];
 
   return (
     <>
@@ -164,7 +150,7 @@ export default function ItemEditDialogIcon({ item = null }) {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <DropzoneArea
-                initialFiles={initialImgFiles}
+                initialFiles={imgUrls}
                 acceptedFiles={["image/*"]}
                 dropzoneText={"Drag and drop an image here or click"}
                 onChange={async (files) => {
@@ -233,16 +219,18 @@ export default function ItemEditDialogIcon({ item = null }) {
               },
             ].map(({ name, label, type, xs, sm }) => {
               return (
-                <Grid item xs={xs} sm={sm}>
+                <Grid item xs={xs} sm={sm} key={'grid-' + name}>
                   <TextField
                     key={name}
                     placeholder={
                       item
                         ? name === "precio"
-                          ? item.precio.precio
+                          ? item.precio.precio.toString()
                           : name == "precioMin"
-                          ? item.precio.precioMin
-                          : item[name]
+                            ? item.precio.precioMin.toString()
+                            : name === 'barcode'
+                              ? item[name].toString()
+                              : item[name]
                         : ""
                     }
                     autoFocus={name === "marca"}

@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const jwt = require("jsonwebtoken");
 const APP_SECRET = "secrectWord";
 
@@ -31,8 +33,6 @@ function tradeTokenForUser(authToken) {
 
 async function delImg(paths) {
   console.log("delImg paths:", paths);
-  const fs = require("fs");
-  const path = require("path");
   let imgPath;
 
   paths.map((element) => {
@@ -45,8 +45,10 @@ async function delImg(paths) {
           fs.unlinkSync(imgPath);
           //file removed
           console.log(imgPath, "archivo eliminado");
+          return "archivo eliminado"
         } catch (err) {
           console.error(err);
+          return err.message
         }
       } else {
         console.log("The file does not exist.");
@@ -58,10 +60,45 @@ async function delImg(paths) {
   });
 }
 
+async function saveImg(images) {
+  const storeUpload = async ({ stream, filename, mimetype }) => {
+    const { createWriteStream, mkdir } = require("fs");
+    await mkdir("public/images/items", { recursive: true }, (err) => {
+      if (err) throw err;
+    });
+    const newFileName = `${Date.now()}${filename}`;
+    const path = `public/images/items/${newFileName}`;
+    // Creates an images folder in the root directory
+    // (createWriteStream) writes our file to the images directory
+    return new Promise((resolve, reject) =>
+      stream
+        .pipe(createWriteStream(path))
+        .on("finish", () => resolve(newFileName))
+        .on("error", reject)
+    );
+  };
+
+  const processUpload = async (upload) => {
+    const { createReadStream, filename, mimetype } = await upload;
+    const stream = createReadStream();
+    const file = await storeUpload({ stream, filename, mimetype });
+    return file;
+  };
+
+  const imagesPromises = images.map(async (image) => {
+    const newImage = await processUpload(image);
+    return newImage;
+  });
+
+  let imgPath = await Promise.all(imagesPromises).then((res) => res);
+  return imgPath.join(', ')
+}
+
 module.exports = {
   APP_SECRET,
   splitArrBySpace,
   getToken,
   tradeTokenForUser,
   delImg,
+  saveImg
 };

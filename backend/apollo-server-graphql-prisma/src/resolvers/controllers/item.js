@@ -1,4 +1,4 @@
-const { splitArrBySpace, delImg } = require("./utils");
+const { splitArrBySpace, saveImg, delImg } = require("./utils");
 
 const include = {
   categorias: true,
@@ -85,39 +85,13 @@ async function postItem(parent, args, ctx, info) {
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
   console.log('post item images: ', images)
-  const storeUpload = async ({ stream, filename, mimetype }) => {
-    const { createWriteStream, mkdir } = require("fs");
-    await mkdir("public/images/items", { recursive: true }, (err) => {
-      if (err) throw err;
-    });
-    const newFileName = `${Date.now()}${filename}`;
-    const path = `public/images/items/${newFileName}`;
-    // Creates an images folder in the root directory
-    // (createWriteStream) writes our file to the images directory
-    return new Promise((resolve, reject) =>
-      stream
-        .pipe(createWriteStream(path))
-        .on("finish", () => resolve(newFileName))
-        .on("error", reject)
-    );
-  };
-  const processUpload = async (upload) => {
-    const { createReadStream, filename, mimetype } = await upload;
-    const stream = createReadStream();
-    const file = await storeUpload({ stream, filename, mimetype });
-    return file;
-  };
 
-  const imagesPromises = images.map(async (image) => {
-    const newImage = await processUpload(image);
-    return newImage;
-  });
-
-  let imagesPath = await Promise.all(imagesPromises).then((res) => res);
+  const imagesPath = await saveImg(images)
+  console.log('imagesPath:', imagesPath)
 
   return await ctx.prisma.item.create({
     data: {
-      image_url: imagesPath.join(", "),
+      image_url: imagesPath,
       marca,
       modelo,
       barcode,
@@ -161,16 +135,21 @@ async function updateItem(parent, args, ctx, info) {
     precio,
     precioMin,
     categorias,
+    images
   } = args;
-  console.log("categorias ", categorias);
+  const item = await ctx.prisma.item.findUnique({
+    where: { id },
+  });
+  //del img_url
+  // if (images) {
+  //   delImg(item.image_url)
+  // }
+
+
   //update categorias disconnect and connect
   let categoriasConnDisconn = { connect: [], disconnect: [] };
   if (categorias) {
     //get item categorias to compare to newCategorias
-    const item = await ctx.prisma.item.findUnique({
-      where: { id },
-      include: { categorias: true },
-    });
     //if itemCategorias.id true, newCategorias.id false, disconnect
     const currCatIds = item.categorias.map((e) => e.id);
     categorias.forEach((obj) => {
@@ -187,6 +166,7 @@ async function updateItem(parent, args, ctx, info) {
         }
       });
     });
+
     console.log(categoriasConnDisconn);
     //if itemCategorias.id false, newCategorias.id true, connect
     //if itemCategorias.id and newCategorias.id true or false ,do nothing
@@ -220,9 +200,9 @@ async function updateItem(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function delItem(parent, { id, paths }, ctx, info) {
-  delImg(paths);
-  return ctx.prisma.item.delete({
+async function delItem(parent, { id, paths }, ctx, info) {
+  await delImg(paths);
+  return await ctx.prisma.item.delete({
     where: {
       id,
     },
