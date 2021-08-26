@@ -1,4 +1,4 @@
-const { splitArrBySpace } = require("./utils");
+const { splitArrBySpace } = require("../../utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
@@ -24,17 +24,18 @@ async function clientes(_, args, ctx) {
   const searchArr = splitArrBySpace(filter, "nombre");
   const where = {
     OR: searchArr,
-  }
+  };
 
   const query = await ctx.prisma.cliente.findMany({
-    where, skip,
+    where,
+    skip,
     take,
   });
   const count = await ctx.prisma.cliente.count({
-    where
-  })
+    where,
+  });
 
-  return { query, count }
+  return { query, count };
 }
 
 /**

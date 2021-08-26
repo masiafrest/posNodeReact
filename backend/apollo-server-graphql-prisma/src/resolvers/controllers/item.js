@@ -1,4 +1,4 @@
-const { splitArrBySpace, saveImg, delImg } = require("./utils");
+const { splitArrBySpace, saveImg, delImg } = require("../../utils");
 
 const include = {
   categorias: true,
@@ -21,7 +21,7 @@ async function items(parent, args, ctx, info) {
 
   const where = {
     OR: searchArr,
-  }
+  };
 
   const query = await ctx.prisma.item.findMany({
     where,
@@ -33,12 +33,11 @@ async function items(parent, args, ctx, info) {
     },
     skip,
     take,
-
   });
 
   const count = await ctx.prisma.item.count({
-    where
-  })
+    where,
+  });
 
   return { query, count };
 }
@@ -84,10 +83,10 @@ async function postItem(parent, args, ctx, info) {
     images,
   } = args;
   const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
-  console.log('post item images: ', images)
+  console.log("post item images: ", images);
 
-  const imagesPath = await saveImg(images)
-  console.log('imagesPath:', imagesPath)
+  const imagesPath = await saveImg(images);
+  console.log("imagesPath:", imagesPath);
 
   return await ctx.prisma.item.create({
     data: {
@@ -135,16 +134,20 @@ async function updateItem(parent, args, ctx, info) {
     precio,
     precioMin,
     categorias,
-    images
+    images,
   } = args;
   const item = await ctx.prisma.item.findUnique({
     where: { id },
   });
-  //del img_url
-  // if (images) {
-  //   delImg(item.image_url)
-  // }
 
+  //del img_url and save new
+  let imagesPath = item.image_url;
+  if (images) {
+    delImg(imagesPath);
+
+    //save img
+    imagesPath = await saveImg(images);
+  }
 
   //update categorias disconnect and connect
   let categoriasConnDisconn = { connect: [], disconnect: [] };
@@ -166,11 +169,9 @@ async function updateItem(parent, args, ctx, info) {
         }
       });
     });
-
     console.log(categoriasConnDisconn);
-    //if itemCategorias.id false, newCategorias.id true, connect
-    //if itemCategorias.id and newCategorias.id true or false ,do nothing
   }
+
   return ctx.prisma.item.update({
     where: {
       id,
@@ -189,6 +190,7 @@ async function updateItem(parent, args, ctx, info) {
           precioMin,
         },
       },
+      images: imagesPath,
     },
     include,
   });

@@ -1,4 +1,4 @@
-const { APP_SECRET, getToken } = require("./utils");
+const { APP_SECRET, getToken } = require("../../utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma

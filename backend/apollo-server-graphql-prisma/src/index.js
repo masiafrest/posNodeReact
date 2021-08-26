@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors')
+const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
 const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
 
@@ -9,7 +9,7 @@ const fs = require("fs");
 const path = require("path");
 const Query = require("./resolvers/Query");
 const Mutation = require("./resolvers/Mutation");
-const { tradeTokenForUser } = require("./resolvers/controllers/utils");
+const { tradeTokenForUser } = require("./utils");
 const { localIp } = require("../../../getLocalIp");
 
 const prisma = new PrismaClient();
@@ -37,7 +37,7 @@ async function startServer() {
   await server.start();
 
   const app = express();
-  app.use(cors())
+  app.use(cors());
 
   // This middleware should be added before calling `applyMiddleware`.
   app.use(graphqlUploadExpress({ maxFiles: 3 }));

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const { doesNotThrow, throws } = require("assert");
 const APP_SECRET = "secrectWord";
 
 const splitArrBySpace = (words, key) => {
@@ -34,30 +35,34 @@ function tradeTokenForUser(authToken) {
 async function delImg(paths) {
   console.log("delImg paths:", paths);
   let imgPath;
+  let isFileExist = false;
 
-  paths.map((element) => {
-    imgPath = path.resolve("public/images/items", element);
-    console.log("imgs:, ", imgPath);
+  // check if all path exist first, then del
+  for (const p of paths) {
+    imgPath = path.resolve("public/images/items", p);
     try {
       if (fs.existsSync(imgPath)) {
+        isFileExist = true;
         console.log("The file exists.");
-        try {
-          fs.unlinkSync(imgPath);
-          //file removed
-          console.log(imgPath, "archivo eliminado");
-          return "archivo eliminado"
-        } catch (err) {
-          console.error(err);
-          return err.message
-        }
       } else {
+        isFileExist = false;
         console.log("The file does not exist.");
-        return "The file does not exist.";
+        throw new Error("The file does not exist.");
       }
     } catch (err) {
       console.error(err);
     }
-  });
+  }
+
+  //del img
+  if (isFileExist) {
+    for (const p of paths) {
+      imgPath = path.resolve("public/images/items", p);
+      //file removed
+      fs.unlinkSync(imgPath);
+      console.log(imgPath, "archivo eliminado");
+    }
+  }
 }
 
 async function saveImg(images) {
@@ -91,7 +96,7 @@ async function saveImg(images) {
   });
 
   let imgPath = await Promise.all(imagesPromises).then((res) => res);
-  return imgPath.join(', ')
+  return imgPath.join(", ");
 }
 
 module.exports = {
@@ -100,5 +105,5 @@ module.exports = {
   getToken,
   tradeTokenForUser,
   delImg,
-  saveImg
+  saveImg,
 };
