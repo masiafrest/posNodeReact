@@ -18,37 +18,9 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-
+import { resizeFile, dataURIToFile } from './resizeUtils'
 import { getImgUrls } from "../../../../utils";
-import Resizer from "react-image-file-resizer";
 
-export const resizeFile = (file) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file,
-      300,
-      300,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "base64"
-    );
-  });
-
-export const dataURIToFile = (dataURI, name) => {
-  const splitDataURI = dataURI.split(",");
-  const byteString =
-    splitDataURI[0].indexOf("base64") >= 0
-      ? atob(splitDataURI[1])
-      : decodeURI(splitDataURI[1]);
-  const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
-  const ia = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
-  return new File([ia], name, { type: mimeString });
-};
 
 export default function ItemEditDialogIcon({ item = null }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -222,17 +194,6 @@ export default function ItemEditDialogIcon({ item = null }) {
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
                     key={name}
-                    // placeholder={
-                    //   item
-                    //     ? name === "precio"
-                    //       ? item.precio.precio.toString()
-                    //       : name == "precioMin"
-                    //         ? item.precio.precioMin.toString()
-                    //         : name === 'barcode'
-                    //           ? item[name].toString()
-                    //           : item[name]
-                    //     : ""
-                    // }
                     autoFocus={name === "marca"}
                     margin="dense"
                     name={name}
