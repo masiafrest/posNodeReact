@@ -52,6 +52,12 @@ export default function ReciboDevolucion({ closeDialog }) {
 
   const devolucion = useSelector((state) => state.recibo.devolucion);
   const { lineas } = devolucion;
+
+  //for test purpose
+  const linea = [
+    { descripcion: "asdfa", qty: 12, id: 1, precio: 12.2, precioMin: 10 },
+  ];
+
   const filterState = useState("");
   const shouldSubmit = useState({
     cliente: {
@@ -72,7 +78,7 @@ export default function ReciboDevolucion({ closeDialog }) {
     shouldSubmit,
     filterState,
   };
-  const linea = [{ descripcion: 'asdfa', qty: 12, id: 111, precio: 12.2, precioMin: 10 }]
+
   return (
     <>
       <ReciboState.Provider value={reciboState}>

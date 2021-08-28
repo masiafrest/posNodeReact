@@ -22,7 +22,7 @@ export default function QtyEditField({ itemId, qty, idx }) {
   useEffect(() => {
     getQty();
   }, [data]);
-
+  console.log("data edit field devolucion: ", data);
   const maxQty = data?.item.qty;
   const handleChange = (e) => {
     const value = e.target.value;
