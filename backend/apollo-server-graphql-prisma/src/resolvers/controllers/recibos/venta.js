@@ -1,3 +1,5 @@
+const { splitArrBySpace } = require("../../../utils");
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -49,12 +51,10 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  const { splitArrBySpace } = require("../utils");
+  console.log("get ventas");
   const { filter, skip, take } = args;
   const nombreArr = splitArrBySpace(filter, "nombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
-
-  console.log("venta arg:", args);
 
   const hasClient =
     (await ctx.prisma.venta.count({
@@ -86,7 +86,6 @@ async function ventas(parent, args, ctx, info) {
       lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
     },
   };
-
   const query = await ctx.prisma.venta.findMany({
     where,
     include: {
@@ -104,11 +103,9 @@ async function ventas(parent, args, ctx, info) {
       fecha: "desc",
     },
   });
-
   const count = await ctx.prisma.venta.count({
     where,
   });
-
   return { query, count };
 }
 

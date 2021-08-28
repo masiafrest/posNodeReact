@@ -48,7 +48,7 @@ export default function PagesLayout({
       alignItems="center"
       justifyContent="center"
       spacing={2}
-    // style={{ textAlign: 'center' }}
+      // style={{ textAlign: 'center' }}
     >
       <FilterBarState.Provider value={filterBarState}>
         <Grid item xs={12}>
@@ -69,13 +69,7 @@ export default function PagesLayout({
           <span> loading</span>
         ) : hasData ? (
           <>
-            <Grid
-              container
-              item
-              sm={12}
-              alignItems="center"
-              spacing={2}
-            >
+            <Grid container item sm={12} alignItems="center" spacing={2}>
               <List
                 view={view}
                 data={loading ? [] : dataRes.query}

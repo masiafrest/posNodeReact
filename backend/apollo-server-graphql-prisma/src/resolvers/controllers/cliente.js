@@ -20,6 +20,7 @@ function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function clientes(_, args, ctx) {
+  console.log("get clientes");
   const { filter, skip, take } = args;
   const searchArr = splitArrBySpace(filter, "nombre");
   const where = {

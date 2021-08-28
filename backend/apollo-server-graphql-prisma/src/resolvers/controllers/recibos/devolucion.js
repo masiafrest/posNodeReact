@@ -1,3 +1,5 @@
+const { splitArrBySpace } = require("../../../utils");
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -59,11 +61,9 @@ async function postDevolucion(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function devoluciones(parent, args, ctx, info) {
-  const { splitArrBySpace } = require("../utils");
   const { filter, skip, take } = args;
   const nombreArr = splitArrBySpace(filter, "nombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
-  console.log("devoluciones arg:", args);
 
   const hasClient =
     (await ctx.prisma.devolucion.count({
