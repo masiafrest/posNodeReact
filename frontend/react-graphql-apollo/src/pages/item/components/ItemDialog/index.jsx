@@ -5,6 +5,7 @@ import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useSnackbar } from "notistack";
+import CreateCat from "../../../categoria/components/CategoriaDialog";
 
 import {
   Dialog,
@@ -18,9 +19,8 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { resizeFile, dataURIToFile } from './resizeUtils'
+import { resizeFile, dataURIToFile } from "./resizeUtils";
 import { getImgUrls } from "../../../../utils";
-
 
 export default function ItemEditDialogIcon({ item = null }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -207,11 +207,22 @@ export default function ItemEditDialogIcon({ item = null }) {
                 </Grid>
               );
             })}
-            <Grid item xs={12}>
-              <SelectCategoria
-                categorias={item?.categorias?.map((e) => e.nombre)}
-                setNewItem={setNewItem}
-              />
+            <Grid
+              container
+              item
+              alignItems="center"
+              justifyContent="center"
+              alignContent="center"
+            >
+              <Grid item xs={6}>
+                <SelectCategoria
+                  categorias={item?.categorias?.map((e) => e.nombre)}
+                  setNewItem={setNewItem}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <CreateCat />
+              </Grid>
             </Grid>
           </Grid>
         </DialogContent>
