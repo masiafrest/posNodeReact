@@ -54,7 +54,7 @@ export default function ImgStepper({ image_url }) {
     <CardMedia
       style={{
         width: 300,
-        height: 300,
+        height: 400,
         margin: "auto",
       }}
       image={activeImg}
