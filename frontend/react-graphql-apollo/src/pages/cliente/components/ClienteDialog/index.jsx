@@ -159,9 +159,6 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
           <Button onClick={handleOnSubmit} color="primary">
             {cliente ? "Actualizar" : "Agregar"}
           </Button>
-          <Button onClick={() => console.log(newCliente)} color="primary">
-            console.log
-          </Button>
         </DialogActions>
       </Dialog>
     </>
