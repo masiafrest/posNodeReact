@@ -78,7 +78,7 @@ export default function ItemEditDialogIcon({ item = null }) {
     } else if (e.target.type === "number") {
       setNewItem({ ...newItem, [e.target.name]: parseInt(e.target.value) });
     } else {
-      setNewItem({ ...newItem, [e.target.name]: e.target.value });
+      setNewItem({ ...newItem, [e.target.name]: e.target.value.toUpperCase() });
     }
   };
 
@@ -181,6 +181,7 @@ export default function ItemEditDialogIcon({ item = null }) {
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
+                    value={newItem[name]}
                     key={name}
                     autoFocus={name === "descripcion"}
                     margin="dense"
@@ -191,6 +192,7 @@ export default function ItemEditDialogIcon({ item = null }) {
                     fullWidth
                     onChange={handleOnChange}
                     multiline={name === "descripcion"}
+                    inputProps={{ style: { textTransform: "uppercase" } }}
                   />
                 </Grid>
               );

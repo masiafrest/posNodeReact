@@ -54,17 +54,15 @@ export default function PagesLayout({
         <Grid item xs={12}>
           <h1>{title.toUpperCase()}</h1>
         </Grid>
-        {hasData && (
-          <Grid item xs={12}>
-            <FilterBar
-              context={FilterBarState}
-              SearchField={SearchField}
-              getQuery={getQuery}
-              queryType={title}
-              hasViews={viewComp.Accordion ? true : false}
-            />
-          </Grid>
-        )}
+        <Grid item xs={12}>
+          <FilterBar
+            context={FilterBarState}
+            SearchField={SearchField}
+            getQuery={getQuery}
+            queryType={title}
+            hasViews={viewComp.Accordion ? true : false}
+          />
+        </Grid>
         {loading ? (
           <span> loading</span>
         ) : hasData ? (

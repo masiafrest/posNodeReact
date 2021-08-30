@@ -67,7 +67,10 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
   };
 
   const handleOnChange = (e) => {
-    setNewCategoria({ ...newCategoria, [e.target.name]: e.target.value });
+    setNewCategoria({
+      ...newCategoria,
+      [e.target.name]: e.target.value.toUpperCase(),
+    });
   };
 
   const handleOnSubmit = () => {
@@ -108,6 +111,7 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
         </DialogTitle>
         <DialogContent>
           <TextField
+            value={newCategoria.nombre}
             key="nombre"
             autoFocus
             margin="dense"

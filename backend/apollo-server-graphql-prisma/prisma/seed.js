@@ -22,8 +22,8 @@ async function main() {
 
   const ubicacion = {
     data: {
-      dirrecion: "dorado",
-      tipo: "tienda",
+      dirrecion: "DORADO",
+      tipo: "TIENDA",
     },
   };
 
@@ -39,8 +39,8 @@ async function main() {
       sku: "1111",
       image_url: "abc",
       qty: 30,
-      descripcion: "huawei y9p negro cop",
-      search_text: "huawei y9p 11111 negro cop",
+      descripcion: "HUAWEI Y9P NEGRO COP",
+      search_text: "HUAWEI Y9P 11111 NEGRO COP",
       ubicacion: { connect: { id: ubicacion.id } },
       categorias: { connect: [{ id: categoriaLcd.id }] },
       precio: {
@@ -59,9 +59,9 @@ async function main() {
 
   const cliente = {
     data: {
-      nombre: "panacell",
+      nombre: "PANACELL",
       telefono: "555-5555",
-      dirrecion: "dorado",
+      dirrecion: "DORADO",
     },
   };
 

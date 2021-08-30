@@ -65,7 +65,10 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
   };
 
   const handleOnChange = (e) => {
-    setNewCliente({ ...newCliente, [e.target.name]: e.target.value });
+    setNewCliente({
+      ...newCliente,
+      [e.target.name]: e.target.value.toUpperCase(),
+    });
   };
 
   const handleOnSubmit = () => {
@@ -134,6 +137,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
             ].map(({ name, type, xs }) => (
               <Grid item xs={xs}>
                 <TextField
+                  value={newCliente[name]}
                   key={name}
                   autoFocus
                   margin="dense"
@@ -154,6 +158,9 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
           </Button>
           <Button onClick={handleOnSubmit} color="primary">
             {cliente ? "Actualizar" : "Agregar"}
+          </Button>
+          <Button onClick={() => console.log(newCliente)} color="primary">
+            console.log
           </Button>
         </DialogActions>
       </Dialog>
