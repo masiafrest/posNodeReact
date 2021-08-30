@@ -145,28 +145,21 @@ export default function ItemEditDialogIcon({ item = null }) {
             </Grid>
             {[
               {
-                name: "marca",
+                name: "descripcion",
                 type: "text",
-                xs: 6,
-                sm: 3,
-              },
-              {
-                name: "modelo",
-                type: "text",
-                xs: 6,
-                sm: 3,
+                xs: 12,
               },
               {
                 name: "sku",
                 type: "text",
                 xs: 6,
-                sm: 3,
+                sm: 6,
               },
               {
                 name: "barcode",
                 type: "number",
                 xs: 6,
-                sm: 3,
+                sm: 6,
               },
               {
                 name: "qty",
@@ -184,17 +177,12 @@ export default function ItemEditDialogIcon({ item = null }) {
                 type: "number",
                 xs: 4,
               },
-              {
-                name: "descripcion",
-                type: "text",
-                xs: 12,
-              },
             ].map(({ name, label, type, xs, sm }) => {
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
                     key={name}
-                    autoFocus={name === "marca"}
+                    autoFocus={name === "descripcion"}
                     margin="dense"
                     name={name}
                     id={name}

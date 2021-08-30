@@ -69,9 +69,7 @@ export default class ComponentToPrint extends React.Component {
                     <span>{linea?.qty}</span>
                   </td>
                   <td>
-                    <span>
-                      {linea?.marca} {linea?.modelo} {linea?.descripcion}
-                    </span>
+                    <span>{linea?.descripcion}</span>
                   </td>
                   <td>
                     <span data-prefix>$</span>

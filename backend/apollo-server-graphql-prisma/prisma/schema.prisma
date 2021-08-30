@@ -38,11 +38,9 @@ enum Rol {
 
 model Item {
   id          Int          @id @default(autoincrement())
-  marca       String
-  modelo      String
   barcode     Int?
   image_url   String?
-  sku         String?
+  sku         String?  @unique
   qty         Int
   descripcion String?
   precio      Precio?
@@ -56,7 +54,6 @@ model Item {
   lineaVenta  VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
-  @@unique([marca, modelo, barcode])
 }
 
 model Categoria {

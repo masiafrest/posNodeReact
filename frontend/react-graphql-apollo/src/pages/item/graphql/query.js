@@ -4,8 +4,6 @@ export const ITEM_DATA = gql`
   fragment itemData on Item {
     id
     image_url
-    marca
-    modelo
     barcode
     sku
     descripcion
@@ -26,15 +24,14 @@ export const ITEM_DATA = gql`
   }
 `;
 
-
 export const GET_ITEMS = gql`
-   query Items($filter: String, $take: Int, $skip:Int){
-            items (filter:$filter, take:$take, skip:$skip ) {
-              query{
-                ...itemData
-              }
-              count
-            }
-          }
-          ${ITEM_DATA} 
-          `;
+  query Items($filter: String, $take: Int, $skip: Int) {
+    items(filter: $filter, take: $take, skip: $skip) {
+      query {
+        ...itemData
+      }
+      count
+    }
+  }
+  ${ITEM_DATA}
+`;

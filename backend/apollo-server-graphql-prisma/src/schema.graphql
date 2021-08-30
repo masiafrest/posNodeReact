@@ -43,8 +43,6 @@ type Mutation {
   login(nombre: String!, password: String!): AuthPayload
 
   postItem(
-    marca: String!
-    modelo: String!
     barcode: Int
     sku: String
     qty: Int
@@ -57,8 +55,6 @@ type Mutation {
   ): Item
   updateItem(
     id: Int!
-    marca: String
-    modelo: String
     barcode: Int
     sku: String
     qty: Int
@@ -153,8 +149,6 @@ enum Rol {
 
 type Item {
   id: ID!
-  marca: String!
-  modelo: String!
   barcode: String
   image_url: String
   sku: String

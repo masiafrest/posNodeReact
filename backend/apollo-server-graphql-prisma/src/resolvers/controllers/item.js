@@ -68,8 +68,6 @@ async function item(_, { id }, ctx, __) {
  */
 async function postItem(parent, args, ctx, info) {
   const {
-    marca,
-    modelo,
     barcode,
     sku,
     categorias,
@@ -80,15 +78,13 @@ async function postItem(parent, args, ctx, info) {
     qty,
     images,
   } = args;
-  const search_text = [marca, modelo, sku, descripcion, barcode].join(" ");
+  const search_text = [sku, descripcion, barcode].join(" ");
 
   const imagesPath = await saveImg(images);
 
   return await ctx.prisma.item.create({
     data: {
       image_url: imagesPath,
-      marca,
-      modelo,
       barcode,
       sku,
       qty,
@@ -121,8 +117,6 @@ async function postItem(parent, args, ctx, info) {
 async function updateItem(parent, args, ctx, info) {
   const {
     id,
-    marca,
-    modelo,
     barcode,
     sku,
     qty,
@@ -190,8 +184,6 @@ async function updateItem(parent, args, ctx, info) {
     },
     data: {
       image_url: imagesPath,
-      marca,
-      modelo,
       barcode,
       sku,
       qty,

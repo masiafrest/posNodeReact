@@ -21,8 +21,8 @@ export default function DelBtn({ id, paths }) {
       });
     },
     onCompleted(data) {
-      const { marca, modelo, descripcion } = data.delItem
-      enqueueSnackbar(`item ${marca} ${modelo} ${descripcion} eliminado`, {
+      const { descripcion } = data.delItem;
+      enqueueSnackbar(`item ${descripcion} eliminado`, {
         variant: "success",
       });
     },
@@ -30,7 +30,7 @@ export default function DelBtn({ id, paths }) {
       enqueueSnackbar(e.message, {
         variant: "warning",
       });
-    }
+    },
   });
 
   return (

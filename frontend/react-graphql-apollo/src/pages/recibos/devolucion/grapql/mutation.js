@@ -7,7 +7,7 @@ export const PostDevolucion = gql`
       lineas {
         item {
           id
-          marca
+          descripcion
         }
         id
         descripcion

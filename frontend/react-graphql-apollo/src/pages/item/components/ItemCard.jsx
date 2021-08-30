@@ -8,8 +8,6 @@ import { Typography, CardContent, CardActions, Card } from "@material-ui/core/";
 export default function ItemCard({ data }) {
   const {
     id,
-    marca,
-    modelo,
     descripcion,
     qty,
     precio: { precio },
@@ -27,7 +25,7 @@ export default function ItemCard({ data }) {
       <ImgStepper image_url={image_url} />
       <CardContent>
         <Typography variant="h5" component="h2">
-          {`${marca} ${modelo} ${descripcion}`}
+          {`${descripcion}`}
         </Typography>
         <Typography>
           qty: {qty}, precio:{precio}, ubicacion:

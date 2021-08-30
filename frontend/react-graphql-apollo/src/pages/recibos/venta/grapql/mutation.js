@@ -21,7 +21,7 @@ export const PostVenta = gql`
       lineas {
         item {
           id
-          marca
+          descripcion
         }
         id
         descripcion

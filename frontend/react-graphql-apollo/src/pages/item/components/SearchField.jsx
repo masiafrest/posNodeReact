@@ -32,7 +32,7 @@ export default function SearchField({
         addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
         updateSearch();
       } else {
-        const selected = `${value.marca}, ${value.modelo}, ${value.descripcion}`;
+        const selected = `${value.descripcion}`;
         updateSearch(selected);
       }
     }
@@ -50,8 +50,6 @@ export default function SearchField({
       noOptionsText={<AddItemBtn />}
       onChange={handleChange}
       getOptionLabel={({
-        marca,
-        modelo,
         descripcion,
         categorias,
         precio: { precio },
@@ -59,16 +57,14 @@ export default function SearchField({
         sku,
         barcode,
       }) => {
-        const label = `${marca} ${modelo} ${descripcion} ${categorias.nombre} ${ubicacion.tipo} ${ubicacion.dirrecion} ${sku}
+        const label = `${descripcion} ${categorias.nombre} ${ubicacion.tipo} ${ubicacion.dirrecion} ${sku}
         ${barcode} 
         `;
         return label;
       }}
       renderOption={(option) => (
         <>
-          <span>
-            {option.marca}, {option.modelo}, {option.descripcion}
-          </span>
+          <span>{option.descripcion}</span>
           {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
         </>
       )}

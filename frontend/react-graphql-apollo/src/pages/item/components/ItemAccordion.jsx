@@ -14,10 +14,17 @@ import {
 } from "@material-ui/core";
 
 export default function ItemAccordion({ data }) {
-  const { id, marca, modelo, descripcion, qty, precio: { precio }, ubicacion, image_url } = data
+  const {
+    id,
+    descripcion,
+    qty,
+    precio: { precio },
+    ubicacion,
+    image_url,
+  } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
-  const url = 'http://localhost:4000/upload/item/'
-  const imgArr = image_url.split(', ').map(image => url + image)
+  const url = "http://localhost:4000/upload/item/";
+  const imgArr = image_url.split(", ").map((image) => url + image);
 
   return (
     <Accordion elevation={14}>
@@ -26,16 +33,13 @@ export default function ItemAccordion({ data }) {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>
-          {marca}, {modelo}, {descripcion}
-        </Typography>
+        <Typography>{descripcion}</Typography>
       </AccordionSummary>
       <Divider variant="middle" />
-      <AccordionDetails >
+      <AccordionDetails>
         <Typography>
           qty: {qty}, precio:{precio}, ubicacion:
-          {ubicacion.tipo},{ubicacion.dirrecion}, categorias:{" "}
-          {categorias}
+          {ubicacion.tipo},{ubicacion.dirrecion}, categorias: {categorias}
         </Typography>
       </AccordionDetails>
       <AccordionActions>

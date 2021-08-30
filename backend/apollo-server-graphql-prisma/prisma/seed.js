@@ -35,13 +35,11 @@ async function main() {
 
   const item = {
     data: {
-      marca: "huawei",
-      modelo: "y9p",
       barcode: 000,
       sku: "1111",
       image_url: "abc",
       qty: 30,
-      descripcion: "negro cop",
+      descripcion: "huawei y9p negro cop",
       search_text: "huawei y9p 11111 negro cop",
       ubicacion: { connect: { id: ubicacion.id } },
       categorias: { connect: [{ id: categoriaLcd.id }] },

@@ -3,8 +3,6 @@ import { gql } from "@apollo/client";
 
 export const POST_ITEM = gql`
   mutation PostItem(
-    $marca: String!
-    $modelo: String!
     $barcode: Int
     $sku: String
     $qty: Int
@@ -16,8 +14,6 @@ export const POST_ITEM = gql`
     $images: [Upload]
   ) {
     postItem(
-      marca: $marca
-      modelo: $modelo
       barcode: $barcode
       sku: $sku
       qty: $qty
@@ -37,8 +33,6 @@ export const POST_ITEM = gql`
 export const UPDATE_ITEM = gql`
   mutation UpdateItem(
     $id: Int!
-    $marca: String
-    $modelo: String
     $barcode: Int
     $sku: String
     $qty: Int
@@ -50,8 +44,6 @@ export const UPDATE_ITEM = gql`
   ) {
     updateItem(
       id: $id
-      marca: $marca
-      modelo: $modelo
       barcode: $barcode
       sku: $sku
       qty: $qty
@@ -71,8 +63,6 @@ export const DEL_ITEM = gql`
   mutation DelItem($id: Int!) {
     delItem(id: $id) {
       id
-      marca
-      modelo
       descripcion
     }
   }

@@ -5,8 +5,6 @@ fragment itemData on Item {
   id
   descripcion
   qty
-  marca
-  modelo
   barcode
   sku
   categorias {
@@ -26,14 +24,12 @@ fragment itemData on Item {
 
 mutation postItem {
   postItem(
-    marca: "noke"
-    modelo: "sot"
     barcode: 21233
     sku: "xioas"
     precio: 10.10
     precioMin: 9.00
     qty: 10
-    descripcion: "pantalla lcd ol negra"
+    descripcion: "hua 79p pantalla lcd ol negra"
     categorias: [{ id: 1 }]
     ubicacion: { id: 1 }
   ) {

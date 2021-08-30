@@ -8,8 +8,6 @@ export const dataProvider ={
             skip: ${skip}
             ){
               id
-              marca
-              modelo
               barcode
               sku
               categorias {
