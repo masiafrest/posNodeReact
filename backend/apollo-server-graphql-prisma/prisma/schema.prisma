@@ -11,25 +11,6 @@ generator client {
   previewFeatures = ["referentialActions"]
 }
 
-model Cliente {
-  id          Int      @id @default(autoincrement())
-  nombre      String?
-  telefono    String?
-  dirrecion   String?
-  createdAt   DateTime @default(now())
-  reciboVenta Venta[]
-  reciboDevolucion Devolucion[]
-}
-
-model Usuario {
-  id          Int      @id @default(autoincrement())
-  nombre      String   @unique
-  password    String
-  rol         Rol      @default(VENDEDOR)
-  reciboVenta Venta[]
-  reciboDevolucion Devolucion[]
-  createdAt   DateTime @default(now())
-}
 
 enum Rol {
   VENDEDOR
@@ -83,12 +64,32 @@ model Ubicacion {
   @@unique([dirrecion, tipo])
 }
 
+model Cliente {
+  id          Int      @id @default(autoincrement())
+  nombre      String? @unique
+  telefono    String?
+  dirrecion   String?
+  createdAt   DateTime @default(now())
+  reciboVenta Venta[]
+  reciboDevolucion Devolucion[]
+}
+
+model Usuario {
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
+  password    String
+  rol         Rol      @default(VENDEDOR)
+  reciboVenta Venta[]
+  reciboDevolucion Devolucion[]
+  createdAt   DateTime @default(now())
+}
+
 model Venta {
   id        Int          @id @default(autoincrement())
-  usuario   Usuario?     @relation(fields: [usuarioId], references: [id])
-  usuarioId Int
-  cliente   Cliente?     @relation(fields: [clienteId], references: [id])
-  clienteId Int
+  usuario   Usuario?     @relation(fields: [usuarioNombre], references: [nombre])
+  cliente   Cliente?     @relation(fields: [clienteNombre], references: [nombre])
+  usuarioNombre String
+  clienteNombre String 
   fecha     DateTime     @default(now())
   credito   Boolean
   subTotal  Decimal      @db.Decimal(4, 2)
@@ -111,10 +112,10 @@ model VentaLinea {
 
 model Devolucion {
   id        Int          @id @default(autoincrement())
-  usuario   Usuario?     @relation(fields: [usuarioId], references: [id])
-  usuarioId Int
-  cliente   Cliente?     @relation(fields: [clienteId], references: [id])
-  clienteId Int
+  usuario   Usuario?     @relation(fields: [usuarioNombre], references: [nombre])
+  cliente   Cliente?     @relation(fields: [clienteNombre], references: [nombre])
+  usuarioNombre String
+  clienteNombre String 
   fecha     DateTime     @default(now())
   lineas DevolucionLinea[]
 }

@@ -8,6 +8,7 @@ const { splitArrBySpace } = require("../../../utils");
  */
 async function postVenta(parent, args, ctx, info) {
   const { clienteId, credito, subTotal, tax, total, lineas } = args;
+  console.log("post venta");
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
@@ -20,10 +21,20 @@ async function postVenta(parent, args, ctx, info) {
     };
   });
 
+  console.log("post venta args:", args);
+  const cliente = await ctx.prisma.cliente.findUnique({
+    where: { id: clienteId * 1 },
+  });
+  console.log("cliente:", cliente);
+
+  console.log("currentUser: ", ctx.currentUser);
+
   const venta = await ctx.prisma.venta.create({
     data: {
-      usuario: { connect: { id: ctx.currentUser.id } },
-      cliente: { connect: { id: clienteId * 1 } },
+      // usuario: { connect: { nombre: ctx.currentUser.nombre } },
+      // cliente: { connect: { nombre: cliente.nombre } },
+      usuarioNombre: ctx.currentUser.nombre,
+      clienteNombre: cliente.nombre,
       credito,
       subTotal,
       tax,
@@ -41,6 +52,7 @@ async function postVenta(parent, args, ctx, info) {
     },
   });
 
+  console.log("venta:", venta);
   return venta;
 }
 
@@ -51,21 +63,22 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  console.log("get ventas");
   const { filter, skip, take } = args;
-  const nombreArr = splitArrBySpace(filter, "nombre");
+  const clienteNombre = splitArrBySpace(filter, "clienteNombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
 
-  const hasClient =
-    (await ctx.prisma.venta.count({
-      where: {
-        OR: {
-          cliente: {
-            OR: nombreArr,
-          },
-        },
-      },
-    })) > 0;
+  // console.log("check client");
+  // const hasClient =
+  //   (await ctx.prisma.venta.count({
+  //     where: {
+  //       OR: {
+  //         cliente: {
+  //           OR: nombreArr,
+  //         },
+  //       },
+  //     },
+  //   })) > 0;
+  // console.log("clienet check:", hasClient);
 
   const hasLineas =
     (await ctx.prisma.venta.count({
@@ -82,15 +95,15 @@ async function ventas(parent, args, ctx, info) {
 
   const where = {
     OR: {
-      cliente: hasClient ? { OR: nombreArr } : {},
+      OR: clienteNombre,
       lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
     },
   };
+
+  console.log("find ventas");
   const query = await ctx.prisma.venta.findMany({
     where,
     include: {
-      cliente: true,
-      usuario: true,
       lineas: {
         include: {
           item: true,
@@ -103,9 +116,11 @@ async function ventas(parent, args, ctx, info) {
       fecha: "desc",
     },
   });
+
   const count = await ctx.prisma.venta.count({
     where,
   });
+
   return { query, count };
 }
 

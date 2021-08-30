@@ -49,6 +49,7 @@ export default function ReciboVenta({ closeDialog }) {
       closeDialog();
     },
     onError(e) {
+      console.log(e.message);
       enqueueSnackbar(e.message, {
         variant: "warning",
       });

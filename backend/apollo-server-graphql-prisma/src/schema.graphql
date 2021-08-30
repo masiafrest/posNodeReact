@@ -187,10 +187,8 @@ type Ubicacion {
 
 type Venta {
   id: ID!
-  usuarioId: Int
-  clienteId: Int
-  usuario: Usuario
-  cliente: Cliente
+  usuarioNombre: String
+  clienteNombre: String
   fecha: String
   credito: Boolean
   subTotal: Float
@@ -211,10 +209,8 @@ type VentaLinea {
 
 type Devolucion {
   id: ID!
-  usuarioId: Int
-  clienteId: Int
-  usuario: Usuario
-  cliente: Cliente
+  usuarioNombre: String
+  clienteNombre: String
   fecha: String
   lineas: [DevolucionLinea]
 }

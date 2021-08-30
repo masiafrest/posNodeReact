@@ -8,16 +8,8 @@ export const VENTA_DATA = gql`
     subTotal
     tax
     total
-    usuario {
-      id
-      nombre
-      rol
-    }
-    cliente {
-      nombre
-      telefono
-      dirrecion
-    }
+    usuarioNombre
+    clienteNombre
     lineas {
       qty
       precio

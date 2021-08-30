@@ -31,12 +31,9 @@ export default function SearchField({
       options={data}
       loading={loading} // query loading state
       onChange={handleChange}
-      getOptionLabel={({ cliente, lineas }) => {
+      getOptionLabel={({ clienteNombre, lineas }) => {
         const lineasLabel = lineas.map((linea) => linea.descripcion);
-        console.log("lineas label:", lineasLabel.join(" "));
-        const label = `${cliente.nombre} ${cliente.telefono} ${lineasLabel.join(
-          " "
-        )}`;
+        const label = `${clienteNombre} ${lineasLabel.join(" ")}`;
         return label;
       }}
       // getOptionSelected={(options, value) => {
