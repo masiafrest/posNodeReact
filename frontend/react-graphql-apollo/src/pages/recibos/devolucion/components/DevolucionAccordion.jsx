@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 
 export default function VentaAccordion({ data }) {
-  const { fecha, usuario, cliente } = data;
+  const { fecha, usuarioNombre, clienteNombre } = data;
   return (
     <Accordion elevation={14}>
       <AccordionSummary
@@ -22,7 +22,7 @@ export default function VentaAccordion({ data }) {
         <Typography>
           Fecha:
           {dayjs(fecha).format("MMM-DD-YYYY")}, Cliente:
-          {cliente.nombre}, Vendedor:{usuario.nombre}
+          {clienteNombre}, Vendedor:{usuarioNombre}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />

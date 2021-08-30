@@ -4,16 +4,8 @@ export const DEVOLUCION_DATA = gql`
   fragment devolucionData on Devolucion {
     id
     fecha
-    usuario {
-      id
-      nombre
-      rol
-    }
-    cliente {
-      nombre
-      telefono
-      dirrecion
-    }
+    usuarioNombre
+    clienteNombre
     lineas {
       qty
       descripcion
