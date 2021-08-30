@@ -70,8 +70,8 @@ export default function SearchField({
       )}
       inputValue={term}
       onInputChange={(e, value) => {
-        updateSearchTerm(value);
-        setTerm(value);
+        updateSearchTerm(value.toUpperCase());
+        setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
         return <TextField {...params} variant="outlined" label="buscar Item" />;

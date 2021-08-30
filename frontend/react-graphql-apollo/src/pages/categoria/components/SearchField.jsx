@@ -16,16 +16,11 @@ export default function SearchField({
       getOptionLabel={(option) => `${option.nombre}`}
       inputValue={term}
       onInputChange={(e, value) => {
-        updateSearchTerm(value);
-        setTerm(value);
+        updateSearchTerm(value.toUpperCase());
+        setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
-        return (
-          <TextField
-            {...params}
-            variant="outlined"
-          />
-        );
+        return <TextField {...params} variant="outlined" />;
       }}
     />
   );

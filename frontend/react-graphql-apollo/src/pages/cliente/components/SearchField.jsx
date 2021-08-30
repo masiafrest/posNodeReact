@@ -84,8 +84,8 @@ export default function SearchField({
       getOptionLabel={(o) => `${o.nombre}, ${o.telefono}, ${o.dirrecion}`}
       inputValue={term}
       onInputChange={(e, value) => {
-        updateSearchTerm(value);
-        setTerm(value);
+        updateSearchTerm(value.toUpperCase());
+        setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
         return (
