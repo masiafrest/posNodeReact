@@ -31,12 +31,12 @@ export default function ReciboVenta({ closeDialog }) {
     update(cache, { data: { postVenta } }) {
       cache.modify({
         fields: {
-          items(existingItems = []) {
+          ventas(existingDatas = []) {
             const newItemRef = cache.writeFragment({
               data: postVenta,
               fragment: VENTA_DATA,
             });
-            return [...existingItems.query, newItemRef];
+            return [...existingDatas.query, newItemRef];
           },
         },
       });

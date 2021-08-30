@@ -13,6 +13,8 @@ export default function SearchField({
 }) {
   const dispatch = useDispatch();
   const [term, setTerm] = useState(initialTerm);
+  console.log("ventas searchfield term: ", term);
+
   const updateSearch = (term = "") => {
     updateSearchTerm(term);
     setTerm(term);
@@ -37,18 +39,17 @@ export default function SearchField({
         )}`;
         return label;
       }}
-      inputValue={term}
+      // getOptionSelected={(options, value) => {
+      //   console.log('getOptionSelected options: ', options)
+      // }}
+      putValue={term}
       onInputChange={(e, value) => {
-        updateSearchTerm(value);
-        setTerm(value);
+        updateSearchTerm(value.toUpperCase());
+        setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
         return (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="buscar recibo "
-          />
+          <TextField {...params} variant="outlined" label="buscar recibo " />
         );
       }}
     />

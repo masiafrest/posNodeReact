@@ -46,7 +46,7 @@ export default function SearchField({
       // data suggestions return from query
       options={data}
       loading={loading} // query loading state
-      debug
+      debug={recibo}
       noOptionsText={<AddItemBtn />}
       onChange={handleChange}
       getOptionLabel={({
