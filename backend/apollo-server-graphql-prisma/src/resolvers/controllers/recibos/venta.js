@@ -8,7 +8,6 @@ const { splitArrBySpace } = require("../../../utils");
  */
 async function postVenta(parent, args, ctx, info) {
   const { clienteId, credito, subTotal, tax, total, lineas } = args;
-  console.log("post venta");
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
@@ -21,18 +20,12 @@ async function postVenta(parent, args, ctx, info) {
     };
   });
 
-  console.log("post venta args:", args);
   const cliente = await ctx.prisma.cliente.findUnique({
     where: { id: clienteId * 1 },
   });
-  console.log("cliente:", cliente);
-
-  console.log("currentUser: ", ctx.currentUser);
 
   const venta = await ctx.prisma.venta.create({
     data: {
-      // usuario: { connect: { nombre: ctx.currentUser.nombre } },
-      // cliente: { connect: { nombre: cliente.nombre } },
       usuarioNombre: ctx.currentUser.nombre,
       clienteNombre: cliente.nombre,
       credito,
@@ -52,7 +45,6 @@ async function postVenta(parent, args, ctx, info) {
     },
   });
 
-  console.log("venta:", venta);
   return venta;
 }
 

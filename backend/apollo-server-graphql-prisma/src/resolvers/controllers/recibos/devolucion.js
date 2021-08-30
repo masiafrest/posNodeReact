@@ -34,10 +34,14 @@ async function postDevolucion(parent, args, ctx, info) {
     };
   });
 
+  const cliente = await ctx.prisma.cliente.findUnique({
+    where: { id: clienteId * 1 },
+  });
+
   const devolucion = await ctx.prisma.devolucion.create({
     data: {
-      usuario: { connect: { id: ctx.currentUser.id } },
-      cliente: { connect: { id: clienteId * 1 } },
+      usuarioNombre: ctx.currentUser.nombre,
+      clienteNombre: cliente.nombre,
       lineas: {
         create: newLines,
       },
