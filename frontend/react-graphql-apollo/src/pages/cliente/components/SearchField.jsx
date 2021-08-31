@@ -81,7 +81,13 @@ export default function SearchField({
       debug
       noOptionsText={<AddClientBtn />}
       onChange={handleChange}
-      getOptionLabel={(o) => `${o.nombre}, ${o.telefono}, ${o.dirrecion}`}
+      getOptionLabel={(o) => {
+        const { nombre, telefono, dirrecion } = o;
+        let optionLabel = `${nombre}`;
+        telefono && optionLabel.concat(", ", telefono);
+        dirrecion && optionLabel.concat(", ", dirrecion);
+        return optionLabel;
+      }}
       inputValue={term}
       onInputChange={(e, value) => {
         updateSearchTerm(value.toUpperCase());
