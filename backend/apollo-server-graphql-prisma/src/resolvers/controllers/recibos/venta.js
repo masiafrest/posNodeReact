@@ -27,7 +27,6 @@ async function postVenta(parent, args, ctx, info) {
   });
 
   try {
-    console.log("maping lineas to decrement");
     const decrementItems = lineas.map((linea) => {
       return ctx.prisma.item.update({
         where: { id: linea.id * 1 },
@@ -38,7 +37,6 @@ async function postVenta(parent, args, ctx, info) {
         },
       });
     });
-    console.log("decrementItem: ", decrementItems);
 
     const createVenta = ctx.prisma.venta.create({
       data: {
