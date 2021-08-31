@@ -11,6 +11,7 @@ async function postVenta(parent, args, ctx, info) {
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
+
     return {
       item: { connect: { id: id * 1 } },
       // itemd: id,
@@ -20,32 +21,56 @@ async function postVenta(parent, args, ctx, info) {
     };
   });
 
+  console.log("ventas post");
   const cliente = await ctx.prisma.cliente.findUnique({
     where: { id: clienteId * 1 },
   });
 
-  const venta = await ctx.prisma.venta.create({
-    data: {
-      usuarioNombre: ctx.currentUser.nombre,
-      clienteNombre: cliente.nombre,
-      credito,
-      subTotal,
-      tax,
-      total,
-      lineas: {
-        create: newLines,
-      },
-    },
-    include: {
-      lineas: {
-        include: {
-          item: true,
+  try {
+    console.log("maping lineas to decrement");
+    const decrementItems = lineas.map((linea) => {
+      return ctx.prisma.item.update({
+        where: { id: linea.id * 1 },
+        data: {
+          qty: {
+            decrement: 1,
+          },
+        },
+      });
+    });
+    console.log("decrementItem: ", decrementItems);
+
+    const createVenta = ctx.prisma.venta.create({
+      data: {
+        usuarioNombre: ctx.currentUser.nombre,
+        clienteNombre: cliente.nombre,
+        credito,
+        subTotal,
+        tax,
+        total,
+        lineas: {
+          create: newLines,
         },
       },
-    },
-  });
+      include: {
+        lineas: {
+          include: {
+            item: true,
+          },
+        },
+      },
+    });
 
-  return venta;
+    const [venta] = await ctx.prisma.$transaction([
+      createVenta,
+      ...decrementItems,
+    ]);
+
+    return venta;
+  } catch (e) {
+    console.log("error transaction:", e);
+    return e;
+  }
 }
 
 /**
@@ -58,19 +83,6 @@ async function ventas(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   const clienteNombre = splitArrBySpace(filter, "clienteNombre");
   const descriptionArr = splitArrBySpace(filter, "descripcion");
-
-  // console.log("check client");
-  // const hasClient =
-  //   (await ctx.prisma.venta.count({
-  //     where: {
-  //       OR: {
-  //         cliente: {
-  //           OR: nombreArr,
-  //         },
-  //       },
-  //     },
-  //   })) > 0;
-  // console.log("clienet check:", hasClient);
 
   const hasLineas =
     (await ctx.prisma.venta.count({
