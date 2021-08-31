@@ -157,11 +157,6 @@ export default function ReciboVenta({ closeDialog }) {
             guardar
           </button>
         </Grid>
-        <Grid item xs="auto">
-          <button onClick={() => console.log("venta: ", venta)}>
-            consle.log
-          </button>
-        </Grid>
       </Grid>
       <Grid item xs={12}>
         {!selected && <span>por favor selecciona el cliente</span>}
