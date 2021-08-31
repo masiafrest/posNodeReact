@@ -122,6 +122,10 @@ export default function ItemEditDialogIcon({ item = null }) {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <DropzoneArea
+                previewGridProps={{
+                  container: { spacing: 5 },
+                  item: { xs: 6 },
+                }}
                 initialFiles={imgUrls}
                 acceptedFiles={["image/*"]}
                 dropzoneText={"Drag and drop an image here or click"}
