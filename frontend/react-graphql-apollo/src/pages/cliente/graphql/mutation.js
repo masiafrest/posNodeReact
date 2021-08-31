@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const POST_CLIENTE = gql`
   mutation PostCliente(
     $nombre: String!
-    $telefono: String!
+    $telefono: String
     $dirrecion: String
   ) {
     postCliente(nombre: $nombre, telefono: $telefono, dirrecion: $dirrecion) {

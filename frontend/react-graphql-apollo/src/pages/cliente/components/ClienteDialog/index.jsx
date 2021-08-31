@@ -139,7 +139,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
                 <TextField
                   value={newCliente[name]}
                   key={name}
-                  autoFocus
+                  autoFocus={name === "nombre"}
                   margin="dense"
                   name={name}
                   id={name}
