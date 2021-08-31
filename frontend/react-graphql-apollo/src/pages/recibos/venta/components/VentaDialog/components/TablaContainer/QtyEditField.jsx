@@ -29,7 +29,7 @@ export default function QtyEditField({ itemId, qty, idx }) {
     dispatch(
       editQty({
         idx,
-        qty: value > maxQty ? maxQty : value,
+        qty: value > maxQty ? Number(maxQty) : Number(value),
         tipo: "venta",
       })
     );

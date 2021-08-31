@@ -5,7 +5,9 @@ import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../../../redux/features/reciboSlice";
 
 export default function PriceEditField({ itemId, precio, precioMin, idx }) {
-  const { shouldSubmit: [shouldSubmit, setShouldSubmit] } = useContext(ReciboState);
+  const {
+    shouldSubmit: [shouldSubmit, setShouldSubmit],
+  } = useContext(ReciboState);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -13,13 +15,13 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
     dispatch(
       editPrice({
         idx,
-        price: value,
+        price: Number(value),
         tipo: "venta",
       })
     );
     setShouldSubmit({
       ...shouldSubmit,
-      isPriceError: !(value >= precioMin)
+      isPriceError: !(value >= precioMin),
     });
   };
 
