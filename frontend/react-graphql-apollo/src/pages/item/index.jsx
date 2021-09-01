@@ -7,6 +7,7 @@ import ItemAccordion from "./components/ItemAccordion";
 import { getViewComp } from "../../utils";
 
 import SearchField from "./components/SearchField";
+import SearchBar from "./components/SearchItem";
 import CreateItemDialog from "./components/ItemDialog/";
 
 export default function Item() {
@@ -14,7 +15,7 @@ export default function Item() {
   return (
     <PagesLayout
       title="items"
-      SearchField={SearchField}
+      SearchField={SearchBar}
       CreateDialog={CreateItemDialog}
       getQuery={GET_ITEMS}
       viewComp={viewComp}

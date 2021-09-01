@@ -30,14 +30,14 @@ export default function SearchField({
     if (reason === "select-option") {
       if (recibo) {
         addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
-        updateSearch();
+        // updateSearch();
       } else {
         const selected = `${value.descripcion}`;
-        updateSearch(selected);
+        // updateSearch(selected);
       }
     }
     if (reason === "clear") {
-      updateSearch();
+      // updateSearch();
     }
   };
 
@@ -57,23 +57,25 @@ export default function SearchField({
         sku,
         barcode,
       }) => {
-        const label = `${descripcion} ${categorias.nombre} ${ubicacion.tipo} ${ubicacion.dirrecion} ${sku}
-        ${barcode} 
-        `;
+        const label = `${descripcion} ${sku}`;
         return label;
       }}
-      renderOption={(option) => (
-        <>
-          <span>{option.descripcion}</span>
-          {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
-        </>
-      )}
+      renderOption={(option, state) => {
+        console.log("renderoption state:", state);
+        return (
+          <>
+            <span>{option.descripcion}</span>
+            {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
+          </>
+        );
+      }}
       inputValue={term}
       onInputChange={(e, value) => {
         updateSearchTerm(value.toUpperCase());
         setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
+        console.log("render Input params: ", params);
         return <TextField {...params} variant="outlined" label="buscar Item" />;
       }}
     />
