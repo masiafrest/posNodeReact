@@ -30,14 +30,14 @@ export default function SearchField({
     if (reason === "select-option") {
       if (recibo) {
         addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
-        // updateSearch();
+        updateSearch("");
       } else {
         const selected = `${value.descripcion}`;
-        // updateSearch(selected);
+        updateSearch("");
       }
     }
     if (reason === "clear") {
-      // updateSearch();
+      updateSearch();
     }
   };
 
@@ -46,7 +46,7 @@ export default function SearchField({
       // data suggestions return from query
       options={data}
       loading={loading} // query loading state
-      debug={recibo}
+      // debug={recibo}
       noOptionsText={<AddItemBtn />}
       onChange={handleChange}
       getOptionLabel={({
@@ -62,12 +62,7 @@ export default function SearchField({
       }}
       renderOption={(option, state) => {
         console.log("renderoption state:", state);
-        return (
-          <>
-            <span>{option.descripcion}</span>
-            {recibo ? <AddBtn item={option} reciboTipo="venta" /> : null}
-          </>
-        );
+        return <span>{option.descripcion}</span>;
       }}
       inputValue={term}
       onInputChange={(e, value) => {
