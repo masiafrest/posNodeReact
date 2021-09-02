@@ -4,16 +4,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import CloseSnackBar from "./components/CloseSnackBar";
 
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
 //redux
 import store, { persistor } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import Container from "@material-ui/core/Container";
+import ThemeProvider from "./components/ThemeProvider";
 
 import AuthRoute from "./components/AuthRoute";
 import Login from "./pages/login";
@@ -28,22 +25,10 @@ import { checkToken } from "./utils";
 checkToken(store);
 
 function App() {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          type: "dark",
-        },
-      }),
-    [prefersDarkMode]
-  );
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+        <ThemeProvider>
           <SnackbarProvider
             maxSnack={2}
             action={(key) => {
