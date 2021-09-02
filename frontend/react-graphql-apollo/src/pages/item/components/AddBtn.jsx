@@ -17,25 +17,18 @@ export const addLinea = (
     precio: { precio, precioMin },
     descripcion,
   } = item;
-  const hasId = lineas.some((linea) => linea.id === id);
-  if (!hasId) {
-    const newLinea = {
-      id,
-      tipo: reciboTipo,
-      qty: 1,
-      descripcion: descripcion,
-      precio,
-      precioMin,
-    };
-    dispatch(pushLinea(newLinea));
-    enqueueSnackbar(`item ${descripcion} agregado`, {
-      variant: "success",
-    });
-  } else {
-    enqueueSnackbar(`item ${descripcion} ya esta agregado`, {
-      variant: "warning",
-    });
-  }
+
+  const newLinea = {
+    id,
+    tipo: reciboTipo,
+    qty: 1,
+    descripcion: descripcion,
+    precio,
+    precioMin,
+    enqueueSnackbar,
+  };
+
+  dispatch(pushLinea(newLinea));
 };
 
 export default function AddBtn({ item, reciboTipo }) {

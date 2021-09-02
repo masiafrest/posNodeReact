@@ -65,7 +65,7 @@ export default function SearchField({
         return (
           <>
             <span>{option.descripcion}</span>
-            {recibo ? null : <AddBtn item={option} reciboTipo="venta" />}
+            {recibo ? <AddBtn item={option} reciboTipo="venta" /> : null}
           </>
         );
       }}
@@ -75,7 +75,6 @@ export default function SearchField({
         setTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
-        console.log("render Input params: ", params);
         return <TextField {...params} variant="outlined" label="buscar Item" />;
       }}
     />

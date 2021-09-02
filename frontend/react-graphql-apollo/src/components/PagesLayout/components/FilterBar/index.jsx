@@ -16,7 +16,8 @@ export default function FilterBar({
   hasViews = true,
 }) {
   const Context = useContext(context);
-  let page, setPage, take, setTake, view, setView;
+  let page, setPage, setTake, view, setView;
+  let take = 5;
 
   if (!recibo) {
     ({

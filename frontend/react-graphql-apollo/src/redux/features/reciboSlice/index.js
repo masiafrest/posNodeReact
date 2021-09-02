@@ -54,9 +54,19 @@ const reciboSlice = createSlice({
     },
     pushLinea: (state, action) => {
       //TODO: revisar si existe o no el item pusheado, si qty del payload es mayor actualizar la qty
-      const tipoRecibo = action.payload.tipo;
-      state[tipoRecibo].lineas.push(action.payload);
-      state.venta.subTotal = getSubTotal(state.venta.lineas);
+      const { tipo, id, descripcion, enqueueSnackbar } = action.payload;
+      const hasId = state[tipo].lineas.some((linea) => linea.id === id);
+      if (!hasId) {
+        state[tipo].lineas.push(action.payload);
+        state.venta.subTotal = getSubTotal(state.venta.lineas);
+        enqueueSnackbar(`item ${descripcion} agregado`, {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar(`item ${descripcion} ya esta agregado`, {
+          variant: "warning",
+        });
+      }
     },
     addRecibo: (state, action) => {
       const tipoRecibo = action.payload.tipo;

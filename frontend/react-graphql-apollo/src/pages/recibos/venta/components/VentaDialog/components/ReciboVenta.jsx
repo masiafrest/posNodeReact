@@ -59,6 +59,7 @@ export default function ReciboVenta({ closeDialog }) {
   const venta = useSelector((state) => state.recibo.venta);
   const { lineas, credito } = venta;
   const filterState = useState("");
+  const takeState = useState(5);
   const shouldSubmit = useState({
     cliente: {
       id: null,
@@ -78,6 +79,7 @@ export default function ReciboVenta({ closeDialog }) {
   const reciboState = {
     shouldSubmit,
     filterState,
+    takeState,
   };
   const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
