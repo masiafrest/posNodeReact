@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
 //MUI
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
@@ -10,14 +11,31 @@ import {
   Drawer,
   List,
   ListItem,
+  FormControlLabel,
+  Grid,
+  Switch,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useSelector, useDispatch } from "react-redux";
-import { signOut, signoutSucess } from "../../redux/features/userSlice";
+import {
+  signOut,
+  signoutSucess,
+  toggleDarkMode,
+} from "../../redux/features/userSlice";
+
+const useStyle = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  void: {
+    flexGrow: 1,
+  },
+}));
 
 function NavBar() {
-  const isAuth = useSelector((state) => state.user.authenticated);
+  const classes = useStyle();
+  const { authenticated, darkMode } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const history = useHistory();
@@ -36,9 +54,14 @@ function NavBar() {
 
   return (
     <div>
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="default">
         <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={toggleDrawer(true)}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={toggleDrawer(true)}
+            className={classes.menuButton}
+          >
             <MenuIcon />
           </IconButton>
           <Drawer
@@ -57,7 +80,7 @@ function NavBar() {
                   </ListItem>
                 )
               )}
-              {isAuth && (
+              {authenticated && (
                 <ListItem
                   button
                   key="signout"
@@ -74,6 +97,18 @@ function NavBar() {
               )}
             </List>
           </Drawer>
+          <div className={classes.void} />
+          <FormControlLabel
+            value="top"
+            control={
+              <Switch
+                color="default"
+                onChange={() => dispatch(toggleDarkMode())}
+              />
+            }
+            label={`Tema ${darkMode ? "Oscuro" : "Blanco"}`}
+            labelPlacement="top"
+          />
         </Toolbar>
       </AppBar>
       <Toolbar />
