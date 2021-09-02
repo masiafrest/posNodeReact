@@ -38,6 +38,7 @@ export default function PagesLayout({
   });
 
   console.log("data", data);
+  console.log("error", error);
   const dataRes = loading ? {} : data[title];
   const hasData = loading ? false : data[title].query?.length > 0;
   const pages = loading ? 1 : Math.ceil(dataRes.count / take);
@@ -54,15 +55,15 @@ export default function PagesLayout({
         <Grid item xs={12}>
           <h1>{title.toUpperCase()}</h1>
         </Grid>
-          <Grid item xs={12}>
-            <FilterBar
-              context={FilterBarState}
-              SearchField={SearchField}
-              getQuery={getQuery}
-              queryType={title}
-              hasViews={viewComp.Accordion ? true : false}
-            />
-          </Grid>
+        <Grid item xs={12}>
+          <FilterBar
+            context={FilterBarState}
+            SearchField={SearchField}
+            getQuery={getQuery}
+            queryType={title}
+            hasViews={viewComp.Accordion ? true : false}
+          />
+        </Grid>
         {loading ? (
           <span> loading</span>
         ) : hasData ? (

@@ -15,13 +15,16 @@ const include = {
 async function items(parent, args, ctx, info) {
   const { filter, skip, take } = args;
 
-  const searchArr = splitArrBySpace(filter, "search_text");
+  // const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
-  console.log("searchArr:", searchArr);
+  // console.log("searchArr:", searchArr);
   const where = {
-    OR: searchArr,
+    search_text: {
+      contains: filter,
+    },
   };
 
+  console.log("filter: ", filter);
   const query = await ctx.prisma.item.findMany({
     where,
     include: {
@@ -33,7 +36,6 @@ async function items(parent, args, ctx, info) {
     skip,
     take,
   });
-
   console.log(
     "query:",
     query.map((e) => e.search_text)

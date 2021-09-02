@@ -47,7 +47,7 @@ export default function FilterBar({
       spacing={1}
       justifyContent="space-between"
       alignItems="center"
-    // style={{ textAlign: "center" }}
+      // style={{ textAlign: "center" }}
     >
       <Grid
         item
@@ -58,7 +58,7 @@ export default function FilterBar({
           data={loading ? [] : data[queryType]?.query}
           loading={loading}
           initialTerm={filter}
-          updateSearchTerm={setSearchTermDebounced}
+          updateSearchTerm={recibo ? setSearchTermDebounced : setFilter}
           recibo={recibo}
           context={context}
         />
