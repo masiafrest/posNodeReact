@@ -2,18 +2,12 @@ import React from "react";
 import "./styles/App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
-import jwtDecode from "jwt-decode";
 import CloseSnackBar from "./components/CloseSnackBar";
 
 //redux
 import store, { persistor } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import {
-  signOut,
-  setAuthenticated,
-  setUserCredential,
-} from "./redux/features/userSlice";
 
 import Container from "@material-ui/core/Container";
 
@@ -26,19 +20,8 @@ import Categoria from "./pages/categoria";
 import Venta from "./pages/recibos/venta";
 import Devolucion from "./pages/recibos/devolucion";
 
-const token = localStorage.token;
-if (token) {
-  const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(signOut);
-    window.location.href = "/login"; //en logOutUser esta esta linea borrar una de las 2?
-  } else {
-    store.dispatch(setAuthenticated());
-    store.dispatch(setUserCredential({ ...decodedToken }));
-    //setting authorize token to header in axios
-    // store.dispatch(getUserData())
-  }
-}
+import { checkToken } from "./utils";
+checkToken(store);
 
 function App() {
   return (
@@ -47,7 +30,6 @@ function App() {
         <SnackbarProvider
           maxSnack={2}
           action={(key) => {
-            console.log("action snackbar, key: ", key);
             return <CloseSnackBar key={key} />;
           }}
         >
@@ -55,9 +37,6 @@ function App() {
             <NavBar />
             <Switch>
               <Container>
-                {/* <AuthRoute exact path="/">
-                  home
-                </AuthRoute> */}
                 <AuthRoute exact path="/" component={Item} />
                 <Route path="/login" component={Login} />
                 <AuthRoute path="/item" component={Item} />
