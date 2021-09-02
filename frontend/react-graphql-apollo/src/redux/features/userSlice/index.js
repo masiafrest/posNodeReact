@@ -7,6 +7,7 @@ const initialState = {
   credentials: {},
   loading: false,
   errors: null,
+  darkMode: false,
 };
 
 const userSlice = createSlice({
@@ -43,6 +44,9 @@ const userSlice = createSlice({
     clearErrors: (state) => {
       state.errors = null;
     },
+    toggleDarkMode: (state) => {
+      state.darkMode = !state.darkMode;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   signoutSucess,
   setErrors,
   clearErrors,
+  toggleDarkMode,
 } = userSlice.actions;
 
 export default userSlice.reducer;
