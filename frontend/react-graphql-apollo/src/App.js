@@ -25,7 +25,6 @@ import { checkToken } from "./utils";
 checkToken(store);
 
 function App() {
-  const notistackRef = useRef();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
