@@ -12,6 +12,11 @@ import {
   Typography,
   Divider,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyle = makeStyles((theme) => ({
+  text: {},
+}));
 
 export default function ItemAccordion({ data }) {
   const {
@@ -24,7 +29,6 @@ export default function ItemAccordion({ data }) {
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
   const url = "http://localhost:4000/upload/item/";
-  const imgArr = image_url.split(", ").map((image) => url + image);
 
   return (
     <Accordion elevation={14}>
