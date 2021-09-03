@@ -61,7 +61,6 @@ export default function SearchField({
         return label;
       }}
       renderOption={(option, state) => {
-        console.log("renderoption state:", state);
         return <span>{option.descripcion}</span>;
       }}
       inputValue={term}

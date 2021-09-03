@@ -25,6 +25,7 @@ import { checkToken } from "./utils";
 checkToken(store);
 
 function App() {
+  const notistackRef = useRef();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -32,7 +33,7 @@ function App() {
           <SnackbarProvider
             maxSnack={2}
             action={(key) => {
-              return <CloseSnackBar key={key} />;
+              return <CloseSnackBar snackbarKey={key} />;
             }}
           >
             <Router>
