@@ -31,6 +31,14 @@ const useStyle = makeStyles((theme) => ({
   void: {
     flexGrow: 1,
   },
+  navLink: {
+    backgroundColor: "blue",
+    color: "white",
+    borderStyle: "solid",
+    borderRadius: "15px",
+    textDecoration: "none",
+    padding: "15px 15px 0px 15px",
+  },
 }));
 
 function NavBar() {
@@ -45,7 +53,7 @@ function NavBar() {
   };
 
   const NavLinkOnClick = ({ to, children }) => (
-    <NavLink to={to} onClick={toggleDrawer(false)}>
+    <NavLink to={to} onClick={toggleDrawer(false)} className={classes.navLink}>
       <Typography variant="h4" gutterBottom>
         {children}
       </Typography>
@@ -70,9 +78,6 @@ function NavBar() {
             onClose={toggleDrawer(false)}
           >
             <List>
-              <ListItem button key="home">
-                <NavLinkOnClick to={"/"}>home</NavLinkOnClick>
-              </ListItem>
               {["item", "venta", "cliente", "categoria", "devolucion"].map(
                 (text, index) => (
                   <ListItem button key={text}>
