@@ -29,11 +29,15 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [newItem, setNewItem] = useState(initialItemState);
 
   const onCompleted = (data) => {
-    const updatedMsg = `item actualizado`;
-    const addedMsg = `item agregado`;
-    enqueueSnackbar(item ? updatedMsg : addedMsg, {
-      variant: "success",
-    });
+    const {
+      postItem: { descripcion },
+    } = data;
+    enqueueSnackbar(
+      `item ${descripcion} ${item ? "actualizado" : "agregado"}`,
+      {
+        variant: "success",
+      }
+    );
     handleClose();
   };
 
