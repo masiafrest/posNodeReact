@@ -21,7 +21,7 @@ export default function VentaAccordion({ data }) {
       >
         <Typography>
           Fecha:
-          {dayjs(fecha).format("MMM-DD-YYYY")}, Cliente:
+          {dayjs(fecha * 1).format("DD-MMM-YYYY")}, Cliente:
           {clienteNombre}, Total:
           {total}, Vendedor:{usuarioNombre}
         </Typography>
