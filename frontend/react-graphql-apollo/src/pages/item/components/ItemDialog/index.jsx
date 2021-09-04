@@ -186,9 +186,16 @@ export default function ItemEditDialogIcon({ item = null }) {
                 xs: 4,
               },
             ].map(({ name, label, type, xs, sm }) => {
+              console.log(item?.precio.precio);
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
+                    placeholder={
+                      item &&
+                      (name === "precio" || name === "precioMin"
+                        ? item.precio[name]
+                        : item[name])
+                    }
                     value={newItem[name]}
                     key={name}
                     autoFocus={name === "descripcion"}
