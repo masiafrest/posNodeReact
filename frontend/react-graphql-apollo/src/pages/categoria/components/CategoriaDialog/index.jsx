@@ -24,9 +24,7 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
   const [newCategoria, setNewCategoria] = useState(initialCategoriaState);
 
   const onCompleted = (data) => {
-    const updatedMsg = `categoria actualizado`;
-    const addedMsg = `categoria agregado`;
-    enqueueSnackbar(categoria ? updatedMsg : addedMsg, {
+    enqueueSnackbar(`categoria ${categoria ? "actualizado" : "agregado"}`, {
       variant: "success",
     });
     handleClose();
