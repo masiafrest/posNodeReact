@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { FilterBarState } from "../../../components/PagesLayout";
 
 import { TextField, InputAdornment } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-export default function SearchItem({
-  initialTerm,
-  updateSearchTerm,
-  recibo = false,
-}) {
-  const [term, setTerm] = useState(initialTerm);
+export default function SearchItem() {
+  const { filterState, pageState } = useContext(FilterBarState);
+  const setPage = pageState[1];
+  const [filter, setFilter] = filterState;
+  const [term, setTerm] = useState(filter);
 
   const handleChange = (event) => {
     setTerm(event.target.value.toUpperCase());
@@ -19,7 +19,8 @@ export default function SearchItem({
       onSubmit={(e) => {
         e.preventDefault();
         console.log("clieck term:", term);
-        updateSearchTerm(term);
+        setFilter(term);
+        setPage(1);
         setTerm("");
       }}
     >

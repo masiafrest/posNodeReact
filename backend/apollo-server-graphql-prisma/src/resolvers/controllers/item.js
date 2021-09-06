@@ -24,7 +24,7 @@ async function items(parent, args, ctx, info) {
     },
   };
 
-  console.log("filter: ", filter);
+  console.log("args: ", args);
   const query = await ctx.prisma.item.findMany({
     where,
     include: {

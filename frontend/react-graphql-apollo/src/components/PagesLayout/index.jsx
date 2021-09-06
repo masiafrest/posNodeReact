@@ -6,7 +6,7 @@ import List from "./components/List";
 import Pagination from "@material-ui/lab/Pagination";
 import { Grid } from "@material-ui/core";
 
-const FilterBarState = createContext(null);
+export const FilterBarState = createContext(null);
 
 export default function PagesLayout({
   title,
