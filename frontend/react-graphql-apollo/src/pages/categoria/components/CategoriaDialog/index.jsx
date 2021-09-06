@@ -110,6 +110,7 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
         <DialogContent>
           <TextField
             value={newCategoria.nombre}
+            placeholder={categoria?.nombre}
             key="nombre"
             autoFocus
             margin="dense"

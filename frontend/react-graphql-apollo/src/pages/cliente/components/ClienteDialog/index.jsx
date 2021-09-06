@@ -25,9 +25,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
   const [newCliente, setNewCliente] = useState(initialClienteState);
 
   const onCompleted = (data) => {
-    const updatedMsg = `cliente actualizado`;
-    const addedMsg = `cliente agregado`;
-    enqueueSnackbar(cliente ? updatedMsg : addedMsg, {
+    enqueueSnackbar(`cliente ${cliente ? "actualizado" : "agregado"}`, {
       variant: "success",
     });
     handleClose();
@@ -137,6 +135,7 @@ export default function ClienteEditDialogIcon({ cliente = null }) {
             ].map(({ name, type, xs }) => (
               <Grid item xs={xs}>
                 <TextField
+                  placeholder={name === "nombre" && cliente?.nombre}
                   value={newCliente[name]}
                   key={name}
                   autoFocus={name === "nombre"}
