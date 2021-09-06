@@ -20,6 +20,7 @@ export default function SearchItem({
         e.preventDefault();
         console.log("clieck term:", term);
         updateSearchTerm(term);
+        setTerm("");
       }}
     >
       <TextField

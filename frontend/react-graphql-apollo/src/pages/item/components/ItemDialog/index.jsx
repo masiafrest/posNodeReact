@@ -29,9 +29,8 @@ export default function ItemEditDialogIcon({ item = null }) {
   const [newItem, setNewItem] = useState(initialItemState);
 
   const onCompleted = (data) => {
-    const {
-      postItem: { descripcion },
-    } = data;
+    const mutation = item ? "updateItem" : "postItem";
+    const { descripcion } = data[mutation];
     enqueueSnackbar(
       `item ${descripcion} ${item ? "actualizado" : "agregado"}`,
       {
@@ -42,6 +41,7 @@ export default function ItemEditDialogIcon({ item = null }) {
   };
 
   const onError = (error) => {
+    console.log(error);
     enqueueSnackbar(error.message, {
       variant: "error",
     });
@@ -53,12 +53,12 @@ export default function ItemEditDialogIcon({ item = null }) {
   });
 
   const [postItem] = useMutation(POST_ITEM, {
-    update(cache, { data: { postItem } }) {
+    update(cache, { data }) {
       cache.modify({
         fields: {
           items(existingData = []) {
             const newDataRef = cache.writeFragment({
-              data: postItem,
+              data: data.postItem,
               fragment: ITEM_DATA,
             });
             return existingData?.query
@@ -120,7 +120,7 @@ export default function ItemEditDialogIcon({ item = null }) {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          {item ? "Actualizar Datos" : "Agregar Datos"}
+          {item ? `Actualizar Datos de ${item.descripcion}` : "Agregar Datos"}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
@@ -186,7 +186,6 @@ export default function ItemEditDialogIcon({ item = null }) {
                 xs: 4,
               },
             ].map(({ name, label, type, xs, sm }) => {
-              console.log(item?.precio.precio);
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
