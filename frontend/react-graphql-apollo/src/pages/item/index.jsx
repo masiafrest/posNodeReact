@@ -6,7 +6,6 @@ import ItemCard from "./components/ItemCard";
 import ItemAccordion from "./components/ItemAccordion";
 import { getViewComp } from "../../utils";
 
-import SearchField from "./components/SearchField";
 import SearchBar from "./components/SearchItem";
 import CreateItemDialog from "./components/ItemDialog/";
 

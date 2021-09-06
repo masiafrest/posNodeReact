@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import TableRecibo from "./TablaContainer/VentaTable";
 import FilterBar from "../../../../../../components/PagesLayout/components/FilterBar";
 import SearchClient from "../../../../../cliente/components/SearchField";
-import SearchItem from "../../../../../item/components/SearchField";
+import SearchItem from "../../../../../item/components/AutoCompleteItem";
 
 import PrintBtn from "./PrintBtn";
 

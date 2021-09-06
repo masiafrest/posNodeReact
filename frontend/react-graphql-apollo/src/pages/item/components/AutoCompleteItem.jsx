@@ -9,7 +9,7 @@ import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import AddItemBtn from "./ItemDialog";
 
-export default function SearchField({
+export default function AutoCompleteItem({
   data,
   loading,
   initialTerm,
