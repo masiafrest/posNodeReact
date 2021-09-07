@@ -77,12 +77,13 @@ export default function ItemEditDialogIcon({ item = null }) {
   };
 
   const handleOnChange = (e) => {
-    if (e.target.name === "precio" || e.target.name === "precioMin") {
-      setNewItem({ ...newItem, [e.target.name]: parseFloat(e.target.value) });
-    } else if (e.target.type === "number") {
-      setNewItem({ ...newItem, [e.target.name]: parseInt(e.target.value) });
+    const { name, value, type } = e.target;
+    if (name === "precio" || name === "precioMin") {
+      setNewItem({ ...newItem, [name]: parseFloat(value) });
+    } else if (type === "number") {
+      setNewItem({ ...newItem, [name]: parseInt(value) });
     } else {
-      setNewItem({ ...newItem, [e.target.name]: e.target.value.toUpperCase() });
+      setNewItem({ ...newItem, [name]: value.toUpperCase() });
     }
   };
 
@@ -189,6 +190,12 @@ export default function ItemEditDialogIcon({ item = null }) {
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
+                    helperText={
+                      item &&
+                      (name === "precio" || name === "precioMin"
+                        ? item.precio[name]
+                        : item[name])
+                    }
                     placeholder={
                       item &&
                       (name === "precio" || name === "precioMin"
