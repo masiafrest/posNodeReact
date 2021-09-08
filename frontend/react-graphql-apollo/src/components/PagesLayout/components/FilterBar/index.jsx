@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 
 import SwitchView from "./SwitchView";
 import SelectItemPerPage from "./SelectItemPerPage";
+import SearchBar from "./SearchBar";
 
 export default function FilterBar({
   context,
@@ -55,14 +56,18 @@ export default function FilterBar({
         xs={recibo ? 12 : hasViews ? 12 : 9}
         sm={recibo ? 12 : hasViews ? 6 : 9}
       >
-        <SearchField
-          data={loading ? [] : data[queryType]?.query}
-          loading={loading}
-          initialTerm={filter}
-          updateSearchTerm={recibo ? setSearchTermDebounced : setFilter}
-          recibo={recibo}
-          context={context}
-        />
+        {recibo ? (
+          <SearchField
+            data={loading ? [] : data[queryType]?.query}
+            loading={loading}
+            initialTerm={filter}
+            updateSearchTerm={recibo ? setSearchTermDebounced : setFilter}
+            recibo={recibo}
+            context={context}
+          />
+        ) : (
+          <SearchBar />
+        )}
       </Grid>
       {!recibo && (
         <>

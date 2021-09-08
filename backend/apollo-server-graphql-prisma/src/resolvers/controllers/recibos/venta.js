@@ -79,30 +79,25 @@ async function postVenta(parent, args, ctx, info) {
  */
 async function ventas(parent, args, ctx, info) {
   const { filter, skip, take } = args;
-  const clienteNombre = splitArrBySpace(filter, "clienteNombre");
-  const descriptionArr = splitArrBySpace(filter, "descripcion");
-
-  const hasLineas =
-    (await ctx.prisma.venta.count({
-      where: {
-        OR: {
-          lineas: {
-            some: {
-              OR: descriptionArr,
-            },
-          },
-        },
-      },
-    })) > 0;
 
   const where = {
     OR: {
-      OR: clienteNombre,
-      lineas: hasLineas ? { some: { OR: descriptionArr } } : {},
+      OR: [
+        {
+          lineas: {
+            some: {
+              descripcion: { contains: filter },
+            },
+          },
+        },
+        {
+          clienteNombre: {
+            contains: filter,
+          },
+        },
+      ],
     },
   };
-
-  console.log("find ventas");
   const query = await ctx.prisma.venta.findMany({
     where,
     include: {
