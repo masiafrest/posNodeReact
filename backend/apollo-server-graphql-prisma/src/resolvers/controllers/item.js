@@ -13,7 +13,7 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  const { filter, skip, take } = args;
+  const { filter, skip, take, lte, gte } = args;
 
   // const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
@@ -23,6 +23,8 @@ async function items(parent, args, ctx, info) {
       contains: filter,
     },
   };
+  lte && (where.qty.lte = lte);
+  gte && (where.qty.gte = gte);
 
   console.log("args: ", args);
   const query = await ctx.prisma.item.findMany({
