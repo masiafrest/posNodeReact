@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
 
-import { Grid } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 
 import SwitchView from "./SwitchView";
 import SelectItemPerPage from "./SelectItemPerPage";
@@ -32,6 +32,8 @@ export default function FilterBar({
   const {
     filterState: [filter, setFilter],
   } = Context;
+  const [lte, setLte] = useState(null);
+  const [gte, setGte] = useState(null);
 
   //query to get suggestions
   const { data, loading } = useQuery(getQuery, {
@@ -39,6 +41,8 @@ export default function FilterBar({
       filter,
       skip: 0,
       take,
+      lte,
+      gte,
     },
   });
 
@@ -84,6 +88,16 @@ export default function FilterBar({
               <SwitchView view={view} setView={setView} />
             </Grid>
           )}
+        </>
+      )}
+      {queryType === "items" && (
+        <>
+          <Grid item xs={hasViews ? 6 : 3} sm={3}>
+            <TextField>lte</TextField>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <TextField>gte</TextField>
+          </Grid>
         </>
       )}
     </Grid>

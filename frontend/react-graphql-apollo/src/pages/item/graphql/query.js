@@ -25,8 +25,8 @@ export const ITEM_DATA = gql`
 `;
 
 export const GET_ITEMS = gql`
-  query Items($filter: String, $take: Int, $skip: Int) {
-    items(filter: $filter, take: $take, skip: $skip) {
+  query Items($filter: String, $take: Int, $skip: Int, $lte: Int, $gte: Int) {
+    items(filter: $filter, take: $take, skip: $skip, lte: $lte, gte: $gte) {
       query {
         ...itemData
       }
