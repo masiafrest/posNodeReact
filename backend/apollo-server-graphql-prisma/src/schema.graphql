@@ -1,7 +1,7 @@
 scalar Upload
 
 type Query {
-  items(filter: String, skip: Int, take: Int): ItemQuery
+  items(filter: String, skip: Int, take: Int, lte: Int, gte: Int): ItemQuery
   item(id: Int!): Item
   categorias(filter: String, skip: Int, take: Int): CategoriasQuery
   ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery

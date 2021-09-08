@@ -19,6 +19,7 @@ export default function FilterBar({
   const Context = useContext(context);
   let page, setPage, setTake, view, setView;
   let take = 5;
+  console.log("query type:", queryType);
 
   if (!recibo) {
     ({
