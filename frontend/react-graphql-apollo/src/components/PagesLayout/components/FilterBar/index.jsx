@@ -32,8 +32,8 @@ export default function FilterBar({
   const {
     filterState: [filter, setFilter],
   } = Context;
-  const [lte, setLte] = useState(null);
-  const [gte, setGte] = useState(null);
+  // const [lte, setLte] = useState(null);
+  // const [gte, setGte] = useState(null);
 
   //query to get suggestions
   const { data, loading } = useQuery(getQuery, {
@@ -41,8 +41,8 @@ export default function FilterBar({
       filter,
       skip: 0,
       take,
-      lte,
-      gte,
+      // lte,
+      // gte,
     },
   });
 
@@ -90,7 +90,7 @@ export default function FilterBar({
           )}
         </>
       )}
-      {queryType === "items" && (
+      {/* {queryType === "items" && (
         <>
           <Grid item xs={hasViews ? 6 : 3} sm={3}>
             <TextField>lte</TextField>
@@ -99,7 +99,7 @@ export default function FilterBar({
             <TextField>gte</TextField>
           </Grid>
         </>
-      )}
+      )} */}
     </Grid>
   );
 }

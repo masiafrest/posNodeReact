@@ -1,5 +1,5 @@
-import { useState, createContext } from "react";
-import { useQuery } from "@apollo/client";
+import { useState, createContext, useEffect } from "react";
+import { useQuery, useLazyQuery } from "@apollo/client";
 
 import FilterBar from "./components/FilterBar";
 import List from "./components/List";
@@ -33,6 +33,12 @@ export default function PagesLayout({
   const [view, setView] = viewState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
+  // const [search, { data, loading, error }] = useLazyQuery(getQuery);
+  // useEffect(() => {
+  //   search({
+  //     variables: { filter, take, skip },
+  //   });
+  // }, []);
   const { data, loading, error } = useQuery(getQuery, {
     variables: { filter, take, skip },
   });
