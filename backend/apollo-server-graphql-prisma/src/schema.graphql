@@ -90,6 +90,8 @@ type Mutation {
     lineas: [VentaLineaInput]
   ): Venta
 
+  updateVenta(id: ID, credito: Boolean): Venta
+
   postDevolucion(clienteId: ID, lineas: [DevolucionLineaInput]): Devolucion
 }
 

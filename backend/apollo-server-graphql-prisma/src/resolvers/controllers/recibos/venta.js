@@ -77,6 +77,25 @@ async function postVenta(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
+async function updateVenta(_, args, ctx, __) {
+  const { id, credito } = args;
+
+  return await ctx.prisma.$transaction([
+    ctx.prisma.venta.update({
+      where: { id },
+      data: {
+        credito,
+      },
+    }),
+  ]);
+}
+
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
 async function ventas(parent, args, ctx, info) {
   const { filter, skip, take } = args;
 
@@ -124,4 +143,5 @@ async function ventas(parent, args, ctx, info) {
 module.exports = {
   ventas,
   postVenta,
+  updateVenta,
 };
