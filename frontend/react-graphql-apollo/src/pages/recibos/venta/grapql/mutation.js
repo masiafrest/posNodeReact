@@ -29,3 +29,12 @@ export const PostVenta = gql`
     }
   }
 `;
+
+export const UpdateVenta = gql`
+  mutation UpdateVenta($id: ID, $credito: Boolean) {
+    updateVenta(id: $id, credito: $credito) {
+      id
+      credito
+    }
+  }
+`;

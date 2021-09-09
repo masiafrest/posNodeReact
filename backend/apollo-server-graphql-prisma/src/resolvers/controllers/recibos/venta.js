@@ -80,14 +80,20 @@ async function postVenta(parent, args, ctx, info) {
 async function updateVenta(_, args, ctx, __) {
   const { id, credito } = args;
 
-  return await ctx.prisma.$transaction([
-    ctx.prisma.venta.update({
-      where: { id },
-      data: {
-        credito,
+  const venta = await ctx.prisma.venta.update({
+    where: { id: id * 1 },
+    data: {
+      credito,
+    },
+    include: {
+      lineas: {
+        include: {
+          item: true,
+        },
       },
-    }),
-  ]);
+    },
+  });
+  return venta;
 }
 
 /**
