@@ -13,7 +13,7 @@ const include = {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  const { filter, skip, take, lte, gte } = args;
+  const { filter, skip, take, lte } = args;
 
   // const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
@@ -21,9 +21,6 @@ async function items(parent, args, ctx, info) {
   const qty = {};
   if (lte) {
     qty.lte = lte;
-  }
-  if (gte) {
-    qty.gte = gte;
   }
 
   const where = {
