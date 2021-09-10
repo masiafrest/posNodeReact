@@ -2,11 +2,12 @@ import { useContext, useState } from "react";
 import { useQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
 
-import { Grid, TextField } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import SwitchView from "./SwitchView";
 import SelectItemPerPage from "./SelectItemPerPage";
 import SearchBar from "./SearchBar";
+import LteGteFilter from "./LteGteFilter";
 
 export default function FilterBar({
   context,
@@ -31,6 +32,8 @@ export default function FilterBar({
 
   const {
     filterState: [filter, setFilter],
+    lteState,
+    gteState,
   } = Context;
   // const [lte, setLte] = useState(null);
   // const [gte, setGte] = useState(null);
@@ -90,16 +93,9 @@ export default function FilterBar({
           )}
         </>
       )}
-      {/* {queryType === "items" && (
-        <>
-          <Grid item xs={hasViews ? 6 : 3} sm={3}>
-            <TextField>lte</TextField>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField>gte</TextField>
-          </Grid>
-        </>
-      )} */}
+      {queryType === "items" && (
+        <LteGteFilter lteState={lteState} gteState={gteState} />
+      )}
     </Grid>
   );
 }

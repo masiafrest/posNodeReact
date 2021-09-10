@@ -18,6 +18,14 @@ async function items(parent, args, ctx, info) {
   // const searchArr = splitArrBySpace(filter, "search_text");
   //maybe add sorting, para q aparezcan lo mas vendido primero
   // console.log("searchArr:", searchArr);
+  const qty = {};
+  if (lte) {
+    qty.lte = lte;
+  }
+  if (gte) {
+    qty.gte = gte;
+  }
+
   const where = {
     OR: [
       {
@@ -27,9 +35,11 @@ async function items(parent, args, ctx, info) {
         categorias: { every: { nombre: { contains: filter } } },
       },
     ],
+    qty,
   };
-  lte && (where.qty.lte = lte);
-  gte && (where.qty.gte = gte);
+  // lte && (where.qty.lte = lte);
+  // gte && (where.qty.gte = gte);
+  console.log("where: ", where);
 
   console.log("args: ", args);
   const query = await ctx.prisma.item.findMany({

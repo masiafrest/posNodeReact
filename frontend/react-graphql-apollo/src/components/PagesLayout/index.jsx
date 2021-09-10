@@ -19,18 +19,24 @@ export default function PagesLayout({
   const takeState = useState(5);
   const viewState = useState(false);
   const pageState = useState(1);
+  const lteState = useState(null);
+  const gteState = useState(null);
 
   const filterBarState = {
     filterState,
     takeState,
     viewState,
     pageState,
+    lteState,
+    gteState,
   };
 
   const [filter, setFilter] = filterState;
   const [page, setPage] = pageState;
   const [take, setTake] = takeState;
   const [view, setView] = viewState;
+  const [lte, setLte] = lteState;
+  const [gte, setGte] = gteState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
   // const [search, { data, loading, error }] = useLazyQuery(getQuery);
@@ -40,7 +46,7 @@ export default function PagesLayout({
   //   });
   // }, []);
   const { data, loading, error } = useQuery(getQuery, {
-    variables: { filter, take, skip },
+    variables: { filter, take, skip, lte, gte },
   });
 
   console.log("data", data);
