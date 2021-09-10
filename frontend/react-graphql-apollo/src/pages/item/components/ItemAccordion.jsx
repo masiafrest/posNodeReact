@@ -37,7 +37,9 @@ export default function ItemAccordion({ data }) {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>{descripcion}</Typography>
+        <Typography>
+          {descripcion} {categorias}
+        </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
