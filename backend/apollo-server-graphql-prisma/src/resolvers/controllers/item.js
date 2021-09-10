@@ -19,9 +19,14 @@ async function items(parent, args, ctx, info) {
   //maybe add sorting, para q aparezcan lo mas vendido primero
   // console.log("searchArr:", searchArr);
   const where = {
-    search_text: {
-      contains: filter,
-    },
+    OR: [
+      {
+        search_text: { contains: filter },
+      },
+      {
+        categorias: { every: { nombre: { contains: filter } } },
+      },
+    ],
   };
   lte && (where.qty.lte = lte);
   gte && (where.qty.gte = gte);
