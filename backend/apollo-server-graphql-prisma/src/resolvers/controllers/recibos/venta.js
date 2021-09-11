@@ -151,6 +151,16 @@ async function ventas(parent, args, ctx, info) {
   return { query, count };
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+async function delVenta(parent, { id }, ctx, info) {
+  //del lineas primeros
+}
+
 module.exports = {
   ventas,
   postVenta,
