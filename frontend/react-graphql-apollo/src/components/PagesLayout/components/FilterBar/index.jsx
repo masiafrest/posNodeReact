@@ -8,6 +8,7 @@ import SwitchView from "./SwitchView";
 import SelectItemPerPage from "./SelectItemPerPage";
 import SearchBar from "./SearchBar";
 import LteFilter from "./LteFilter";
+import IsPagadoCheck from "./IsPagadoCheck";
 
 export default function FilterBar({
   context,
@@ -18,9 +19,10 @@ export default function FilterBar({
   hasViews = true,
 }) {
   const Context = useContext(context);
-  let page, setPage, setTake, view, setView, lteState;
+  let page, setPage, setTake, view, setView, lteState, isCreditoState;
   let take = 5;
   console.log("query type:", queryType);
+  console.log("isRecibo:", recibo);
 
   if (!recibo) {
     ({
@@ -28,23 +30,20 @@ export default function FilterBar({
       takeState: [take, setTake],
       viewState: [view, setView],
       lteState,
+      isCreditoState,
     } = Context);
   }
 
   const {
     filterState: [filter, setFilter],
   } = Context;
-  // const [lte, setLte] = useState(null);
-  // const [gte, setGte] = useState(null);
 
-  //query to get suggestions
+  //query to get suggestions for autocomplte on searchbar recibo
   const { data, loading } = useQuery(getQuery, {
     variables: {
       filter,
       skip: 0,
       take,
-      // lte,
-      // gte,
     },
   });
 
@@ -93,6 +92,9 @@ export default function FilterBar({
         </>
       )}
       {queryType === "items" && !recibo && <LteFilter lteState={lteState} />}
+      {queryType === "ventas" && (
+        <IsPagadoCheck isCreditoState={isCreditoState} />
+      )}
     </Grid>
   );
 }

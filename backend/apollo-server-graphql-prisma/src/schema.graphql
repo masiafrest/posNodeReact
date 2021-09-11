@@ -6,7 +6,7 @@ type Query {
   categorias(filter: String, skip: Int, take: Int): CategoriasQuery
   ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery
   clientes(filter: String, skip: Int, take: Int): ClienteQuery
-  ventas(filter: String, skip: Int, take: Int): VentasQuery
+  ventas(filter: String, skip: Int, take: Int, isCredito: Boolean): VentasQuery
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
 }
 

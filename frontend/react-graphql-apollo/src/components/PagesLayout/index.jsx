@@ -20,6 +20,7 @@ export default function PagesLayout({
   const viewState = useState(false);
   const pageState = useState(1);
   const lteState = useState(null);
+  const isCreditoState = useState(true);
 
   const filterBarState = {
     filterState,
@@ -27,6 +28,7 @@ export default function PagesLayout({
     viewState,
     pageState,
     lteState,
+    isCreditoState,
   };
 
   const [filter, setFilter] = filterState;
@@ -34,16 +36,14 @@ export default function PagesLayout({
   const [take, setTake] = takeState;
   const [view, setView] = viewState;
   const [lte, setLte] = lteState;
+  const [isCredito, setIsCredito] = isCreditoState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
-  // const [search, { data, loading, error }] = useLazyQuery(getQuery);
-  // useEffect(() => {
-  //   search({
-  //     variables: { filter, take, skip },
-  //   });
-  // }, []);
+  const variables = { filter, take, skip };
+  title === "items" && (variables.lte = lte);
+  title === "ventas" && (variables.isCredito = isCredito);
   const { data, loading, error } = useQuery(getQuery, {
-    variables: { filter, take, skip, lte },
+    variables,
   });
 
   console.log("data", data);

@@ -103,26 +103,31 @@ async function updateVenta(_, args, ctx, __) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function ventas(parent, args, ctx, info) {
-  const { filter, skip, take } = args;
+  const { filter, skip, take, isCredito } = args;
+  console.log("get ventas args: ", args);
+  const credito = {};
+  if (isCredito) {
+    credito.equals = isCredito;
+  }
 
   const where = {
-    OR: {
-      OR: [
-        {
-          lineas: {
-            some: {
-              descripcion: { contains: filter },
-            },
+    OR: [
+      {
+        lineas: {
+          some: {
+            descripcion: { contains: filter },
           },
         },
-        {
-          clienteNombre: {
-            contains: filter,
-          },
+      },
+      {
+        clienteNombre: {
+          contains: filter,
         },
-      ],
-    },
+      },
+    ],
+    credito,
   };
+
   const query = await ctx.prisma.venta.findMany({
     where,
     include: {

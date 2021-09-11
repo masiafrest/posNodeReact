@@ -19,8 +19,13 @@ export const VENTA_DATA = gql`
 `;
 
 export const GET_VENTAS = gql`
-  query getVentas($filter: String, $take: Int, $skip: Int) {
-    ventas(filter: $filter, take: $take, skip: $skip) {
+  query getVentas(
+    $filter: String
+    $take: Int
+    $skip: Int
+    $isCredito: Boolean
+  ) {
+    ventas(filter: $filter, take: $take, skip: $skip, isCredito: $isCredito) {
       query {
         ...ventaData
       }
