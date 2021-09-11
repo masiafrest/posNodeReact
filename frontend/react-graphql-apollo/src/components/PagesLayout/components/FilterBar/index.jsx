@@ -18,7 +18,7 @@ export default function FilterBar({
   hasViews = true,
 }) {
   const Context = useContext(context);
-  let page, setPage, setTake, view, setView;
+  let page, setPage, setTake, view, setView, lteState;
   let take = 5;
   console.log("query type:", queryType);
 
@@ -27,12 +27,12 @@ export default function FilterBar({
       pageState: [page, setPage],
       takeState: [take, setTake],
       viewState: [view, setView],
+      lteState,
     } = Context);
   }
 
   const {
     filterState: [filter, setFilter],
-    lteState,
   } = Context;
   // const [lte, setLte] = useState(null);
   // const [gte, setGte] = useState(null);
@@ -92,7 +92,7 @@ export default function FilterBar({
           )}
         </>
       )}
-      {queryType === "items" && <LteFilter lteState={lteState} />}
+      {queryType === "items" && !recibo && <LteFilter lteState={lteState} />}
     </Grid>
   );
 }
