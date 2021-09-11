@@ -57,11 +57,19 @@ export default function AutoCompleteItem({
         sku,
         barcode,
       }) => {
-        const label = `${descripcion} ${sku}`;
+        const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
+        const label = `${descripcion} ${sku} ${categoriaStr}`;
         return label;
       }}
       renderOption={(option, state) => {
-        return <span>{option.descripcion}</span>;
+        const categorias = option.categorias
+          .map((cat) => cat.nombre)
+          .join(", ");
+        return (
+          <span>
+            {option.descripcion} {categorias}
+          </span>
+        );
       }}
       inputValue={term}
       onInputChange={(e, value) => {
