@@ -21,7 +21,6 @@ export default function SearchItem() {
         console.log("clieck term:", term);
         setFilter(term);
         setPage(1);
-        // setTerm("");
       }}
     >
       <TextField
