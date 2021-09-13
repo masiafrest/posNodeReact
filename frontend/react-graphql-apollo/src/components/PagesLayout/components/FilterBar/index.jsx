@@ -93,7 +93,7 @@ export default function FilterBar({
       )}
       {queryType === "items" && !recibo && <LteFilter lteState={lteState} />}
       {queryType === "ventas" && (
-        <sPagadoCheck isCreditoState={isCreditoState} />
+        <IsPagadoCheck isCreditoState={isCreditoState} />
       )}
     </Grid>
   );
