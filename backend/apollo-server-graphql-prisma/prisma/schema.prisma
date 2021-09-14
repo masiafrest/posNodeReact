@@ -30,7 +30,7 @@ model Item {
   categorias  Categoria[]
   createdAt   DateTime     @default(now())
   deleted     Boolean      @default(false)
-  search_text String
+  // search_text String
   // fts Unsupported("tsvector")
 
   lineaVenta  VentaLinea[]

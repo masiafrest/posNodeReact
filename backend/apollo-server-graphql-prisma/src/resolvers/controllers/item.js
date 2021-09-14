@@ -15,9 +15,6 @@ const include = {
 async function items(parent, args, ctx, info) {
   const { filter, skip, take, lte } = args;
 
-  // const searchArr = splitArrBySpace(filter, "search_text");
-  //maybe add sorting, para q aparezcan lo mas vendido primero
-  // console.log("searchArr:", searchArr);
   const qty = {};
   if (lte) {
     qty.lte = lte;
@@ -26,7 +23,10 @@ async function items(parent, args, ctx, info) {
   const where = {
     OR: [
       {
-        search_text: { contains: filter },
+        descripcion: { contains: filter },
+      },
+      {
+        sku: { contains: filter },
       },
       {
         categorias: { every: { nombre: { contains: filter } } },
@@ -52,7 +52,7 @@ async function items(parent, args, ctx, info) {
   });
   console.log(
     "query:",
-    query.map((e) => e.search_text)
+    query.map((e) => e.descripcion + " " + e.sku)
   );
 
   const count = await ctx.prisma.item.count({
@@ -99,7 +99,6 @@ async function postItem(parent, args, ctx, info) {
     qty,
     images,
   } = args;
-  const search_text = [sku, descripcion, barcode].join(" ");
 
   const imagesPath = await saveImg(images);
 
@@ -110,7 +109,6 @@ async function postItem(parent, args, ctx, info) {
       sku,
       qty,
       descripcion,
-      search_text,
       ubicacion: {
         connect: ubicacion,
       },
