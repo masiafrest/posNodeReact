@@ -240,7 +240,7 @@ async function delItem(parent, { id }, ctx, info) {
   const item = await ctx.prisma.item.findUnique({
     where: { id },
   });
-  console.log("delitem: ", item);
+
   try {
     item.image_url && (await delImg(item.image_url));
     return await ctx.prisma.item.delete({
