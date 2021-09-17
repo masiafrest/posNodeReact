@@ -158,17 +158,33 @@ async function ventas(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function delVenta(parent, { id }, ctx, info) {
-  //del lineas primeros
   const venta = await ctx.prisma.venta.findFirst({
     where: { id: id * 1 },
     include: {
       lineas: true,
     },
   });
-  console.log("delVenta venta:", venta);
 
-  //agregar item de lineas a items qty
+  if (!venta) {
+    console.log("recibo de venta no existe");
+    throw new Error("recibo de venta no existe");
+  }
+
+  // update item qty
+  console.log("updateItem .........");
+  for (const itemLinea of venta.lineas) {
+    const { qty } = await ctx.prisma.item.findFirst({
+      where: { id: itemLinea.itemId },
+    });
+    await ctx.prisma.item.update({
+      where: { id: itemLinea.itemId },
+      data: { qty: qty + itemLinea.qty },
+    });
+  }
+
   //del venta recibo
+  const delVenta = await ctx.prisma.venta.delete({ where: { id: id * 1 } });
+  return delVenta;
 }
 
 module.exports = {

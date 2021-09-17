@@ -103,7 +103,7 @@ model VentaLinea {
   id          Int    @id @default(autoincrement())
   item        Item?  @relation(fields: [itemId], references: [id])
   itemId      Int?
-  venta       Venta  @relation(fields: [ventaId], references: [id])
+  venta       Venta  @relation(fields: [ventaId], references: [id], onDelete: Cascade)
   ventaId     Int
   qty         Int
   precio      Float

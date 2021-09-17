@@ -13,10 +13,11 @@ export default function DelBtn({ id }) {
     update(cache, { data: { delVenta } }) {
       cache.modify({
         fields: {
-          items(existingVentas = [], { readField }) {
-            return existingVentas.query.filter(
-              (ventaRef) => id !== readField("id", ventaRef)
-            );
+          ventas(existingVentas = [], { readField }) {
+            const filteredVentas = existingVentas.query.filter((ventaRef) => {
+              return id !== readField("id", ventaRef);
+            });
+            return filteredVentas;
           },
         },
       });
