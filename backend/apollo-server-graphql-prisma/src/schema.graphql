@@ -89,8 +89,8 @@ type Mutation {
     total: Float
     lineas: [VentaLineaInput]
   ): Venta
-
   updateVenta(id: ID, credito: Boolean): Venta
+  delVenta(id: ID): Venta
 
   postDevolucion(clienteId: ID, lineas: [DevolucionLineaInput]): Devolucion
 }

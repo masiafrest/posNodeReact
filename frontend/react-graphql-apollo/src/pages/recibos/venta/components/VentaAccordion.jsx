@@ -9,11 +9,14 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  AccordionActions,
   Typography,
   Divider,
   Grid,
   Button,
 } from "@material-ui/core";
+
+import DelBtn from "./DelBtn";
 
 export default function VentaAccordion({ data }) {
   const [updateVenta, { ventaData, loading, error }] = useMutation(UpdateVenta);
@@ -52,20 +55,21 @@ export default function VentaAccordion({ data }) {
           <Grid item xs={12}>
             <Table venta={data} isVenta={false} />
           </Grid>
-          {credito && (
-            <Grid item xs={12}>
-              <Button
-                variant="outlined"
-                onClick={() =>
-                  updateVenta({ variables: { id, credito: false } })
-                }
-              >
-                pagado
-              </Button>
-            </Grid>
-          )}
         </Grid>
       </AccordionDetails>
+      <AccordionActions>
+        <DelBtn id={id} />
+        {credito && (
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              onClick={() => updateVenta({ variables: { id, credito: false } })}
+            >
+              pagado
+            </Button>
+          </Grid>
+        )}
+      </AccordionActions>
     </Accordion>
   );
 }

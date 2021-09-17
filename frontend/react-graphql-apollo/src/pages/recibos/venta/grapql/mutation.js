@@ -38,3 +38,11 @@ export const UpdateVenta = gql`
     }
   }
 `;
+
+export const DelVenta = gql`
+  mutation DelVenta($id: ID) {
+    delVenta(id: $id) {
+      id
+    }
+  }
+`;

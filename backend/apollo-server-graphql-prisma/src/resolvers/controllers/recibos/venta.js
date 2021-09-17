@@ -159,10 +159,21 @@ async function ventas(parent, args, ctx, info) {
  */
 async function delVenta(parent, { id }, ctx, info) {
   //del lineas primeros
+  const venta = await ctx.prisma.venta.findFirst({
+    where: { id: id * 1 },
+    include: {
+      lineas: true,
+    },
+  });
+  console.log("delVenta venta:", venta);
+
+  //agregar item de lineas a items qty
+  //del venta recibo
 }
 
 module.exports = {
   ventas,
   postVenta,
   updateVenta,
+  delVenta,
 };

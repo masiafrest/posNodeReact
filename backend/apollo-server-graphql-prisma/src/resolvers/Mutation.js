@@ -10,7 +10,11 @@ const {
   updateCategoria,
   delCategoria,
 } = require("./controllers/categoria");
-const { postVenta, updateVenta } = require("./controllers/recibos/venta");
+const {
+  postVenta,
+  updateVenta,
+  delVenta,
+} = require("./controllers/recibos/venta");
 const { postDevolucion } = require("./controllers/recibos/devolucion");
 const { signup, login } = require("./controllers/usuario");
 
@@ -30,6 +34,7 @@ const mutations = {
   postDevolucion,
   postVenta,
   updateVenta,
+  delVenta,
   signup,
   login,
 };
