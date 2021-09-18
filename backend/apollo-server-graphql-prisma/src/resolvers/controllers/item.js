@@ -19,17 +19,18 @@ async function items(parent, args, ctx, info) {
   if (lte) {
     qty.lte = lte;
   }
+  const tsquery = filter.trim().replaceAll(" ", " & ");
 
   const where = {
     OR: [
       {
-        descripcion: { contains: filter },
+        descripcion: tsquery ? { search: tsquery } : { contains: filter },
       },
       {
-        sku: { contains: filter },
+        sku: tsquery ? { search: tsquery } : { contains: filter },
       },
       {
-        categorias: { every: { nombre: { contains: filter } } },
+        // categorias: { some: { nombre: { contains: filter } } },
       },
     ],
     qty,
