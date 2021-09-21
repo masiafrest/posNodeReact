@@ -23,6 +23,7 @@ export default function PrintBtn({ btnComp, cliente, ...props }) {
         subTotal={subTotal}
         tax={tax}
         total={total}
+        credito={credito}
       />
     </>
   );

@@ -67,7 +67,7 @@ export default function AutoCompleteItem({
           .join(", ");
         return (
           <span>
-            {option.descripcion} {categorias}
+            {option.descripcion.trim()} {categorias}
           </span>
         );
       }}

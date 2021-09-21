@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 //MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,22 +7,14 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
-  Drawer,
-  List,
-  ListItem,
   FormControlLabel,
-  Grid,
   Switch,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  signOut,
-  signoutSucess,
-  toggleDarkMode,
-} from "../../redux/features/userSlice";
+import { toggleDarkMode } from "../../redux/features/userSlice";
+import Drawer from "./Drawer";
 
 const useStyle = makeStyles((theme) => ({
   menuButton: {
@@ -32,33 +24,23 @@ const useStyle = makeStyles((theme) => ({
     flexGrow: 1,
   },
   navLink: {
-    backgroundColor: "blue",
-    color: "white",
-    borderStyle: "solid",
-    borderRadius: "15px",
     textDecoration: "none",
-    padding: "15px 15px 0px 15px",
+    fontSize: "1.5em",
   },
 }));
 
 function NavBar() {
   const classes = useStyle();
-  const { authenticated, darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const history = useHistory();
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = (isOpen) => (e) => {
     setIsDrawerOpen(isOpen);
   };
 
-  const NavLinkOnClick = ({ to, children }) => (
-    <NavLink to={to} onClick={toggleDrawer(false)} className={classes.navLink}>
-      <Typography variant="h4" gutterBottom>
-        {children}
-      </Typography>
-    </NavLink>
-  );
+  const { pathname } = useLocation();
+  const isItemPage = pathname === "/item" || pathname === "/" ? true : false;
 
   return (
     <div>
@@ -73,33 +55,15 @@ function NavBar() {
             <MenuIcon />
           </IconButton>
           <Drawer
-            anchor="left"
-            open={isDrawerOpen}
-            onClose={toggleDrawer(false)}
+            drawerState={[isDrawerOpen, setIsDrawerOpen]}
+            toggleDrawer={toggleDrawer}
+          />
+          <NavLink
+            className={classes.navLink}
+            to={isItemPage ? "/venta" : "/item"}
           >
-            <List>
-              {["item", "venta", "cliente", "categoria"].map((text, index) => (
-                <ListItem button key={text}>
-                  <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
-                </ListItem>
-              ))}
-              {authenticated && (
-                <ListItem
-                  button
-                  key="signout"
-                  onClick={() => {
-                    setIsDrawerOpen(false);
-                    dispatch(signoutSucess());
-                    history.push("/login");
-                  }}
-                >
-                  <Typography variant="h4" gutterBottom>
-                    SignOut
-                  </Typography>
-                </ListItem>
-              )}
-            </List>
-          </Drawer>
+            {isItemPage ? "Venta" : "Item"}
+          </NavLink>
           <div className={classes.void} />
           <FormControlLabel
             value="top"

@@ -14,12 +14,14 @@ const include = {
  */
 async function items(parent, args, ctx, info) {
   const { filter, skip, take, lte } = args;
+  const { toTsQueryAnd } = require("../../utils");
 
   const qty = {};
   if (lte) {
     qty.lte = lte;
   }
-  const tsquery = filter.trim().replaceAll(" ", " & ");
+  const tsquery = toTsQueryAnd(filter);
+  console.log("tsquery:", tsquery);
 
   const where = {
     OR: [
@@ -37,7 +39,6 @@ async function items(parent, args, ctx, info) {
   };
   // lte && (where.qty.lte = lte);
   // gte && (where.qty.gte = gte);
-  console.log("where: ", where);
 
   console.log("args: ", args);
   const query = await ctx.prisma.item.findMany({

@@ -26,6 +26,7 @@ async function postVenta(parent, args, ctx, info) {
     where: { id: clienteId * 1 },
   });
 
+  console.log("restar item");
   try {
     const decrementItems = lineas.map((linea) => {
       return ctx.prisma.item.update({
@@ -38,6 +39,8 @@ async function postVenta(parent, args, ctx, info) {
       });
     });
 
+    console.log("crear venta");
+    console.log("ctx currentUser:", ctx.currentUser);
     const createVenta = ctx.prisma.venta.create({
       data: {
         usuarioNombre: ctx.currentUser.nombre,
@@ -105,10 +108,14 @@ async function updateVenta(_, args, ctx, __) {
 async function ventas(parent, args, ctx, info) {
   const { filter, skip, take, isCredito } = args;
   console.log("get ventas args: ", args);
+  const { toTsQueryAnd } = require("../../../utils");
+
   const credito = {};
   if (isCredito) {
     credito.equals = isCredito;
   }
+
+  const tsquery = toTsQueryAnd(filter);
 
   const where = {
     OR: [
@@ -120,9 +127,7 @@ async function ventas(parent, args, ctx, info) {
         },
       },
       {
-        clienteNombre: {
-          contains: filter,
-        },
+        clienteNombre: { contains: filter },
       },
     ],
     credito,

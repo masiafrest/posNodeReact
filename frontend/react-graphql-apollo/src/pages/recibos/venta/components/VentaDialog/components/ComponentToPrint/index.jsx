@@ -14,11 +14,12 @@ export const useStyle = makeStyles((theme) => ({
 
 export default class ComponentToPrint extends React.Component {
   render() {
-    const { lineas, client, subTotal, tax, total } = this.props;
+    const { lineas, client, subTotal, tax, total, credito } = this.props;
     return (
       <Box display="none" displayPrint="block">
         <header>
           <h1>Recibo</h1>
+          <h2>Documento no fiscal</h2>
           <div className="headerAddress">
             <address>
               <p>Cliente: {client?.nombre}</p>
@@ -27,7 +28,7 @@ export default class ComponentToPrint extends React.Component {
             <address>
               <p>Telefono: {client?.telefono}</p>
             </address>
-            <address>{client?.isCredit ? "Credito" : "Contado"}</address>
+            <address>{credito ? "Credito" : "Contado"}</address>
           </div>
         </header>
         <article>
@@ -68,18 +69,16 @@ export default class ComponentToPrint extends React.Component {
                   <td>
                     <span>{linea?.qty}</span>
                   </td>
-                  <td>
+                  <td style={{ textAlign: "center" }}>
                     <span>{linea?.descripcion}</span>
                   </td>
                   <td>
                     <span data-prefix>$</span>
-                    <span>{linea?.precio?.precio?.toFixed(2)}</span>
+                    <span>{linea?.precio?.toFixed(2)}</span>
                   </td>
                   <td>
                     <span data-prefix>$</span>
-                    <span>
-                      {(linea?.precio?.precio * linea?.qty).toFixed(2)}
-                    </span>
+                    <span>{(linea?.precio * linea?.qty).toFixed(2)}</span>
                   </td>
                 </tr>
               ))}

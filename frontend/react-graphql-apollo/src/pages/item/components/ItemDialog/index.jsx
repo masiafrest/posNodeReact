@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
 import SelectCategoria from "./SelectCategoria";
-import { DropzoneArea } from "material-ui-dropzone";
 import { useSnackbar } from "notistack";
 import CreateCat from "../../../categoria/components/CategoriaDialog";
 
@@ -16,11 +15,12 @@ import {
   IconButton,
   Button,
   Grid,
+  Collapse,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { resizeFile, dataURIToFile } from "./resizeUtils";
-import { getImgUrls } from "../../../../utils";
+
+import CollapseDropzone from "./CollapseDropzone";
 
 export default function ItemEditDialogIcon({ item = null }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -98,8 +98,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     setOpen(false);
   };
 
-  const imgUrls = item ? getImgUrls(item.image_url) : [];
-
   return (
     <>
       {item ? (
@@ -126,30 +124,10 @@ export default function ItemEditDialogIcon({ item = null }) {
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <DropzoneArea
-                previewGridProps={{
-                  container: { spacing: 5 },
-                  item: { xs: 6 },
-                }}
-                initialFiles={imgUrls}
-                acceptedFiles={["image/*"]}
-                dropzoneText={"Drag and drop an image here or click"}
-                onChange={async (files) => {
-                  try {
-                    let fileBlobResize = [];
-                    for (let i = 0; i < files.length; i++) {
-                      const image = await resizeFile(files[i]);
-                      const newFile = dataURIToFile(image, files[i].name);
-                      fileBlobResize.push(newFile);
-                    }
-                    setNewItem({ ...newItem, images: fileBlobResize });
-                  } catch (e) {
-                    enqueueSnackbar(e.message, {
-                      variant: "error",
-                    });
-                    console.log(e);
-                  }
-                }}
+              <CollapseDropzone
+                image_url={item ? item.image_url : ""}
+                newItemState={[newItem, setNewItem]}
+                queueSnackbar={enqueueSnackbar}
               />
             </Grid>
             {[

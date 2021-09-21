@@ -47,28 +47,22 @@
     width: 100%;
   }
   table {
-    border-collapse: separate;
-    border-spacing: 2px;
+    border-collapse: collapse;
   }
   th,
   td {
-    border-width: 1px;
+    border: 1px solid black;
     padding: 0.5em;
     position: relative;
-    text-align: left;
+    text-align: right;
   }
-  th,
-  td {
-    border-radius: 0.25em;
-    border-style: solid;
-  }
-  th {
+  /* th {
     background: #eee;
     border-color: #bbb;
   }
   td {
     border-color: #ddd;
-  }
+  } */
 
   /* page */
 
@@ -182,7 +176,8 @@
   table.meta,
   table.balance {
     float: right;
-    width: 36%;
+    width: 24%;
+    margin: 10px 0 30px 0;
   }
   table.meta:after,
   table.balance:after {
