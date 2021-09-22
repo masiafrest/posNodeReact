@@ -13,8 +13,9 @@ export function getViewComp(Card, Accordion) {
 }
 
 export function getUrlHost() {
-  const cellooIp = "192.168.1.105";
-  return process.env.NODE_ENV === "development" ? "localhost" : cellooIp;
+  const cellooIpEthernet = "192.168.1.105";
+  const cellooIpWifi = "192.168.1.104";
+  return process.env.NODE_ENV === "development" ? "localhost" : cellooIpWifi;
 }
 
 export function getImgUrls(image_url) {
