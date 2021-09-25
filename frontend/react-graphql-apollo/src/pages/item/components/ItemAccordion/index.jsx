@@ -1,7 +1,8 @@
 import React from "react";
-import EditDialogIcon from "./ItemDialog";
-import DelBtn from "./DelBtn";
-import AddBtn from "./AddBtn";
+import EditDialogIcon from "../ItemDialog";
+import DelBtn from "../DelBtn";
+import AddBtn from "../AddBtn";
+import Table from "./Table";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
@@ -23,9 +24,10 @@ export default function ItemAccordion({ data }) {
     id,
     descripcion,
     qty,
-    precio: { precio },
+    precio: { precio, precioMin },
     ubicacion,
     image_url,
+    sku,
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
   const url = "http://localhost:4000/upload/item/";
@@ -43,10 +45,10 @@ export default function ItemAccordion({ data }) {
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
-        <Typography>
-          qty: {qty}, precio:{precio}, ubicacion:
-          {ubicacion.tipo},{ubicacion.dirrecion}, categorias: {categorias}
-        </Typography>
+        <Table
+          headers={["sku", "qty", "precio", "precio min"]}
+          bodies={[sku, qty, precio, precioMin]}
+        />
       </AccordionDetails>
       <AccordionActions>
         <EditDialogIcon item={data} />

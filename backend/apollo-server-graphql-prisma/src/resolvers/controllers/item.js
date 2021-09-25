@@ -147,33 +147,38 @@ async function updateItem(parent, args, ctx, info) {
     categorias,
     images,
   } = args;
+  console.log("update item args:", args);
+  console.log("buscnado item ....");
   const item = await ctx.prisma.item.findUnique({
     where: { id },
     include: {
       categorias: true,
     },
   });
+  console.log("item encontrado: ", item);
 
-  const filenames = await Promise.all(images).then((e) => {
-    return e.map((e) => e.filename);
-  });
+  let imagesPath = "";
+  if (images) {
+    const filenames = await Promise.all(images).then((e) => {
+      return e.map((e) => e.filename);
+    });
 
-  //del img_url and save new
-  let imagesPath;
-  if (filenames.join(", ") !== item.image_url) {
-    if (images) {
-      console.log("update imgs", images);
-      try {
-        console.log("deleting image........");
-        delImg(item.image_url);
-        console.log("done deleting image........");
-        //save img
-        console.log("saving image........");
-        imagesPath = await saveImg(images);
-        console.log("done saving image........");
-      } catch (e) {
-        console.log(e);
-        return e;
+    //del img_url and save new
+    if (filenames.join(", ") !== item.image_url) {
+      if (images) {
+        console.log("update imgs", images);
+        try {
+          console.log("deleting image........");
+          delImg(item.image_url);
+          console.log("done deleting image........");
+          //save img
+          console.log("saving image........");
+          imagesPath = await saveImg(images);
+          console.log("done saving image........");
+        } catch (e) {
+          console.log(e);
+          return e;
+        }
       }
     }
   }
@@ -181,7 +186,6 @@ async function updateItem(parent, args, ctx, info) {
   console.log("updating categoria........");
   //update categorias disconnect and connect
   let categoriasConnDisconn = { connect: [], disconnect: [] };
-  [].length;
   if (categorias.length !== 0) {
     console.log("categorias: ", categorias);
 
