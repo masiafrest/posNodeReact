@@ -32,6 +32,12 @@ async function items(parent, args, ctx, info) {
         sku: tsquery ? { search: tsquery } : { contains: filter },
       },
       {
+        descripcion: { contains: filter },
+      },
+      {
+        sku: { contains: filter },
+      },
+      {
         categorias: { some: { nombre: { contains: filter } } },
       },
     ],
@@ -103,8 +109,9 @@ async function postItem(parent, args, ctx, info) {
   } = args;
 
   console.log("args post item: ", args);
+
   let imagesPath;
-  if (images.length !== 0) {
+  if (images) {
     console.log("save image");
     imagesPath = await saveImg(images);
   }
@@ -176,6 +183,7 @@ async function updateItem(parent, args, ctx, info) {
         try {
           console.log("deleting image........");
           delImg(item.image_url);
+
           console.log("done deleting image........");
           //save img
           console.log("saving image........");
