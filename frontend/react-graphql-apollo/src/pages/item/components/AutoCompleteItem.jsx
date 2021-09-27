@@ -5,7 +5,7 @@ import { pushLinea } from "../../../redux/features/reciboSlice";
 import AddBtn, { addLinea } from "./AddBtn";
 
 import { useSnackbar } from "notistack";
-import { TextField } from "@material-ui/core";
+import { TextField, Paper, Typography } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import AddItemBtn from "./ItemDialog";
 
@@ -27,6 +27,8 @@ export default function AutoCompleteItem({
 
   const handleChange = (event, value, reason) => {
     console.log("reason", reason);
+    console.log("handleChange value:", value);
+    // this value is a object of the item
     if (reason === "select-option") {
       if (recibo) {
         addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
@@ -58,7 +60,7 @@ export default function AutoCompleteItem({
         barcode,
       }) => {
         const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
-        const label = `${descripcion.trim()} ${sku.trim()} ${categoriaStr}`;
+        const label = `${descripcion.trim()} ${categoriaStr}`;
         return label;
       }}
       renderOption={(option, state) => {
@@ -66,14 +68,14 @@ export default function AutoCompleteItem({
           .map((cat) => cat.nombre)
           .join(", ");
         return (
-          <span>
-            {option.descripcion.trim()}
-            {categorias}
-          </span>
+          <Typography>
+            {option.descripcion.trim()} {option.sku} {categorias}
+          </Typography>
         );
       }}
       inputValue={term}
       onInputChange={(e, value) => {
+        console.log("onInputChange value:", value);
         updateSearchTerm(value.toUpperCase());
         setTerm(value.toUpperCase());
       }}
