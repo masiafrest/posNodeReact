@@ -26,7 +26,7 @@ export default function AutoCompleteItem({
   };
 
   const handleChange = (event, value, reason) => {
-    console.log(reason);
+    console.log("reason", reason);
     if (reason === "select-option") {
       if (recibo) {
         addLinea(dispatch, pushLinea, enqueueSnackbar, value, lineas, "venta");
@@ -58,7 +58,7 @@ export default function AutoCompleteItem({
         barcode,
       }) => {
         const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
-        const label = `${descripcion} ${sku} ${categoriaStr}`;
+        const label = `${descripcion.trim()} ${sku.trim()} ${categoriaStr}`;
         return label;
       }}
       renderOption={(option, state) => {
@@ -67,7 +67,8 @@ export default function AutoCompleteItem({
           .join(", ");
         return (
           <span>
-            {option.descripcion.trim()} {categorias}
+            {option.descripcion.trim()}
+            {categorias}
           </span>
         );
       }}

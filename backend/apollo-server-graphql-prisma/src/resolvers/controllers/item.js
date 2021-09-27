@@ -32,7 +32,7 @@ async function items(parent, args, ctx, info) {
         sku: tsquery ? { search: tsquery } : { contains: filter },
       },
       {
-        // categorias: { some: { nombre: { contains: filter } } },
+        categorias: { some: { nombre: { contains: filter } } },
       },
     ],
     qty,
@@ -102,8 +102,14 @@ async function postItem(parent, args, ctx, info) {
     images,
   } = args;
 
-  const imagesPath = await saveImg(images);
+  console.log("args post item: ", args);
+  let imagesPath;
+  if (images.length !== 0) {
+    console.log("save image");
+    imagesPath = await saveImg(images);
+  }
 
+  console.log("save item");
   return await ctx.prisma.item.create({
     data: {
       image_url: imagesPath,
