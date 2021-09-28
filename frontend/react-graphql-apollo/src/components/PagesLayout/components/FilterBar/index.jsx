@@ -52,8 +52,9 @@ export default function FilterBar({
   return (
     <Grid
       container
+      item
       spacing={1}
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       // style={{ textAlign: "center" }}
     >
