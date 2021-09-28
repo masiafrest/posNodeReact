@@ -72,9 +72,9 @@ export default function PagesLayout({
             queryType={title}
             hasViews={viewComp.Accordion ? true : false}
           />
-          <Grid item xs={12}>
-            <CreateDialog />
-          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <CreateDialog />
         </Grid>
         {loading ? (
           <span> loading</span>
