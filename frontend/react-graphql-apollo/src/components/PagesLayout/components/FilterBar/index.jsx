@@ -48,7 +48,7 @@ export default function FilterBar({
   });
 
   const setSearchTermDebounced = debounce(setFilter, 500);
-
+  console.log("filterbar, recibo:", recibo, "hasViews:", hasViews);
   return (
     <Grid
       container
@@ -59,7 +59,7 @@ export default function FilterBar({
     >
       <Grid
         item
-        xs={recibo ? 12 : hasViews ? 12 : 9}
+        xs={recibo ? 12 : hasViews ? 6 : 9}
         sm={recibo ? 12 : hasViews ? 6 : 9}
       >
         {recibo ? (
@@ -91,7 +91,11 @@ export default function FilterBar({
           )}
         </>
       )}
-      {queryType === "items" && !recibo && <LteFilter lteState={lteState} />}
+      {queryType === "items" && !recibo && (
+        <Grid item xs={6} sm={3}>
+          <LteFilter lteState={lteState} />
+        </Grid>
+      )}
       {queryType === "ventas" && (
         <IsPagadoCheck isCreditoState={isCreditoState} />
       )}
