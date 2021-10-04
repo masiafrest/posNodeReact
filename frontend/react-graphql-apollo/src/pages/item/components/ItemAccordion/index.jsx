@@ -30,7 +30,6 @@ export default function ItemAccordion({ data }) {
     sku,
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
-  const url = "http://localhost:4000/upload/item/";
 
   return (
     <Accordion elevation={14}>

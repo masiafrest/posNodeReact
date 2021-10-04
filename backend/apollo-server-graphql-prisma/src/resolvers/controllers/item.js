@@ -32,14 +32,14 @@ async function items(parent, args, ctx, info) {
         sku: tsquery ? { search: tsquery } : { contains: filter },
       },
       {
-        descripcion: { contains: filter },
-      },
-      {
-        sku: { contains: filter },
-      },
-      {
         categorias: { some: { nombre: { contains: filter } } },
       },
+      // {
+      //   descripcion: { contains: filter },
+      // },
+      // {
+      //   sku: { contains: filter },
+      // },
     ],
     qty,
   };

@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import { FilterBarState } from "../..";
 
-import { TextField, InputAdornment } from "@material-ui/core";
+import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 
 export default function SearchItem() {
   const { filterState, pageState } = useContext(FilterBarState);
@@ -14,15 +15,15 @@ export default function SearchItem() {
     setTerm(event.target.value.toUpperCase());
   };
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log("clieck term:", term);
+    setFilter(term);
+    setPage(1);
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log("clieck term:", term);
-        setFilter(term);
-        setPage(1);
-      }}
-    >
+    <form onSubmit={handleOnSubmit}>
       <TextField
         type="search"
         value={term}
@@ -30,7 +31,20 @@ export default function SearchItem() {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon />
+              <IconButton onClick={handleOnSubmit}>
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="">
+              <IconButton
+                onClick={(e) => {
+                  setTerm("");
+                }}
+              >
+                {term ? <ClearIcon /> : null}
+              </IconButton>
             </InputAdornment>
           ),
         }}
