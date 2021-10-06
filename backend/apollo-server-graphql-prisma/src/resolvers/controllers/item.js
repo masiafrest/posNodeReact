@@ -20,29 +20,45 @@ async function items(parent, args, ctx, info) {
   if (lte) {
     qty.lte = lte;
   }
-  const tsquery = toTsQueryAnd(filter);
-  console.log("tsquery:", tsquery);
 
-  const where = {
+  const trimWord = filter.trim();
+  const splitWord = trimWord.split(" ");
+  const noSpaceInWords = splitWord.filter((word) => word !== "");
+  const text = noSpaceInWords.join(" ");
+  const wordLength = noSpaceInWords.length;
+
+  let tsquery;
+  let where = {
     OR: [
-      {
-        descripcion: tsquery ? { search: tsquery } : { contains: filter },
-      },
-      {
-        sku: tsquery ? { search: tsquery } : { contains: filter },
-      },
       {
         categorias: { some: { nombre: { contains: filter } } },
       },
-      // {
-      //   descripcion: { contains: filter },
-      // },
-      // {
-      //   sku: { contains: filter },
-      // },
     ],
     qty,
   };
+
+  if (wordLength > 1) {
+    tsquery = toTsQueryAnd(text);
+    console.log("tsquery:", tsquery);
+    where.OR.push(
+      {
+        descripcion: { search: tsquery },
+      },
+      {
+        sku: { search: tsquery },
+      }
+    );
+  }
+
+  where.OR.push(
+    {
+      descripcion: { contains: text },
+    },
+    {
+      sku: { contains: text },
+    }
+  );
+
   // lte && (where.qty.lte = lte);
   // gte && (where.qty.gte = gte);
 
