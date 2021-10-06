@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
-const { doesNotThrow, throws } = require("assert");
 const APP_SECRET = "secrectWord";
+const errorHandler = require("./errorHandler");
 
 const splitArrBySpace = (words, key) => {
   const noCharWords = words.replace(/[^\w]/gi, " ");
@@ -106,4 +106,5 @@ module.exports = {
   delImg,
   saveImg,
   toTsQueryAnd,
+  errorHandler,
 };

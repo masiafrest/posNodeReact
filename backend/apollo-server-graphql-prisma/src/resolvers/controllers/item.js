@@ -1,4 +1,9 @@
-const { splitArrBySpace, saveImg, delImg } = require("../../utils");
+const {
+  splitArrBySpace,
+  saveImg,
+  delImg,
+  errorHandler,
+} = require("../../utils");
 
 const include = {
   categorias: true,
@@ -126,35 +131,39 @@ async function postItem(parent, args, ctx, info) {
 
   console.log("args post item: ", args);
 
-  let imagesPath;
+  let imagesPath = "";
   if (images) {
     console.log("save image");
     imagesPath = await saveImg(images);
   }
 
   console.log("save item");
-  return await ctx.prisma.item.create({
-    data: {
-      image_url: imagesPath,
-      barcode,
-      sku,
-      qty,
-      descripcion,
-      ubicacion: {
-        connect: ubicacion,
-      },
-      categorias: {
-        connect: categorias,
-      },
-      precio: {
-        create: {
-          precio,
-          precioMin,
+  try {
+    return await ctx.prisma.item.create({
+      data: {
+        image_url: imagesPath,
+        barcode,
+        sku,
+        qty,
+        descripcion,
+        ubicacion: {
+          connect: ubicacion,
+        },
+        categorias: {
+          connect: categorias,
+        },
+        precio: {
+          create: {
+            precio,
+            precioMin,
+          },
         },
       },
-    },
-    include,
-  });
+      include,
+    });
+  } catch (error) {
+    return errorHandler(error);
+  }
 }
 
 //TODO updateItem
@@ -243,27 +252,30 @@ async function updateItem(parent, args, ctx, info) {
   }
   console.log("done updating cateoria........");
 
-  console.log("update imgsPath", imagesPath);
-  return ctx.prisma.item.update({
-    where: {
-      id,
-    },
-    data: {
-      image_url: imagesPath,
-      barcode,
-      sku,
-      qty,
-      descripcion,
-      categorias: categoriasConnDisconn,
-      precio: {
-        update: {
-          precio,
-          precioMin,
+  try {
+    return await ctx.prisma.item.update({
+      where: {
+        id,
+      },
+      data: {
+        image_url: imagesPath,
+        barcode,
+        sku,
+        qty,
+        descripcion,
+        categorias: categoriasConnDisconn,
+        precio: {
+          update: {
+            precio,
+            precioMin,
+          },
         },
       },
-    },
-    include,
-  });
+      include,
+    });
+  } catch (error) {
+    return errorHandler(error);
+  }
 }
 
 /**
