@@ -1,4 +1,9 @@
-const { saveImg, delImg, errorHandler } = require("../../../utils");
+const {
+  saveImg,
+  delImg,
+  errorHandler,
+  toTsQueryAnd,
+} = require("../../../utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
@@ -8,7 +13,6 @@ const { saveImg, delImg, errorHandler } = require("../../../utils");
  */
 async function items(parent, args, ctx, info) {
   const { filter, skip, take, lte } = args;
-  const { toTsQueryAnd } = require("../../utils");
 
   const qty = {};
   if (lte) {
