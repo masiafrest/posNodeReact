@@ -1,15 +1,4 @@
-const {
-  splitArrBySpace,
-  saveImg,
-  delImg,
-  errorHandler,
-} = require("../../utils");
-
-const include = {
-  categorias: true,
-  precio: true,
-  ubicacion: true,
-};
+const { saveImg, delImg, errorHandler } = require("../../../utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
@@ -159,7 +148,11 @@ async function postItem(parent, args, ctx, info) {
           },
         },
       },
-      include,
+      include: {
+        categorias: true,
+        precio: true,
+        ubicacion: true,
+      },
     });
   } catch (error) {
     return errorHandler(error);
@@ -203,54 +196,28 @@ async function updateItem(parent, args, ctx, info) {
 
     //del img_url and save new
     if (filenames.join(", ") !== item.image_url) {
-      if (images) {
-        console.log("update imgs", images);
-        try {
-          console.log("deleting image........");
-          delImg(item.image_url);
+      console.log("update imgs", images);
+      try {
+        console.log("deleting image........");
+        delImg(item.image_url);
 
-          console.log("done deleting image........");
-          //save img
-          console.log("saving image........");
-          imagesPath = await saveImg(images);
-          console.log("done saving image........");
-        } catch (e) {
-          console.log(e);
-          return e;
-        }
+        console.log("done deleting image........");
+        //save img
+        console.log("saving image........");
+        imagesPath = await saveImg(images);
+        console.log("done saving image........");
+      } catch (e) {
+        console.log(e);
+        return e;
       }
     }
   }
 
-  console.log("updating categoria........");
+  console.log("updating categoria........", categorias);
   //update categorias disconnect and connect
-  let categoriasConnDisconn = { connect: [], disconnect: [] };
-  if (categorias.length !== 0) {
-    console.log("categorias: ", categorias);
-
-    //get item categorias to compare to newCategorias
-    //if itemCategorias.id true, newCategorias.id false, disconnect
-    console.log("map: ", item);
-    const currCatIds = item.categorias.map((e) => e.id);
-    categorias.forEach((obj) => {
-      if (!currCatIds.includes(obj.id)) {
-        categoriasConnDisconn.connect.push({ id: obj.id });
-      }
-    });
-
-    console.log("forEach");
-    currCatIds.forEach((id) => {
-      categorias.forEach((obj) => {
-        if (!currCatIds.includes(obj.id)) {
-          categoriasConnDisconn.connect.push({ id: obj.id });
-        } else if (id !== obj.id) {
-          categoriasConnDisconn.disconnect.push({ id });
-        }
-      });
-    });
-    console.log("done categoriaConnDisconn", categoriasConnDisconn);
-  }
-  console.log("done updating cateoria........");
+  const updCategorias = require("./updateCategorias");
+  let updateCategorias = updCategorias(categorias, item.categorias);
+  console.log("done categoriaConnDisconn", updateCategorias);
 
   try {
     return await ctx.prisma.item.update({
@@ -263,7 +230,7 @@ async function updateItem(parent, args, ctx, info) {
         sku,
         qty,
         descripcion,
-        categorias: categoriasConnDisconn,
+        categorias: updateCategorias,
         precio: {
           update: {
             precio,
@@ -271,7 +238,11 @@ async function updateItem(parent, args, ctx, info) {
           },
         },
       },
-      include,
+      include: {
+        categorias: true,
+        precio: true,
+        ubicacion: true,
+      },
     });
   } catch (error) {
     return errorHandler(error);
