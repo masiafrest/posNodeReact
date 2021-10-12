@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { pushLinea } from "../../../redux/features/reciboSlice";
-import AddBtn, { addLinea } from "./AddBtn";
+import { addLinea } from "./AddBtn";
 
 import { useSnackbar } from "notistack";
 import { TextField, Paper, Typography } from "@material-ui/core";
@@ -16,6 +17,7 @@ export default function AutoCompleteItem({
   updateSearchTerm,
   recibo = false,
 }) {
+  const construccion = true;
   const dispatch = useDispatch();
   const lineas = useSelector((state) => state.recibo.venta.lineas);
   const { enqueueSnackbar } = useSnackbar();
@@ -26,8 +28,7 @@ export default function AutoCompleteItem({
   };
 
   const handleChange = (event, value, reason) => {
-    console.log("reason", reason);
-    console.log("handleChange value:", value);
+    console.log("handleChange value:", value, reason);
     // this value is a object of the item
     if (reason === "select-option") {
       if (recibo) {
@@ -42,8 +43,14 @@ export default function AutoCompleteItem({
       updateSearch();
     }
   };
+  const history = useHistory();
 
-  return (
+  return construccion ? (
+    <p>
+      en construccion o mejora, buscar en <Link to="/item">item</Link> y tocar
+      el carrito para agregar a venta la lista abajo
+    </p>
+  ) : (
     <Autocomplete
       // data suggestions return from query
       options={data}
@@ -51,13 +58,7 @@ export default function AutoCompleteItem({
       // debug={recibo}
       noOptionsText={<AddItemBtn />}
       onChange={handleChange}
-      getOptionLabel={({
-        descripcion,
-        categorias,
-        precio: { precio },
-        ubicacion,
-        barcode,
-      }) => {
+      getOptionLabel={({ descripcion, categorias }) => {
         const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
         const label = `${descripcion.trim()} ${categoriaStr}`;
         return label;
@@ -75,8 +76,8 @@ export default function AutoCompleteItem({
       inputValue={term}
       onInputChange={(e, value) => {
         console.log("onInputChange value:", value);
-        updateSearchTerm(value.toUpperCase());
         setTerm(value.toUpperCase());
+        updateSearchTerm(value.toUpperCase());
       }}
       renderInput={(params) => {
         return <TextField {...params} variant="outlined" label="buscar Item" />;

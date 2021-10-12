@@ -49,13 +49,19 @@ export default function FilterBar({
   } = Context;
 
   //query to get suggestions for autocomplte on searchbar recibo
-  const { data, loading } = useQuery(getQuery, {
+  const { data, loading, error } = useQuery(getQuery, {
     variables: {
       filter,
       skip: 0,
       take,
     },
   });
+
+  if (loading) return "loading...";
+  if (error) {
+    console.log("filterbar error:", error);
+    return `error ${error}`;
+  }
 
   const setSearchTermDebounced = debounce(setFilter, 500);
   console.log("filterbar, recibo:", recibo, "hasViews:", hasViews);
