@@ -137,12 +137,6 @@ export default function ItemEditDialogIcon({ item = null }) {
                 xs: 12,
               },
               {
-                name: "sku",
-                type: "text",
-                xs: 6,
-                sm: 6,
-              },
-              {
                 name: "barcode",
                 type: "number",
                 xs: 6,

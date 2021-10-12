@@ -12,6 +12,7 @@ function postCategoria(parent, { nombre }, ctx, info) {
     },
   });
 }
+
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -68,7 +69,19 @@ function delCategoria(parent, { id }, ctx, info) {
   return ctx.prisma.categoria.delete({ where: { id } });
 }
 
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+async function getAllCategorias(_, args, ctx, __) {
+  const categorias = await ctx.prisma.categoria.findMany();
+  return categorias;
+}
+
 module.exports = {
+  getAllCategorias,
   categorias,
   postCategoria,
   updateCategoria,

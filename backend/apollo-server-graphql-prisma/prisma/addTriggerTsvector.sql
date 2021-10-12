@@ -4,7 +4,7 @@ CREATE FUNCTION my_trigger_function()
 RETURNS trigger AS 
 $$
 BEGIN
-  NEW.tsvector := to_tsvector('spanish',  NEW.descripcion || ' ' || NEW."barcode" || ' ' || NEW."sku");
+  NEW.tsvector := to_tsvector('spanish',  NEW.descripcion || ' ' || NEW."barcode" );
   RETURN NEW;
 END $$ 
 LANGUAGE 'plpgsql';

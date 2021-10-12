@@ -12,7 +12,7 @@ const {
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  const { filter, skip, take, lte } = args;
+  const { filter, skip, take, lte, categoria } = args;
 
   const qty = {};
   if (lte) {
@@ -27,40 +27,29 @@ async function items(parent, args, ctx, info) {
 
   let tsquery;
   let where = {
-    OR: [
-      {
-        categorias: { some: { nombre: { contains: filter } } },
-      },
-    ],
+    descripcion: {},
     qty,
   };
+
+  console.log("query items categoria:", categoria);
+  if (categoria !== "todos") {
+    where.categorias = { some: { nombre: { contains: categoria.trim() } } };
+  }
 
   if (wordLength > 1) {
     tsquery = toTsQueryAnd(text);
     console.log("tsquery:", tsquery);
-    where.OR.push(
-      {
-        descripcion: { search: tsquery },
-      },
-      {
-        sku: { search: tsquery },
-      }
-    );
+    where.descripcion = { search: tsquery };
+  } else {
+    console.log("else: ", text);
+    where.descripcion = { contains: text };
   }
-
-  where.OR.push(
-    {
-      descripcion: { contains: text },
-    },
-    {
-      sku: { contains: text },
-    }
-  );
 
   // lte && (where.qty.lte = lte);
   // gte && (where.qty.gte = gte);
 
   console.log("args: ", args);
+  console.log("where: ", where);
   const query = await ctx.prisma.item.findMany({
     where,
     include: {
@@ -74,7 +63,7 @@ async function items(parent, args, ctx, info) {
   });
   console.log(
     "query:",
-    query.map((e) => e.descripcion + " " + e.sku)
+    query.map((e) => e.descripcion)
   );
 
   const count = await ctx.prisma.item.count({
@@ -112,7 +101,6 @@ async function item(_, { id }, ctx, __) {
 async function postItem(parent, args, ctx, info) {
   const {
     barcode,
-    sku,
     categorias,
     descripcion,
     precio,
@@ -136,7 +124,6 @@ async function postItem(parent, args, ctx, info) {
       data: {
         image_url: imagesPath,
         barcode,
-        sku,
         qty,
         descripcion,
         ubicacion: {
@@ -174,7 +161,6 @@ async function updateItem(parent, args, ctx, info) {
   const {
     id,
     barcode,
-    sku,
     qty,
     descripcion,
     precio,
@@ -231,7 +217,6 @@ async function updateItem(parent, args, ctx, info) {
       data: {
         image_url: imagesPath,
         barcode,
-        sku,
         qty,
         descripcion,
         categorias: updateCategorias,

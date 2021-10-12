@@ -5,7 +5,6 @@ export const ITEM_DATA = gql`
     id
     image_url
     barcode
-    sku
     descripcion
     qty
     categorias {
@@ -25,8 +24,20 @@ export const ITEM_DATA = gql`
 `;
 
 export const GET_ITEMS = gql`
-  query Items($filter: String, $take: Int, $skip: Int, $lte: Int) {
-    items(filter: $filter, take: $take, skip: $skip, lte: $lte) {
+  query Items(
+    $filter: String
+    $take: Int
+    $skip: Int
+    $lte: Int
+    $categoria: String
+  ) {
+    items(
+      filter: $filter
+      take: $take
+      skip: $skip
+      lte: $lte
+      categoria: $categoria
+    ) {
       query {
         ...itemData
       }

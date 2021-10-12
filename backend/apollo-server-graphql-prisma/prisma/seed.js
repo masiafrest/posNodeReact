@@ -36,7 +36,6 @@ async function main() {
   const item = {
     data: {
       barcode: 000,
-      sku: "1111",
       image_url: "abc",
       qty: 30,
       descripcion: "HUAWEI Y9P NEGRO COP",

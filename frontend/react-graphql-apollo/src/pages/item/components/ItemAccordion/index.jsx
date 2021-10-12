@@ -27,7 +27,6 @@ export default function ItemAccordion({ data }) {
     precio: { precio, precioMin },
     ubicacion,
     image_url,
-    sku,
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
 
@@ -45,8 +44,8 @@ export default function ItemAccordion({ data }) {
       <Divider variant="middle" />
       <AccordionDetails>
         <Table
-          headers={["sku", "qty", "precio", "precio min"]}
-          bodies={[sku, qty, precio, precioMin]}
+          headers={["qty", "precio", "precio min"]}
+          bodies={[qty, precio, precioMin]}
         />
       </AccordionDetails>
       <AccordionActions>

@@ -22,7 +22,6 @@ const Row = ({ title = false, item }) => {
 
 const item = {
   barcode: 11111111,
-  sku: "hua-y9",
   descripcion: "huawei y9 17 lcd negra",
   qty: 10,
   precio: {

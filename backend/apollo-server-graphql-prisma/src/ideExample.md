@@ -6,7 +6,6 @@ fragment itemData on Item {
   descripcion
   qty
   barcode
-  sku
   categorias {
     id
     nombre
@@ -25,7 +24,6 @@ fragment itemData on Item {
 mutation postItem {
   postItem(
     barcode: 21233
-    sku: "xioas"
     precio: 10.10
     precioMin: 9.00
     qty: 10

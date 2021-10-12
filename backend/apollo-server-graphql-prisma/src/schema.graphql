@@ -1,8 +1,15 @@
 scalar Upload
 
 type Query {
-  items(filter: String, skip: Int, take: Int, lte: Int): ItemQuery
+  items(
+    filter: String
+    skip: Int
+    take: Int
+    lte: Int
+    categoria: String
+  ): ItemQuery
   item(id: Int!): Item
+  getAllCategorias: [Categoria]
   categorias(filter: String, skip: Int, take: Int): CategoriasQuery
   ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery
   clientes(filter: String, skip: Int, take: Int): ClienteQuery
@@ -44,7 +51,6 @@ type Mutation {
 
   postItem(
     barcode: Int
-    sku: String
     qty: Int
     descripcion: String
     categorias: [IdInput]
@@ -56,7 +62,6 @@ type Mutation {
   updateItem(
     id: Int!
     barcode: Int
-    sku: String
     qty: Int
     descripcion: String
     categorias: [IdInput]
@@ -153,7 +158,6 @@ type Item {
   id: ID!
   barcode: String
   image_url: String
-  sku: String
   descripcion: String
   categorias: [Categoria!]!
   ubicacion: Ubicacion!

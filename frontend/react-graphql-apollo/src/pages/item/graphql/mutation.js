@@ -4,7 +4,6 @@ import { gql } from "@apollo/client";
 export const POST_ITEM = gql`
   mutation PostItem(
     $barcode: Int
-    $sku: String
     $qty: Int
     $descripcion: String
     $precio: Float
@@ -15,7 +14,6 @@ export const POST_ITEM = gql`
   ) {
     postItem(
       barcode: $barcode
-      sku: $sku
       qty: $qty
       descripcion: $descripcion
       precio: $precio
@@ -34,7 +32,6 @@ export const UPDATE_ITEM = gql`
   mutation UpdateItem(
     $id: Int!
     $barcode: Int
-    $sku: String
     $qty: Int
     $descripcion: String
     $precio: Float
@@ -45,7 +42,6 @@ export const UPDATE_ITEM = gql`
     updateItem(
       id: $id
       barcode: $barcode
-      sku: $sku
       qty: $qty
       descripcion: $descripcion
       precio: $precio

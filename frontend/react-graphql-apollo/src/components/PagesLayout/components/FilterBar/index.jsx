@@ -9,6 +9,7 @@ import SelectItemPerPage from "./SelectItemPerPage";
 import SearchBar from "./SearchBar";
 import LteFilter from "./LteFilter";
 import IsPagadoCheck from "./IsPagadoCheck";
+import CategoriaFilter from "./CategoriaFilter";
 
 export default function FilterBar({
   context,
@@ -19,7 +20,15 @@ export default function FilterBar({
   hasViews = true,
 }) {
   const Context = useContext(context);
-  let page, setPage, setTake, view, setView, lteState, isCreditoState;
+  let page,
+    setPage,
+    setTake,
+    view,
+    setView,
+    lteState,
+    isCreditoState,
+    categoriaState;
+
   let take = 5;
   console.log("query type:", queryType);
   console.log("isRecibo:", recibo);
@@ -31,6 +40,7 @@ export default function FilterBar({
       viewState: [view, setView],
       lteState,
       isCreditoState,
+      categoriaState,
     } = Context);
   }
 
@@ -76,6 +86,11 @@ export default function FilterBar({
           <SearchBar />
         )}
       </Grid>
+      {queryType === "items" && !recibo && (
+        <Grid item xs={6} sm={3}>
+          <CategoriaFilter categoriaState={categoriaState} />
+        </Grid>
+      )}
       {!recibo && (
         <>
           <Grid item xs={hasViews ? 6 : 3} sm={3}>

@@ -56,7 +56,6 @@ export default function AutoCompleteItem({
         categorias,
         precio: { precio },
         ubicacion,
-        sku,
         barcode,
       }) => {
         const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
@@ -69,7 +68,7 @@ export default function AutoCompleteItem({
           .join(", ");
         return (
           <Typography>
-            {option.descripcion.trim()} {option.sku} {categorias}
+            {option.descripcion.trim()} {categorias}
           </Typography>
         );
       }}

@@ -9,7 +9,6 @@ export const dataProvider ={
             ){
               id
               barcode
-              sku
               categorias {
                 id
                 nombre

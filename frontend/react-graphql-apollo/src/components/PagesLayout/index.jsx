@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import FilterBar from "./components/FilterBar";
 import List from "./components/List";
@@ -21,6 +21,7 @@ export default function PagesLayout({
   const pageState = useState(1);
   const lteState = useState(null);
   const isCreditoState = useState(true);
+  const categoriaState = useState("todos");
 
   const filterBarState = {
     filterState,
@@ -29,6 +30,7 @@ export default function PagesLayout({
     pageState,
     lteState,
     isCreditoState,
+    categoriaState,
   };
 
   const [filter, setFilter] = filterState;
@@ -37,11 +39,15 @@ export default function PagesLayout({
   const [view, setView] = viewState;
   const [lte, setLte] = lteState;
   const [isCredito, setIsCredito] = isCreditoState;
+  const [categoria, setCategoria] = categoriaState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
   const variables = { filter, take, skip };
+
   title === "items" && (variables.lte = lte);
+  title === "items" && (variables.categoria = categoria);
   title === "ventas" && (variables.isCredito = isCredito);
+
   const { data, loading, error } = useQuery(getQuery, {
     variables,
   });

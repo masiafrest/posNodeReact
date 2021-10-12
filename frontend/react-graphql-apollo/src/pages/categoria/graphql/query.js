@@ -5,16 +5,25 @@ export const CATEGORIAS_DATA = gql`
     id
     nombre
   }
-`
+`;
 
 export const GET_CATEGORIAS = gql`
   query Categorias($filter: String, $take: Int, $skip: Int) {
     categorias(filter: $filter, take: $take, skip: $skip) {
-      query{
+      query {
         ...categoriaData
       }
       count
     }
   }
   ${CATEGORIAS_DATA}
+`;
+
+export const GET_ALL_CATEGORIAS = gql`
+  query GetAllCategorias {
+    getAllCategorias {
+      id
+      nombre
+    }
+  }
 `;

@@ -21,7 +21,6 @@ model Item {
   id          Int          @id @default(autoincrement())
   barcode     Int?
   image_url   String?
-  sku         String?  @unique
   qty         Int
   descripcion String?
   precio      Precio?
