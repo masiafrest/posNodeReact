@@ -1,20 +1,19 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useQuery } from "@apollo/client";
 import debounce from "lodash/debounce";
 
 import { Grid } from "@material-ui/core";
 
-import SwitchView from "./SwitchView";
-import SelectItemPerPage from "./SelectItemPerPage";
-import SearchBar from "./SearchBar";
-import LteFilter from "./LteFilter";
-import IsPagadoCheck from "./IsPagadoCheck";
-import CategoriaFilter from "./CategoriaFilter";
+import SwitchView from "./components/SwitchView";
+import SelectItemPerPage from "./components/SelectItemPerPage";
+import SearchOnSubmit from "./components/SearchOnSubmit";
+import LteFilter from "./components/LteFilter";
+import IsPagadoCheck from "./components/IsPagadoCheck";
+import CategoriaFilter from "./components/CategoriaFilter";
 
 export default function FilterBar({
   context,
   recibo = false,
-  SearchField,
   getQuery,
   queryType,
   hasViews = true,
@@ -28,6 +27,7 @@ export default function FilterBar({
     lteState,
     isCreditoState,
     categoriaState;
+
 
   let take = 5;
   console.log("query type:", queryType);
@@ -49,21 +49,21 @@ export default function FilterBar({
   } = Context;
 
   //query to get suggestions for autocomplte on searchbar recibo
-  const { data, loading, error } = useQuery(getQuery, {
-    variables: {
-      filter,
-      skip: 0,
-      take,
-    },
-  });
+  // const { data, loading, error } = useQuery(getQuery, {
+  //   variables: {
+  //     filter,
+  //     skip: 0,
+  //     take,
+  //   },
+  // });
 
-  if (loading) return "loading...";
-  if (error) {
-    console.log("filterbar error:", error);
-    return `error ${error}`;
-  }
+  // if (loading) return "loading...";
+  // if (error) {
+  //   console.log("filterbar error:", error);
+  //   return `error ${error}`;
+  // }
 
-  const setSearchTermDebounced = debounce(setFilter, 500);
+  // const setSearchTermDebounced = debounce(setFilter, 500);
   console.log("filterbar, recibo:", recibo, "hasViews:", hasViews);
   return (
     <Grid
@@ -79,18 +79,7 @@ export default function FilterBar({
         xs={recibo ? 12 : hasViews ? 6 : 9}
         sm={recibo ? 12 : hasViews ? 6 : 9}
       >
-        {recibo ? (
-          <SearchField
-            data={loading ? [] : data[queryType]?.query}
-            loading={loading}
-            initialTerm={filter}
-            updateSearchTerm={recibo ? setSearchTermDebounced : setFilter}
-            recibo={recibo}
-            context={context}
-          />
-        ) : (
-          <SearchBar />
-        )}
+        <SearchOnSubmit filterState={[filter, setFilter]} setPage={setPage} />
       </Grid>
       {queryType === "items" && !recibo && (
         <Grid item xs={6} sm={3}>

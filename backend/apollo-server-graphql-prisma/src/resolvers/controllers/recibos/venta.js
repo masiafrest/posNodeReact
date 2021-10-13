@@ -7,7 +7,7 @@ const { splitArrBySpace } = require("../../../utils");
  * @param {{ prisma: Prisma }} ctx
  */
 async function postVenta(parent, args, ctx, info) {
-  const { clienteId, credito, subTotal, tax, total, lineas } = args;
+  const { cliente, credito, subTotal, tax, total, lineas } = args;
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
@@ -22,9 +22,6 @@ async function postVenta(parent, args, ctx, info) {
   });
 
   console.log("ventas post");
-  const cliente = await ctx.prisma.cliente.findUnique({
-    where: { id: clienteId * 1 },
-  });
 
   console.log("restar item");
   try {

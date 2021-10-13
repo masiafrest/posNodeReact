@@ -4,6 +4,8 @@ import FilterBar from "../../../../../../components/PagesLayout/components/Filte
 import SearchClient from "../../../../../cliente/components/SearchField";
 import SearchItem from "../../../../../item/components/AutoCompleteItem";
 
+import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
+
 import PrintBtn from "./PrintBtn";
 
 import { useSnackbar } from "notistack";
@@ -57,99 +59,70 @@ export default function ReciboVenta({ closeDialog }) {
   });
 
   const venta = useSelector((state) => state.recibo.venta);
-  const { lineas, credito } = venta;
-  const filterState = useState("");
-  const takeState = useState(5);
-  const shouldSubmit = useState({
-    cliente: {
-      id: null,
-      nombre: "",
-      telefono: "",
-      error: false,
-      selected: false,
-    },
-    isPriceError: false,
-  });
-  const {
-    cliente: { selected },
-    isPriceError,
-  } = shouldSubmit[0];
-  const hasItems = lineas.length === 0;
+  const { lineas, credito, cliente } = venta;
 
-  const reciboState = {
-    shouldSubmit,
-    filterState,
-    takeState,
-  };
+  const isPriceError = lineas.some((item) => item.precio < item.precioMin);
+
+  const hasItems = lineas.length > 0;
+
+  const canSubmit = !Boolean(cliente && hasItems && !isPriceError);
+  console.log(
+    "canSubmit: ",
+    lineas.length,
+    cliente,
+    hasItems,
+    !isPriceError,
+    canSubmit
+  );
+
   const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
     <Grid container spacing={1}>
-      <ReciboState.Provider value={reciboState}>
-        <Grid item xs={12}>
-          <FilterBar
-            context={ReciboState}
-            recibo={true}
-            SearchField={SearchClient}
-            getQuery={GET_CLIENTES}
-            queryType="clientes"
+      <Grid item xs={12}>
+        <SearchOnAutoComplete queryName="clientes" getQuery={GET_CLIENTES} />
+      </Grid>
+      <Grid item xs={12}>
+        <SearchOnAutoComplete queryName="items" getQuery={GET_ITEMS} />
+      </Grid>
+      <Grid container item>
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Checkbox checked={credito} onChange={handleCreditoCheckBox} />
+            }
+            label="Credito"
           />
         </Grid>
-        <Grid item xs={12}>
-          <FilterBar
-            context={ReciboState}
-            recibo={true}
-            SearchField={SearchItem}
-            getQuery={GET_ITEMS}
-            queryType="items"
+        <Grid item>
+          <FormControlLabel
+            control={
+              <Checkbox checked={!credito} onChange={handleCreditoCheckBox} />
+            }
+            label="Contado"
           />
         </Grid>
-        <Grid container item>
-          <Grid item>
-            <FormControlLabel
-              control={
-                <Checkbox checked={credito} onChange={handleCreditoCheckBox} />
-              }
-              label="Credito"
-            />
-          </Grid>
-          <Grid item>
-            <FormControlLabel
-              control={
-                <Checkbox checked={!credito} onChange={handleCreditoCheckBox} />
-              }
-              label="Contado"
-            />
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <TableRecibo venta={venta} />
-        </Grid>
-      </ReciboState.Provider>
+      </Grid>
+      <Grid item xs={12}>
+        <TableRecibo venta={venta} />
+      </Grid>
       <Grid container item spacing={2}>
         <Grid item xs="auto">
-          <PrintBtn
-            btnComp={<button>imprimir</button>}
-            cliente={shouldSubmit[0].cliente}
-          />
+          <PrintBtn btnComp={<button>imprimir</button>} cliente={cliente} />
         </Grid>
         <Grid item xs="auto">
           <PrintBtn
-            btnComp={
-              <button disabled={!selected || isPriceError}>
-                imprimir y guardar
-              </button>
-            }
+            btnComp={<button disabled={canSubmit}>imprimir y guardar</button>}
             onBeforePrint={() =>
               postVenta({
                 variables: { ...venta },
               })
             }
-            cliente={shouldSubmit[0].cliente}
+            cliente={cliente}
           />
         </Grid>
         <Grid item xs="auto">
           <button
-            disabled={!selected || isPriceError}
+            disabled={canSubmit}
             onClick={() =>
               postVenta({
                 variables: { ...venta },
@@ -161,10 +134,10 @@ export default function ReciboVenta({ closeDialog }) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {!selected && <span>por favor selecciona el cliente</span>}
+        {!cliente && <span>por favor selecciona el cliente</span>}
       </Grid>
       <Grid item xs={12}>
-        {hasItems && <span>por favor agrega un item</span>}
+        {!hasItems && <span>por favor agrega un item</span>}
       </Grid>
       <Grid item xs={12}>
         {isPriceError && <span>error precio</span>}

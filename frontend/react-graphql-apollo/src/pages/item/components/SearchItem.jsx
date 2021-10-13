@@ -9,7 +9,7 @@ export default function SearchItem() {
   const setPage = pageState[1];
   const [filter, setFilter] = filterState;
   const [term, setTerm] = useState(filter);
-
+  console.log("search item from item page");
   const handleChange = (event) => {
     setTerm(event.target.value.toUpperCase());
   };

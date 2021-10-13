@@ -1,4 +1,4 @@
-import { GET_ALL_CATEGORIAS } from "../../../../pages/categoria/graphql/query";
+import { GET_ALL_CATEGORIAS } from "../../../../../pages/categoria/graphql/query";
 import { useQuery } from "@apollo/client";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
@@ -12,7 +12,9 @@ export default function CategoriaFilter({ categoriaState }) {
   console.log("cagetoria filter categoria:", categoria);
 
   const categoriasList = data.getAllCategorias.map(({ id, nombre }) => (
-    <MenuItem value={nombre}>{nombre}</MenuItem>
+    <MenuItem value={nombre} key={nombre}>
+      {nombre}
+    </MenuItem>
   ));
 
   const handleChange = (e) => {

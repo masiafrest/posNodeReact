@@ -29,14 +29,10 @@ async function items(parent, args, ctx, info) {
   let where = {
     descripcion: {},
     qty,
-    categorias: {
-      some: { nombre: { contains: filter } },
-    },
   };
 
   console.log("query items categoria:", categoria);
   if (categoria !== undefined) {
-    console.log("categoria type: ", typeof categoria);
     if (categoria !== "todos") {
       where.categorias = {
         some: { nombre: { contains: categoria.trim() } },

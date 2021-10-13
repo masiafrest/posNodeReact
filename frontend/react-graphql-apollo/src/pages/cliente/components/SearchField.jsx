@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import { addClienteId } from "../../../redux/features/reciboSlice";
+import { addCliente } from "../../../redux/features/reciboSlice";
 import { useDispatch } from "react-redux";
 import AddClientBtn from "./ClienteDialog";
 
@@ -36,7 +36,7 @@ export default function SearchField({
   const handleChange = (_, v, r) => {
     if (r === "select-option") {
       if (recibo) {
-        dispath(addClienteId({ reciboTipo: "venta", clienteId: v?.id }));
+        dispath(addCliente({ reciboTipo: "venta", clienteId: v?.id }));
         setShouldSubmit({
           ...shouldSubmit,
           //cliente has id, is selected so false, to disable helpertext
@@ -57,7 +57,7 @@ export default function SearchField({
     }
     if (r === "clear") {
       if (recibo) {
-        dispath(addClienteId({ reciboTipo: "venta", clienteId: null }));
+        dispath(addCliente({ reciboTipo: "venta", clienteId: null }));
         setShouldSubmit({
           ...shouldSubmit,
           //cliente has id, is selected so false, to disable helpertext

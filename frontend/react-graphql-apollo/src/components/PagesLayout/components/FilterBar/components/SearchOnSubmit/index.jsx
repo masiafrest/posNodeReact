@@ -1,16 +1,14 @@
 import { useState, useContext } from "react";
-import { FilterBarState } from "../..";
 
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 
-export default function SearchItem() {
-  const { filterState, pageState } = useContext(FilterBarState);
-  const setPage = pageState[1];
+export default function SearchOnSubmit({ filterState, setPage }) {
   const [filter, setFilter] = filterState;
   const [term, setTerm] = useState(filter);
 
+  console.log("search item from item filterbar folder, term:", term);
   const handleChange = (event) => {
     setTerm(event.target.value.toUpperCase());
   };
@@ -37,7 +35,7 @@ export default function SearchItem() {
             </InputAdornment>
           ),
           endAdornment: (
-            <InputAdornment position="">
+            <InputAdornment position="end">
               <IconButton
                 onClick={(e) => {
                   setTerm("");
