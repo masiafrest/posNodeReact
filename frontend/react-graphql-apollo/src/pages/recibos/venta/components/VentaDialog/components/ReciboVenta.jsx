@@ -1,8 +1,4 @@
-import { useState, createContext } from "react";
 import TableRecibo from "./TablaContainer/VentaTable";
-import FilterBar from "../../../../../../components/PagesLayout/components/FilterBar";
-import SearchClient from "../../../../../cliente/components/SearchField";
-import SearchItem from "../../../../../item/components/AutoCompleteItem";
 
 import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
 
@@ -22,9 +18,7 @@ import { PostVenta } from "../../../grapql/mutation";
 import { GET_ITEMS } from "../../../../../item/graphql/query";
 import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
-import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
-
-export const ReciboState = createContext(null);
+import { Checkbox, FormControlLabel, Grid, Divider } from "@material-ui/core";
 
 export default function ReciboVenta({ closeDialog }) {
   const dispatch = useDispatch();

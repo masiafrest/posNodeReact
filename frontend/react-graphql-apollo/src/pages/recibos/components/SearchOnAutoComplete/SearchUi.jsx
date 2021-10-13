@@ -4,7 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import { useSnackbar } from "notistack";
 //redux
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { pushLinea, addCliente } from "../../../../redux/features/reciboSlice";
 
 const newLineaFactory = ({
@@ -28,7 +28,10 @@ export default function SearchUi({
   setSearchTermDebounced,
 }) {
   const [search, setSearch] = useState(searchTerm);
+
   const dispatch = useDispatch();
+  const venta = useSelector((state) => state.recibo.venta);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const getOptionLabel = (options) => {
@@ -93,6 +96,14 @@ export default function SearchUi({
     }
   };
 
+  const isError = () => {
+    if (queryName === "items") {
+      return venta.lineas.length === 0;
+    } else if (queryName === "clientes") {
+      return !Boolean(venta.cliente);
+    }
+  };
+
   return (
     <Autocomplete
       loading={loading}
@@ -109,6 +120,11 @@ export default function SearchUi({
             setSearch(value.toUpperCase());
           }}
           label={`Buscar ${queryName}`}
+          error={isError()}
+          helperText={
+            isError() ? `Agregue un ${queryName} para poder guardar` : null
+          }
+          variant="outlined"
         />
       )}
     />
