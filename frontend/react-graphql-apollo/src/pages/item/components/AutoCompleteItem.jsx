@@ -28,7 +28,6 @@ export default function AutoCompleteItem({
   };
 
   const handleChange = (event, value, reason) => {
-    console.log("handleChange value:", value, reason);
     // this value is a object of the item
     if (reason === "select-option") {
       if (recibo) {
@@ -75,7 +74,6 @@ export default function AutoCompleteItem({
       }}
       inputValue={term}
       onInputChange={(e, value) => {
-        console.log("onInputChange value:", value);
         setTerm(value.toUpperCase());
         updateSearchTerm(value.toUpperCase());
       }}

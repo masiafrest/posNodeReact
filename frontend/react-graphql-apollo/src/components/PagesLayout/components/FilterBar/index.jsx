@@ -28,10 +28,7 @@ export default function FilterBar({
     isCreditoState,
     categoriaState;
 
-
   let take = 5;
-  console.log("query type:", queryType);
-  console.log("isRecibo:", recibo);
 
   if (!recibo) {
     ({
@@ -48,23 +45,6 @@ export default function FilterBar({
     filterState: [filter, setFilter],
   } = Context;
 
-  //query to get suggestions for autocomplte on searchbar recibo
-  // const { data, loading, error } = useQuery(getQuery, {
-  //   variables: {
-  //     filter,
-  //     skip: 0,
-  //     take,
-  //   },
-  // });
-
-  // if (loading) return "loading...";
-  // if (error) {
-  //   console.log("filterbar error:", error);
-  //   return `error ${error}`;
-  // }
-
-  // const setSearchTermDebounced = debounce(setFilter, 500);
-  console.log("filterbar, recibo:", recibo, "hasViews:", hasViews);
   return (
     <Grid
       container

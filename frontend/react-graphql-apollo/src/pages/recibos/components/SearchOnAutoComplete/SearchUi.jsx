@@ -63,7 +63,6 @@ export default function SearchUi({
   // };
 
   const autoCompleteChange = (event, value, reason) => {
-    console.log("autoCompleteChange value:", value, reason);
     // this value is a object of the item
     if (reason === "select-option") {
       if (queryName === "items") {
@@ -72,10 +71,11 @@ export default function SearchUi({
         dispatch(pushLinea(newLinea));
         // updateSearch("");
       } else if (queryName === "clientes") {
+        const { id, nombre } = value;
         dispatch(
           addCliente({
             reciboTipo: "venta",
-            cliente: value,
+            cliente: { id, nombre },
           })
         );
         enqueueSnackbar(`cliente ${value.nombre} agregado`, {
@@ -113,7 +113,7 @@ export default function SearchUi({
       renderInput={(params) => (
         <TextField
           {...params}
-          value={search}
+          // value={search}
           onChange={(e) => {
             const { value } = e.target;
             setSearchTermDebounced(value.toUpperCase());

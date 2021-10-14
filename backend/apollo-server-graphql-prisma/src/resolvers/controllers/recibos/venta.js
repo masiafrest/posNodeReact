@@ -8,6 +8,7 @@ const { splitArrBySpace } = require("../../../utils");
  */
 async function postVenta(parent, args, ctx, info) {
   const { cliente, credito, subTotal, tax, total, lineas } = args;
+  console.log("ventas post args: ", args);
 
   const newLines = lineas.map((linea) => {
     const { id, descripcion, precio, qty } = linea;
@@ -107,11 +108,6 @@ async function ventas(parent, args, ctx, info) {
   console.log("get ventas args: ", args);
   const { toTsQueryAnd } = require("../../../utils");
 
-  const credito = {};
-  if (isCredito) {
-    credito.equals = isCredito;
-  }
-
   const tsquery = toTsQueryAnd(filter);
 
   const where = {
@@ -127,7 +123,7 @@ async function ventas(parent, args, ctx, info) {
         clienteNombre: { contains: filter },
       },
     ],
-    credito,
+    credito: { equals: isCredito },
   };
 
   const query = await ctx.prisma.venta.findMany({

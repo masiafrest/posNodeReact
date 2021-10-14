@@ -60,14 +60,6 @@ export default function ReciboVenta({ closeDialog }) {
   const hasItems = lineas.length > 0;
 
   const canSubmit = !Boolean(cliente && hasItems && !isPriceError);
-  console.log(
-    "canSubmit: ",
-    lineas.length,
-    cliente,
-    hasItems,
-    !isPriceError,
-    canSubmit
-  );
 
   const handleCreditoCheckBox = () => dispatch(toggleCredit());
   return (
