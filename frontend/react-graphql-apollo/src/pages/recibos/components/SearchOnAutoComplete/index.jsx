@@ -6,7 +6,11 @@ import SearchUi from "./SearchUi";
 
 import { useSelector, useDispatch } from "react-redux";
 
-export default function SearchOnAutoComplete({ getQuery, queryName }) {
+export default function SearchOnAutoComplete({
+  categoriaFilter = "",
+  getQuery,
+  queryName,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data, loading, error } = useQuery(getQuery, {
@@ -14,6 +18,7 @@ export default function SearchOnAutoComplete({ getQuery, queryName }) {
       filter: searchTerm,
       take: 5,
       skip: 0,
+      categoria: categoriaFilter,
     },
   });
 

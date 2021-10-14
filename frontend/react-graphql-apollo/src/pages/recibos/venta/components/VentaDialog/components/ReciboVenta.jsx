@@ -1,11 +1,10 @@
 import TableRecibo from "./TablaContainer/VentaTable";
-
+import ItemSearchBox from "./ItemSearchBox";
 import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
-
 import PrintBtn from "./PrintBtn";
 
 import { useSnackbar } from "notistack";
-
+//redux
 import { useSelector, useDispatch } from "react-redux";
 import {
   toggleCredit,
@@ -15,7 +14,6 @@ import {
 import { useMutation } from "@apollo/client";
 import { VENTA_DATA } from "../../../grapql/query";
 import { PostVenta } from "../../../grapql/mutation";
-import { GET_ITEMS } from "../../../../../item/graphql/query";
 import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
 import { Checkbox, FormControlLabel, Grid, Divider } from "@material-ui/core";
@@ -68,7 +66,7 @@ export default function ReciboVenta({ closeDialog }) {
         <SearchOnAutoComplete queryName="clientes" getQuery={GET_CLIENTES} />
       </Grid>
       <Grid item xs={12}>
-        <SearchOnAutoComplete queryName="items" getQuery={GET_ITEMS} />
+        <ItemSearchBox />
       </Grid>
       <Grid container item>
         <Grid item>
