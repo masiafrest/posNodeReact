@@ -9,16 +9,15 @@ export default function SearchOnSubmit({ filterState, setPage }) {
   const [filter, setFilter] = filterState;
   const [term, setTerm] = useState(filter);
 
-  console.log("search item from item filterbar folder, term:", term);
   const handleChange = (event) => {
     setTerm(event.target.value.toUpperCase());
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("clieck term:", term);
     setFilter(term);
     setPage(1);
+    textInput.current.blur();
   };
 
   return (
@@ -26,7 +25,6 @@ export default function SearchOnSubmit({ filterState, setPage }) {
       <TextField
         onFocus={() => {
           if (term) {
-            console.log("setTerm");
             setTerm("");
           }
         }}
@@ -48,7 +46,6 @@ export default function SearchOnSubmit({ filterState, setPage }) {
               <IconButton
                 onClick={(e) => {
                   setTerm("");
-                  console.log("clear", textInput.current);
                   textInput.current.focus();
                 }}
               >
