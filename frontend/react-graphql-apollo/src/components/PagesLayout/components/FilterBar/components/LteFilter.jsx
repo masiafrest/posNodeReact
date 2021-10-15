@@ -17,6 +17,9 @@ export default function LteFilter({ lteState }) {
       type="number"
       className={classes.textField}
       value={lte}
+      inputProps={{
+        inputMode: "numeric",
+      }}
       onChange={(e) => {
         setLte(e.target.value * 1);
       }}
