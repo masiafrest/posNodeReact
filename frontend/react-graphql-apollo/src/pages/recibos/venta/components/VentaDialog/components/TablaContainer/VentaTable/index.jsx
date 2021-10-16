@@ -7,9 +7,9 @@ import {
   TableCell,
   Table,
   TableBody,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch } from "react-redux";
 import {
@@ -21,19 +21,18 @@ import TotalTable from "./TotalTable";
 import QtyEditField from "../QtyEditField";
 import PriceEditField from "../PriceEditField";
 import DelBtn from "../DelBtn";
+import AddLineDialog from "./AddLineDialog";
 
-const useStyles = makeStyles(theme => (
-  {
-    styleRows: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      }
-    }
-  }
-))
+const useStyles = makeStyles((theme) => ({
+  styleRows: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}));
 
 export default function VentaTable({ isVenta = true, venta }) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   const dispatch = useDispatch();
   const { subTotal, tax, total, lineas } = venta;
@@ -43,9 +42,7 @@ export default function VentaTable({ isVenta = true, venta }) {
 
   const lineasTable = lineas?.map(
     ({ precio, precioMin, descripcion, qty, id }, idx) => (
-      <TableRow
-        className={classes.styleRows}
-        key={id}>
+      <TableRow className={classes.styleRows} key={id}>
         <TableCell key={`qty-id-${idx}`} align="left">
           {isVenta ? (
             <>
@@ -56,11 +53,8 @@ export default function VentaTable({ isVenta = true, venta }) {
             qty
           )}
         </TableCell>
-        <TableCell key={`qty-descripcion-${idx}`} align="center"
-        >
-          <Typography>
-            {descripcion}
-          </Typography>
+        <TableCell key={`qty-descripcion-${idx}`} align="center">
+          <Typography>{descripcion}</Typography>
         </TableCell>
         <TableCell key={`qty-precio-${idx}`} align="right">
           {isVenta ? (
@@ -75,25 +69,21 @@ export default function VentaTable({ isVenta = true, venta }) {
           )}
         </TableCell>
         <TableCell key={`qty-total-${idx}`} align="right">
-          <Typography>
-            {(precio * qty).toFixed(2)}
-          </Typography>
+          <Typography>{(precio * qty).toFixed(2)}</Typography>
         </TableCell>
-      </TableRow >
+      </TableRow>
     )
   );
 
   return (
     <TableContainer component={Paper}>
-      <Table
-        style={{ minWidth: 300 }}
-        padding="none"
-        size="small">
+      <Table style={{ minWidth: 300 }} padding="none" size="small">
         <TableHeader />
         <TableBody>
           {lineasTable}
-          <TableRow key="separator">
-            <TableCell colSpan={4}>
+          <TableRow>
+            <TableCell align="center" colSpan={4}>
+              <AddLineDialog />
             </TableCell>
           </TableRow>
           <TotalTable
