@@ -9,7 +9,6 @@ type Query {
     categoria: String
   ): ItemQuery
   item(id: Int!): Item
-  getAllCategorias: [Categoria]
   categorias(filter: String, skip: Int, take: Int): CategoriasQuery
   ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery
   clientes(filter: String, skip: Int, take: Int): ClienteQuery

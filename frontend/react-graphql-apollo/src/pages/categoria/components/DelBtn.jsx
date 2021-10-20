@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { DEL_CATEGORIA } from "../graphql/mutation";
+import { GET_CATEGORIAS } from "../graphql/query";
 import { IconButton } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -10,9 +11,11 @@ export default function DelBtn({ id }) {
 
   const [delCategoria, { loading, error }] = useMutation(DEL_CATEGORIA, {
     update(cache, { data: { delCategoria } }) {
+      console.log("delCategoria: ", delCategoria);
       cache.modify({
         fields: {
           categorias(existingCategorias = [], { readField }) {
+            console.log("existingCategorias:", existingCategorias);
             return existingCategorias.query.filter(
               (categoriaRef) => id !== readField("id", categoriaRef)
             );
@@ -21,7 +24,7 @@ export default function DelBtn({ id }) {
       });
     },
     onCompleted(data) {
-      const { nombre } = data.delCategoria
+      const { nombre } = data.delCategoria;
       enqueueSnackbar(`categoria ${nombre} eliminado`, {
         variant: "success",
       });
@@ -30,7 +33,7 @@ export default function DelBtn({ id }) {
       enqueueSnackbar(e.message, {
         variant: "warning",
       });
-    }
+    },
   });
 
   return (

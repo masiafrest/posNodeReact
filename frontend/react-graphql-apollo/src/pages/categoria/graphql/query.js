@@ -18,12 +18,3 @@ export const GET_CATEGORIAS = gql`
   }
   ${CATEGORIAS_DATA}
 `;
-
-export const GET_ALL_CATEGORIAS = gql`
-  query GetAllCategorias {
-    getAllCategorias {
-      id
-      nombre
-    }
-  }
-`;

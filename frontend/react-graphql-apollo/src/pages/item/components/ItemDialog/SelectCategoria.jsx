@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_CATEGORIAS } from "../../../categoria/graphql/query";
+import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Input,
@@ -54,22 +54,25 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
   const theme = useTheme();
   const [selCatName, setSelCatName] = useState(categorias);
 
-  const { data, loading } = useQuery(GET_ALL_CATEGORIAS);
+  const { data, loading } = useQuery(GET_CATEGORIAS, {
+    variables: { filter: "", skip: 0 },
+  });
 
   useEffect(() => {
-    if (!loading) {
-      let catArr = [];
-      selCatName.forEach((e) => {
-        const id = data.getAllCategorias.find((obj) => obj.nombre === e).id * 1;
-        catArr.push({ id });
-      });
-      setNewItem((item) => ({ ...item, categorias: catArr }));
-    }
+    console.log("useEffect", data);
+    let catArr = [];
+    selCatName.forEach((e) => {
+      const id = data.categorias.query.find((obj) => obj.nombre === e).id * 1;
+      catArr.push({ id });
+    });
+    setNewItem((item) => ({ ...item, categorias: catArr }));
   }, [selCatName, data]);
 
   const handleChange = (event) => {
     setSelCatName(event.target.value);
   };
+
+  if (loading) return "loading";
 
   return (
     <>
@@ -98,7 +101,7 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
           {loading ? (
             <MenuItem>loading</MenuItem>
           ) : (
-            data?.getAllCategorias.map((obj, idx) => (
+            data?.categorias.query.map((obj, idx) => (
               <MenuItem
                 key={obj.nombre}
                 value={obj.nombre}

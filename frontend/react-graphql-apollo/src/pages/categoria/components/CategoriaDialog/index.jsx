@@ -51,7 +51,7 @@ export default function CategoriaEditDialogIcon({ categoria = null }) {
             });
             return existingData.query
               ? [...existingData.query, newDataRef]
-              : [newDataRef];
+              : newDataRef;
           },
         },
       });

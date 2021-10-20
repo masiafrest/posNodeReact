@@ -1,17 +1,19 @@
-import { GET_ALL_CATEGORIAS } from "../../../../../pages/categoria/graphql/query";
+import { GET_CATEGORIAS } from "../../../../../pages/categoria/graphql/query";
 import { useQuery } from "@apollo/client";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 export default function CategoriaFilter({ categoriaState }) {
   const [categoria, setCategoria] = categoriaState;
-  const { data, loading, error } = useQuery(GET_ALL_CATEGORIAS);
+  const { data, loading, error } = useQuery(GET_CATEGORIAS, {
+    variables: { filter: "", skip: 0 },
+  });
   if (loading) return "Loading...";
   if (error) return `error: ${error}`;
   console.log("cagetoria filter error:", error);
   console.log("cagetoria filter data:", data);
   console.log("cagetoria filter categoria:", categoria);
 
-  const categoriasList = data.getAllCategorias.map(({ id, nombre }) => (
+  const categoriasList = data.categorias.query.map(({ id, nombre }) => (
     <MenuItem value={nombre} key={nombre}>
       {nombre}
     </MenuItem>

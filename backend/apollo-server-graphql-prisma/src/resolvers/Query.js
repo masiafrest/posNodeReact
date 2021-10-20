@@ -1,4 +1,4 @@
-const { categorias, getAllCategorias } = require("./controllers/categoria");
+const { categorias } = require("./controllers/categoria");
 const { ubicaciones } = require("./controllers/ubicacion");
 const { clientes } = require("./controllers/cliente");
 const { items, item } = require("./controllers/item");
@@ -10,7 +10,6 @@ const { authenticated } = require("./authUtil");
 const queries = {
   items,
   item,
-  getAllCategorias,
   categorias,
   ubicaciones,
   clientes,
