@@ -59,13 +59,15 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
   });
 
   useEffect(() => {
-    console.log("useEffect", data);
-    let catArr = [];
-    selCatName.forEach((e) => {
-      const id = data.categorias.query.find((obj) => obj.nombre === e).id * 1;
-      catArr.push({ id });
-    });
-    setNewItem((item) => ({ ...item, categorias: catArr }));
+    if (!loading) {
+      console.log("useEffect", data);
+      let catArr = [];
+      selCatName.forEach((e) => {
+        const id = data.categorias.query.find((obj) => obj.nombre === e).id * 1;
+        catArr.push({ id });
+      });
+      setNewItem((item) => ({ ...item, categorias: catArr }));
+    }
   }, [selCatName, data]);
 
   const handleChange = (event) => {
