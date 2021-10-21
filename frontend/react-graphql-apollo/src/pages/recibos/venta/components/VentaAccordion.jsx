@@ -22,7 +22,19 @@ import DelBtn from "./DelBtn";
 export default function VentaAccordion({ data }) {
   const [updateVenta, { ventaData, loading, error }] = useMutation(UpdateVenta);
 
+  console.log("venta accordion data: ", data);
   const { fecha, usuarioNombre, clienteNombre, total, credito, id } = data;
+  const venta = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (key.toLowerCase().includes("nombre")) {
+      if (key.includes("cliente")) {
+        venta.cliente = clienteNombre;
+      }
+    } else {
+      venta[key] = value;
+    }
+  }
+  console.log("venta accordion venta: ", venta);
   return (
     <Accordion elevation={14} key={id}>
       <AccordionSummary
@@ -62,6 +74,7 @@ export default function VentaAccordion({ data }) {
         <PrintBtn
           btnComp={<button>imprimir</button>}
           cliente={{ nombre: clienteNombre }}
+          venta={venta}
         />
         <DelBtn id={id} />
         {credito && (

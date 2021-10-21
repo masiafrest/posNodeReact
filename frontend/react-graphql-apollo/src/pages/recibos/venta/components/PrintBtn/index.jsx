@@ -4,10 +4,8 @@ import ReactToPrint from "react-to-print";
 
 import { useSelector } from "react-redux";
 
-export default function PrintBtn({ btnComp, cliente, ...props }) {
+export default function PrintBtn({ btnComp, cliente, venta, ...props }) {
   const componentRef = useRef();
-  const venta = useSelector((state) => state.recibo.venta);
-  const { subTotal, tax, total, lineas, credito } = venta;
 
   return (
     <>
@@ -17,13 +15,14 @@ export default function PrintBtn({ btnComp, cliente, ...props }) {
         content={() => componentRef.current}
       />
       <ComponentToPrint
+        venta={venta}
         ref={componentRef}
-        lineas={lineas}
-        client={cliente}
-        subTotal={subTotal}
-        tax={tax}
-        total={total}
-        credito={credito}
+        cliente={cliente}
+        // lineas={lineas}
+        // subTotal={subTotal}
+        // tax={tax}
+        // total={total}
+        // credito={credito}
       />
     </>
   );

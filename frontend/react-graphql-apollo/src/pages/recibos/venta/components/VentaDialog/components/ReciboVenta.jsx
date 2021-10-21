@@ -91,7 +91,11 @@ export default function ReciboVenta({ closeDialog }) {
       </Grid>
       <Grid container item spacing={2}>
         <Grid item xs="auto">
-          <PrintBtn btnComp={<button>imprimir</button>} cliente={cliente} />
+          <PrintBtn
+            btnComp={<button>imprimir</button>}
+            cliente={cliente}
+            venta={venta}
+          />
         </Grid>
         <Grid item xs="auto">
           <PrintBtn
@@ -102,6 +106,7 @@ export default function ReciboVenta({ closeDialog }) {
               })
             }
             cliente={cliente}
+            venta={venta}
           />
         </Grid>
         <Grid item xs="auto">
