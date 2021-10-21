@@ -82,9 +82,11 @@ export default function VentaTable({ isVenta = true, venta }) {
         <TableBody>
           {lineasTable}
           <TableRow>
-            <TableCell align="center" colSpan={4}>
-              <AddLineDialog />
-            </TableCell>
+            {isVenta && (
+              <TableCell align="center" colSpan={4}>
+                <AddLineDialog />
+              </TableCell>
+            )}
           </TableRow>
           <TotalTable
             subTotal={subTotal}
