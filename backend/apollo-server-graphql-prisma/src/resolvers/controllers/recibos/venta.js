@@ -14,7 +14,7 @@ async function postVenta(parent, args, ctx, info) {
     const { id, descripcion, precio, qty } = linea;
 
     return {
-      item: { connect: { id: id * 1 } },
+      item: id ? { connect: { id: id * 1 } } : undefined,
       // itemd: id,
       descripcion: `${descripcion}`,
       qty,
@@ -26,20 +26,23 @@ async function postVenta(parent, args, ctx, info) {
 
   console.log("restar item");
   try {
-    const decrementItems = lineas.map((linea) => {
-      return ctx.prisma.item.update({
-        where: { id: linea.id * 1 },
-        data: {
-          qty: {
-            decrement: 1,
+    lineas.filter(async (linea) => {
+      if (linea.id) {
+        console.log("decrementItems lineas map  linea.id:", linea.id);
+        return await ctx.prisma.item.update({
+          where: { id: linea.id * 1 },
+          data: {
+            qty: {
+              decrement: 1,
+            },
           },
-        },
-      });
+        });
+      }
     });
 
     console.log("crear venta");
     console.log("ctx currentUser:", ctx.currentUser);
-    const createVenta = ctx.prisma.venta.create({
+    return await ctx.prisma.venta.create({
       data: {
         usuarioNombre: ctx.currentUser.nombre,
         clienteNombre: cliente.nombre,
@@ -59,13 +62,6 @@ async function postVenta(parent, args, ctx, info) {
         },
       },
     });
-
-    const [venta] = await ctx.prisma.$transaction([
-      createVenta,
-      ...decrementItems,
-    ]);
-
-    return venta;
   } catch (e) {
     console.log("error transaction:", e);
     return e;
@@ -171,13 +167,15 @@ async function delVenta(parent, { id }, ctx, info) {
   // update item qty
   console.log("updateItem .........");
   for (const itemLinea of venta.lineas) {
-    const { qty } = await ctx.prisma.item.findFirst({
-      where: { id: itemLinea.itemId },
-    });
-    await ctx.prisma.item.update({
-      where: { id: itemLinea.itemId },
-      data: { qty: qty + itemLinea.qty },
-    });
+    if (itemLinea.itemId) {
+      const { qty } = await ctx.prisma.item.findFirst({
+        where: { id: itemLinea.itemId },
+      });
+      await ctx.prisma.item.update({
+        where: { id: itemLinea.itemId },
+        data: { qty: qty + itemLinea.qty },
+      });
+    }
   }
 
   //del venta recibo

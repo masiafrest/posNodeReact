@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import ComponentToPrint from "../ComponentToPrint";
+import ComponentToPrint from "./ComponentToPrint";
 import ReactToPrint from "react-to-print";
 
 import { useSelector } from "react-redux";

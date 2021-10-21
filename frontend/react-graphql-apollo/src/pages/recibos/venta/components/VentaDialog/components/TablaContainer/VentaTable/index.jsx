@@ -77,7 +77,7 @@ export default function VentaTable({ isVenta = true, venta }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table style={{ minWidth: 300 }} padding="none" size="small">
+      <Table style={{ minWidth: 300 }} padding="normal" size="small">
         <TableHeader />
         <TableBody>
           {lineasTable}

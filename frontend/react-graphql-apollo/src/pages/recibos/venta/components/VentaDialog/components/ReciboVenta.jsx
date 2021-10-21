@@ -1,7 +1,7 @@
 import TableRecibo from "./TablaContainer/VentaTable";
 import ItemSearchBox from "./ItemSearchBox";
 import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
-import PrintBtn from "./PrintBtn";
+import PrintBtn from "../../PrintBtn";
 
 import { useSnackbar } from "notistack";
 //redux

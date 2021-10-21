@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { UpdateVenta } from "../grapql/mutation";
 
 import Table from "./VentaDialog/components/TablaContainer/VentaTable";
+import PrintBtn from "./PrintBtn";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
@@ -58,6 +59,10 @@ export default function VentaAccordion({ data }) {
         </Grid>
       </AccordionDetails>
       <AccordionActions>
+        <PrintBtn
+          btnComp={<button>imprimir</button>}
+          cliente={{ nombre: clienteNombre }}
+        />
         <DelBtn id={id} />
         {credito && (
           <Grid item xs={12}>
