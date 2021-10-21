@@ -21,7 +21,7 @@ export default class ComponentToPrint extends React.Component {
     return (
       <Box display="none" displayPrint="block">
         <header>
-          <h1>Recibo</h1>
+          <h1>Nota de entrega - Detalle de producto</h1>
           <h2>Documento no fiscal</h2>
           <div className="headerAddress">
             <address>
@@ -88,33 +88,35 @@ export default class ComponentToPrint extends React.Component {
             </tbody>
           </table>
           <table className="balance">
-            <tr>
-              <th>
-                <span>SubTotal</span>
-              </th>
-              <td>
-                <span data-prefix>$</span>
-                <span>{subTotal.toFixed(2)}</span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <span>Tax</span>
-              </th>
-              <td>
-                <span data-prefix>$</span>
-                <span>{tax.toFixed(2)}</span>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <span>Total</span>
-              </th>
-              <td>
-                <span data-prefix>$</span>
-                <span>{total.toFixed(2)}</span>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>
+                  <span>SubTotal</span>
+                </th>
+                <td>
+                  <span data-prefix>$</span>
+                  <span>{subTotal.toFixed(2)}</span>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <span>Tax</span>
+                </th>
+                <td>
+                  <span data-prefix>$</span>
+                  <span>{tax.toFixed(2)}</span>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <span>Total</span>
+                </th>
+                <td>
+                  <span data-prefix>$</span>
+                  <span>{total.toFixed(2)}</span>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </article>
         <aside>

@@ -14,16 +14,7 @@ export default function PrintBtn({ btnComp, cliente, venta, ...props }) {
         trigger={() => btnComp}
         content={() => componentRef.current}
       />
-      <ComponentToPrint
-        venta={venta}
-        ref={componentRef}
-        cliente={cliente}
-        // lineas={lineas}
-        // subTotal={subTotal}
-        // tax={tax}
-        // total={total}
-        // credito={credito}
-      />
+      <ComponentToPrint venta={venta} ref={componentRef} cliente={cliente} />
     </>
   );
 }
