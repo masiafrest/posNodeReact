@@ -119,14 +119,14 @@ export default class ComponentToPrint extends React.Component {
             </tbody>
           </table>
         </article>
-        <aside>
+        {/* <aside>
           <h1>
             <span>Notas Adicionales</span>
           </h1>
           <div>
             <p>despues de 30 dias el equipo es propiedad del comerciante</p>
           </div>
-        </aside>
+        </aside> */}
       </Box>
     );
   }
