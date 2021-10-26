@@ -19,6 +19,7 @@ import Item from "./pages/item";
 import Cliente from "./pages/cliente";
 import Categoria from "./pages/categoria";
 import Venta from "./pages/recibos/venta";
+import Usuario from "./pages/usuario";
 
 import { checkToken } from "./utils";
 checkToken(store);
@@ -50,6 +51,7 @@ function App() {
                     path="/categoria/new/:page"
                     component={Categoria}
                   />
+                  <AuthRoute path="/usuario" component={Usuario} />
                 </Container>
               </Switch>
             </Router>

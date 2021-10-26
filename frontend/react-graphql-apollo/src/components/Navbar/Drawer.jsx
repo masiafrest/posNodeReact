@@ -33,11 +33,13 @@ export default function ({ drawerState, toggleDrawer }) {
   return (
     <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
       <List>
-        {["item", "venta", "cliente", "categoria"].map((text, index) => (
-          <ListItem button key={text}>
-            <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
-          </ListItem>
-        ))}
+        {["item", "venta", "cliente", "categoria", "usuario"].map(
+          (text, index) => (
+            <ListItem button key={text}>
+              <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
+            </ListItem>
+          )
+        )}
         {authenticated && (
           <ListItem
             button

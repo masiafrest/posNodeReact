@@ -14,6 +14,7 @@ type Query {
   clientes(filter: String, skip: Int, take: Int): ClienteQuery
   ventas(filter: String, skip: Int, take: Int, isCredito: Boolean): VentasQuery
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
+  usuarios(filter: String, skip: Int, take: Int): UsuarioQuery
 }
 
 type ItemQuery {
@@ -41,6 +42,11 @@ type ClienteQuery {
 
 type UbicacionQuery {
   query: [Ubicacion]
+  count: Int
+}
+
+type UsuarioQuery {
+  query: [Usuario]
   count: Int
 }
 
@@ -84,6 +90,10 @@ type Mutation {
     dirrecion: String
   ): Cliente
   delCliente(id: Int): Cliente
+
+  postUsuario(nombre: String, password: String, rol: Rol): Usuario
+  updateUsuario(id: ID, nombre: String, password: String, rol: Rol): Usuario
+  delUsuario(id: ID): Usuario
 
   postVenta(
     cliente: ClienteInput

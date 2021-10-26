@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { DEL_CLIENTE } from "../../cliente/graphql/mutation";
+import { DEL_USUARIO } from "../../usuario/graphql/mutation";
 import { IconButton } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -8,21 +8,21 @@ import { useSnackbar } from "notistack";
 export default function DelBtn({ id }) {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [delCliente, { loading, error }] = useMutation(DEL_CLIENTE, {
-    update(cache, { data: { delCliente } }) {
+  const [delUsuario, { loading, error }] = useMutation(DEL_USUARIO, {
+    update(cache, { data: { delUsuario } }) {
       cache.modify({
         fields: {
-          clientes(existingClientes = [], { readField }) {
-            return existingClientes.query.filter(
-              (clienteRef) => id !== readField("id", clienteRef)
+          usuarios(existingUsuarios = [], { readField }) {
+            return existingUsuarios.query.filter(
+              (usuarioRef) => id !== readField("id", usuarioRef)
             );
           },
         },
       });
     },
     onCompleted(data) {
-      const { nombre } = data.delCliente;
-      enqueueSnackbar(`cliente ${nombre} eliminado`, {
+      const { nombre } = data.delUsuario;
+      enqueueSnackbar(`usuario ${nombre} eliminado`, {
         variant: "success",
       });
     },
@@ -36,7 +36,7 @@ export default function DelBtn({ id }) {
   return (
     <IconButton
       disabled={loading}
-      onClick={() => delCliente({ variables: { id: id * 1 } })}
+      onClick={() => delUsuario({ variables: { id: id * 1 } })}
     >
       <DeleteIcon />
     </IconButton>

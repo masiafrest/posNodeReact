@@ -6,7 +6,8 @@ const { APP_SECRET, getToken } = require("../../utils");
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-async function signup(parent, { nombre, password, rol }, ctx, info) {
+async function postUsuario(parent, { nombre, password, rol }, ctx, info) {
+  console.log("postUsuario:", nombre, password, rol);
   const user = await ctx.prisma.usuario.create({
     data: {
       nombre,
@@ -15,8 +16,9 @@ async function signup(parent, { nombre, password, rol }, ctx, info) {
     },
   });
   console.log(user);
-  const token = getToken(user);
-  return { token, usuario: user };
+  return user;
+  // const token = getToken(user);
+  // return { token, usuario: user };
 }
 
 /**
@@ -49,12 +51,63 @@ async function login(parent, { nombre, password }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function usuarios(parent, args, ctx, info) {
-  return ctx.prisma.usuario.findMany();
+async function usuarios(parent, args, ctx, info) {
+  console.log("get usuarios", args);
+  const { filter, skip, take } = args;
+  const where = {
+    OR: [{ nombre: { contains: filter.trim() } }],
+  };
+
+  const query = await ctx.prisma.usuario.findMany({
+    where,
+    skip,
+    take,
+  });
+  const count = await ctx.prisma.usuario.count({
+    where,
+  });
+
+  return { query, count };
+}
+
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function updateUsuario(_, { id, nombre, password, rol }, ctx, __) {
+  console.log("updateUsuario", id, nombre);
+  return ctx.prisma.usuario.update({
+    where: {
+      id: id * 1,
+    },
+    data: {
+      nombre,
+      password,
+      rol,
+    },
+  });
+}
+
+/**
+ * @typedef { import("@prisma/client").PrismaClient } Prisma
+ * @param {any} parent
+ * @param {{ searchString: string }} args
+ * @param {{ prisma: Prisma }} ctx
+ */
+function delUsuario(_, { id }, ctx, __) {
+  return ctx.prisma.usuario.delete({
+    where: {
+      id: id * 1,
+    },
+  });
 }
 
 module.exports = {
   usuarios,
-  signup,
+  updateUsuario,
+  postUsuario,
   login,
+  delUsuario,
 };

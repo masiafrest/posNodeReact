@@ -16,7 +16,12 @@ const {
   delVenta,
 } = require("./controllers/recibos/venta");
 const { postDevolucion } = require("./controllers/recibos/devolucion");
-const { signup, login } = require("./controllers/usuario");
+const {
+  postUsuario,
+  login,
+  updateUsuario,
+  delUsuario,
+} = require("./controllers/usuario");
 
 const { authenticated } = require("./authUtil");
 
@@ -35,8 +40,10 @@ const mutations = {
   postVenta,
   updateVenta,
   delVenta,
-  signup,
+  postUsuario,
   login,
+  updateUsuario,
+  delUsuario,
 };
 
 let authMutations = { ...mutations };
@@ -54,7 +61,9 @@ const authArr = [
   "delCliente",
   "postVenta",
   "postDevolucion",
-  "signup",
+  "postUsuario",
+  "updateUsuario",
+  "delUsuario",
 ];
 
 for (e of authArr) {
