@@ -15,12 +15,18 @@ const useStyle = makeStyles((theme) => ({
 export default function ({ drawerState, toggleDrawer }) {
   const classes = useStyle();
 
-  const { authenticated } = useSelector((state) => state.user);
+  const {
+    authenticated,
+    credentials: { rol },
+  } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [isDrawerOpen, setIsDrawerOpen] = drawerState;
 
   const history = useHistory();
+
+  const links = ["item", "venta", "cliente", "categoria"];
+  rol === "ADMIN" && links.push("usuario");
 
   const NavLinkOnClick = ({ to, children }) => (
     <NavLink to={to} onClick={toggleDrawer(false)} className={classes.navLink}>
@@ -33,13 +39,11 @@ export default function ({ drawerState, toggleDrawer }) {
   return (
     <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
       <List>
-        {["item", "venta", "cliente", "categoria", "usuario"].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
-            </ListItem>
-          )
-        )}
+        {links.map((text, index) => (
+          <ListItem button key={text}>
+            <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
+          </ListItem>
+        ))}
         {authenticated && (
           <ListItem
             button
