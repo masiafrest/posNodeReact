@@ -16,7 +16,7 @@ export default function PagesLayout({
   viewComp,
 }) {
   const filterState = useState("");
-  const takeState = useState(5);
+  const takeState = useState(20);
   const viewState = useState(false);
   const pageState = useState(1);
   const lteState = useState(null);

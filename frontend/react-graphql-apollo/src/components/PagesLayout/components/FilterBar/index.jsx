@@ -56,39 +56,41 @@ export default function FilterBar({
     >
       <Grid
         item
-        xs={recibo ? 12 : hasViews ? 6 : 9}
-        sm={recibo ? 12 : hasViews ? 6 : 9}
+        xs={12}
+        // sm={recibo ? 12 : hasViews ? 6 : 9}
       >
         <SearchOnSubmit filterState={[filter, setFilter]} setPage={setPage} />
       </Grid>
       {queryType === "items" && !recibo && (
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={3}>
           <CategoriaFilter categoriaState={categoriaState} />
         </Grid>
       )}
       {!recibo && (
         <>
-          <Grid item xs={hasViews ? 6 : 3} sm={3}>
+          <Grid item xs={4} sm={3}>
             <SelectItemPerPage
               take={take}
               setTake={setTake}
               setPage={setPage}
             />
           </Grid>
-          {hasViews && (
-            <Grid item xs={6} sm={3}>
+          {/* {hasViews && (
+            <Grid item xs={3} sm={3}>
               <SwitchView view={view} setView={setView} />
             </Grid>
-          )}
+          )} */}
         </>
       )}
       {queryType === "items" && !recibo && (
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={4} sm={3}>
           <LteFilter lteState={lteState} />
         </Grid>
       )}
       {queryType === "ventas" && (
-        <IsPagadoCheck isCreditoState={isCreditoState} />
+        <Grid item xs={4} sm={3}>
+          <IsPagadoCheck isCreditoState={isCreditoState} />
+        </Grid>
       )}
     </Grid>
   );
