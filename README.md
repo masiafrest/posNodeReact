@@ -1,11 +1,12 @@
 # posNodeReact
-frontend with react
-backend with graphql and prisma
+frontend with react,
+api query with graphql,
+backend with nodejs,
 database with postgresql
 
 Requisitos:
 - Docker para usar en cualquier sistema operativo
-- Nodejs para el servidor
+- Nodejs
 
 si acabas de clonar este repositorio instalar todas las dependecias con ```npm run init-install``` 
 
