@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import SunIcon from "@material-ui/icons/Brightness5";
+import MoonIcon from "@material-ui/icons/Brightness2";
 
 //MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -62,20 +64,12 @@ function NavBar() {
             className={classes.navLink}
             to={isItemPage ? "/venta" : "/item"}
           >
-            {isItemPage ? "Venta" : "Item"}
+            {isItemPage ? "ir a Venta" : "ir a Item"}
           </NavLink>
           <div className={classes.void} />
-          <FormControlLabel
-            value="top"
-            control={
-              <Switch
-                color="default"
-                onChange={() => dispatch(toggleDarkMode())}
-              />
-            }
-            label={`Tema ${darkMode ? "Oscuro" : "Blanco"}`}
-            labelPlacement="top"
-          />
+          <IconButton onClick={() => dispatch(toggleDarkMode())}>
+            {darkMode ? <MoonIcon /> : <SunIcon />}
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Toolbar />
