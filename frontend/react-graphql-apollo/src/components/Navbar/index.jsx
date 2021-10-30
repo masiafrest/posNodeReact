@@ -18,16 +18,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode } from "../../redux/features/userSlice";
 import Drawer from "./Drawer";
 
-const useStyle = makeStyles((theme) => ({
+export const useStyle = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
   void: {
     flexGrow: 1,
   },
-  navLink: {
+  lightMode: {
     textDecoration: "none",
     fontSize: "1.5em",
+    color: theme.palette.primary,
+  },
+  darkMode: {
+    textDecoration: "none",
+    fontSize: "1.5em",
+    color: "white",
   },
 }));
 
@@ -61,14 +67,14 @@ function NavBar() {
             toggleDrawer={toggleDrawer}
           />
           <NavLink
-            className={classes.navLink}
+            className={darkMode ? classes.darkMode : classes.lightMode}
             to={isItemPage ? "/venta" : "/item"}
           >
             {isItemPage ? "ir a Venta" : "ir a Item"}
           </NavLink>
           <div className={classes.void} />
           <IconButton onClick={() => dispatch(toggleDarkMode())}>
-            {darkMode ? <MoonIcon /> : <SunIcon />}
+            {darkMode ? <SunIcon /> : <MoonIcon />}
           </IconButton>
         </Toolbar>
       </AppBar>

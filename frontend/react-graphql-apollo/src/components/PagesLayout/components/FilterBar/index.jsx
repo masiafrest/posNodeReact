@@ -56,7 +56,7 @@ export default function FilterBar({
     >
       <Grid
         item
-        xs={12}
+        xs={9}
         // sm={recibo ? 12 : hasViews ? 6 : 9}
       >
         <SearchOnSubmit filterState={[filter, setFilter]} setPage={setPage} />

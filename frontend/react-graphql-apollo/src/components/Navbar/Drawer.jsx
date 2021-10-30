@@ -5,12 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut, signoutSucess } from "../../redux/features/userSlice";
 
-const useStyle = makeStyles((theme) => ({
-  navLink: {
-    textDecoration: "none",
-    fontSize: "1.5em",
-  },
-}));
+import { useStyle } from "./";
 
 export default function ({ drawerState, toggleDrawer }) {
   const classes = useStyle();
@@ -18,6 +13,7 @@ export default function ({ drawerState, toggleDrawer }) {
   const {
     authenticated,
     credentials: { rol },
+    darkMode,
   } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -29,7 +25,11 @@ export default function ({ drawerState, toggleDrawer }) {
   rol === "ADMIN" && links.push("usuario");
 
   const NavLinkOnClick = ({ to, children }) => (
-    <NavLink to={to} onClick={toggleDrawer(false)} className={classes.navLink}>
+    <NavLink
+      to={to}
+      onClick={toggleDrawer(false)}
+      className={darkMode ? classes.darkMode : classes.lightMode}
+    >
       <Typography variant="h4" gutterBottom>
         {children}
       </Typography>
