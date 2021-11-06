@@ -17,14 +17,16 @@ import {
 export default function VentaDialog() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const [open, setOpen] = useState(false);
-  const [linea, setLinea] = useState({
+  const initialState = {
     qty: 0,
     descripcion: "",
     precio: 0,
     tipo: "venta",
     enqueueSnackbar,
-  });
+    custom: true,
+  };
+  const [open, setOpen] = useState(false);
+  const [linea, setLinea] = useState(initialState);
   const closeDialog = () => {
     setOpen(false);
   };
@@ -105,6 +107,7 @@ export default function VentaDialog() {
           <Button
             onClick={() => {
               dispatch(pushLinea(linea));
+              setLinea(initialState);
               setOpen(false);
             }}
           >
