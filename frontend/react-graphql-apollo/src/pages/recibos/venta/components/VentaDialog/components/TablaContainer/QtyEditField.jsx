@@ -4,7 +4,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { editQty } from "../../../../../../../redux/features/reciboSlice";
 
-export default function QtyEditField({ itemId, qty, idx }) {
+export default function QtyEditField({ itemId, qty, idx, custom }) {
   const dispatch = useDispatch();
   const [getQty, { loading, data }] = useLazyQuery(
     gql`
@@ -20,7 +20,9 @@ export default function QtyEditField({ itemId, qty, idx }) {
   );
 
   useEffect(() => {
-    getQty();
+    if (!custom) {
+      getQty();
+    }
   }, [data]);
 
   const maxQty = data?.item.qty;
@@ -40,7 +42,7 @@ export default function QtyEditField({ itemId, qty, idx }) {
     <TextField
       id="qtyEdit"
       name="qty"
-      helperText={maxQty && `max ${maxQty}`}
+      helperText={!custom && maxQty && `max ${maxQty}`}
       type="number"
       onChange={handleChange}
       value={qty}

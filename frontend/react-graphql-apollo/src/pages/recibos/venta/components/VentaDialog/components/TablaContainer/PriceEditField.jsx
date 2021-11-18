@@ -2,7 +2,13 @@ import { TextField } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { editPrice } from "../../../../../../../redux/features/reciboSlice";
 
-export default function PriceEditField({ itemId, precio, precioMin, idx }) {
+export default function PriceEditField({
+  itemId,
+  precio,
+  precioMin,
+  idx,
+  custom,
+}) {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -20,7 +26,7 @@ export default function PriceEditField({ itemId, precio, precioMin, idx }) {
     <TextField
       id="priceEdit"
       name="price"
-      helperText={`min ${precioMin}`}
+      helperText={!custom && `min ${precioMin}`}
       type="number"
       onChange={handleChange}
       value={precio}

@@ -41,13 +41,13 @@ export default function VentaTable({ isVenta = true, venta }) {
   dispatch(addTotal(round(subTotal + tax, 2)));
 
   const lineasTable = lineas?.map(
-    ({ precio, precioMin, descripcion, qty, id }, idx) => (
+    ({ precio, precioMin, descripcion, qty, id, custom }, idx) => (
       <TableRow className={classes.styleRows} key={id}>
         <TableCell key={`qty-id-${idx}`} align="left">
           {isVenta ? (
             <>
               <DelBtn tipo="venta" id={id} idx={idx} />
-              <QtyEditField itemId={id} qty={qty} idx={idx} />
+              <QtyEditField itemId={id} qty={qty} idx={idx} custom={custom} />
             </>
           ) : (
             qty
@@ -63,6 +63,7 @@ export default function VentaTable({ isVenta = true, venta }) {
               precio={precio}
               precioMin={precioMin}
               idx={idx}
+              custom={custom}
             />
           ) : (
             precio

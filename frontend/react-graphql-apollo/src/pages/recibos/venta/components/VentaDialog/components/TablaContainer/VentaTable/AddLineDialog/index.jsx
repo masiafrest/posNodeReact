@@ -18,6 +18,7 @@ export default function VentaDialog() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const initialState = {
+    id: 0,
     qty: 0,
     descripcion: "",
     precio: 0,

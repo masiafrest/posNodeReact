@@ -127,6 +127,7 @@ input VentaLineaInput {
   precio: Float
   precioMin: Float
   descripcion: String
+  custom: Boolean
 }
 
 input DevolucionLineaInput {
