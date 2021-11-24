@@ -36,14 +36,16 @@ function tradeTokenForUser(authToken) {
   return jwt.verify(token, APP_SECRET);
 }
 
-async function delImg(strPaths) {
+async function delImg(strPaths, folderName) {
+  const fullPath = `public/images/${folderName}`;
   const paths = strPaths.split(", ");
   let imgPath;
 
   // check if all path exist first, then del
   for (const p of paths) {
     if (p !== "") {
-      imgPath = path.resolve("public/images/items", p);
+      console.log("p:", p);
+      imgPath = path.resolve(fullPath, p);
       if (fs.existsSync(imgPath)) {
         console.log("The file exists.");
       } else {
@@ -55,12 +57,14 @@ async function delImg(strPaths) {
   //del img
   for (const p of paths) {
     if (p !== "") {
-      imgPath = path.resolve("public/images/items", p);
+      console.log("p2:", p);
+      imgPath = path.resolve(fullPath, p);
       //file removed
       fs.unlinkSync(imgPath);
       console.log(imgPath, "archivo eliminado");
     }
   }
+  return;
 }
 
 async function saveImg(images, folderName, id) {

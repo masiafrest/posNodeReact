@@ -266,7 +266,7 @@ async function delItem(parent, { id }, ctx, info) {
   });
 
   try {
-    item.image_url && (await delImg(item.image_url));
+    item.image_url && (await delImg(item.image_url, "items"));
     return await ctx.prisma.item.delete({
       where: {
         id,

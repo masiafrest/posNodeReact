@@ -12,6 +12,7 @@ import {
   AccordionActions,
   Typography,
   Divider,
+  Chip,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -29,6 +30,9 @@ export default function ItemAccordion({ data }) {
     image_url,
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
+  const categoriasChip = data.categorias.map((cat) => (
+    <Chip label={cat.nombre} />
+  ));
 
   return (
     <Accordion elevation={14}>
@@ -38,7 +42,7 @@ export default function ItemAccordion({ data }) {
         id="panel1a-header"
       >
         <Typography>
-          {descripcion} {categorias}
+          {descripcion} {categoriasChip}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
