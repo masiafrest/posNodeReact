@@ -116,17 +116,10 @@ async function postItem(parent, args, ctx, info) {
 
   console.log("args post item: ", args);
 
-  let imagesPath = "";
-  if (images) {
-    console.log("save image");
-    imagesPath = await saveImg(images);
-  }
-
   console.log("save item");
   try {
-    return await ctx.prisma.item.create({
+    const itemCreated = await ctx.prisma.item.create({
       data: {
-        image_url: imagesPath,
         barcode,
         qty,
         descripcion,
@@ -149,6 +142,25 @@ async function postItem(parent, args, ctx, info) {
         ubicacion: true,
       },
     });
+
+    console.log("item created: ", itemCreated);
+    let imagesPath = "";
+
+    if (images) {
+      console.log("save image");
+      imagesPath = await saveImg(images, "items", itemCreated.id);
+    }
+
+    await ctx.prisma.item.update({
+      where: {
+        id: itemCreated.id,
+      },
+      data: {
+        image_url: imagesPath,
+      },
+    });
+
+    return itemCreated;
   } catch (error) {
     return errorHandler(error);
   }

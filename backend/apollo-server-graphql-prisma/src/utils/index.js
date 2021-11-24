@@ -63,14 +63,14 @@ async function delImg(strPaths) {
   }
 }
 
-async function saveImg(images) {
+async function saveImg(images, folderName, id) {
   const storeUpload = async ({ stream, filename, mimetype }) => {
     const { createWriteStream, mkdir } = require("fs");
     await mkdir("public/images/items", { recursive: true }, (err) => {
       if (err) throw err;
     });
-    const newFileName = `${Date.now()}-${filename}`;
-    const path = `public/images/items/${newFileName}`;
+    const newFileName = `${id}-${Date.now()}`;
+    const path = `public/images/${folderName}/${newFileName}`;
     // Creates an images folder in the root directory
     // (createWriteStream) writes our file to the images directory
     return new Promise((resolve, reject) =>
