@@ -13,7 +13,6 @@ export default function DelBtn({ id, paths }) {
       cache.modify({
         fields: {
           items(existingItems = { query: [] }, { readField }) {
-            console.log("delbtn existing Items:", existingItems);
             return existingItems.query.filter(
               (itemRef) => id !== readField("id", itemRef)
             );

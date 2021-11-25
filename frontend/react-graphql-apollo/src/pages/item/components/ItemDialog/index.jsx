@@ -125,7 +125,7 @@ export default function ItemEditDialogIcon({ item = null }) {
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <CollapseDropzone
-                image_url={item ? item.image_url : ""}
+                image_url={item?.image_url ? item.image_url : ""}
                 newItemState={[newItem, setNewItem]}
                 queueSnackbar={enqueueSnackbar}
               />

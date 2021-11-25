@@ -73,7 +73,6 @@ export default function CollapseDropzone({
               enqueueSnackbar(e.message, {
                 variant: "error",
               });
-              console.log(e);
             }
           }}
         />

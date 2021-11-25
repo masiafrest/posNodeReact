@@ -13,7 +13,6 @@ export default function SearchField({
 }) {
   const dispatch = useDispatch();
   const [term, setTerm] = useState(initialTerm);
-  console.log("ventas searchfield term: ", term);
 
   const updateSearch = (term = "") => {
     updateSearchTerm(term);
@@ -21,7 +20,6 @@ export default function SearchField({
   };
 
   const handleChange = (event, value, reason) => {
-    console.log(reason);
     updateSearch();
   };
 
@@ -37,7 +35,7 @@ export default function SearchField({
         return label;
       }}
       // getOptionSelected={(options, value) => {
-      //   console.log('getOptionSelected options: ', options)
+      //   ('getOptionSelected options: ', options)
       // }}
       putValue={term}
       onInputChange={(e, value) => {

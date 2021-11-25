@@ -9,7 +9,6 @@ import SearchField from "./components/SearchField";
 
 export default function Cliente() {
   const viewComp = getViewComp(ClientePaper);
-  console.log("clientes vies", viewComp);
   return (
     <PagesLayout
       title="clientes"

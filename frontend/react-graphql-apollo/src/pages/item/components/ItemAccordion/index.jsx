@@ -55,7 +55,7 @@ export default function ItemAccordion({ data }) {
       <AccordionActions>
         <EditDialogIcon item={data} />
         <AddBtn item={data} reciboTipo="venta" />
-        <DelBtn id={id} paths={image_url} />
+        <DelBtn id={id} paths={image_url ? image_url : ""} />
       </AccordionActions>
     </Accordion>
   );

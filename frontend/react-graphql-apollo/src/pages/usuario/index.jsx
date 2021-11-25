@@ -9,7 +9,6 @@ import SearchField from "./components/SearchField";
 
 export default function Usuario() {
   const viewComp = getViewComp(UsuarioPaper);
-  console.log("clientes vies", viewComp);
   return (
     <PagesLayout
       title="usuarios"

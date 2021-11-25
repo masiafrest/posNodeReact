@@ -53,7 +53,6 @@ const reciboSlice = createSlice({
       state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     pushLinea: (state, action) => {
-      console.log("pushlinea");
       //TODO: revisar si existe o no el item pusheado, si qty del payload es mayor actualizar la qty
       const { tipo, id, descripcion, enqueueSnackbar, custom } = action.payload;
       const hasId = state[tipo].lineas.some((linea) => linea.id === id);

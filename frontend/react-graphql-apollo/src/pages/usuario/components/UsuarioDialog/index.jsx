@@ -24,7 +24,6 @@ export default function UsuarioEditDialogIcon({ usuario = null }) {
   const initialUsuarioState = {};
   const [open, setOpen] = useState(false);
   const [newUsuario, setNewUsuario] = useState(initialUsuarioState);
-  console.log("newsuaruio: ", newUsuario);
 
   const onCompleted = (data) => {
     enqueueSnackbar(`usuario ${usuario ? "actualizado" : "agregado"}`, {

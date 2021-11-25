@@ -9,7 +9,6 @@ export default function SearchItem() {
   const setPage = pageState[1];
   const [filter, setFilter] = filterState;
   const [term, setTerm] = useState(filter);
-  console.log("search item from item page");
   const handleChange = (event) => {
     setTerm(event.target.value.toUpperCase());
   };
@@ -18,7 +17,6 @@ export default function SearchItem() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log("clieck term:", term);
         setFilter(term);
         setPage(1);
         setTerm("");

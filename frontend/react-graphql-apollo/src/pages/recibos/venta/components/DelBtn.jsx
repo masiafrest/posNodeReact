@@ -29,7 +29,6 @@ export default function DelBtn({ id }) {
       });
     },
     onError(e) {
-      console.log(e.message);
       enqueueSnackbar(e.message, {
         variant: "warning",
       });

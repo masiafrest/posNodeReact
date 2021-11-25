@@ -22,7 +22,6 @@ import DelBtn from "./DelBtn";
 export default function VentaAccordion({ data }) {
   const [updateVenta, { ventaData, loading, error }] = useMutation(UpdateVenta);
 
-  console.log("venta accordion data: ", data);
   const { fecha, usuarioNombre, clienteNombre, total, credito, id } = data;
   const venta = {};
   for (const [key, value] of Object.entries(data)) {
@@ -34,7 +33,6 @@ export default function VentaAccordion({ data }) {
       venta[key] = value;
     }
   }
-  console.log("venta accordion venta: ", venta);
   return (
     <Accordion elevation={14} key={id}>
       <AccordionSummary

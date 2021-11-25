@@ -11,11 +11,9 @@ export default function DelBtn({ id }) {
 
   const [delCategoria, { loading, error }] = useMutation(DEL_CATEGORIA, {
     update(cache, { data: { delCategoria } }) {
-      console.log("delCategoria: ", delCategoria);
       cache.modify({
         fields: {
           categorias(existingCategorias = [], { readField }) {
-            console.log("existingCategorias:", existingCategorias);
             return existingCategorias.query.filter(
               (categoriaRef) => id !== readField("id", categoriaRef)
             );

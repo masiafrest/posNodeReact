@@ -52,8 +52,11 @@ export default function PagesLayout({
     variables,
   });
 
-  console.log("data", data);
-  console.log("error", error);
+  if (error) {
+    console.log("error", error);
+    return <div>error</div>;
+  }
+
   const dataRes = loading ? {} : data[title];
   const hasData = loading ? false : data[title].query?.length > 0;
   const pages = loading ? 1 : Math.ceil(dataRes.count / take);
@@ -82,10 +85,20 @@ export default function PagesLayout({
         <Grid item xs={12}>
           <CreateDialog />
         </Grid>
+
         {loading ? (
           <span> loading</span>
         ) : hasData ? (
           <>
+            <Grid item xs={12}>
+              <Pagination
+                count={pages}
+                page={page}
+                onChange={(e, p) => {
+                  setPage(p);
+                }}
+              />
+            </Grid>
             <Grid container item sm={12} alignItems="center" spacing={2}>
               <List
                 view={view}

@@ -9,9 +9,6 @@ export default function CategoriaFilter({ categoriaState }) {
   });
   if (loading) return "Loading...";
   if (error) return `error: ${error}`;
-  console.log("cagetoria filter error:", error);
-  console.log("cagetoria filter data:", data);
-  console.log("cagetoria filter categoria:", categoria);
 
   const categoriasList = data.categorias.query.map(({ id, nombre }) => (
     <MenuItem value={nombre} key={nombre}>
@@ -21,7 +18,6 @@ export default function CategoriaFilter({ categoriaState }) {
 
   const handleChange = (e) => {
     setCategoria(e.target.value);
-    console.log("select categoria change:", e.target);
   };
 
   return (

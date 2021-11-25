@@ -60,7 +60,6 @@ export default function SelectCategoria({ categorias = [], setNewItem }) {
 
   useEffect(() => {
     if (!loading) {
-      console.log("useEffect", data);
       let catArr = [];
       selCatName.forEach((e) => {
         const id = data.categorias.query.find((obj) => obj.nombre === e).id * 1;

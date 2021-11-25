@@ -33,13 +33,11 @@ export default function VentaDialog() {
   };
   const handleOnChange = (e) => {
     const { value, name, valueAsNumber } = e.target;
-    console.log("target, ", e.target);
     if (valueAsNumber) {
       return setLinea({ ...linea, [name]: valueAsNumber });
     }
     setLinea({ ...linea, [name]: value });
   };
-  console.log("linea: ", linea);
 
   return (
     <>
