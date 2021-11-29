@@ -31,26 +31,26 @@ model Item {
   deleted     Boolean      @default(false)
   // search_text String
   // fts Unsupported("tsvector")
-  marca Marca @relation(fields: [marcaId], references:[id])
-  marcaId Int
-  modelos Modelo[]
+  // marca Marca @relation(fields: [marcaId], references:[id])
+  // marcaId Int
+  // modelos Modelo[]
 
   lineaVenta  VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
 }
-model Marca {
-  id        Int      @id @default(autoincrement())
-  nombre    String   @unique
-  item      Item[]
-  createdAt DateTime @default(now())
-}
-model Modelo {
-  id        Int      @id @default(autoincrement())
-  nombre    String   @unique
-  item      Item[]
-  createdAt DateTime @default(now())
-}
+// model Marca {
+//   id        Int      @id @default(autoincrement())
+//   nombre    String   @unique
+//   item      Item[]
+//   createdAt DateTime @default(now())
+// }
+// model Modelo {
+//   id        Int      @id @default(autoincrement())
+//   nombre    String   @unique
+//   item      Item[]
+//   createdAt DateTime @default(now())
+// }
 
 model Categoria {
   id        Int      @id @default(autoincrement())
