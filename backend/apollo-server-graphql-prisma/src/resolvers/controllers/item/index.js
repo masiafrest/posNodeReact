@@ -127,7 +127,10 @@ async function postItem(parent, args, ctx, info) {
           connect: ubicacion,
         },
         categorias: {
-          connect: categorias,
+          connectOrCreate: categorias.map((nombre) => ({
+            where: { nombre },
+            create: { nombre },
+          })),
         },
         precio: {
           create: {

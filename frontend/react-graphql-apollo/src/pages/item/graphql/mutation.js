@@ -9,7 +9,7 @@ export const POST_ITEM = gql`
     $precio: Float
     $precioMin: Float
     $ubicacion: IdInput
-    $categorias: [IdInput]
+    $categorias: [String]
     $images: [Upload]
   ) {
     postItem(
@@ -36,7 +36,7 @@ export const UPDATE_ITEM = gql`
     $descripcion: String
     $precio: Float
     $precioMin: Float
-    $categorias: [IdInput]
+    $categorias: [String]
     $images: [Upload]
   ) {
     updateItem(

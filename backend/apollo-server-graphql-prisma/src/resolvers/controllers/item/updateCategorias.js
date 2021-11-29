@@ -1,24 +1,24 @@
 module.exports = function updateCategorias(newCategorias, oldCategorias) {
   let updateCategorias = { connect: [], disconnect: [] };
   //get item categorias to compare to newCategorias
-  //if itemCategorias.id true, newCategorias.id false, disconnect
-  const newCategoriaIds = newCategorias.map((e) => e.id);
-  const oldCategoriaIds = oldCategorias.map((e) => e.id);
-  console.log("newCategoriasIds:", newCategoriaIds);
-  console.log("oldCategoriasIds:", oldCategoriaIds);
+  //if itemCategorias.nombre true, newCategorias.nombre false, disconnect
+  const newName = newCategorias.map((nombre) => nombre);
+  const oldName = oldCategorias.map((e) => e.nombre);
+  console.log("newCategoriasIds:", newName);
+  console.log("oldCategoriasIds:", oldName);
 
-  //loop newId and compare oldid to connect
-  newCategoriaIds.forEach((newId) => {
-    if (!oldCategoriaIds.includes(newId)) {
-      updateCategorias.connect.push({ id: newId });
+  //loop newNombre and compare oldid to connect
+  newName.forEach((newNombre) => {
+    if (!oldName.includes(newNombre)) {
+      updateCategorias.connect.push({ nombre: newNombre });
     }
   });
   console.log("newCategoria loop:", updateCategorias);
 
   //loop old to new to disconect
-  oldCategoriaIds.forEach((oldId) => {
-    if (!newCategoriaIds.includes(oldId)) {
-      updateCategorias.disconnect.push({ id: oldId });
+  oldName.forEach((oldNombre) => {
+    if (!newName.includes(oldNombre)) {
+      updateCategorias.disconnect.push({ nombre: oldNombre });
     }
   });
   return updateCategorias;

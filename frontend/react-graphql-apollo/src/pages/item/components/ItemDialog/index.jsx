@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
-import SelectCategoria from "./SelectCategoria";
+import MultipleSelect from "./MultipleSelect";
 import { useSnackbar } from "notistack";
-import CreateCat from "../../../categoria/components/CategoriaDialog";
 
 import {
   Dialog,
@@ -24,7 +23,13 @@ import CollapseDropzone from "./CollapseDropzone";
 
 export default function ItemEditDialogIcon({ item = null }) {
   const { enqueueSnackbar } = useSnackbar();
-  const initialItemState = { ubicacion: { id: 1 } };
+  const initialItemState = {
+    ubicacion: { id: 1 },
+    categorias: [],
+  };
+  item &&
+    initialItemState.categorias.push(...item.categorias.map((e) => e.nombre));
+
   const [open, setOpen] = useState(false);
   const [newItem, setNewItem] = useState(initialItemState);
 
@@ -190,22 +195,12 @@ export default function ItemEditDialogIcon({ item = null }) {
                 </Grid>
               );
             })}
-            <Grid
-              container
-              item
-              alignItems="center"
-              justifyContent="center"
-              alignContent="center"
-            >
-              <Grid item xs={6}>
-                <SelectCategoria
-                  categorias={item?.categorias?.map((e) => e.nombre)}
-                  setNewItem={setNewItem}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <CreateCat />
-              </Grid>
+            <Grid item xs={12}>
+              <MultipleSelect
+                type="categorias"
+                array={newItem.categorias}
+                setNewItem={setNewItem}
+              />
             </Grid>
           </Grid>
         </DialogContent>

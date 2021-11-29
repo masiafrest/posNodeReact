@@ -58,7 +58,7 @@ type Mutation {
     barcode: Int
     qty: Int
     descripcion: String
-    categorias: [IdInput]
+    categorias: [String]
     ubicacion: IdInput
     precio: Float
     precioMin: Float
@@ -69,7 +69,7 @@ type Mutation {
     barcode: Int
     qty: Int
     descripcion: String
-    categorias: [IdInput]
+    categorias: [String]
     precio: Float
     precioMin: Float
     images: [Upload]
@@ -139,6 +139,10 @@ input DevolucionLineaInput {
   descripcion: String
   razon: String
   esItemDevolvuelto: Boolean
+}
+
+input CategoriaInput {
+  nombre: String
 }
 
 input IdInput {
