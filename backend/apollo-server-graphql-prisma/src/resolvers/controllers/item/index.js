@@ -1,9 +1,4 @@
-const {
-  saveImg,
-  delImg,
-  errorHandler,
-  toTsQueryAnd,
-} = require("../../../utils");
+const { saveImg, delImg, errorHandler } = require("../../../utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
@@ -22,12 +17,8 @@ async function items(parent, args, ctx, info) {
   const trimWord = filter.trim();
   const splitWord = trimWord.split(" ");
   const noSpaceInWords = splitWord.filter((word) => word !== "");
-  const text = noSpaceInWords.join(" ");
-  const wordLength = noSpaceInWords.length;
 
-  let tsquery;
   let where = {
-    descripcion: {},
     qty,
   };
 
@@ -40,14 +31,11 @@ async function items(parent, args, ctx, info) {
     }
   }
 
-  if (wordLength > 1) {
-    tsquery = toTsQueryAnd(text);
-    console.log("tsquery:", tsquery);
-    where.descripcion = { search: tsquery };
-  } else {
-    console.log("else: ", text);
-    where.descripcion = { contains: text };
-  }
+  where.AND = noSpaceInWords.map((e) => ({
+    descripcion: {
+      contains: e,
+    },
+  }));
 
   // lte && (where.qty.lte = lte);
   // gte && (where.qty.gte = gte);

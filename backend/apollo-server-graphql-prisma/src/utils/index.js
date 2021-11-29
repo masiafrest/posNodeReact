@@ -23,10 +23,6 @@ const getToken = (user) => {
   return jwt.sign(user, APP_SECRET);
 };
 
-const toTsQueryAnd = (words) => {
-  return words.trim().replaceAll(" ", " & ");
-};
-
 function tradeTokenForUser(authToken) {
   const splitedAuthToken = authToken.split(" ");
   const token = splitedAuthToken[1];
@@ -109,6 +105,5 @@ module.exports = {
   tradeTokenForUser,
   delImg,
   saveImg,
-  toTsQueryAnd,
   errorHandler,
 };
