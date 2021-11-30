@@ -29,7 +29,7 @@ model Item {
   categorias  Categoria[]
   createdAt   DateTime     @default(now())
   deleted     Boolean      @default(false)
-  // search_text String
+  search_text String  @default("")
   // fts Unsupported("tsvector")
   // marca Marca @relation(fields: [marcaId], references:[id])
   // marcaId Int
