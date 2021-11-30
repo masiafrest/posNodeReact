@@ -27,6 +27,7 @@ async function postItem(parent, args, ctx, info) {
         barcode,
         qty,
         descripcion,
+        search_text: `${descripcion} ${categorias.join(" ")}`,
         ubicacion: {
           connect: ubicacion,
         },
