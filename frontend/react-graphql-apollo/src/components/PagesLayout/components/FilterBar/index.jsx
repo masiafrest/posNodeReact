@@ -1,6 +1,4 @@
 import { useContext } from "react";
-import { useQuery } from "@apollo/client";
-import debounce from "lodash/debounce";
 
 import { Grid } from "@material-ui/core";
 
@@ -49,26 +47,22 @@ export default function FilterBar({
     <Grid
       container
       item
-      spacing={1}
-      justifyContent="center"
+      spacing={2}
+      justifyContent="flex-start"
       alignItems="center"
       // style={{ textAlign: "center" }}
     >
-      <Grid
-        item
-        xs={9}
-        // sm={recibo ? 12 : hasViews ? 6 : 9}
-      >
+      <Grid item xs={12} md={3}>
         <SearchOnSubmit filterState={[filter, setFilter]} setPage={setPage} />
       </Grid>
       {queryType === "items" && !recibo && (
-        <Grid item xs={3}>
+        <Grid item xs={3} sm={2}>
           <CategoriaFilter categoriaState={categoriaState} />
         </Grid>
       )}
       {!recibo && (
         <>
-          <Grid item xs={4} sm={3}>
+          <Grid item xs={3} sm={3}>
             <SelectItemPerPage
               take={take}
               setTake={setTake}
@@ -83,12 +77,12 @@ export default function FilterBar({
         </>
       )}
       {queryType === "items" && !recibo && (
-        <Grid item xs={4} sm={3}>
+        <Grid item xs={3} sm={2}>
           <LteFilter lteState={lteState} />
         </Grid>
       )}
       {queryType === "ventas" && (
-        <Grid item xs={4} sm={3}>
+        <Grid item xs={2} sm={2}>
           <IsPagadoCheck isCreditoState={isCreditoState} />
         </Grid>
       )}

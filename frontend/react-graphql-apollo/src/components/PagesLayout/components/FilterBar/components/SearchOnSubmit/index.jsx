@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import ClearIcon from "@material-ui/icons/Clear";
 
 export default function SearchOnSubmit({ filterState, setPage }) {
   let textInput = useRef(null);
@@ -23,6 +22,7 @@ export default function SearchOnSubmit({ filterState, setPage }) {
   return (
     <form onSubmit={handleOnSubmit}>
       <TextField
+        fullWidth
         onFocus={() => {
           if (term) {
             setTerm("");
@@ -38,18 +38,6 @@ export default function SearchOnSubmit({ filterState, setPage }) {
             <InputAdornment position="start">
               <IconButton onClick={handleOnSubmit}>
                 <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={(e) => {
-                  setTerm("");
-                  textInput.current.focus();
-                }}
-              >
-                {term ? <ClearIcon /> : null}
               </IconButton>
             </InputAdornment>
           ),

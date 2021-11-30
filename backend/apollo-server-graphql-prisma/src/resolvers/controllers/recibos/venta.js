@@ -102,9 +102,6 @@ async function updateVenta(_, args, ctx, __) {
 async function ventas(parent, args, ctx, info) {
   const { filter, skip, take, isCredito } = args;
   console.log("get ventas args: ", args);
-  const { toTsQueryAnd } = require("../../../utils");
-
-  const tsquery = toTsQueryAnd(filter);
 
   const where = {
     OR: [
