@@ -2,17 +2,18 @@ import { useRef } from "react";
 import ComponentToPrint from "./ComponentToPrint";
 import ReactToPrint from "react-to-print";
 
-import { useSelector } from "react-redux";
-
 export default function PrintBtn({ btnComp, cliente, venta, ...props }) {
   const componentRef = useRef();
-
+  const { credito, total } = venta;
   return (
     <>
       <ReactToPrint
         {...props}
-        trigger={() => btnComp}
+        trigger={() => {
+          return btnComp;
+        }}
         content={() => componentRef.current}
+        documentTitle={`${credito ? "credito" : "contado"}, $${total}`}
       />
       <ComponentToPrint venta={venta} ref={componentRef} cliente={cliente} />
     </>

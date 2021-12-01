@@ -18,6 +18,7 @@ export default class ComponentToPrint extends React.Component {
       cliente,
       venta: { subTotal, tax, total, credito, lineas },
     } = this.props;
+
     return (
       <Box display="none" displayPrint="block">
         <header>
