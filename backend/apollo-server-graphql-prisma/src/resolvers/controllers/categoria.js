@@ -25,6 +25,15 @@ async function categorias(parent, args, ctx, info) {
   const searchArr = splitArrBySpace(filter, "nombre");
 
   const where = {
+    AND: filter
+      .trim()
+      .split(" ")
+      .filter((w) => w !== "")
+      .map((e) => ({
+        nombre: {
+          contains: e,
+        },
+      })),
     OR: searchArr,
   };
 
