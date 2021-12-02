@@ -5,6 +5,7 @@ import ReactToPrint from "react-to-print";
 export default function PrintBtn({ btnComp, cliente, venta, ...props }) {
   const componentRef = useRef();
   const { credito, total } = venta;
+  const docTitle = `${credito ? "credito" : "contado"}, $${total}`;
   return (
     <>
       <ReactToPrint
@@ -13,7 +14,11 @@ export default function PrintBtn({ btnComp, cliente, venta, ...props }) {
           return btnComp;
         }}
         content={() => componentRef.current}
-        documentTitle={`${credito ? "credito" : "contado"}, $${total}`}
+        onBeforeGetContent={() => {
+          document.title = docTitle;
+        }}
+        documentTitle={docTitle}
+        removeAfterPrint
       />
       <ComponentToPrint venta={venta} ref={componentRef} cliente={cliente} />
     </>
