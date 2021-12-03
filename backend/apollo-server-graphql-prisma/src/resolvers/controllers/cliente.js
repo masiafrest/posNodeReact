@@ -1,5 +1,3 @@
-const { splitArrBySpace } = require("../../utils");
-
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -22,9 +20,16 @@ function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
 async function clientes(_, args, ctx) {
   console.log("get clientes");
   const { filter, skip, take } = args;
-  const searchArr = splitArrBySpace(filter, "nombre");
   const where = {
-    OR: searchArr,
+    AND: filter
+      .trim()
+      .split(" ")
+      .filter((w) => w !== "")
+      .map((e) => ({
+        nombre: {
+          contains: e,
+        },
+      })),
   };
 
   const query = await ctx.prisma.cliente.findMany({

@@ -1,5 +1,3 @@
-const { splitArrBySpace } = require("../../../utils");
-
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -104,6 +102,20 @@ async function ventas(parent, args, ctx, info) {
   console.log("get ventas args: ", args);
 
   const where = {
+    // OR: filter
+    //   .trim()
+    //   .split(" ")
+    //   .filter((w) => w !== "")
+    //   .map((e) => ({
+    //     lineas: {
+    //       some: {
+    //         descripcion: {
+    //           contains: e,
+    //         },
+    //       },
+    //     },
+    //     clienteNombre: { contains: e },
+    //   })),
     OR: [
       {
         lineas: {
@@ -139,6 +151,7 @@ async function ventas(parent, args, ctx, info) {
     where,
   });
 
+  console.log("venta get data where:", where);
   return { query, count };
 }
 

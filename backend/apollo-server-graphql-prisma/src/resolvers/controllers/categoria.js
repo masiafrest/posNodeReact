@@ -1,4 +1,3 @@
-const { splitArrBySpace } = require("../../utils");
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -22,7 +21,6 @@ function postCategoria(parent, { nombre }, ctx, info) {
 async function categorias(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   console.log("filter: ", filter);
-  const searchArr = splitArrBySpace(filter, "nombre");
 
   const where = {
     AND: filter
@@ -34,7 +32,6 @@ async function categorias(parent, args, ctx, info) {
           contains: e,
         },
       })),
-    OR: searchArr,
   };
 
   const query = await ctx.prisma.categoria.findMany({
