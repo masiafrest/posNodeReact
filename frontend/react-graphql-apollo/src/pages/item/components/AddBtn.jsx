@@ -12,17 +12,21 @@ export const addLinea = (
   lineas,
   reciboTipo
 ) => {
+  console.log("item ", item);
   const {
     id,
     precio: { precio, precioMin },
     descripcion,
+    categorias,
   } = item;
 
   const newLinea = {
     id,
     tipo: reciboTipo,
     qty: 1,
-    descripcion: descripcion,
+    descripcion: `${descripcion} | ${categorias
+      .map((e) => e.nombre)
+      .join(", ")}`,
     precio,
     precioMin,
     enqueueSnackbar,

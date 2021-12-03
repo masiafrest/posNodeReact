@@ -69,11 +69,7 @@ export default function VentaAccordion({ data }) {
         </Grid>
       </AccordionDetails>
       <AccordionActions>
-        <PrintBtn
-          btnComp={<button>imprimir</button>}
-          cliente={{ nombre: clienteNombre }}
-          venta={venta}
-        />
+        <PrintBtn btnComp={<button>imprimir</button>} venta={venta} />
         <DelBtn id={id} />
         {credito && (
           <Grid item xs={12}>

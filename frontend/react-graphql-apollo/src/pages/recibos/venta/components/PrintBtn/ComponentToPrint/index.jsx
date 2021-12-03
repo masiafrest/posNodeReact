@@ -15,8 +15,7 @@ export const useStyle = makeStyles((theme) => ({
 export default class ComponentToPrint extends React.Component {
   render() {
     const {
-      cliente,
-      venta: { subTotal, tax, total, credito, lineas },
+      venta: { subTotal, tax, total, credito, lineas, cliente },
     } = this.props;
 
     return (
@@ -26,11 +25,7 @@ export default class ComponentToPrint extends React.Component {
           <h2>Documento no fiscal</h2>
           <div className="headerAddress">
             <address>
-              <p>Cliente: {cliente?.nombre}</p>
-              <p>Dirrecion: {cliente?.dirrecion}</p>
-            </address>
-            <address>
-              <p>Telefono: {cliente?.telefono}</p>
+              <p>Cliente: {cliente}</p>
             </address>
             <address>{credito ? "Credito" : "Contado"}</address>
           </div>

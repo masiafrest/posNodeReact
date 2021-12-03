@@ -11,11 +11,12 @@ const newLineaFactory = ({
   id,
   precio: { precio, precioMin },
   descripcion,
+  categorias,
 }) => ({
   id,
   tipo: "venta",
   qty: 1,
-  descripcion: descripcion,
+  descripcion: `${descripcion} | ${categorias.map((e) => e.nombre).join(", ")}`,
   precio,
   precioMin,
 });
