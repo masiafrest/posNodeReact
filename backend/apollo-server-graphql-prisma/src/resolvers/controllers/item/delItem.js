@@ -5,21 +5,38 @@
  * @param {{ prisma: Prisma }} ctx
  */
 async function delItem(parent, { id }, ctx, info) {
-  const item = await ctx.prisma.item.findUnique({
-    where: { id },
-  });
-
+  //soft delete
   try {
-    item.image_url && (await delImg(item.image_url, "items"));
-    return await ctx.prisma.item.delete({
+    return await ctx.prisma.item.update({
       where: {
         id,
+      },
+      data: {
+        deleted: true,
       },
     });
   } catch (e) {
     console.log(e);
     return e;
   }
+
+  //hard delete
+
+  // const item = await ctx.prisma.item.findUnique({
+  //   where: { id },
+  // });
+
+  // try {
+  //   item.image_url && (await delImg(item.image_url, "items"));
+  //   return await ctx.prisma.item.delete({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  // } catch (e) {
+  //   console.log(e);
+  //   return e;
+  // }
 }
 
 module.exports = delItem;

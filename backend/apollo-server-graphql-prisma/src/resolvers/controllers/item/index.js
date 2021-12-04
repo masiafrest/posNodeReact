@@ -11,6 +11,9 @@ const updateItem = require("./updateItem");
 async function items(parent, args, ctx, info) {
   const { filter, skip, take, lte, categoria } = args;
   let where = new Object();
+
+  where.deleted = false;
+
   console.log("lte", lte);
   if (lte !== null && lte >= 0) {
     where.qty = {
