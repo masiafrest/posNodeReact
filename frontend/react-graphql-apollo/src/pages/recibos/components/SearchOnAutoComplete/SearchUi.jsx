@@ -38,6 +38,7 @@ export default function SearchUi({
   const getOptionLabel = (options) => {
     let optionLabel;
     if (queryName === "clientes") {
+      console.log("getoptionlabel ", options);
       const { nombre, telefono, dirrecion } = options;
       optionLabel = `${nombre}`;
       telefono && optionLabel.concat(", ", telefono);
@@ -66,25 +67,29 @@ export default function SearchUi({
   const autoCompleteChange = (event, value, reason) => {
     // this value is a object of the item
     if (reason === "select-option") {
+      console.log("select-option");
       if (queryName === "items") {
+        console.log("items");
         let newLinea = newLineaFactory(value);
         newLinea.enqueueSnackbar = enqueueSnackbar;
         dispatch(pushLinea(newLinea));
         // updateSearch("");
       } else if (queryName === "clientes") {
-        const { id, nombre } = value;
+        console.log("clientes");
+        const { nombre } = value;
         dispatch(
           addCliente({
             reciboTipo: "venta",
-            cliente: { id, nombre },
+            cliente: nombre,
           })
         );
-        enqueueSnackbar(`cliente ${value.nombre} agregado`, {
+        enqueueSnackbar(`cliente ${nombre} agregado`, {
           variant: "success",
         });
       }
     }
     if (reason === "clear") {
+      console.log("clientes");
       if (queryName === "clientes") {
         dispatch(
           addCliente({
@@ -117,6 +122,7 @@ export default function SearchUi({
           // value={search}
           onChange={(e) => {
             const { value } = e.target;
+            console.log("onChage value", value);
             setSearchTermDebounced(value.toUpperCase());
             setSearch(value.toUpperCase());
           }}

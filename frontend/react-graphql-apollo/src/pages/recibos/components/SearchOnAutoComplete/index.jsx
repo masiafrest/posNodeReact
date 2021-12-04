@@ -4,8 +4,6 @@ import debounce from "lodash/debounce";
 
 import SearchUi from "./SearchUi";
 
-import { useSelector, useDispatch } from "react-redux";
-
 export default function SearchOnAutoComplete({
   categoriaFilter = "",
   getQuery,

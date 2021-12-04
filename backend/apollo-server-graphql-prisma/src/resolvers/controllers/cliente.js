@@ -18,18 +18,21 @@ function postCliente(_, { nombre, telefono, email, dirrecion }, ctx) {
  * @param {{ prisma: Prisma }} ctx
  */
 async function clientes(_, args, ctx) {
-  console.log("get clientes");
+  console.log("get clientes", args);
   const { filter, skip, take } = args;
   const where = {
-    AND: filter
-      .trim()
-      .split(" ")
-      .filter((w) => w !== "")
-      .map((e) => ({
-        nombre: {
-          contains: e,
-        },
-      })),
+    // AND: filter
+    //   .trim()
+    //   .split(" ")
+    //   .filter((w) => w !== "")
+    //   .map((e) => ({
+    //     nombre: {
+    //       contains: e,
+    //     },
+    //   })),
+    nombre: {
+      contains: filter,
+    },
   };
 
   const query = await ctx.prisma.cliente.findMany({
