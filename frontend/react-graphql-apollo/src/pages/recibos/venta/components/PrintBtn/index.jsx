@@ -18,7 +18,7 @@ export default function PrintBtn({ btnComp, venta, ...props }) {
           document.title = docTitle;
         }}
         documentTitle={docTitle}
-        removeAfterPrint
+        // removeAfterPrint
       />
       <ComponentToPrint venta={venta} ref={componentRef} />
     </>
