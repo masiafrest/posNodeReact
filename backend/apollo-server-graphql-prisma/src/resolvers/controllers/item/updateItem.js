@@ -67,7 +67,9 @@ async function updateItem(parent, args, ctx, info) {
         barcode,
         qty,
         descripcion,
-        search_text: `${item.descripcion} ${categorias.join(" ")}`,
+        search_text: `${
+          descripcion ? descripcion : item.descripcion
+        } ${categorias.join(" ")}`,
         categorias: updateCategorias,
         precio: {
           update: {
