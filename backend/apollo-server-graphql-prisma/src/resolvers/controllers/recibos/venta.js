@@ -53,11 +53,7 @@ async function postVenta(parent, args, ctx, info) {
         },
       },
       include: {
-        lineas: {
-          include: {
-            item: true,
-          },
-        },
+        lineas: true,
       },
     });
   } catch (e) {
@@ -81,11 +77,7 @@ async function updateVenta(_, args, ctx, __) {
       credito,
     },
     include: {
-      lineas: {
-        include: {
-          item: true,
-        },
-      },
+      lineas: true,
     },
   });
   return venta;
@@ -134,11 +126,7 @@ async function ventas(parent, args, ctx, info) {
   const query = await ctx.prisma.venta.findMany({
     where,
     include: {
-      lineas: {
-        include: {
-          item: true,
-        },
-      },
+      lineas: true,
     },
     skip,
     take,
