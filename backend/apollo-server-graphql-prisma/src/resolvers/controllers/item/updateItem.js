@@ -52,15 +52,10 @@ async function updateItem(parent, args, ctx, info) {
   }
 
   console.log("updating categoria........", categorias);
-  const updCategorias = require("./updateCategorias");
-  //check if the array has the same element no matter the element order
-  if (categorias.length === item.categorias.length) {
-  } else {
-    let updateCategorias = updCategorias(categorias, item.categorias);
-    console.log("done categoriaConnDisconn", updateCategorias);
-  }
   //update categorias disconnect and connect
-  const search_text = descripcion ? `` : null;
+  const updCategorias = require("./updateCategorias");
+  let updateCategorias = updCategorias(categorias, item.categorias);
+  console.log("done categoriaConnDisconn", updateCategorias);
 
   try {
     return await ctx.prisma.item.update({

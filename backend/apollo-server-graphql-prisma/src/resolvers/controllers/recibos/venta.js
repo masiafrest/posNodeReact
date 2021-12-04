@@ -43,7 +43,7 @@ async function postVenta(parent, args, ctx, info) {
     return await ctx.prisma.venta.create({
       data: {
         usuarioNombre: ctx.currentUser.nombre,
-        clienteNombre: cliente.nombre,
+        clienteNombre: cliente,
         credito,
         subTotal,
         tax,

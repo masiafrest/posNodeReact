@@ -96,7 +96,7 @@ type Mutation {
   delUsuario(id: ID): Usuario
 
   postVenta(
-    cliente: ClienteInput
+    cliente: String
     credito: Boolean
     subTotal: Float
     tax: Float
@@ -113,11 +113,6 @@ type File {
   filename: String!
   mimetype: String!
   encoding: String!
-}
-
-input ClienteInput {
-  id: ID!
-  nombre: String
 }
 
 input VentaLineaInput {

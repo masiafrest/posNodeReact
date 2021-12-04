@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const PostVenta = gql`
   mutation PostVenta(
-    $cliente: ClienteInput
+    $cliente: String
     $credito: Boolean
     $subTotal: Float
     $tax: Float
