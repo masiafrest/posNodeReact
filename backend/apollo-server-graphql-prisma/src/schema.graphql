@@ -63,7 +63,12 @@ type Mutation {
     precio: Float
     precioMin: Float
     images: [Upload]
+    marca: String
+    modelos: [String]
+    color: String
+    caracteristicas: [String]
   ): Item
+
   updateItem(
     id: Int!
     barcode: Int
@@ -73,7 +78,12 @@ type Mutation {
     precio: Float
     precioMin: Float
     images: [Upload]
+    marca: String
+    modelos: [String]
+    color: String
+    caracteristicas: [String]
   ): Item
+
   delItem(id: Int!): Item
 
   postCategoria(nombre: String!): Categoria
@@ -182,11 +192,38 @@ type Item {
   deleted: Boolean
   lineaVenta: [VentaLinea]
   images: [File]
+  marca: Marca
+  modelos: [Modelo]
+  color: Color
+  caracteristicas: [Caracteristica]
+}
+type Marca {
+  id: ID!
+  nombre: String
+  createdAt: String
+  items: [Item!]
+}
+type Modelo {
+  id: ID!
+  nombre: String
+  createdAt: String
+  items: [Item!]
+}
+type Color {
+  id: ID!
+  nombre: String
+  createdAt: String
+  items: [Item!]
+}
+type Caracteristica {
+  id: ID!
+  nombre: String
+  createdAt: String
+  items: [Item!]
 }
 
 type Categoria {
   id: ID!
-  itemId: Int
   nombre: String
   createdAt: String
   items: [Item!]

@@ -15,6 +15,10 @@ async function updateItem(parent, args, ctx, info) {
     precioMin,
     categorias,
     images,
+    marca,
+    modelos = [],
+    color,
+    caracteristicas = [],
   } = args;
   console.log("update item args:", args);
   console.log("buscnado item ....");
@@ -53,9 +57,9 @@ async function updateItem(parent, args, ctx, info) {
 
   console.log("updating categoria........", categorias);
   //update categorias disconnect and connect
-  const updCategorias = require("./updateCategorias");
-  let updateCategorias = updCategorias(categorias, item.categorias);
-  console.log("done categoriaConnDisconn", updateCategorias);
+  const updateConnDisc = require("./updateConnDisc");
+  let updateCategorias = updateConnDisc(categorias, item.categorias);
+  console.log("done categoriaConnDisconn", updateCategorias.connectOrCreate);
 
   try {
     return await ctx.prisma.item.update({
@@ -63,13 +67,53 @@ async function updateItem(parent, args, ctx, info) {
         id,
       },
       data: {
+        // marca: {
+        //   connectOrCreate: {
+        //     where: {
+        //       nombre: marca,
+        //     },
+        //     create: {
+        //       nombre: marca,
+        //     },
+        //   },
+        // },
+        // modelos: {
+        //   connectOrCreate: modelos.map((nombre) => ({
+        //     where: {
+        //       nombre,
+        //     },
+        //     create: {
+        //       nombre,
+        //     },
+        //   })),
+        // },
+        // caracteristicas: {
+        //   connectOrCreate: caracteristicas.map((nombre) => ({
+        //     where: {
+        //       nombre,
+        //     },
+        //     create: {
+        //       nombre,
+        //     },
+        //   })),
+        // },
+        // color: {
+        //   connectOrCreate: {
+        //     where: {
+        //       nombre: marca,
+        //     },
+        //     create: {
+        //       nombre: marca,
+        //     },
+        //   },
+        // },
         image_url: imagesPath,
         barcode,
         qty,
-        descripcion,
-        search_text: `${
-          descripcion ? descripcion : item.descripcion
-        } ${categorias.join(" ")}`,
+        // descripcion,
+        search_text: `${marca} ${modelos.join(
+          " "
+        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
         categorias: updateCategorias,
         precio: {
           update: {
@@ -79,13 +123,18 @@ async function updateItem(parent, args, ctx, info) {
         },
       },
       include: {
+        marca: true,
+        modelos: true,
+        caracteristicas: true,
+        color: true,
         categorias: true,
         precio: true,
         ubicacion: true,
       },
     });
   } catch (error) {
-    return errorHandler(error);
+    console.log("error", error);
+    return error;
   }
 }
 

@@ -16,18 +16,63 @@ async function postItem(parent, args, ctx, info) {
     ubicacion,
     qty,
     images,
+    marca,
+    modelos,
+    color,
+    caracteristicas,
   } = args;
+  // console.log("args post item: ", args);
+  // console.log("save item");
 
-  console.log("args post item: ", args);
-
-  console.log("save item");
   try {
     const itemCreated = await ctx.prisma.item.create({
       data: {
+        marca: {
+          connectOrCreate: {
+            where: {
+              nombre: marca,
+            },
+            create: {
+              nombre: marca,
+            },
+          },
+        },
+        modelos: {
+          connectOrCreate: modelos.map((nombre) => ({
+            where: {
+              nombre,
+            },
+            create: {
+              nombre,
+            },
+          })),
+        },
+        caracteristicas: {
+          connectOrCreate: caracteristicas.map((nombre) => ({
+            where: {
+              nombre,
+            },
+            create: {
+              nombre,
+            },
+          })),
+        },
+        color: {
+          connectOrCreate: {
+            where: {
+              nombre: marca,
+            },
+            create: {
+              nombre: marca,
+            },
+          },
+        },
         barcode,
         qty,
-        descripcion,
-        search_text: `${descripcion} ${categorias.join(" ")}`,
+        // descripcion,
+        search_text: `${marca} ${modelos.join(
+          " "
+        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
         ubicacion: {
           connect: ubicacion,
         },
@@ -45,6 +90,10 @@ async function postItem(parent, args, ctx, info) {
         },
       },
       include: {
+        marca: true,
+        modelos: true,
+        caracteristicas: true,
+        color: true,
         categorias: true,
         precio: true,
         ubicacion: true,

@@ -1,6 +1,11 @@
+const { AuthenticationError } = require("apollo-server-express");
+
 const authenticated = (next) => (root, args, context, info) => {
-  if (!context.currentUser) {
-    throw new Error(`Unauthenticated!`);
+  const hasUser = context.currentUser
+    ? Object.keys(context.currentUser).length === 0
+    : null;
+  if (hasUser) {
+    throw new AuthenticationError(`you must be logged in!`);
   }
 
   return next(root, args, context, info);

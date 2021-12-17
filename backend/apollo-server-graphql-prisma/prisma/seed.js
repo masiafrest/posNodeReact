@@ -73,6 +73,82 @@ const env = process.env.NODE_ENV;
 //   env === "dev" && (await prisma.item.create(item));
 // }
 
+const getItems = async (contains) => {
+  return await prisma.item.findMany({
+    where: {
+      AND: [
+        {
+          // id: 227,
+          descripcion: {
+            contains,
+          },
+        },
+        {
+          descripcion: {
+            contains,
+          },
+        },
+      ],
+    },
+    // include: {
+    //   caracteristicas: true,
+    // },
+  });
+};
+
+const getItem = async (contains) => {
+  return await prisma.item.findMany({
+    where: {
+      descripcion: {
+        contains,
+      },
+    },
+    include: {
+      caracteristicas: true,
+    },
+  });
+};
+
+const execAllPromiseDisconnect = async (items, contains, table) => {
+  Promise.all(
+    items.map(async (item) => {
+      await prisma.item.update({
+        where: { id: item.id },
+        data: {
+          modelos: {
+            disconnect: {
+              nombre: contains.trim(),
+            },
+          },
+        },
+      });
+    })
+  );
+};
+const execAllPromiseConnect = async (items, contains, table) => {
+  const data = {};
+  data[table] = {
+    connectOrCreate: {
+      create: {
+        nombre: contains.trim(),
+      },
+      where: {
+        nombre: contains.trim(),
+      },
+    },
+  };
+  return Promise.all(
+    items.map(async (item) => {
+      // console.log("updating item id: ", item.id);
+      await prisma.item.update({
+        where: { id: item.id },
+        data,
+      });
+    })
+  ).then(() => {
+    console.log("...........finish........................");
+  });
+};
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @param {any} parent
@@ -80,56 +156,20 @@ const env = process.env.NODE_ENV;
  * @param {{ prisma: Prisma }} prisma
  */
 async function main() {
-  const items = await prisma.item.findMany({
-    include: {
-      categorias: true,
-    },
-  });
-
-  return Promise.all(
-    items.map(async (item) => {
-      const categorias = item.categorias.map((e) => e.nombre).join(" ");
-      const search_text = `${item.descripcion} ${categorias}`;
-
-      await prisma.item.update({
-        where: { id: item.id },
-        data: {
-          search_text,
-        },
-      });
+  const containArr = ["note 9s"];
+  await Promise.all(
+    containArr.map(async (contain) => {
+      const contains = contain.toUpperCase();
+      console.log(contains);
+      // const items = await getItems(contains);
+      // console.log(items);
+      console.log("-----------------------------");
+      const item = await getItem(contains);
+      console.log(item);
+      await execAllPromiseConnect(item, contains, "modelos");
+      // await execAllPromiseDisconnect(item, contains);
     })
-  ).then(() => {
-    console.log("...........finish........................", items);
-  });
-  for (item of items) {
-    const categorias = item.categorias.map((e) => e.nombre).join(" ");
-
-    await prisma.item.update({
-      where: { id: item.id },
-      data: {
-        search_text: categorias,
-      },
-    });
-  }
-
-  console.log("...........finish........................", items);
-
-  // await prisma.item.update({
-  //   where: { id: 1011 },
-  //   data: { search_text: categorias },
-  // });
-
-  // await prisma.item.update({
-  //   where: {
-  //     id: 1011
-  //   },
-  //   data:{
-  //     search_text: items.categorias.reduce((pV, cV) => {
-  //       const {nombre} = cV;
-  //       return `${nombre} ${pV}`
-  //     })
-  //   }
-  // })
+  );
 }
 
 main()

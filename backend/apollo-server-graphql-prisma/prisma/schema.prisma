@@ -31,38 +31,56 @@ model Item {
   deleted     Boolean      @default(false)
   search_text String  @default("")
   // fts Unsupported("tsvector")
-  // marca Marca @relation(fields: [marcaId], references:[id])
-  // marcaId Int
-  // modelos Modelo[]
+   marca Marca? @relation(fields: [marcaId], references:[id])
+   marcaId Int?
+   color Color? @relation(fields: [colorId], references:[id])
+   colorId Int?
+   modelos Modelo[]
+   caracteristicas Caracteristica[]
 
   lineaVenta  VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
 }
-// model Marca {
-//   id        Int      @id @default(autoincrement())
-//   nombre    String   @unique
-//   item      Item[]
-//   createdAt DateTime @default(now())
-// }
-// model Modelo {
-//   id        Int      @id @default(autoincrement())
-//   nombre    String   @unique
-//   item      Item[]
-//   createdAt DateTime @default(now())
-// }
+
+ model Caracteristica{
+   id        Int      @id @default(autoincrement())
+   nombre    String   @unique
+   items      Item[]
+   createdAt DateTime @default(now())
+ }
+ model Marca {
+   id        Int      @id @default(autoincrement())
+   nombre    String   @unique
+   items      Item[]
+   createdAt DateTime @default(now())
+ }
+ model Modelo {
+   id        Int      @id @default(autoincrement())
+   nombre    String   @unique
+   items      Item[]
+   createdAt DateTime @default(now())
+ }
+
+model Color {
+  id        Int      @id @default(autoincrement())
+  nombre String @unique 
+   items      Item[]
+   createdAt DateTime @default(now())
+
+}
 
 model Categoria {
   id        Int      @id @default(autoincrement())
   nombre    String   @unique
-  item      Item[]
+  items      Item[]
   createdAt DateTime @default(now())
 }
 
 model Precio {
   id        Int      @id @default(autoincrement())
   precio    Decimal  @db.Decimal(5, 2)
-  precioMin Decimal  @db.Decimal(5, 2)
+  precioMin Decimal?  @db.Decimal(5, 2)
   // item Item?
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    Int
