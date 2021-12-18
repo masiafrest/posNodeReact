@@ -22,7 +22,7 @@ const resolvers = {
 
 async function startServer() {
   const server = new ApolloServer({
-    // introspection: true,
+    introspection: true,
     typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf-8"),
     resolvers,
     context: ({ req }) => {

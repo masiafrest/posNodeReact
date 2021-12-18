@@ -77,36 +77,36 @@ async function updateItem(parent, args, ctx, info) {
         //     },
         //   },
         // },
-        // modelos: {
-        //   connectOrCreate: modelos.map((nombre) => ({
-        //     where: {
-        //       nombre,
-        //     },
-        //     create: {
-        //       nombre,
-        //     },
-        //   })),
-        // },
-        // caracteristicas: {
-        //   connectOrCreate: caracteristicas.map((nombre) => ({
-        //     where: {
-        //       nombre,
-        //     },
-        //     create: {
-        //       nombre,
-        //     },
-        //   })),
-        // },
-        // color: {
-        //   connectOrCreate: {
-        //     where: {
-        //       nombre: marca,
-        //     },
-        //     create: {
-        //       nombre: marca,
-        //     },
-        //   },
-        // },
+        color: {
+          connectOrCreate: {
+            where: {
+              nombre: marca,
+            },
+            create: {
+              nombre: marca,
+            },
+          },
+        },
+        modelos: {
+          connectOrCreate: modelos.map((nombre) => ({
+            where: {
+              nombre,
+            },
+            create: {
+              nombre,
+            },
+          })),
+        },
+        caracteristicas: {
+          connectOrCreate: caracteristicas.map((nombre) => ({
+            where: {
+              nombre,
+            },
+            create: {
+              nombre,
+            },
+          })),
+        },
         image_url: imagesPath,
         barcode,
         qty,
