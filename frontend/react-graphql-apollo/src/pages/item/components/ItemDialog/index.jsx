@@ -137,47 +137,65 @@ export default function ItemEditDialogIcon({ item = null }) {
             </Grid>
             {[
               {
+                name: "marca",
+                type: "text",
+                xs:6, 
+                helperText: item?.marca.nombre,
+                placeholder: item?.marca.nombre
+              },
+              {
+                name: "color",
+                type: "text",
+                xs: 6,
+                helperText: item?.color.nombre,
+                placeholder: item?.color.nombre
+              },
+              {
                 name: "descripcion",
                 type: "text",
                 xs: 12,
+                helperText: item?.descripcion,
+                placeholder: item?.descripcion
               },
               {
                 name: "barcode",
                 type: "number",
                 xs: 6,
                 sm: 6,
+                helperText: item?.barcode,
+                placeholder: item?.barcode
               },
               {
                 name: "qty",
                 type: "number",
                 xs: 4,
+                helperText: item?.qty,
+                placeholder: item?.qty
               },
               {
                 name: "precio",
                 type: "number",
                 xs: 4,
+                helperText: item?.precio.precio,
+                placeholder: item?.precio.precio
               },
               {
                 name: "precioMin",
                 label: "precio min",
                 type: "number",
                 xs: 4,
+                helperText: item?.precio.precioMin,
+                placeholder: item?.precio.precioMin
               },
-            ].map(({ name, label, type, xs, sm }) => {
+            ].map(({ name, label, type, xs, sm, helperText, placeholder }) => {
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
                     helperText={
-                      item &&
-                      (name === "precio" || name === "precioMin"
-                        ? item.precio[name]
-                        : item[name])
+                      helperText
                     }
                     placeholder={
-                      item &&
-                      (name === "precio" || name === "precioMin"
-                        ? item.precio[name]
-                        : item[name])
+                      placeholder
                     }
                     value={newItem[name]}
                     key={name}
@@ -196,6 +214,11 @@ export default function ItemEditDialogIcon({ item = null }) {
               );
             })}
             <Grid item xs={12}>
+              <MultipleSelect
+                type="categorias"
+                array={newItem.categorias}
+                setNewItem={setNewItem}
+              />
               <MultipleSelect
                 type="categorias"
                 array={newItem.categorias}

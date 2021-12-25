@@ -28,6 +28,7 @@ export default function ItemAccordion({ data }) {
     precio: { precio, precioMin },
     ubicacion,
     image_url,
+    marca, color
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
   const categoriasChip = data.categorias.map((cat) => (
@@ -42,7 +43,7 @@ export default function ItemAccordion({ data }) {
         id="panel1a-header"
       >
         <Typography>
-          {descripcion} {categoriasChip}
+          {descripcion} {marca.nombre} {color.nombre} {categoriasChip}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />

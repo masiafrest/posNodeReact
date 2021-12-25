@@ -21,7 +21,7 @@ async function postItem(parent, args, ctx, info) {
     color,
     caracteristicas,
   } = args;
-  // console.log("args post item: ", args);
+   console.log("args post item: ",args);
   // console.log("save item");
 
   try {

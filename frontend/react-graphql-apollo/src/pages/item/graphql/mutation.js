@@ -11,6 +11,10 @@ export const POST_ITEM = gql`
     $ubicacion: IdInput
     $categorias: [String]
     $images: [Upload]
+    $marca: String
+    $modelos: [String]
+    $color: String
+    $caracteristicas: [String]
   ) {
     postItem(
       barcode: $barcode
@@ -21,6 +25,10 @@ export const POST_ITEM = gql`
       categorias: $categorias
       ubicacion: $ubicacion
       images: $images
+      marca: $marca
+      modelos: $modelos
+      color: $color
+      caracteristicas: $caracteristicas
     ) {
       ...itemData
     }
@@ -38,6 +46,10 @@ export const UPDATE_ITEM = gql`
     $precioMin: Float
     $categorias: [String]
     $images: [Upload]
+    $marca: String
+    $modelos: [String]
+    $color: String
+    $caracteristicas: [String]
   ) {
     updateItem(
       id: $id
@@ -48,6 +60,10 @@ export const UPDATE_ITEM = gql`
       precioMin: $precioMin
       categorias: $categorias
       images: $images
+      marca: $marca
+      modelos: $modelos
+      color: $color
+      caracteristicas: $caracteristicas
     ) {
       ...itemData
     }

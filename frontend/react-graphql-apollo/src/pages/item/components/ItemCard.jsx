@@ -13,9 +13,10 @@ export default function ItemCard({ data }) {
     precio: { precio },
     ubicacion,
     image_url,
+    marca, 
+    color
   } = data;
   const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
-
   return (
     <Card
     // style={{
@@ -25,7 +26,7 @@ export default function ItemCard({ data }) {
       <ImgStepper image_url={image_url} />
       <CardContent>
         <Typography variant="h5" component="h2">
-          {`${descripcion}`}
+          {`${descripcion} ${marca} ${color}`}
         </Typography>
         <Typography>
           qty: {qty}, precio:{precio}, ubicacion:

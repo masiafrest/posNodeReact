@@ -6,36 +6,41 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 
+let GET_QUERY
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 500,
-    "& > * + *": {
-      marginTop: theme.spacing(3),
+    root: {
+        width: 500,
+        "& > * + *": {
+            marginTop: theme.spacing(3),
+        },
     },
-  },
 }));
 
 export default function MultipleSelect({
-  array = [],
-  setNewItem,
-  type = "categorias",
+    array = [],
+    setNewItem,
+    type = "categorias",
 }) {
-  const { data, loading } = useQuery(GET_CATEGORIAS, {
-    variables: { filter: "", skip: 0 },
-  });
+    if (type === 'categorias'){
+        GET_QUERY = GET_CATEGORIAS
+    }
+    const { data, loading } = useQuery(GET_QUERY, {
+        variables: { filter: "", skip: 0 },
+    });
 
-  const handleChange = (_, newValue) => {
-    setNewItem((item) => ({
-      ...item,
-      [type]: newValue.map((e) => e.toUpperCase()),
-    }));
-  };
+    const handleChange = (_, newValue) => {
+        setNewItem((item) => ({
+            ...item,
+            [type]: newValue.map((e) => e.toUpperCase()),
+        }));
+    };
 
-  if (loading) return "loading";
+    if (loading) return "loading";
 
-  return (
-    <div>
-      <Autocomplete
+    return (
+        <div>
+        <Autocomplete
         multiple
         name="categorias"
         id="tags-standard"
@@ -45,9 +50,9 @@ export default function MultipleSelect({
         freeSolo
         onChange={handleChange}
         renderInput={(params) => {
-          return <TextField {...params} variant="standard" label={type} />;
+            return <TextField {...params} variant="standard" label={type} />;
         }}
-      />
-    </div>
-  );
+        />
+        </div>
+    );
 }

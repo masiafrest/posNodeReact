@@ -20,6 +20,22 @@ export const ITEM_DATA = gql`
       tipo
       dirrecion
     }
+    color {
+      id
+      nombre
+    }
+    marca {
+      nombre
+      id
+    }
+    modelos {
+      id
+      nombre
+    }
+    caracteristicas {
+      id
+      nombre
+    }
   }
 `;
 
