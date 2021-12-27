@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
+import {GET_MODELOS} from '../../graphql/query'
 
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -17,22 +18,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MultipleSelect({
-    array = [],
+export default function SelectInput({
+    defaultValue = [],
     setNewItem,
     type = "categorias",
+    multiple = false
 }) {
     if (type === 'categorias'){
         GET_QUERY = GET_CATEGORIAS
     }
+    if (type === 'modelos'){
+        GET_QUERY = GET_MODELOS
+    }
     const { data, loading } = useQuery(GET_QUERY, {
         variables: { filter: "", skip: 0 },
     });
-
+    console.log('useQuery:', type, data);
     const handleChange = (_, newValue) => {
+        console.log('selectinput handle change newValue:', newValue)
         setNewItem((item) => ({
             ...item,
-            [type]: newValue.map((e) => e.toUpperCase()),
+            [type]: multiple ? newValue.map((e) => e.toUpperCase()) : newValue.toUpperCase(),
         }));
     };
 
@@ -41,12 +47,14 @@ export default function MultipleSelect({
     return (
         <div>
         <Autocomplete
-        multiple
-        name="categorias"
-        id="tags-standard"
-        options={data?.categorias.query.map((e) => e.nombre)}
-        getOptionLabel={(option) => option}
-        defaultValue={array}
+        multiple = {multiple}
+        name={type}
+        id={`${type}-autocomplete`}
+        options={data[type]?.query.map((e) => e.nombre)}
+        getOptionLabel={(option) => {
+            console.log('getoptionlabel:', type, option)
+            return option}}
+        defaultValue={defaultValue}
         freeSolo
         onChange={handleChange}
         renderInput={(params) => {

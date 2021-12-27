@@ -21,7 +21,7 @@ async function items(parent, args, ctx, info) {
     };
   }
 
-  const trimWord = filter.trim();
+  const trimWord = filter?.trim();
   const splitWord = trimWord.split(" ");
   const noSpaceInWords = splitWord.filter((word) => word !== "");
 
@@ -57,8 +57,8 @@ async function items(parent, args, ctx, info) {
       caracteristicas: true,
       color: true,
     },
-    skip,
-    take,
+    skip: skip || 0,
+    take: take || undefined,
   });
   console.log(
     "query:",

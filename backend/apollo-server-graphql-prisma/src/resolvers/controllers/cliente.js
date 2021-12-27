@@ -37,8 +37,8 @@ async function clientes(_, args, ctx) {
 
   const query = await ctx.prisma.cliente.findMany({
     where,
-    skip,
-    take,
+    skip: skip || 0,
+    take: take || undefined,
   });
   const count = await ctx.prisma.cliente.count({
     where,

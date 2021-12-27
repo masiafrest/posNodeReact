@@ -4,7 +4,7 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postCategoria(parent, { nombre }, ctx, info) {
+function postModelo(parent, { nombre }, ctx, info) {
   return ctx.prisma.categoria.create({
     data: {
       nombre,
@@ -18,13 +18,13 @@ function postCategoria(parent, { nombre }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-async function categorias(parent, args, ctx, info) {
+async function modelos(parent, args, ctx, info) {
   const { filter, skip, take } = args;
-  console.log("filter: ", filter);
+  console.log("args: ", args);
 
   const where = {
     AND: filter
-      .trim()
+      ?.trim()
       .split(" ")
       .filter((w) => w !== "")
       .map((e) => ({
@@ -34,13 +34,13 @@ async function categorias(parent, args, ctx, info) {
       })),
   };
 
-  const query = await ctx.prisma.categoria.findMany({
+  const query = await ctx.prisma.modelo.findMany({
     where,
     skip: skip || 0,
     take: take || undefined,
   });
 
-  const count = await ctx.prisma.categoria.count({
+  const count = await ctx.prisma.modelo.count({
     where,
   });
 
@@ -56,8 +56,8 @@ async function categorias(parent, args, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function updateCategoria(parent, { id, nombre }, ctx, info) {
-  return ctx.prisma.categoria.update({
+function updateModelo(parent, { id, nombre }, ctx, info) {
+  return ctx.prisma.modelo.update({
     where: { id },
     data: {
       nombre,
@@ -71,13 +71,13 @@ function updateCategoria(parent, { id, nombre }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function delCategoria(parent, { id }, ctx, info) {
-  return ctx.prisma.categoria.delete({ where: { id } });
+function delModelo(parent, { id }, ctx, info) {
+  return ctx.prisma.modelo.delete({ where: { id } });
 }
 
 module.exports = {
-  categorias,
-  postCategoria,
-  updateCategoria,
-  delCategoria,
+  modelos,
+  postModelo,
+  updateModelo,
+  delModelo,
 };

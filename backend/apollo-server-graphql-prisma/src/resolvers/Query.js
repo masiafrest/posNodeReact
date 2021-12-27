@@ -5,6 +5,7 @@ const { items, item } = require("./controllers/item");
 const { ventas } = require("./controllers/recibos/venta");
 const { devoluciones } = require("./controllers/recibos/devolucion");
 const { usuarios } = require("./controllers/usuario");
+const { modelos } = require("./controllers/modelo");
 
 const { authenticated } = require("./authUtil");
 
@@ -17,6 +18,7 @@ const queries = {
   ventas,
   devoluciones,
   usuarios,
+  modelos,
 };
 
 let authQueries = {};

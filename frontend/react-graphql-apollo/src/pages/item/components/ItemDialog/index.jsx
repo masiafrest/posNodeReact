@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
-import MultipleSelect from "./MultipleSelect";
+import SelectInput from "./SelectInput";
 import { useSnackbar } from "notistack";
 
 import {
@@ -26,6 +26,8 @@ export default function ItemEditDialogIcon({ item = null }) {
   const initialItemState = {
     ubicacion: { id: 1 },
     categorias: [],
+    caracteristicas: [],
+    modelos: [],
   };
   item &&
     initialItemState.categorias.push(...item.categorias.map((e) => e.nombre));
@@ -199,7 +201,7 @@ export default function ItemEditDialogIcon({ item = null }) {
                     }
                     value={newItem[name]}
                     key={name}
-                    autoFocus={name === "descripcion"}
+                    autoFocus={name === "marca"}
                     margin="dense"
                     name={name}
                     id={name}
@@ -214,14 +216,16 @@ export default function ItemEditDialogIcon({ item = null }) {
               );
             })}
             <Grid item xs={12}>
-              <MultipleSelect
+              <SelectInput
                 type="categorias"
-                array={newItem.categorias}
+                multiple= {true}
+                defaultValue ={newItem.categorias}
                 setNewItem={setNewItem}
               />
-              <MultipleSelect
-                type="categorias"
-                array={newItem.categorias}
+              <SelectInput
+                type="modelos"
+                multiple= {true}
+                defaultValue ={newItem.modelos}
                 setNewItem={setNewItem}
               />
             </Grid>

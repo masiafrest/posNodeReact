@@ -62,3 +62,22 @@ export const GET_ITEMS = gql`
   }
   ${ITEM_DATA}
 `;
+
+export const MODELOS_DATA = gql`
+  fragment modeloData on Modelo {
+    id
+    nombre
+  }
+`;
+
+export const GET_MODELOS = gql`
+  query Modelos($filter: String, $take: Int, $skip: Int) {
+    modelos(filter: $filter, take: $take, skip: $skip) {
+      query {
+        ...modeloData
+      }
+      count
+    }
+  }
+  ${MODELOS_DATA}
+`;

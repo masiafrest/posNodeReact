@@ -10,11 +10,15 @@ type Query {
   ): ItemQuery
   item(id: Int!): Item
   categorias(filter: String, skip: Int, take: Int): CategoriasQuery
-  ubicaciones(filter: String, skip: Int, take: Int): UbicacionQuery
-  clientes(filter: String, skip: Int, take: Int): ClienteQuery
+  ubicaciones(filter: String, skip: Int, take: Int): UbicacionesQuery
+  clientes(filter: String, skip: Int, take: Int): ClientesQuery
   ventas(filter: String, skip: Int, take: Int, isCredito: Boolean): VentasQuery
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
   usuarios(filter: String, skip: Int, take: Int): UsuarioQuery
+  modelos(filter: String, skip: Int, take: Int): ModelosQuery
+  marca(filter: String, skip: Int, take: Int): MarcaQuery
+  caracteristicas(filter: String, skip: Int, take: Int): CaracteristicasQuery
+  Color(filter: String, skip: Int, take: Int): ColorQuery
 }
 
 type ItemQuery {
@@ -35,12 +39,32 @@ type CategoriasQuery {
   count: Int
 }
 
-type ClienteQuery {
+type ModelosQuery {
+  query: [Modelo]
+  count: Int
+}
+
+type MarcaQuery {
+  query: [Marca]
+  count: Int
+}
+
+type CaracteristicasQuery {
+  query: [Caracteristica]
+  count: Int
+}
+
+type ColorQuery {
+  query: [Color]
+  count: Int
+}
+
+type ClientesQuery {
   query: [Cliente]
   count: Int
 }
 
-type UbicacionQuery {
+type UbicacionesQuery {
   query: [Ubicacion]
   count: Int
 }
@@ -117,6 +141,22 @@ type Mutation {
   delVenta(id: ID): Venta
 
   postDevolucion(clienteId: ID, lineas: [DevolucionLineaInput]): Devolucion
+
+  postModelo(nombre: String!): Modelo
+  updateModelo(id: Int, nombre: String): Modelo
+  delModelo(id: Int): Modelo
+
+  postCaracteristica(nombre: String!): Caracteristica
+  updateCaracteristica(id: Int, nombre: String): Caracteristica
+  delCaracteristica(id: Int): Caracteristica
+
+  postMarca(nombre: String!): Marca
+  updateMarca(id: Int, nombre: String): Marca
+  delMarca(id: Int): Marca
+
+  postColor(nombre: String!): Color
+  updateColor(id: Int, nombre: String): Color
+  delColor(id: Int): Color
 }
 
 type File {

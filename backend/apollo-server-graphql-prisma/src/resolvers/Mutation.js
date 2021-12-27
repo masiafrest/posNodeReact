@@ -22,6 +22,7 @@ const {
   updateUsuario,
   delUsuario,
 } = require("./controllers/usuario");
+const { postModelo, delModelo, updateModelo } = require("./controllers/modelo");
 
 const { authenticated } = require("./authUtil");
 
@@ -44,29 +45,13 @@ const mutations = {
   login,
   updateUsuario,
   delUsuario,
+  postModelo,
+  delModelo,
+  updateModelo,
 };
 
 let authMutations = { ...mutations };
-
-const authArr = [
-  "postItem",
-  "updateItem",
-  "delItem",
-  "postCategoria",
-  "updateCategoria",
-  "delCategoria",
-  "postUbicacion",
-  "postCliente",
-  "updateCliente",
-  "delCliente",
-  "postVenta",
-  "postDevolucion",
-  "postUsuario",
-  "updateUsuario",
-  "delUsuario",
-];
-
-for (e of authArr) {
+for (e of Object.keys(mutations)) {
   authMutations[e] = authenticated(mutations[e]);
 }
 

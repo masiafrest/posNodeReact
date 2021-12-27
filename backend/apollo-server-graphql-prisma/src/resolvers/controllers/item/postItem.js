@@ -21,7 +21,7 @@ async function postItem(parent, args, ctx, info) {
     color,
     caracteristicas,
   } = args;
-   console.log("args post item: ",args);
+  console.log("args post item: ", args);
   // console.log("save item");
 
   try {
@@ -38,7 +38,7 @@ async function postItem(parent, args, ctx, info) {
           },
         },
         modelos: {
-          connectOrCreate: modelos.map((nombre) => ({
+          connectOrCreate: modelos?.map((nombre) => ({
             where: {
               nombre,
             },
@@ -48,7 +48,7 @@ async function postItem(parent, args, ctx, info) {
           })),
         },
         caracteristicas: {
-          connectOrCreate: caracteristicas.map((nombre) => ({
+          connectOrCreate: caracteristicas?.map((nombre) => ({
             where: {
               nombre,
             },
@@ -69,15 +69,17 @@ async function postItem(parent, args, ctx, info) {
         },
         barcode,
         qty,
-        // descripcion,
-        search_text: `${marca} ${modelos.join(
+        descripcion: `${marca} ${modelos?.join(
           " "
-        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
+        )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`,
+        search_text: `${marca} ${modelos?.join(
+          " "
+        )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`,
         ubicacion: {
           connect: ubicacion,
         },
         categorias: {
-          connectOrCreate: categorias.map((nombre) => ({
+          connectOrCreate: categorias?.map((nombre) => ({
             where: { nombre },
             create: { nombre },
           })),

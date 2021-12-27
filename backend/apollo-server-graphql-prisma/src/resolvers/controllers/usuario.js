@@ -60,8 +60,8 @@ async function usuarios(parent, args, ctx, info) {
 
   const query = await ctx.prisma.usuario.findMany({
     where,
-    skip,
-    take,
+    skip: skip || 0,
+    take: take || undefined,
   });
   const count = await ctx.prisma.usuario.count({
     where,
