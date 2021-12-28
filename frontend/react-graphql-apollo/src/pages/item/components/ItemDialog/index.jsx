@@ -28,13 +28,21 @@ export default function ItemEditDialogIcon({ item = null }) {
     categorias: [],
     caracteristicas: [],
     modelos: [],
+    marca: "",
+    color: "",
   };
-  item &&
+  if (item) {
     initialItemState.categorias.push(...item.categorias.map((e) => e.nombre));
+    initialItemState.caracteristicas.push(
+      ...item.caracteristicas.map((e) => e.nombre)
+    );
+    initialItemState.modelos.push(...item.modelos.map((e) => e.nombre));
+    initialItemState.marca = item.marca;
+    initialItemState.color = item.color;
+  }
 
   const [open, setOpen] = useState(false);
   const [newItem, setNewItem] = useState(initialItemState);
-
   const onCompleted = (data) => {
     const mutation = item ? "updateItem" : "postItem";
     const { descripcion } = data[mutation];
@@ -140,14 +148,14 @@ export default function ItemEditDialogIcon({ item = null }) {
             {[
               //{
               //  name: "marca",
-               // type: "text",
-                //xs:6, 
-                //helperText: item?.marca.nombre,
-                //placeholder: item?.marca.nombre
+              // type: "text",
+              //xs:6,
+              //helperText: item?.marca.nombre,
+              //placeholder: item?.marca.nombre
               //},
               //{
-               // name: "color",
-                //type: "text",
+              // name: "color",
+              //type: "text",
               //  xs: 6,
               //  helperText: item?.color.nombre,
               //  placeholder: item?.color.nombre
@@ -165,21 +173,21 @@ export default function ItemEditDialogIcon({ item = null }) {
                 xs: 6,
                 sm: 6,
                 helperText: item?.barcode,
-                placeholder: item?.barcode
+                placeholder: item?.barcode,
               },
               {
                 name: "qty",
                 type: "number",
                 xs: 4,
                 helperText: item?.qty,
-                placeholder: item?.qty
+                placeholder: item?.qty,
               },
               {
                 name: "precio",
                 type: "number",
                 xs: 4,
                 helperText: item?.precio.precio,
-                placeholder: item?.precio.precio
+                placeholder: item?.precio.precio,
               },
               {
                 name: "precioMin",
@@ -187,18 +195,14 @@ export default function ItemEditDialogIcon({ item = null }) {
                 type: "number",
                 xs: 4,
                 helperText: item?.precio.precioMin,
-                placeholder: item?.precio.precioMin
+                placeholder: item?.precio.precioMin,
               },
             ].map(({ name, label, type, xs, sm, helperText, placeholder }) => {
               return (
                 <Grid item xs={xs} sm={sm} key={"grid-" + name}>
                   <TextField
-                    helperText={
-                      helperText
-                    }
-                    placeholder={
-                      placeholder
-                    }
+                    helperText={helperText}
+                    placeholder={placeholder}
                     value={newItem[name]}
                     key={name}
                     autoFocus={name === "marca"}
@@ -218,32 +222,32 @@ export default function ItemEditDialogIcon({ item = null }) {
             <Grid item xs={12}>
               <SelectInput
                 type="modelos"
-                multiple= {true}
-                defaultValue ={newItem.modelos}
+                multiple={true}
+                defaultValue={newItem.modelos}
                 setNewItem={setNewItem}
               />
               <SelectInput
                 type="categorias"
-                multiple= {true}
-                defaultValue ={newItem.categorias}
+                multiple={true}
+                defaultValue={newItem.categorias}
                 setNewItem={setNewItem}
               />
               <SelectInput
                 type="caracteristicas"
-                multiple= {true}
-                defaultValue ={newItem.caracteristicas}
+                multiple={true}
+                defaultValue={newItem.caracteristicas}
                 setNewItem={setNewItem}
               />
             </Grid>
             <Grid item xs={12}>
               <SelectInput
                 type="marcas"
-                defaultValue ={newItem.marca}
+                defaultValue={newItem.marca}
                 setNewItem={setNewItem}
               />
               <SelectInput
                 type="colors"
-                defaultValue ={newItem.color}
+                defaultValue={newItem.color}
                 setNewItem={setNewItem}
               />
             </Grid>

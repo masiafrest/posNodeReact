@@ -45,7 +45,8 @@ export default function SelectInput({
   const { data, loading } = useQuery(GET_QUERY, {
     variables: { filter: "", skip: 0 },
   });
-  console.log("useQuery:", type, data);
+
+  console.log("default value:", defaultValue);
   const handleChange = (_, newValue) => {
     console.log("selectinput handle change newValue:", newValue);
     const key = multiple ? type : type.slice(0, -1);
@@ -56,7 +57,7 @@ export default function SelectInput({
       : undefined;
     setNewItem((item) => ({
       ...item,
-      key: value,
+      [key]: value,
     }));
   };
 
@@ -70,15 +71,11 @@ export default function SelectInput({
         id={`${type}-autocomplete`}
         options={data[type]?.query.map((e) => e.nombre)}
         getOptionLabel={(option) => {
-          console.log("getoptionlabel:", type, option);
           return option;
         }}
-        defaultValue={defaultValue}
+        defaultValue={multiple ? defaultValue : defaultValue.nombre}
         freeSolo
         onChange={handleChange}
-        onInputChange={(_, value)=>{
-            value.toUpperCase()
-        }}
         renderInput={(params) => {
           return <TextField {...params} variant="standard" label={type} />;
         }}
