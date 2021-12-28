@@ -60,10 +60,10 @@ async function postItem(parent, args, ctx, info) {
         color: {
           connectOrCreate: {
             where: {
-              nombre: marca,
+              nombre: color,
             },
             create: {
-              nombre: marca,
+              nombre: color,
             },
           },
         },

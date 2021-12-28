@@ -138,20 +138,20 @@ export default function ItemEditDialogIcon({ item = null }) {
               />
             </Grid>
             {[
-              {
-                name: "marca",
-                type: "text",
-                xs:6, 
-                helperText: item?.marca.nombre,
-                placeholder: item?.marca.nombre
-              },
-              {
-                name: "color",
-                type: "text",
-                xs: 6,
-                helperText: item?.color.nombre,
-                placeholder: item?.color.nombre
-              },
+              //{
+              //  name: "marca",
+               // type: "text",
+                //xs:6, 
+                //helperText: item?.marca.nombre,
+                //placeholder: item?.marca.nombre
+              //},
+              //{
+               // name: "color",
+                //type: "text",
+              //  xs: 6,
+              //  helperText: item?.color.nombre,
+              //  placeholder: item?.color.nombre
+              //},
               {
                 name: "descripcion",
                 type: "text",
@@ -216,6 +216,17 @@ export default function ItemEditDialogIcon({ item = null }) {
               );
             })}
             <Grid item xs={12}>
+              {/* <SelectInput
+                type="marca"
+                defaultValue ={newItem.marca}
+                setNewItem={setNewItem}
+              /> */}
+              <SelectInput
+                type="modelos"
+                multiple= {true}
+                defaultValue ={newItem.modelos}
+                setNewItem={setNewItem}
+              />
               <SelectInput
                 type="categorias"
                 multiple= {true}
@@ -223,9 +234,9 @@ export default function ItemEditDialogIcon({ item = null }) {
                 setNewItem={setNewItem}
               />
               <SelectInput
-                type="modelos"
+                type="caracteristicas"
                 multiple= {true}
-                defaultValue ={newItem.modelos}
+                defaultValue ={newItem.caracteristicas}
                 setNewItem={setNewItem}
               />
             </Grid>

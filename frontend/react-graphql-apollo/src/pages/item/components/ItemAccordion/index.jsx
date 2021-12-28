@@ -30,34 +30,39 @@ export default function ItemAccordion({ data }) {
     image_url,
     marca, color
   } = data;
-  const categorias = data.categorias.map((cat) => cat.nombre).join(", ");
-  const categoriasChip = data.categorias.map((cat) => (
-    <Chip label={cat.nombre} />
-  ));
+console.log(data)
+    const joinEl = array => array.map(e => e.nombre).join(', ');
+    const categorias = joinEl(data.categorias);
+    const modelos = joinEl(data.modelos);
+    const caracteristicas = joinEl(data.caracteristicas);
 
-  return (
-    <Accordion elevation={14}>
-      <AccordionSummary
+    const categoriasChip = data.categorias.map((cat) => (
+        <Chip label={cat.nombre} />
+    ));
+
+    return (
+        <Accordion elevation={14}>
+        <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-      >
+        >
         <Typography>
-          {descripcion} {marca.nombre} {color.nombre} {categoriasChip}
+        {descripcion} {marca?.nombre} {modelos} {color?.nombre} {caracteristicas} {categoriasChip}
         </Typography>
-      </AccordionSummary>
-      <Divider variant="middle" />
-      <AccordionDetails>
+        </AccordionSummary>
+        <Divider variant="middle" />
+        <AccordionDetails>
         <Table
-          headers={["qty", "precio", "precio min"]}
-          bodies={[qty, precio, precioMin]}
+        headers={["qty", "precio", "precio min"]}
+        bodies={[qty, precio, precioMin]}
         />
-      </AccordionDetails>
-      <AccordionActions>
+        </AccordionDetails>
+        <AccordionActions>
         <EditDialogIcon item={data} />
         <AddBtn item={data} reciboTipo="venta" />
         <DelBtn id={id} paths={image_url ? image_url : ""} />
-      </AccordionActions>
-    </Accordion>
-  );
+        </AccordionActions>
+        </Accordion>
+    );
 }

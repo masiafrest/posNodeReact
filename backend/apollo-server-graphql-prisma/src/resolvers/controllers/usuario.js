@@ -55,7 +55,7 @@ async function usuarios(parent, args, ctx, info) {
   console.log("get usuarios", args);
   const { filter, skip, take } = args;
   const where = {
-    OR: [{ nombre: { contains: filter.trim() } }],
+    OR: [{ nombre: { contains: filter?.trim() } }],
   };
 
   const query = await ctx.prisma.usuario.findMany({

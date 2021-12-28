@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
 import {GET_MODELOS} from '../../graphql/query'
+import {GET_CARACTERISTICAS} from '../../graphql/query'
 
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -29,6 +30,9 @@ export default function SelectInput({
     }
     if (type === 'modelos'){
         GET_QUERY = GET_MODELOS
+    }
+    if (type === 'caracteristicas'){
+        GET_QUERY = GET_CARACTERISTICAS 
     }
     const { data, loading } = useQuery(GET_QUERY, {
         variables: { filter: "", skip: 0 },

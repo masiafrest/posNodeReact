@@ -4,8 +4,8 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postCategoria(parent, { nombre }, ctx, info) {
-  return ctx.prisma.categoria.create({
+function postCaracteristica(parent, { nombre }, ctx, info) {
+  return ctx.prisma.caracteristica.create({
     data: {
       nombre,
     },
@@ -18,7 +18,7 @@ function postCategoria(parent, { nombre }, ctx, info) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-async function categorias(parent, args, ctx, info) {
+async function caracteristicas(parent, args, ctx, info) {
   const { filter, skip, take } = args;
   console.log("filter: ", filter);
 
@@ -34,13 +34,13 @@ async function categorias(parent, args, ctx, info) {
       })),
   };
 
-  const query = await ctx.prisma.categoria.findMany({
+  const query = await ctx.prisma.caracteristica.findMany({
     where,
     skip: skip || 0,
     take: take || undefined,
   });
 
-  const count = await ctx.prisma.categoria.count({
+  const count = await ctx.prisma.caracteristica.count({
     where,
   });
 
@@ -57,7 +57,7 @@ async function categorias(parent, args, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function updateCategoria(parent, { id, nombre }, ctx, info) {
-  return ctx.prisma.categoria.update({
+  return ctx.prisma.caracteristica.update({
     where: { id },
     data: {
       nombre,
@@ -72,12 +72,12 @@ function updateCategoria(parent, { id, nombre }, ctx, info) {
  * @param {{ prisma: Prisma }} ctx
  */
 function delCategoria(parent, { id }, ctx, info) {
-  return ctx.prisma.categoria.delete({ where: { id } });
+  return ctx.prisma.caracteristica.delete({ where: { id } });
 }
 
 module.exports = {
-  categorias,
-  postCategoria,
+  caracteristicas,
+  postCaracteristica,
   updateCategoria,
   delCategoria,
 };

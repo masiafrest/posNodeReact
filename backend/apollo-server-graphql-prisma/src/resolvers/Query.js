@@ -6,6 +6,9 @@ const { ventas } = require("./controllers/recibos/venta");
 const { devoluciones } = require("./controllers/recibos/devolucion");
 const { usuarios } = require("./controllers/usuario");
 const { modelos } = require("./controllers/modelo");
+const { caracteristicas } = require("./controllers/caracteristica");
+const { colors } = require("./controllers/color");
+const { marcas } = require("./controllers/marca");
 
 const { authenticated } = require("./authUtil");
 
@@ -19,6 +22,9 @@ const queries = {
   devoluciones,
   usuarios,
   modelos,
+  caracteristicas,
+  colors,
+  marcas,
 };
 
 let authQueries = {};

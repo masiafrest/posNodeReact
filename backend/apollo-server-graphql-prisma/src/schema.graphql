@@ -16,9 +16,9 @@ type Query {
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
   usuarios(filter: String, skip: Int, take: Int): UsuarioQuery
   modelos(filter: String, skip: Int, take: Int): ModelosQuery
-  marca(filter: String, skip: Int, take: Int): MarcaQuery
+  marcas(filter: String, skip: Int, take: Int): MarcaQuery
   caracteristicas(filter: String, skip: Int, take: Int): CaracteristicasQuery
-  Color(filter: String, skip: Int, take: Int): ColorQuery
+  colors(filter: String, skip: Int, take: Int): ColorQuery
 }
 
 type ItemQuery {
