@@ -152,13 +152,13 @@ export default function ItemEditDialogIcon({ item = null }) {
               //  helperText: item?.color.nombre,
               //  placeholder: item?.color.nombre
               //},
-              {
-                name: "descripcion",
-                type: "text",
-                xs: 12,
-                helperText: item?.descripcion,
-                placeholder: item?.descripcion
-              },
+              // {
+              //   name: "descripcion",
+              //   type: "text",
+              //   xs: 12,
+              //   helperText: item?.descripcion,
+              //   placeholder: item?.descripcion
+              // },
               {
                 name: "barcode",
                 type: "number",
@@ -216,11 +216,6 @@ export default function ItemEditDialogIcon({ item = null }) {
               );
             })}
             <Grid item xs={12}>
-              {/* <SelectInput
-                type="marca"
-                defaultValue ={newItem.marca}
-                setNewItem={setNewItem}
-              /> */}
               <SelectInput
                 type="modelos"
                 multiple= {true}
@@ -237,6 +232,18 @@ export default function ItemEditDialogIcon({ item = null }) {
                 type="caracteristicas"
                 multiple= {true}
                 defaultValue ={newItem.caracteristicas}
+                setNewItem={setNewItem}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <SelectInput
+                type="marcas"
+                defaultValue ={newItem.marca}
+                setNewItem={setNewItem}
+              />
+              <SelectInput
+                type="colors"
+                defaultValue ={newItem.color}
                 setNewItem={setNewItem}
               />
             </Grid>
