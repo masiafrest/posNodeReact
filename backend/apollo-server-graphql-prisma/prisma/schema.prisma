@@ -8,9 +8,8 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialActions" ]
+  previewFeatures = ["referentialActions"]
 }
-
 
 enum Rol {
   VENDEDOR
@@ -18,72 +17,75 @@ enum Rol {
 }
 
 model Item {
-  id          Int          @id @default(autoincrement())
-  barcode     Int?
-  image_url   String?
-  qty         Int
-  descripcion String?
-  precio      Precio?
-  ubicacion   Ubicacion    @relation(fields: [ubicacionId], references: [id])
-  ubicacionId Int
-  categorias  Categoria[]
-  createdAt   DateTime     @default(now())
-  deleted     Boolean      @default(false)
-  search_text String  @default("")
+  id              Int              @id @default(autoincrement())
+  barcode         Int?
+  image_url       String?
+  qty             Int
+  descripcion     String?
+  precio          Precio?
+  ubicacion       Ubicacion        @relation(fields: [ubicacionId], references: [id])
+  ubicacionId     Int
+  categorias      Categoria[]
+  createdAt       DateTime         @default(now())
+  deleted         Boolean          @default(false)
+  search_text     String           @default("")
   // fts Unsupported("tsvector")
-   marca Marca? @relation(fields: [marcaId], references:[id])
-   marcaId Int?
-   color Color? @relation(fields: [colorId], references:[id])
-   colorId Int?
-   modelos Modelo[]
-   caracteristicas Caracteristica[]
+  marca           Marca?           @relation(fields: [marcaId], references: [id])
+  marcaId         Int?
+  color           Color?           @relation(fields: [colorId], references: [id])
+  colorId         Int?
+  modelos         Modelo[]
+  caracteristicas Caracteristica[]
 
-  lineaVenta  VentaLinea[]
+  // precio    Decimal  @db.Decimal(5, 2)
+  lineaVenta      VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
 }
 
- model Caracteristica{
-   id        Int      @id @default(autoincrement())
-   nombre    String   @unique
-   items      Item[]
-   createdAt DateTime @default(now())
- }
- model Marca {
-   id        Int      @id @default(autoincrement())
-   nombre    String   @unique
-   items      Item[]
-   createdAt DateTime @default(now())
- }
- model Modelo {
-   id        Int      @id @default(autoincrement())
-   nombre    String   @unique
-   items      Item[]
-   createdAt DateTime @default(now())
- }
+model Caracteristica {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique
+  items     Item[]
+  createdAt DateTime @default(now())
+}
+
+model Marca {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique
+  items     Item[]
+  createdAt DateTime @default(now())
+}
+
+model Modelo {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique
+  items     Item[]
+  createdAt DateTime @default(now())
+}
 
 model Color {
   id        Int      @id @default(autoincrement())
-  nombre String @unique 
-   items      Item[]
-   createdAt DateTime @default(now())
+  nombre    String   @unique
+  items     Item[]
+  createdAt DateTime @default(now())
 
 }
 
 model Categoria {
   id        Int      @id @default(autoincrement())
   nombre    String   @unique
-  items      Item[]
+  items     Item[]
   createdAt DateTime @default(now())
 }
 
 model Precio {
   id        Int      @id @default(autoincrement())
   precio    Decimal  @db.Decimal(5, 2)
-  precioMin Decimal?  @db.Decimal(5, 2)
+  precioMin Decimal? @db.Decimal(5, 2)
   // item Item?
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  itemId    Int
+  itemId    Int      @unique
   createdAt DateTime @default(now())
 }
 
@@ -98,37 +100,37 @@ model Ubicacion {
 }
 
 model Cliente {
-  id          Int      @id @default(autoincrement())
-  nombre      String? @unique
-  telefono    String?
-  dirrecion   String?
-  createdAt   DateTime @default(now())
-  reciboVenta Venta[]
+  id               Int          @id @default(autoincrement())
+  nombre           String?      @unique
+  telefono         String?
+  dirrecion        String?
+  createdAt        DateTime     @default(now())
+  reciboVenta      Venta[]
   reciboDevolucion Devolucion[]
 }
 
 model Usuario {
-  id          Int      @id @default(autoincrement())
-  nombre      String   @unique
-  password    String
-  rol         Rol      @default(VENDEDOR)
-  reciboVenta Venta[]
+  id               Int          @id @default(autoincrement())
+  nombre           String       @unique
+  password         String
+  rol              Rol          @default(VENDEDOR)
+  reciboVenta      Venta[]
   reciboDevolucion Devolucion[]
-  createdAt   DateTime @default(now())
+  createdAt        DateTime     @default(now())
 }
 
 model Venta {
-  id        Int          @id @default(autoincrement())
-  usuario   Usuario?     @relation(fields: [usuarioNombre], references: [nombre])
-  cliente   Cliente?     @relation(fields: [clienteNombre], references: [nombre])
+  id            Int          @id @default(autoincrement())
+  usuario       Usuario?     @relation(fields: [usuarioNombre], references: [nombre])
+  cliente       Cliente?     @relation(fields: [clienteNombre], references: [nombre])
   usuarioNombre String
-  clienteNombre String 
-  fecha     DateTime     @default(now())
-  credito   Boolean
-  subTotal  Decimal      @db.Decimal(6, 2)
-  tax       Decimal?     @db.Decimal(6, 2)
-  total     Decimal      @db.Decimal(6, 2)
-  lineas    VentaLinea[]
+  clienteNombre String
+  fecha         DateTime     @default(now())
+  credito       Boolean
+  subTotal      Decimal      @db.Decimal(6, 2)
+  tax           Decimal?     @db.Decimal(6, 2)
+  total         Decimal      @db.Decimal(6, 2)
+  lineas        VentaLinea[]
 }
 
 model VentaLinea {
@@ -142,27 +144,26 @@ model VentaLinea {
   descripcion String
 }
 
-
 model Devolucion {
-  id        Int          @id @default(autoincrement())
-  usuario   Usuario?     @relation(fields: [usuarioNombre], references: [nombre])
-  cliente   Cliente?     @relation(fields: [clienteNombre], references: [nombre])
+  id            Int               @id @default(autoincrement())
+  usuario       Usuario?          @relation(fields: [usuarioNombre], references: [nombre])
+  cliente       Cliente?          @relation(fields: [clienteNombre], references: [nombre])
   usuarioNombre String
-  clienteNombre String 
-  fecha     DateTime     @default(now())
-  lineas DevolucionLinea[]
+  clienteNombre String
+  fecha         DateTime          @default(now())
+  lineas        DevolucionLinea[]
 }
 
 model DevolucionLinea {
-  id          Int    @id @default(autoincrement())
-  devolucion  Devolucion @relation(fields: [devolucionId], references: [id])
-  devolucionId     Int
+  id           Int        @id @default(autoincrement())
+  devolucion   Devolucion @relation(fields: [devolucionId], references: [id])
+  devolucionId Int
 
-  item        Item?  @relation(fields: [itemId], references: [id])
-  itemId      Int?
-  qty         Int
-  precio      Float
-  descripcion String
+  item              Item?   @relation(fields: [itemId], references: [id])
+  itemId            Int?
+  qty               Int
+  precio            Float
+  descripcion       String
   esItemDevolvuelto Boolean
-  razon String
+  razon             String
 }
