@@ -30,7 +30,7 @@ export default function PriceEditField({
       type="number"
       onChange={handleChange}
       value={precio}
-      inputProps={{ step: "0.01", min: precioMin, inputMode: "decimal" }}
+      inputProps={{ step: "0.1", min: 0, inputMode: "decimal" }}
     />
   );
 }

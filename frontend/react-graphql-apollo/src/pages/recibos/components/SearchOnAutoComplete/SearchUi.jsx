@@ -7,16 +7,31 @@ import { useSnackbar } from "notistack";
 import { useSelector, useDispatch } from "react-redux";
 import { pushLinea, addCliente } from "../../../../redux/features/reciboSlice";
 
+const joinArr = (arr) => arr.map((e) => e?.nombre).join(", ");
+const getDescription = (marca, modelos, color, caracteristicas, categorias) =>
+  `${marca?.nombre} ${joinArr(modelos)} ${color?.nombre} | ${joinArr(
+    caracteristicas
+  )} | ${joinArr(categorias)}`;
+
 const newLineaFactory = ({
   id,
   precio: { precio, precioMin },
-  descripcion,
   categorias,
+  caracteristicas,
+  modelos,
+  marca,
+  color,
 }) => ({
   id,
   tipo: "venta",
   qty: 1,
-  descripcion: `${descripcion} | ${categorias.map((e) => e.nombre).join(", ")}`,
+  descripcion: getDescription(
+    marca,
+    modelos,
+    color,
+    caracteristicas,
+    categorias
+  ),
   precio,
   precioMin,
 });
@@ -45,9 +60,14 @@ export default function SearchUi({
       dirrecion && optionLabel.concat(", ", dirrecion);
       return optionLabel;
     } else if (queryName === "items") {
-      const { descripcion, categorias } = options;
-      const categoriaStr = categorias.map((cat) => cat.nombre).join(", ");
-      optionLabel = `${descripcion.trim()} ${categoriaStr}`;
+      const { marca, modelos, color, caracteristicas, categorias } = options;
+      optionLabel = `${getDescription(
+        marca,
+        modelos,
+        color,
+        caracteristicas,
+        categorias
+      )} `;
       return optionLabel;
     }
   };

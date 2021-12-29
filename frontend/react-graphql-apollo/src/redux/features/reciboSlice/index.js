@@ -47,7 +47,7 @@ const reciboSlice = createSlice({
     },
     editPrice: (state, action) => {
       let { price, tipo, idx } = action.payload;
-      if (price < 0) price = 0;
+      // if (price < 1) price = 0;
       state[tipo].lineas[idx].precio = price;
       //refrest subtotal
       state.venta.subTotal = getSubTotal(state.venta.lineas);

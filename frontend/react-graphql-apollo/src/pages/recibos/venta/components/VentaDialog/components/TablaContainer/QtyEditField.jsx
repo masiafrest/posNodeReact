@@ -46,7 +46,7 @@ export default function QtyEditField({ itemId, qty, idx, custom }) {
       type="number"
       onChange={handleChange}
       value={qty}
-      inputProps={{ min: 0, max: maxQty, inputMode: "numeric" }}
+      inputProps={{ min: 1, max: maxQty, inputMode: "numeric" }}
     />
   );
 }

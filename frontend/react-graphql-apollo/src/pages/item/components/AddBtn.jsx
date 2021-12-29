@@ -16,21 +16,27 @@ export const addLinea = (
   const {
     id,
     precio: { precio, precioMin },
-    descripcion,
     categorias,
+    caracteristicas,
+    modelos,
+    color,
+    marca,
   } = item;
 
   const newLinea = {
     id,
     tipo: reciboTipo,
     qty: 1,
-    descripcion: `${descripcion} | ${categorias
+    descripcion: `${marca}, ${modelos
       .map((e) => e.nombre)
-      .join(", ")}`,
+      .join(", ")} | ${color} |! ${caracteristicas
+      .map((e) => e.nombre)
+      .join(", ")} | ${categorias.map((e) => e.nombre).join(", ")}`,
     precio,
     precioMin,
     enqueueSnackbar,
   };
+  console.log(newLinea.descripcion);
 
   dispatch(pushLinea(newLinea));
 };

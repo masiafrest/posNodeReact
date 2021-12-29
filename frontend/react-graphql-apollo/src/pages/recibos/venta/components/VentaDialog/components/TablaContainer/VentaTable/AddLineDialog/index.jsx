@@ -19,7 +19,7 @@ export default function VentaDialog() {
   const { enqueueSnackbar } = useSnackbar();
   const initialState = {
     id: 0,
-    qty: 0,
+    qty: 1,
     descripcion: "",
     precio: 0,
     tipo: "venta",
@@ -63,6 +63,7 @@ export default function VentaDialog() {
             >
               <TextField
                 fullWidth
+                autoFocus
                 name="descripcion"
                 onChange={handleOnChange}
                 label={"Descripcion"}
