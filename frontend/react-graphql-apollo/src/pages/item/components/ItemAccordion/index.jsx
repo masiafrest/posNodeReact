@@ -52,10 +52,8 @@ export default function ItemAccordion({ data }) {
         id="panel1a-header"
       >
         <Typography>
-          {marca?.nombre} {modelos}
-        </Typography>
-        <Typography>
-          {color?.nombre} {caracteristicasChip} {categoriasChip}
+          {marca?.nombre} {modelos} {color?.nombre} {caracteristicasChip}{" "}
+          {categoriasChip}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
