@@ -33,12 +33,15 @@ export default function ItemAccordion({ data }) {
   } = data;
   console.table(data);
   const joinEl = (array) => array.map((e) => e.nombre).join(", ");
-  const categorias = joinEl(data.categorias);
   const modelos = joinEl(data.modelos);
-  const caracteristicas = joinEl(data.caracteristicas);
+  //const caracteristicas = joinEl(data.caracteristicas);
+
+  const caracteristicasChip = data.caracteristicas.map((cat) => (
+    <Chip size="small" variant="outline" label={cat.nombre} />
+  ));
 
   const categoriasChip = data.categorias.map((cat) => (
-    <Chip label={cat.nombre} />
+    <Chip size="small" label={cat.nombre} />
   ));
 
   return (
@@ -49,8 +52,10 @@ export default function ItemAccordion({ data }) {
         id="panel1a-header"
       >
         <Typography>
-          {descripcion} {marca?.nombre} {modelos} {color?.nombre}{" "}
-          {caracteristicas} {categoriasChip}
+          {marca?.nombre} {modelos}
+        </Typography>
+        <Typography>
+          {color?.nombre} {caracteristicasChip} {categoriasChip}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
