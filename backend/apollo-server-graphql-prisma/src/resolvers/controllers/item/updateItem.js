@@ -10,7 +10,6 @@ async function updateItem(parent, args, ctx, info) {
     id,
     barcode,
     qty,
-    descripcion,
     precio,
     precioMin,
     categorias,
@@ -67,23 +66,23 @@ async function updateItem(parent, args, ctx, info) {
         id,
       },
       data: {
-        // marca: {
-        //   connectOrCreate: {
-        //     where: {
-        //       nombre: marca,
-        //     },
-        //     create: {
-        //       nombre: marca,
-        //     },
-        //   },
-        // },
-        color: {
+        marca: {
           connectOrCreate: {
             where: {
               nombre: marca,
             },
             create: {
               nombre: marca,
+            },
+          },
+        },
+        color: {
+          connectOrCreate: {
+            where: {
+              nombre: color,
+            },
+            create: {
+              nombre: color,
             },
           },
         },

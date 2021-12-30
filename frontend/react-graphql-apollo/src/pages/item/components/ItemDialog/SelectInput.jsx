@@ -46,7 +46,7 @@ export default function SelectInput({
     variables: { filter: "", skip: 0 },
   });
 
-  console.log("default value:", defaultValue);
+  console.log("default value:", type, defaultValue);
   const handleChange = (_, newValue) => {
     console.log("selectinput handle change newValue:", newValue);
     const key = multiple ? type : type.slice(0, -1);
@@ -55,6 +55,7 @@ export default function SelectInput({
       : newValue
       ? newValue.toUpperCase()
       : undefined;
+    console.log("handle change value", value);
     setNewItem((item) => ({
       ...item,
       [key]: value,
@@ -73,7 +74,7 @@ export default function SelectInput({
         getOptionLabel={(option) => {
           return option;
         }}
-        defaultValue={multiple ? defaultValue : defaultValue.nombre}
+        defaultValue={multiple ? defaultValue : defaultValue}
         freeSolo
         onChange={handleChange}
         renderInput={(params) => {

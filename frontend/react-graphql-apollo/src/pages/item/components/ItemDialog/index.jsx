@@ -32,13 +32,14 @@ export default function ItemEditDialogIcon({ item = null }) {
     color: "",
   };
   if (item) {
-    initialItemState.categorias.push(...item.categorias.map((e) => e.nombre));
+    console.log("item", item.marca);
+    initialItemState.categorias.push(...item?.categorias.map((e) => e.nombre));
     initialItemState.caracteristicas.push(
-      ...item.caracteristicas.map((e) => e.nombre)
+      ...item?.caracteristicas.map((e) => e.nombre)
     );
-    initialItemState.modelos.push(...item.modelos.map((e) => e.nombre));
-    initialItemState.marca = item.marca;
-    initialItemState.color = item.color;
+    initialItemState.modelos.push(...item?.modelos.map((e) => e.nombre));
+    initialItemState.marca = item?.marca?.nombre;
+    initialItemState.color = item?.color?.nombre;
   }
 
   const [open, setOpen] = useState(false);
