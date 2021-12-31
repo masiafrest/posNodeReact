@@ -17,6 +17,7 @@ export const addLinea = (
     id,
     precio: { precio, precioMin },
     categorias,
+    descripcion,
     caracteristicas,
     modelos,
     color,
@@ -27,9 +28,9 @@ export const addLinea = (
     id,
     tipo: reciboTipo,
     qty: 1,
-    descripcion: `${marca}, ${modelos
+    descripcion: `${descripcion} | ${marca.nombre}, ${modelos
       .map((e) => e.nombre)
-      .join(", ")} | ${color} |! ${caracteristicas
+      .join(", ")} | ${color.nombre} |! ${caracteristicas
       .map((e) => e.nombre)
       .join(", ")} | ${categorias.map((e) => e.nombre).join(", ")}`,
     precio,
