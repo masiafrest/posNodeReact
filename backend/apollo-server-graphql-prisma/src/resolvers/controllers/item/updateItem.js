@@ -25,6 +25,10 @@ async function updateItem(parent, args, ctx, info) {
     where: { id },
     include: {
       categorias: true,
+      modelos: true,
+      caracteristicas: true,
+      marca: true,
+      color: true,
     },
   });
   console.log("item encontrado: ", item);
@@ -54,11 +58,12 @@ async function updateItem(parent, args, ctx, info) {
     }
   }
 
-  console.log("updating categoria........", categorias);
   //update categorias disconnect and connect
   const updateConnDisc = require("./updateConnDisc");
   let updateCategorias = updateConnDisc(categorias, item.categorias);
+  let updModelos = updateConnDisc(modelos, item.modelos);
   console.log("done categoriaConnDisconn", updateCategorias.connectOrCreate);
+  console.log("done modelosConnDisconn", updModelos);
 
   try {
     return await ctx.prisma.item.update({
@@ -76,26 +81,29 @@ async function updateItem(parent, args, ctx, info) {
             },
           },
         },
-        color: {
-          connectOrCreate: {
-            where: {
-              nombre: color,
-            },
-            create: {
-              nombre: color,
-            },
-          },
-        },
-        modelos: {
-          connectOrCreate: modelos.map((nombre) => ({
-            where: {
-              nombre,
-            },
-            create: {
-              nombre,
-            },
-          })),
-        },
+        color: color
+          ? {
+              connectOrCreate: {
+                where: {
+                  nombre: color,
+                },
+                create: {
+                  nombre: color,
+                },
+              },
+            }
+          : undefined,
+        modelos: updModelos,
+        // modelos: {
+        //   connectOrCreate: modelos.map((nombre) => ({
+        //     where: {
+        //       nombre,
+        //     },
+        //     create: {
+        //       nombre,
+        //     },
+        //   })),
+        // },
         caracteristicas: {
           connectOrCreate: caracteristicas.map((nombre) => ({
             where: {

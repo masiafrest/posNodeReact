@@ -156,7 +156,7 @@ const execAllPromiseConnect = async (items, contains, table) => {
  * @param {{ prisma: Prisma }} prisma
  */
 async function main() {
-  const containArr = ["note 9s"];
+  const containArr = ["mix 2s"];
   await Promise.all(
     containArr.map(async (contain) => {
       const contains = contain.toUpperCase();
