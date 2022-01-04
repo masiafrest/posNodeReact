@@ -117,7 +117,9 @@ async function updateItem(parent, args, ctx, info) {
         image_url: imagesPath,
         barcode,
         qty,
-        // descripcion,
+        descripcion: `${marca} ${modelos.join(
+          " "
+        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
         search_text: `${marca} ${modelos.join(
           " "
         )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,

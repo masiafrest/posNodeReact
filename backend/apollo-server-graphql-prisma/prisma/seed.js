@@ -104,7 +104,11 @@ const getItem = async (contains) => {
       },
     },
     include: {
+      modelos: true,
       caracteristicas: true,
+      categorias: true,
+      color: true,
+      marca: true,
     },
   });
 };
@@ -143,6 +147,13 @@ const execAllPromiseConnect = async (items, contains, table) => {
       await prisma.item.update({
         where: { id: item.id },
         data,
+        include: {
+          modelos: true,
+          caracteristicas: true,
+          categorias: true,
+          color: true,
+          marca: true,
+        },
       });
     })
   ).then(() => {
@@ -156,17 +167,21 @@ const execAllPromiseConnect = async (items, contains, table) => {
  * @param {{ prisma: Prisma }} prisma
  */
 async function main() {
-  const containArr = ["mix 2s"];
+  const containArr = ["mate 8"];
+  const strToAdd = "";
   await Promise.all(
     containArr.map(async (contain) => {
-      const contains = contain.toUpperCase();
-      console.log(contains);
+      const containUpperCase = contain.toUpperCase();
       // const items = await getItems(contains);
       // console.log(items);
       console.log("-----------------------------");
-      const item = await getItem(contains);
+      const item = await getItem(containUpperCase);
       console.log(item);
-      await execAllPromiseConnect(item, contains, "modelos");
+      await execAllPromiseConnect(
+        item,
+        strToAdd ? strToAdd.toUpperCase() : containUpperCase,
+        "modelos"
+      );
       // await execAllPromiseDisconnect(item, contains);
     })
   );
