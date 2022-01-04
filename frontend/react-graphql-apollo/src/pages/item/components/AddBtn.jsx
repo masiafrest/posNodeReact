@@ -23,14 +23,13 @@ export const addLinea = (
     color,
     marca,
   } = item;
-
   const newLinea = {
     id,
     tipo: reciboTipo,
     qty: 1,
-    descripcion: `${descripcion} | ${marca.nombre}, ${modelos
+    descripcion: `${descripcion} | ${marca?.nombre}, ${modelos
       .map((e) => e.nombre)
-      .join(", ")} | ${color.nombre} |! ${caracteristicas
+      .join(", ")} | ${color ? `${color?.nombre} |` : ""} ${caracteristicas
       .map((e) => e.nombre)
       .join(", ")} | ${categorias.map((e) => e.nombre).join(", ")}`,
     precio,
