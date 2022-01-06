@@ -32,8 +32,9 @@ export default function ItemAccordion({ data }) {
     color,
   } = data;
   console.table(data);
-  const joinEl = (array) => array.map((e) => e.nombre).join(", ");
-  const modelos = joinEl(data.modelos);
+  const joinEl = (array, separator = ", ") =>
+    array.map((e) => e.nombre).join(separator);
+  const modelos = joinEl(data.modelos, "/");
   //const caracteristicas = joinEl(data.caracteristicas);
 
   const caracteristicasChip = data.caracteristicas.map((cat) => (

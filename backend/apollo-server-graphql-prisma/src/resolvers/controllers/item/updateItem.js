@@ -21,6 +21,9 @@ async function updateItem(parent, args, ctx, info) {
   } = args;
   console.log("update item args:", args);
   console.log("buscnado item ....");
+  const search_text = `${marca} ${modelos.join(
+          " "
+        )} ${color ? color : ''} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
   const item = await ctx.prisma.item.findUnique({
     where: { id },
     include: {
@@ -94,16 +97,6 @@ async function updateItem(parent, args, ctx, info) {
             }
           : undefined,
         modelos: updModelos,
-        // modelos: {
-        //   connectOrCreate: modelos.map((nombre) => ({
-        //     where: {
-        //       nombre,
-        //     },
-        //     create: {
-        //       nombre,
-        //     },
-        //   })),
-        // },
         caracteristicas: {
           connectOrCreate: caracteristicas.map((nombre) => ({
             where: {
@@ -117,12 +110,8 @@ async function updateItem(parent, args, ctx, info) {
         image_url: imagesPath,
         barcode,
         qty,
-        descripcion: `${marca} ${modelos.join(
-          " "
-        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
-        search_text: `${marca} ${modelos.join(
-          " "
-        )} ${color} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
+        descripcion:search_text,
+        search_text,
         categorias: updateCategorias,
         precio: {
           update: {
