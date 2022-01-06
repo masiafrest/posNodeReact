@@ -21,9 +21,9 @@ async function updateItem(parent, args, ctx, info) {
   } = args;
   console.log("update item args:", args);
   console.log("buscnado item ....");
-  const search_text = `${marca} ${modelos.join(
-          " "
-        )} ${color ? color : ''} ${caracteristicas.join(" ")} ${categorias.join(" ")}`,
+  const search_text = `${marca} ${modelos.join(" ")} ${
+    color ? color : ""
+  } ${caracteristicas.join(" ")} ${categorias.join(" ")}`;
   const item = await ctx.prisma.item.findUnique({
     where: { id },
     include: {
@@ -110,7 +110,7 @@ async function updateItem(parent, args, ctx, info) {
         image_url: imagesPath,
         barcode,
         qty,
-        descripcion:search_text,
+        descripcion: search_text,
         search_text,
         categorias: updateCategorias,
         precio: {
