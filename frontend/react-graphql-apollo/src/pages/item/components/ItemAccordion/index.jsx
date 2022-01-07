@@ -34,6 +34,7 @@ export default function ItemAccordion({ data }) {
   console.table(data);
   const joinEl = (array, separator = ", ") =>
     array.map((e) => e.nombre).join(separator);
+
   const modelos = joinEl(data.modelos, "/");
   //const caracteristicas = joinEl(data.caracteristicas);
 
@@ -53,8 +54,8 @@ export default function ItemAccordion({ data }) {
         id="panel1a-header"
       >
         <Typography>
-          {descripcion} | {marca?.nombre} {modelos} {color?.nombre}{" "}
-          {caracteristicasChip} {categoriasChip}
+          {marca?.nombre} | {modelos} | {color?.nombre} | {caracteristicasChip}{" "}
+          {categoriasChip}
         </Typography>
       </AccordionSummary>
       <Divider variant="middle" />

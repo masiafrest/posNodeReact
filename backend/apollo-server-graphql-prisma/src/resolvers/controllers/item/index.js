@@ -35,7 +35,7 @@ async function items(parent, args, ctx, info) {
   }
 
   where.AND = noSpaceInWords.map((e) => ({
-    search_text: {
+    descripcion: {
       contains: e,
     },
   }));
