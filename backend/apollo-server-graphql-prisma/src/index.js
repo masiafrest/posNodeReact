@@ -10,7 +10,7 @@ const path = require("path");
 const Query = require("./resolvers/Query");
 const Mutation = require("./resolvers/Mutation");
 const { tradeTokenForUser } = require("./utils");
-const { localIp } = require("../../../getLocalIp");
+const { localIp } = require("./getLocalIp");
 
 const prisma = new PrismaClient();
 
