@@ -38,8 +38,8 @@ export default function ItemAccordion({ data }) {
   const modelos = joinEl(data.modelos, "/");
   //const caracteristicas = joinEl(data.caracteristicas);
 
-  const caracteristicasChip = data.caracteristicas.map((cat) => (
-    <Chip size="small" variant="outline" label={cat.nombre} />
+  const caracteristicasChip = data.caracteristicas.map((car) => (
+    <Chip size="small" variant="outline" label={car.nombre} />
   ));
 
   const categoriasChip = data.categorias.map((cat) => (
@@ -53,10 +53,13 @@ export default function ItemAccordion({ data }) {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>
-          {marca?.nombre} | {modelos} | {color?.nombre} | {caracteristicasChip}{" "}
-          {categoriasChip}
-        </Typography>
+        <div>
+          <Typography>
+            <Typography style={{ fontWeight: 600 }}>{marca?.nombre}</Typography>
+            {modelos} | {color?.nombre}
+          </Typography>
+          {caracteristicasChip} {categoriasChip}
+        </div>
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>
