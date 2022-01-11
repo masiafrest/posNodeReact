@@ -42,7 +42,7 @@ export default function VentaTable({ isVenta = true, venta }) {
 
   const lineasTable = lineas?.map(
     ({ precio, precioMin, descripcion, qty, id }, idx) => (
-      <TableRow className={classes.styleRows} key={id}>
+      <TableRow className={classes.styleRows} key={`${id}-${descripcion}`}>
         <TableCell key={`qty-id-${idx}`} align="left">
           {isVenta ? (
             <>

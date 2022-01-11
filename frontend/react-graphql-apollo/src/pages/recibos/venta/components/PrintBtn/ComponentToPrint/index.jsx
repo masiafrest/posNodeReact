@@ -64,7 +64,7 @@ export default class ComponentToPrint extends React.Component {
             </thead>
             <tbody>
               {lineas.map((linea) => (
-                <tr key={"item_id" + linea?.id}>
+                <tr key={`item_id-${linea?.id}-${linea?.descripcion}`}>
                   <td>
                     <span>{linea?.qty}</span>
                   </td>
