@@ -3,38 +3,16 @@ import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import { useSnackbar } from "notistack";
+import addLinea from "../../../../components/addLineaItem";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { pushLinea, addCliente } from "../../../../redux/features/reciboSlice";
 
-const joinArr = (arr) => arr.map((e) => e?.nombre).join(", ");
+const joinArr = (arr) => arr.map((e) => e?.nombre).join("/");
 const getDescription = (marca, modelos, color, caracteristicas, categorias) =>
-  `${marca?.nombre} ${joinArr(modelos)} ${color?.nombre} | ${joinArr(
-    caracteristicas
-  )} | ${joinArr(categorias)}`;
-
-const newLineaFactory = ({
-  id,
-  precio: { precio, precioMin },
-  categorias,
-  caracteristicas,
-  modelos,
-  marca,
-  color,
-}) => ({
-  id,
-  tipo: "venta",
-  qty: 1,
-  descripcion: getDescription(
-    marca,
-    modelos,
-    color,
-    caracteristicas,
-    categorias
-  ),
-  precio,
-  precioMin,
-});
+  `${marca?.nombre} ${joinArr(modelos)} ${color?.nombre} | ${
+    joinArr(caracteristicas) + caracteristicas.length > 0 ? "|" : ""
+  } ${joinArr(categorias)}`;
 
 export default function SearchUi({
   queryName,
@@ -89,10 +67,8 @@ export default function SearchUi({
     if (reason === "select-option") {
       console.log("select-option");
       if (queryName === "items") {
-        console.log("items");
-        let newLinea = newLineaFactory(value);
-        newLinea.enqueueSnackbar = enqueueSnackbar;
-        dispatch(pushLinea(newLinea));
+        console.log("items value", value);
+        addLinea(dispatch, pushLinea, enqueueSnackbar, value);
         // updateSearch("");
       } else if (queryName === "clientes") {
         console.log("clientes");
