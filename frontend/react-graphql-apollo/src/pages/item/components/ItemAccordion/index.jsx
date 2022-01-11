@@ -38,11 +38,11 @@ export default function ItemAccordion({ data }) {
   //const caracteristicas = joinEl(data.caracteristicas);
 
   const caracteristicasChip = data.caracteristicas.map((car) => (
-    <Chip size="small" variant="outline" label={car.nombre} />
+    <Chip key={car.nombre} size="small" variant="outline" label={car.nombre} />
   ));
 
   const categoriasChip = data.categorias.map((cat) => (
-    <Chip size="small" label={cat.nombre} />
+    <Chip key={cat.nombre} size="small" label={cat.nombre} />
   ));
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
@@ -14,7 +14,6 @@ import {
   IconButton,
   Button,
   Grid,
-  Collapse,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -32,7 +31,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     color: "",
   };
   if (item) {
-    console.log("item", item.marca);
     initialItemState.categorias.push(...item?.categorias.map((e) => e.nombre));
     initialItemState.caracteristicas.push(
       ...item?.caracteristicas.map((e) => e.nombre)

@@ -9,7 +9,6 @@ import addLinea from "../../../components/addLineaItem";
 export default function AddBtn({ item, reciboTipo = "venta" }) {
   const dispatch = useDispatch();
   const lineas = useSelector((state) => state.recibo[reciboTipo].lineas);
-  console.log("lineas", lineas);
   const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
