@@ -3,6 +3,7 @@ import "./styles/App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import CloseSnackBar from "./components/CloseSnackBar";
+import { ToastContainer } from "react-toastify";
 
 //redux
 import store, { persistor } from "./redux/store";
@@ -30,6 +31,7 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider>
           <SnackbarProvider
+            preventDuplicate
             maxSnack={2}
             action={(key) => {
               return <CloseSnackBar snackbarKey={key} />;
