@@ -1,9 +1,6 @@
 import React from "react";
 import "./styles/App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { SnackbarProvider } from "notistack";
-import CloseSnackBar from "./components/CloseSnackBar";
-import { ToastContainer } from "react-toastify";
 
 //redux
 import store, { persistor } from "./redux/store";
@@ -30,34 +27,23 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider>
-          <SnackbarProvider
-            preventDuplicate
-            maxSnack={2}
-            action={(key) => {
-              return <CloseSnackBar snackbarKey={key} />;
-            }}
-          >
-            <Router>
-              <NavBar />
-              <Switch>
-                <Container>
-                  <AuthRoute exact path="/" component={Item} />
-                  <Route path="/login" component={Login} />
-                  <AuthRoute path="/item" component={Item} />
-                  <AuthRoute path="/item/new/:page" component={Item} />
-                  <AuthRoute path="/venta" component={Venta} />
-                  <AuthRoute path="/cliente" component={Cliente} />
-                  <AuthRoute path="/cliente/new/:page" component={Cliente} />
-                  <AuthRoute path="/categoria" component={Categoria} />
-                  <AuthRoute
-                    path="/categoria/new/:page"
-                    component={Categoria}
-                  />
-                  <AuthRoute path="/usuario" component={Usuario} />
-                </Container>
-              </Switch>
-            </Router>
-          </SnackbarProvider>
+          <Router>
+            <NavBar />
+            <Switch>
+              <Container>
+                <AuthRoute exact path="/" component={Item} />
+                <Route path="/login" component={Login} />
+                <AuthRoute path="/item" component={Item} />
+                <AuthRoute path="/item/new/:page" component={Item} />
+                <AuthRoute path="/venta" component={Venta} />
+                <AuthRoute path="/cliente" component={Cliente} />
+                <AuthRoute path="/cliente/new/:page" component={Cliente} />
+                <AuthRoute path="/categoria" component={Categoria} />
+                <AuthRoute path="/categoria/new/:page" component={Categoria} />
+                <AuthRoute path="/usuario" component={Usuario} />
+              </Container>
+            </Switch>
+          </Router>
         </ThemeProvider>
       </PersistGate>
     </Provider>

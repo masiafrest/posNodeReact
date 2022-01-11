@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "./styles/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { SnackbarProvider } from "notistack";
+import CloseSnackBar from "./components/CloseSnackBar";
 
 import {
   ApolloProvider,
@@ -28,7 +30,7 @@ const authLink = setContext((_, { headers }) => {
 //   uri: "http://localhost:4000/graphql",
 // });
 const host = getUrlHost();
-console.log('host: ', host)
+console.log("host: ", host);
 const uri = `http://${host}:4000/graphql`;
 
 const uploadLink = createUploadLink({
@@ -43,7 +45,15 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <SnackbarProvider
+        preventDuplicate
+        maxSnack={2}
+        action={(key) => {
+          return <CloseSnackBar snackbarKey={key} />;
+        }}
+      >
+        <App />
+      </SnackbarProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
