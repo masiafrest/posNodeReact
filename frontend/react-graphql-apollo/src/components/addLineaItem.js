@@ -1,11 +1,10 @@
 export default function addLinea(
   dispatch,
   pushLinea,
-  enqueueSnackbar,
   item,
   reciboTipo = "venta"
 ) {
-  console.log("item ", item);
+  console.log("item add linea item: ", item.marca);
   const {
     id,
     precio: { precio, precioMin },
@@ -26,9 +25,7 @@ export default function addLinea(
       .join(", ")}  ${categorias.map((e) => e.nombre).join(", ")}`,
     precio,
     precioMin,
-    enqueueSnackbar,
   };
-  console.log(newLinea.descripcion);
 
   dispatch(pushLinea(newLinea));
 }

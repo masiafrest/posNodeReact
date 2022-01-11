@@ -6,15 +6,26 @@ import { useSnackbar } from "notistack";
 
 import addLinea from "../../../components/addLineaItem";
 
-export default function AddBtn({ item, reciboTipo }) {
+export default function AddBtn({ item, reciboTipo = "venta" }) {
   const dispatch = useDispatch();
-  const lineas = useSelector((state) => state.recibo.venta.lineas);
+  const lineas = useSelector((state) => state.recibo[reciboTipo].lineas);
+  console.log("lineas", lineas);
   const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
-      onClick={() =>
-        addLinea(dispatch, pushLinea, enqueueSnackbar, item, reciboTipo)
-      }
+      onClick={() => {
+        if (lineas.some((linea) => linea.id === item.id)) {
+          console.log("tiene linea");
+          enqueueSnackbar(`item ${item.descripcion} ya esta agregado`, {
+            variant: "warning",
+          });
+          return;
+        }
+        addLinea(dispatch, pushLinea, item, reciboTipo);
+        enqueueSnackbar(`item ${item.descripcion} agregado`, {
+          variant: "success",
+        });
+      }}
     >
       <AddShoppingCartIcon />
     </IconButton>

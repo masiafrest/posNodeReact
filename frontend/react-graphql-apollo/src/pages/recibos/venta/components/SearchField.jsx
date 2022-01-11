@@ -37,7 +37,7 @@ export default function SearchField({
       // getOptionSelected={(options, value) => {
       //   ('getOptionSelected options: ', options)
       // }}
-      putValue={term}
+      inputValue={term}
       onInputChange={(e, value) => {
         updateSearchTerm(value.toUpperCase());
         setTerm(value.toUpperCase());

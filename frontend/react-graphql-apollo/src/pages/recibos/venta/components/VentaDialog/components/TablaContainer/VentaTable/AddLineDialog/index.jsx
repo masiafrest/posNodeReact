@@ -23,8 +23,6 @@ export default function VentaDialog() {
     descripcion: "",
     precio: 0,
     tipo: "venta",
-    enqueueSnackbar,
-    custom: true,
   };
   const [open, setOpen] = useState(false);
   const [linea, setLinea] = useState(initialState);
@@ -105,6 +103,7 @@ export default function VentaDialog() {
         </DialogContent>
         <DialogActions>
           <Button
+            disabled={!linea.descripcion || !linea.precio}
             onClick={() => {
               dispatch(pushLinea(linea));
               setLinea(initialState);
@@ -115,6 +114,7 @@ export default function VentaDialog() {
           </Button>
           <Button
             onClick={() => {
+              setLinea(initialState);
               setOpen(false);
             }}
           >

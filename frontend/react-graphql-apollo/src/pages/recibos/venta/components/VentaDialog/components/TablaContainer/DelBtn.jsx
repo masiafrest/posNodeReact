@@ -10,7 +10,7 @@ export default function DelBtn({ tipo, id, idx }) {
   return (
     <IconButton
       onClick={() => {
-        dispatch(delLinea({ tipo, id }));
+        dispatch(delLinea({ tipo, id, idx }));
         enqueueSnackbar("item borrado", {
           variant: "warning",
         });

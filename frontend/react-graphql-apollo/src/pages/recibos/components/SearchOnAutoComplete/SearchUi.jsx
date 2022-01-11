@@ -68,7 +68,7 @@ export default function SearchUi({
       console.log("select-option");
       if (queryName === "items") {
         console.log("items value", value);
-        addLinea(dispatch, pushLinea, enqueueSnackbar, value);
+        addLinea(dispatch, pushLinea, value);
         // updateSearch("");
       } else if (queryName === "clientes") {
         console.log("clientes");

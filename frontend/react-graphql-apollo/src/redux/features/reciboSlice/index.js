@@ -53,35 +53,19 @@ const reciboSlice = createSlice({
       state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     pushLinea: (state, action) => {
-      //TODO: revisar si existe o no el item pusheado, si qty del payload es mayor actualizar la qty
-      const { tipo, id, descripcion, enqueueSnackbar, custom } = action.payload;
-      const hasId = state[tipo].lineas.some((linea) => linea.id === id);
-      if (custom) {
-        state[tipo].lineas.push(action.payload);
-        state.venta.subTotal = getSubTotal(state.venta.lineas);
-        enqueueSnackbar(`item ${descripcion} agregado`, {
-          variant: "success",
-        });
-      } else if (!hasId) {
-        state[tipo].lineas.push(action.payload);
-        state.venta.subTotal = getSubTotal(state.venta.lineas);
-        enqueueSnackbar(`item ${descripcion} agregado`, {
-          variant: "success",
-        });
-      } else {
-        enqueueSnackbar(`item ${descripcion} ya esta agregado`, {
-          variant: "warning",
-        });
-      }
+      const { tipo } = action.payload;
+      state[tipo].lineas.push(action.payload);
+      state.venta.subTotal = getSubTotal(state.venta.lineas);
     },
     addRecibo: (state, action) => {
       const tipoRecibo = action.payload.tipo;
       state[tipoRecibo] = action.payload;
     },
     delLinea: (state, action) => {
+      console.log("dellinea:", action.payload);
       const tipoRecibo = action.payload.tipo;
       const newArr = state[tipoRecibo].lineas.filter(
-        (linea) => linea.id !== action.payload.id
+        (_, index) => index !== action.payload.idx
       );
       state[tipoRecibo].lineas = newArr;
       state.venta.subTotal = getSubTotal(state.venta.lineas);

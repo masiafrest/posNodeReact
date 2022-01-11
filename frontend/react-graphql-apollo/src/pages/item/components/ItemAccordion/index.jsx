@@ -31,7 +31,6 @@ export default function ItemAccordion({ data }) {
     marca,
     color,
   } = data;
-  console.table(data);
   const joinEl = (array, separator = ", ") =>
     array.map((e) => e.nombre).join(separator);
 
