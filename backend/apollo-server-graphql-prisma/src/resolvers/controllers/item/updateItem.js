@@ -65,71 +65,69 @@ async function updateItem(parent, args, ctx, info) {
   const updateConnDisc = require("./updateConnDisc");
   let updateCategorias = updateConnDisc(categorias, item.categorias);
   let updModelos = updateConnDisc(modelos, item.modelos);
+  let updCaracteristicas = updateConnDisc(
+    caracteristicas,
+    item.caracteristicas
+  );
   console.log("done categoriaConnDisconn", updateCategorias.connectOrCreate);
   console.log("done modelosConnDisconn", updModelos);
 
   try {
-    return await ctx.prisma.item.update({
-      where: {
-        id,
-      },
-      data: {
-        marca: {
-          connectOrCreate: {
-            where: {
-              nombre: marca,
-            },
-            create: {
-              nombre: marca,
-            },
-          },
+    const [updTrx] = await ctx.prisma.$transaction([
+      ctx.prisma.item.update({
+        where: {
+          id,
         },
-        color: color
-          ? {
-              connectOrCreate: {
-                where: {
-                  nombre: color,
-                },
-                create: {
-                  nombre: color,
-                },
+        data: {
+          marca: {
+            connectOrCreate: {
+              where: {
+                nombre: marca,
               },
-            }
-          : undefined,
-        modelos: updModelos,
-        caracteristicas: {
-          connectOrCreate: caracteristicas.map((nombre) => ({
-            where: {
-              nombre,
+              create: {
+                nombre: marca,
+              },
             },
-            create: {
-              nombre,
+          },
+          color: color
+            ? {
+                connectOrCreate: {
+                  where: {
+                    nombre: color,
+                  },
+                  create: {
+                    nombre: color,
+                  },
+                },
+              }
+            : undefined,
+          modelos: updModelos,
+          caracteristicas: updCaracteristicas,
+          image_url: imagesPath,
+          barcode,
+          qty,
+          descripcion: search_text,
+          search_text,
+          categorias: updateCategorias,
+          precio: {
+            update: {
+              precio,
+              precioMin,
             },
-          })),
-        },
-        image_url: imagesPath,
-        barcode,
-        qty,
-        descripcion: search_text,
-        search_text,
-        categorias: updateCategorias,
-        precio: {
-          update: {
-            precio,
-            precioMin,
           },
         },
-      },
-      include: {
-        marca: true,
-        modelos: true,
-        caracteristicas: true,
-        color: true,
-        categorias: true,
-        precio: true,
-        ubicacion: true,
-      },
-    });
+        include: {
+          marca: true,
+          modelos: true,
+          caracteristicas: true,
+          color: true,
+          categorias: true,
+          precio: true,
+          ubicacion: true,
+        },
+      }),
+    ]);
+    return updTrx;
   } catch (error) {
     console.log("error", error);
     return error;
