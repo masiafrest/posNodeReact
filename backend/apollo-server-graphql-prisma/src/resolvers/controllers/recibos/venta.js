@@ -23,38 +23,58 @@ async function postVenta(parent, args, ctx, info) {
 
   console.log("restar item");
   try {
-    lineas.map(async (linea) => {
-      // no hay item con id 0, 0 es falty
-      if (linea.id * 1) {
-        return await ctx.prisma.item.update({
-          where: { id: linea.id * 1 },
-          data: {
-            qty: {
-              decrement: 1,
-            },
-          },
-        });
-      }
-    });
-
     console.log("crear venta");
     console.log("ctx currentUser:", ctx.currentUser);
-    return await ctx.prisma.venta.create({
-      data: {
-        usuarioNombre: ctx.currentUser.nombre,
-        clienteNombre: cliente,
-        credito,
-        subTotal,
-        tax,
-        total,
-        lineas: {
-          create: newLines,
+    const [ventasTrx, ...lineasTrx] = await ctx.prisma.$transaction([
+      ctx.prisma.venta.create({
+        data: {
+          usuarioNombre: ctx.currentUser.nombre,
+          clienteNombre: cliente,
+          credito,
+          subTotal,
+          tax,
+          total,
+          lineas: {
+            create: newLines,
+          },
         },
-      },
-      include: {
-        lineas: true,
-      },
-    });
+        include: {
+          lineas: true,
+        },
+      }),
+      ...lineas.map((linea) => {
+        // no hay item con id 0, 0 es falty
+        if (linea.id * 1) {
+          return ctx.prisma.item.update({
+            where: { id: linea.id * 1 },
+            data: {
+              qty: {
+                decrement: 1,
+              },
+            },
+          });
+        }
+      }),
+    ]);
+
+    console.log("ventasTrx", ventasTrx);
+    return ventasTrx;
+    // return await ctx.prisma.venta.create({
+    //   data: {
+    //     usuarioNombre: ctx.currentUser.nombre,
+    //     clienteNombre: cliente,
+    //     credito,
+    //     subTotal,
+    //     tax,
+    //     total,
+    //     lineas: {
+    //       create: newLines,
+    //     },
+    //   },
+    //   include: {
+    //     lineas: true,
+    //   },
+    // });
   } catch (e) {
     console.log("error transaction:", e);
     return e;
