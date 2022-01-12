@@ -10,7 +10,6 @@ async function postItem(parent, args, ctx, info) {
   const {
     barcode,
     categorias,
-    descripcion,
     precio,
     precioMin,
     ubicacion,
@@ -24,6 +23,18 @@ async function postItem(parent, args, ctx, info) {
   console.log("args post item: ", args);
   // console.log("save item");
 
+  const connectOrCreateMap = (arr) =>
+    arr.map((nombre) => ({
+      where: {
+        nombre,
+      },
+      create: {
+        nombre,
+      },
+    }));
+  const getDescription = `${marca} ${modelos?.join(
+    " "
+  )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`;
   try {
     const itemCreated = await ctx.prisma.item.create({
       data: {
@@ -38,24 +49,10 @@ async function postItem(parent, args, ctx, info) {
           },
         },
         modelos: {
-          connectOrCreate: modelos?.map((nombre) => ({
-            where: {
-              nombre,
-            },
-            create: {
-              nombre,
-            },
-          })),
+          connectOrCreate: connectOrCreateMap(modelos),
         },
         caracteristicas: {
-          connectOrCreate: caracteristicas?.map((nombre) => ({
-            where: {
-              nombre,
-            },
-            create: {
-              nombre,
-            },
-          })),
+          connectOrCreate: connectOrCreateMap(caracteristicas),
         },
         color: {
           connectOrCreate: {
@@ -69,20 +66,13 @@ async function postItem(parent, args, ctx, info) {
         },
         barcode,
         qty,
-        descripcion: `${marca} ${modelos?.join(
-          " "
-        )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`,
-        search_text: `${marca} ${modelos?.join(
-          " "
-        )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`,
+        descripcion: getDescription,
+        search_text: getDescription,
         ubicacion: {
           connect: ubicacion,
         },
         categorias: {
-          connectOrCreate: categorias?.map((nombre) => ({
-            where: { nombre },
-            create: { nombre },
-          })),
+          connectOrCreate: connectOrCreateMap(categorias),
         },
         precio: {
           create: {
