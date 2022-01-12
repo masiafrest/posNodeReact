@@ -9,10 +9,9 @@ async function postVenta(parent, args, ctx, info) {
   console.log("ventas post args: ", args);
 
   const newLines = lineas.map((linea) => {
-    const { id, descripcion, precio, qty, custom } = linea;
-
+    const { id, descripcion, precio, qty } = linea;
     return {
-      item: !custom ? { connect: { id: id * 1 } } : undefined,
+      item: id * 1 ? { connect: { id: id * 1 } } : undefined,
       // itemd: id,
       descripcion: `${descripcion}`,
       qty,
@@ -20,13 +19,13 @@ async function postVenta(parent, args, ctx, info) {
     };
   });
 
-  console.log("ventas post");
+  console.log("ventas post newlines: ", newLines);
 
   console.log("restar item");
   try {
-    lineas.filter(async (linea) => {
-      if (!linea.custom) {
-        console.log("decrementItems lineas map  linea.id:", linea.id);
+    lineas.map(async (linea) => {
+      // no hay item con id 0, 0 es falty
+      if (linea.id * 1) {
         return await ctx.prisma.item.update({
           where: { id: linea.id * 1 },
           data: {
