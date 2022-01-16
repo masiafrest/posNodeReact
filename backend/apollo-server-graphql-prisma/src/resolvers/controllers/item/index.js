@@ -42,10 +42,12 @@ async function items(parent, args, ctx, info) {
 
   // lte && (where.qty.lte = lte);
   // gte && (where.qty.gte = gte);
-
   console.log("args: ", args);
   console.log("where: ", where);
   const query = await ctx.prisma.item.findMany({
+    orderBy: {
+      marcaId: "asc",
+    },
     where,
     include: {
       categorias: true,
