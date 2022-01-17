@@ -46,16 +46,16 @@ export default function SelectInput({
     variables: { filter: "", skip: 0 },
   });
 
-  console.log("default value:", type, defaultValue);
+  // console.log("default value:", type, defaultValue);
   const handleChange = (_, newValue) => {
-    console.log("selectinput handle change newValue:", newValue);
+    // console.log("selectinput handle change newValue:", newValue);
     const key = multiple ? type : type.slice(0, -1);
     const value = multiple
       ? newValue.map((e) => e?.toUpperCase())
       : newValue
       ? newValue.toUpperCase()
       : undefined;
-    console.log("handle change value", value);
+    // console.log("handle change value", value);
     setNewItem((item) => ({
       ...item,
       [key]: value,
