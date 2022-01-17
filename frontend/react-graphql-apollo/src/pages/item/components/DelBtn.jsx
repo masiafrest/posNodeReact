@@ -20,7 +20,7 @@ export default function DelBtn({ id, paths }) {
   const { enqueueSnackbar } = useSnackbar();
   const [isOpen, toggleIsOpen] = useToggle(false);
 
-  const [delItem, { loading, error }] = useMutation(DEL_ITEM, {
+  const [delItem, { loading }] = useMutation(DEL_ITEM, {
     update(cache, { data: { delItem } }) {
       cache.modify({
         fields: {
