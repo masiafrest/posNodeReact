@@ -1,3 +1,5 @@
+import getDescription from "./getDescriptionFactory";
+
 export default function addLinea(
   dispatch,
   pushLinea,
@@ -18,11 +20,13 @@ export default function addLinea(
     id,
     tipo: reciboTipo,
     qty: 1,
-    descripcion: `${marca?.nombre}, ${modelos
-      .map((e) => e.nombre)
-      .join("/")} | ${color ? `${color?.nombre} |` : ""} ${caracteristicas
-      .map((e) => e.nombre)
-      .join(", ")}  ${categorias.map((e) => e.nombre).join(", ")}`,
+    descripcion: getDescription(
+      marca,
+      modelos,
+      color,
+      caracteristicas,
+      categorias
+    ),
     precio,
     precioMin,
   };
