@@ -24,8 +24,23 @@ async function postVenta(parent, args, ctx, info) {
   console.log("restar item");
   try {
     console.log("crear venta");
-    console.log("ctx currentUser:", ctx.currentUser);
-    const [ventasTrx, ...lineasTrx] = await ctx.prisma.$transaction([
+    const ItemDecrementOnDB = lineas
+      .map((linea) => {
+        // no hay item con id 0, 0 es falty
+        if (linea.id * 1) {
+          return ctx.prisma.item.update({
+            where: { id: linea.id * 1 },
+            data: {
+              qty: {
+                decrement: 1,
+              },
+            },
+          });
+        }
+        return;
+      })
+      .filter((e) => e !== undefined);
+    const [ventasTrx] = await ctx.prisma.$transaction([
       ctx.prisma.venta.create({
         data: {
           usuarioNombre: ctx.currentUser.nombre,
@@ -42,19 +57,7 @@ async function postVenta(parent, args, ctx, info) {
           lineas: true,
         },
       }),
-      ...lineas.map((linea) => {
-        // no hay item con id 0, 0 es falty
-        if (linea.id * 1) {
-          return ctx.prisma.item.update({
-            where: { id: linea.id * 1 },
-            data: {
-              qty: {
-                decrement: 1,
-              },
-            },
-          });
-        }
-      }),
+      ...ItemDecrementOnDB,
     ]);
 
     console.log("ventasTrx", ventasTrx);
