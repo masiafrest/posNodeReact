@@ -1,4 +1,5 @@
 const { saveImg, errorHandler } = require("../../../utils");
+const { connectOrCreateFactory, connectOrCreateArr } = require("./utils");
 
 /**
  * @typedef { import("@prisma/client").PrismaClient } Prisma
@@ -23,15 +24,6 @@ async function postItem(parent, args, ctx, info) {
   console.log("args post item: ", args);
   // console.log("save item");
 
-  const connectOrCreateMap = (arr) =>
-    arr.map((nombre) => ({
-      where: {
-        nombre,
-      },
-      create: {
-        nombre,
-      },
-    }));
   const getDescription = `${marca} ${modelos?.join(
     " "
   )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`;
@@ -39,30 +31,16 @@ async function postItem(parent, args, ctx, info) {
     const itemCreated = await ctx.prisma.item.create({
       data: {
         marca: {
-          connectOrCreate: {
-            where: {
-              nombre: marca,
-            },
-            create: {
-              nombre: marca,
-            },
-          },
+          connectOrCreate: connectOrCreateFactory(marca),
         },
         modelos: {
-          connectOrCreate: connectOrCreateMap(modelos),
+          connectOrCreate: connectOrCreateArr(modelos),
         },
         caracteristicas: {
-          connectOrCreate: connectOrCreateMap(caracteristicas),
+          connectOrCreate: connectOrCreateArr(caracteristicas),
         },
         color: {
-          connectOrCreate: {
-            where: {
-              nombre: color,
-            },
-            create: {
-              nombre: color,
-            },
-          },
+          connectOrCreate: connectOrCreateFactory(color),
         },
         barcode,
         qty,
@@ -72,7 +50,7 @@ async function postItem(parent, args, ctx, info) {
           connect: ubicacion,
         },
         categorias: {
-          connectOrCreate: connectOrCreateMap(categorias),
+          connectOrCreate: connectOrCreateArr(categorias),
         },
         precio: {
           create: {

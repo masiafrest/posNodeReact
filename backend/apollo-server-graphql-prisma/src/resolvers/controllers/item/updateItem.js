@@ -62,10 +62,13 @@ async function updateItem(parent, args, ctx, info) {
   }
 
   //update categorias disconnect and connect
-  const updateConnDisc = require("./updateConnDisc");
-  let updateCategorias = updateConnDisc(categorias, item.categorias);
-  let updModelos = updateConnDisc(modelos, item.modelos);
-  let updCaracteristicas = updateConnDisc(
+  const { connectOrCreateAndDisconnectFactory } = require("./utils");
+  let updateCategorias = connectOrCreateAndDisconnectFactory(
+    categorias,
+    item.categorias
+  );
+  let updModelos = connectOrCreateAndDisconnectFactory(modelos, item.modelos);
+  let updCaracteristicas = connectOrCreateAndDisconnectFactory(
     caracteristicas,
     item.caracteristicas
   );

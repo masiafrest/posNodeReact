@@ -35,6 +35,7 @@ export default function ItemAccordion({ data }) {
     caracteristicas,
   } = data;
 
+  console.log(data);
   const chips = (arr, size = "small", variant = "default") =>
     arr.map((car) => (
       <Chip key={car.nombre} size={size} variant={variant} label={car.nombre} />

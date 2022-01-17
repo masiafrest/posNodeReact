@@ -9,7 +9,7 @@ export default function getDescription(
   caracteristicas = [],
   categorias = []
 ) {
-  return `${marca?.nombre} ${joinArr(modelos)} ${
+  return `${marca ? marca?.nombre : ""} ${joinArr(modelos)} ${
     color ? color?.nombre : ""
   } ${joinArr(caracteristicas)} ${joinArr(categorias)}`;
 }
