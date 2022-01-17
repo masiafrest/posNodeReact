@@ -3,15 +3,11 @@ import { NavLink, useLocation } from "react-router-dom";
 import SunIcon from "@material-ui/icons/Brightness5";
 import MoonIcon from "@material-ui/icons/Brightness2";
 
+import useToggle from "../../hooks/useToggle";
+
 //MUI
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  FormControlLabel,
-  Switch,
-} from "@material-ui/core";
+import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -42,10 +38,7 @@ function NavBar() {
   const { darkMode } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const toggleDrawer = (isOpen) => (e) => {
-    setIsDrawerOpen(isOpen);
-  };
+  const [isDrawerOpen, toggleDrawer] = useToggle();
 
   const { pathname } = useLocation();
   const isItemPage = pathname === "/item" || pathname === "/" ? true : false;
@@ -57,15 +50,12 @@ function NavBar() {
           <IconButton
             edge="start"
             color="inherit"
-            onClick={toggleDrawer(true)}
+            onClick={toggleDrawer}
             className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
-          <Drawer
-            drawerState={[isDrawerOpen, setIsDrawerOpen]}
-            toggleDrawer={toggleDrawer}
-          />
+          <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
           <NavLink
             className={darkMode ? classes.darkMode : classes.lightMode}
             to={isItemPage ? "/venta" : "/item"}

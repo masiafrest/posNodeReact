@@ -7,7 +7,7 @@ import { signOut, signoutSucess } from "../../redux/features/userSlice";
 
 import { useStyle } from "./";
 
-export default function ({ drawerState, toggleDrawer }) {
+export default function ({ isDrawerOpen, toggleDrawer }) {
   const classes = useStyle();
 
   const {
@@ -17,17 +17,16 @@ export default function ({ drawerState, toggleDrawer }) {
   } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const [isDrawerOpen, setIsDrawerOpen] = drawerState;
-
   const history = useHistory();
 
   const links = ["item", "venta", "cliente", "categoria"];
+
   rol === "ADMIN" && links.push("usuario");
 
   const NavLinkOnClick = ({ to, children }) => (
     <NavLink
       to={to}
-      onClick={toggleDrawer(false)}
+      onClick={toggleDrawer}
       className={darkMode ? classes.darkMode : classes.lightMode}
     >
       <Typography variant="h4" gutterBottom>
@@ -37,7 +36,7 @@ export default function ({ drawerState, toggleDrawer }) {
   );
 
   return (
-    <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer(false)}>
+    <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer}>
       <List>
         {links.map((text, index) => (
           <ListItem button key={text}>
@@ -49,7 +48,7 @@ export default function ({ drawerState, toggleDrawer }) {
             button
             key="signout"
             onClick={() => {
-              setIsDrawerOpen(false);
+              toggleDrawer();
               dispatch(signoutSucess());
               history.push("/login");
             }}
