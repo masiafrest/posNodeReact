@@ -1,23 +1,20 @@
-import { useState } from "react";
 import ReciboVenta from "./components/ReciboVenta";
+import useToggle from "../../../../../hooks/useToggle";
 
 import { Dialog, DialogContent, DialogTitle, Button } from "@material-ui/core";
 
 export default function VentaDialog() {
-  const [open, setOpen] = useState(false);
-  const closeDialog = () => {
-    setOpen(false);
-  };
+  const [open, toggleOpen] = useToggle();
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" onClick={toggleOpen}>
         hacer venta
       </Button>
-      <Dialog open={open} onClose={closeDialog} fullWidth>
+      <Dialog open={open} onClose={toggleOpen} fullWidth>
         <DialogTitle>Recibo Venta</DialogTitle>
         <DialogContent>
-          <ReciboVenta closeDialog={closeDialog} />
+          <ReciboVenta toggleOpen={toggleOpen} />
         </DialogContent>
       </Dialog>
     </>

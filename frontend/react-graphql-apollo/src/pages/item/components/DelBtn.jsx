@@ -2,17 +2,9 @@ import { useMutation } from "@apollo/client";
 import { DEL_ITEM } from "../graphql/mutation";
 
 import useToggle from "../../../hooks/useToggle";
+import DeleteModal from "../../../components/DeleteModal";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  DialogTitle,
-  Button,
-  IconButton,
-} from "@material-ui/core";
-
+import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSnackbar } from "notistack";
 
@@ -55,26 +47,11 @@ export default function DelBtn({ id, paths }) {
       >
         <DeleteIcon />
       </IconButton>
-      <Dialog open={isOpen} close={toggleIsOpen}>
-        <DialogTitle>Estas seguro que vas a borrarlo?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            esta accion no se puede revertir o deshacer, estas seguro que desea
-            borrar?.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              delItem({ variables: { id: id * 1, paths } });
-              // toggleIsOpen();
-            }}
-          >
-            Borrar
-          </Button>
-          <Button onClick={toggleIsOpen}>Cancelar</Button>
-        </DialogActions>
-      </Dialog>
+      <DeleteModal
+        isOpen={isOpen}
+        toggleIsOpen={toggleIsOpen}
+        delItem={() => delItem({ variables: { id: id * 1, paths } })}
+      />
     </>
   );
 }

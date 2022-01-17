@@ -18,7 +18,7 @@ import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
 import { Checkbox, FormControlLabel, Grid, Divider } from "@material-ui/core";
 
-export default function ReciboVenta({ closeDialog }) {
+export default function ReciboVenta({ toggleOpen }) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [postVenta] = useMutation(PostVenta, {
@@ -40,7 +40,7 @@ export default function ReciboVenta({ closeDialog }) {
         variant: "success",
       });
       dispatch(resetState({ reciboTipo: "venta" }));
-      closeDialog();
+      toggleOpen();
     },
     onError(e) {
       enqueueSnackbar(e.message, {
