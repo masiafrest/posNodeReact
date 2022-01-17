@@ -4,6 +4,7 @@ import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
 import SelectInput from "./SelectInput";
 import { useSnackbar } from "notistack";
+import useToggle from "../../../../hooks/useToggle";
 
 import {
   Dialog,
@@ -21,7 +22,6 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CollapseDropzone from "./CollapseDropzone";
 
 export default function ItemEditDialogIcon({ item = null }) {
-  const { enqueueSnackbar } = useSnackbar();
   const initialItemState = {
     ubicacion: { id: 1 },
     categorias: [],
@@ -30,6 +30,9 @@ export default function ItemEditDialogIcon({ item = null }) {
     marca: "",
     color: "",
   };
+  const { enqueueSnackbar } = useSnackbar();
+  const [open, toggleOpen] = useToggle();
+  const [newItem, setNewItem] = useState(initialItemState);
   if (item) {
     initialItemState.categorias.push(...item?.categorias.map((e) => e.nombre));
     initialItemState.caracteristicas.push(
@@ -40,8 +43,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     initialItemState.color = item?.color?.nombre;
   }
 
-  const [open, setOpen] = useState(false);
-  const [newItem, setNewItem] = useState(initialItemState);
   const onCompleted = (data) => {
     const mutation = item ? "updateItem" : "postItem";
     const { descripcion } = data[mutation];
@@ -86,10 +87,6 @@ export default function ItemEditDialogIcon({ item = null }) {
     onError,
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleOnChange = (e) => {
     const { name, value, type } = e.target;
     if (name === "precio" || name === "precioMin") {
@@ -109,13 +106,13 @@ export default function ItemEditDialogIcon({ item = null }) {
 
   const handleClose = () => {
     setNewItem(initialItemState);
-    setOpen(false);
+    toggleOpen();
   };
 
   return (
     <>
       {item ? (
-        <IconButton aria-label="edit" onClick={handleClickOpen}>
+        <IconButton aria-label="edit" onClick={toggleOpen}>
           {item ? (
             <EditIcon color="primary" />
           ) : (
@@ -123,7 +120,7 @@ export default function ItemEditDialogIcon({ item = null }) {
           )}
         </IconButton>
       ) : (
-        <Button variant="contained" onClick={handleClickOpen}>
+        <Button variant="contained" onClick={toggleOpen}>
           {item ? "Editar item" : "Agregar item"}
         </Button>
       )}
