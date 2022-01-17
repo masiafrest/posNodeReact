@@ -4,6 +4,8 @@ import DelBtn from "../DelBtn";
 import AddBtn from "../AddBtn";
 import Table from "./Table";
 
+import getDescription from "../../../../components/getDescription";
+
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   Accordion,
@@ -23,41 +25,35 @@ const useStyle = makeStyles((theme) => ({
 export default function ItemAccordion({ data }) {
   const {
     id,
-    descripcion,
     qty,
     precio: { precio, precioMin },
-    ubicacion,
     image_url,
     marca,
+    modelos,
     color,
+    categorias,
+    caracteristicas,
   } = data;
-  const joinEl = (array, separator = ", ") =>
-    array.map((e) => e.nombre).join(separator);
 
-  const modelos = joinEl(data.modelos, "/");
-  //const caracteristicas = joinEl(data.caracteristicas);
-
-  const caracteristicasChip = data.caracteristicas.map((car) => (
-    <Chip key={car.nombre} size="small" variant="outline" label={car.nombre} />
-  ));
-
-  const categoriasChip = data.categorias.map((cat) => (
-    <Chip key={cat.nombre} size="small" label={cat.nombre} />
-  ));
+  const chips = (arr, size = "small", variant = "default") =>
+    arr.map((car) => (
+      <Chip key={car.nombre} size={size} variant={variant} label={car.nombre} />
+    ));
 
   return (
     <Accordion elevation={14}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
-        id="panel1a-header"
       >
         <div>
           <Typography>
-            <Typography style={{ fontWeight: 600 }}>{marca?.nombre}</Typography>
-            {modelos} | {color?.nombre}
+            <Typography style={{ fontWeight: 600 }}>
+              {getDescription(marca, modelos, color)}
+            </Typography>
+            {chips(caracteristicas, "small", "outline")}
+            {chips(categorias, "small")}
           </Typography>
-          {caracteristicasChip} {categoriasChip}
         </div>
       </AccordionSummary>
       <Divider variant="middle" />

@@ -5,7 +5,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useSnackbar } from "notistack";
 
 import addLinea from "../../../../components/addLineaItem";
-import getDescription from "../../../../components/getDescriptionFactory";
+import getDescription from "../../../../components/getDescription";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { pushLinea, addCliente } from "../../../../redux/features/reciboSlice";

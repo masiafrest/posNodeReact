@@ -1,4 +1,4 @@
-import getDescription from "./getDescriptionFactory";
+import getDescription from "./getDescription";
 
 export default function addLinea(
   dispatch,

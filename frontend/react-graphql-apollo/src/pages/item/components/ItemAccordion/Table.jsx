@@ -15,7 +15,7 @@ export default function TableFill({ headers, bodies }) {
         <TableHead>
           <TableRow>
             {headers.map((header) => (
-              <TableCell align="right" key={header} size="small">
+              <TableCell align="right" key={"header" + header} size="small">
                 {header}
               </TableCell>
             ))}
@@ -24,7 +24,7 @@ export default function TableFill({ headers, bodies }) {
         <TableBody>
           <TableRow>
             {bodies.map((body) => (
-              <TableCell align="right" key={body} size="small">
+              <TableCell align="right" key={"body-" + body} size="small">
                 {body}
               </TableCell>
             ))}

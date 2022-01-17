@@ -5,8 +5,8 @@ export default function List({ view, data, viewComp }) {
   //TODO add grid, a swipable to del, maybe a materialUiContainer too
   return (
     <>
-      {data?.map((item) => (
-        <Grid item key={`item-grid-${item.id}`} sm={6} md={4}>
+      {data?.map((item, idx) => (
+        <Grid item key={`item-grid-${item.id}-${idx}`} sm={6} md={4}>
           {Accordion ? (
             view ? (
               <Card data={item} key={`item-${item.id}`} />
