@@ -16,13 +16,14 @@ import { VENTA_DATA } from "../../../grapql/query";
 import { PostVenta } from "../../../grapql/mutation";
 import { GET_CLIENTES } from "../../../../../cliente/graphql/query";
 
-import { Checkbox, FormControlLabel, Grid, Divider } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Grid } from "@material-ui/core";
 
 export default function ReciboVenta({ toggleOpen }) {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [postVenta] = useMutation(PostVenta, {
     update(cache, { data: { postVenta } }) {
+      console.log("post venta: ", postVenta);
       cache.modify({
         fields: {
           ventas(existingDatas = []) {
@@ -30,11 +31,21 @@ export default function ReciboVenta({ toggleOpen }) {
               data: postVenta,
               fragment: VENTA_DATA,
             });
+            console.log("post venta field: ", [
+              ...existingDatas.query,
+              newItemRef,
+            ]);
             return [...existingDatas.query, newItemRef];
           },
         },
       });
     },
+    // refetchQueries: [VENTA_DATA, "getVentas"],
+    // onQueryUpdated(observableQuery){
+    //   if(shouldRefetchQuery(observableQuery)){
+    //     return observableQuery.refetch();
+    //   }
+    // },
     onCompleted(data) {
       enqueueSnackbar(`recibo añadido`, {
         variant: "success",
