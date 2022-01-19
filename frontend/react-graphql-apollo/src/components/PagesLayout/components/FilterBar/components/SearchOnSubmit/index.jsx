@@ -14,8 +14,7 @@ export default function SearchOnSubmit({ filterState }) {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "filter", payload: term });
-    dispatch({ type: "page", payload: 1 });
+    dispatch({ type: "searchOnSubmit", payload: { filter: term, page: 1 } });
     textInput.current.blur();
   };
 

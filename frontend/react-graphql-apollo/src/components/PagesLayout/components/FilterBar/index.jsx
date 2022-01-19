@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Grid } from "@material-ui/core";
 
-import SwitchView from "./components/SwitchView";
+// import SwitchView from "./components/SwitchView";
 import SelectItemPerPage from "./components/SelectItemPerPage";
 import SearchOnSubmit from "./components/SearchOnSubmit";
 import LteFilter from "./components/LteFilter";
@@ -17,33 +17,7 @@ export default function FilterBar({
   hasViews = true,
 }) {
   const { barState, dispatch } = useContext(context);
-  const Context = useContext(context);
-  // let page,
-  //   setPage,
-  //   setTake,
-  //   view,
-  //   setView,
-  //   lteState,
-  //   isCreditoState,
-  //   categoriaState;
-
-  // let take = 5;
-
-  // if (!recibo) {
-  //   ({
-  //     pageState: [page, setPage],
-  //     takeState: [take, setTake],
-  //     viewState: [view, setView],
-  //     lteState,
-  //     isCreditoState,
-  //     categoriaState,
-  //   } = Context);
-  // }
-
-  // const {
-  //   filterState: [filter, setFilter],
-  // } = Context;
-  const { filter, take, view, page, lte, isCredito, categoria } = barState;
+  const { filter, take, lte, isCredito, categoria } = barState;
   return (
     <Grid
       container

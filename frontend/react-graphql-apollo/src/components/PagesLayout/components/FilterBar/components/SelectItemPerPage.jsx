@@ -7,8 +7,10 @@ export default function SelectItemPerPage({ take, dispatch }) {
       <NativeSelect
         value={take}
         onChange={(e) => {
-          dispatch({ type: "take", payload: e.target.value * 1 });
-          dispatch({ type: "page", payload: 1 });
+          dispatch({
+            type: "selectItemPerPage",
+            payload: { take: e.target.value * 1, page: 1 },
+          });
         }}
       >
         <option value={5}>5</option>

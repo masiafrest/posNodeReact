@@ -27,6 +27,18 @@ export default function PagesLayout({
 
   const barReducer = (state, action) => {
     switch (action.type) {
+      case "searchOnSubmit":
+        return {
+          ...initialState,
+          filter: action.payload.filter,
+          page: action.payload.page,
+        };
+      case "selectItemPerPage":
+        return {
+          ...initialState,
+          take: action.payload.take,
+          page: action.payload.page,
+        };
       case "filter":
         return { ...initialState, filter: action.payload };
       case "take":
@@ -41,39 +53,18 @@ export default function PagesLayout({
         return { ...initialState, isCredito: action.payload };
       case "categoria":
         return { ...initialState, categoria: action.payload };
+      default:
+        return state;
     }
   };
 
   const [barState, dispatch] = useReducer(barReducer, initialState);
-  console.log("barState", barState);
-
-  // const filterState = useState("");
-  // const takeState = useState(20);
-  // const viewState = useState(false);
-  // const pageState = useState(1);
-  // const lteState = useState(null);
-  // const isCreditoState = useState(true);
-  // const categoriaState = useState("todos");
 
   const filterBarState = {
     barState,
     dispatch,
-    // filterState,
-    // takeState,
-    // viewState,
-    // pageState,
-    // lteState,
-    // isCreditoState,
-    // categoriaState,
   };
 
-  // const [filter, setFilter] = filterState;
-  // const [page, setPage] = pageState;
-  // const [take, setTake] = takeState;
-  // const [view, setView] = viewState;
-  // const [lte, setLte] = lteState;
-  // const [isCredito, setIsCredito] = isCreditoState;
-  // const [categoria, setCategoria] = categoriaState;
   const { page, take, view } = barState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
