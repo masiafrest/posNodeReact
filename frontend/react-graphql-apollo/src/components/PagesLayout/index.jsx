@@ -90,12 +90,16 @@ export default function PagesLayout({
 
   const CustomPagination = () => (
     <Pagination
-      size="large"
+      size="medium"
       count={pages}
       page={page}
+      siblingCount={0}
+      boundaryCount={3}
       onChange={(e, p) => {
         dispatch({ type: "page", payload: p });
       }}
+      // hideNextButton
+      // hidePrevButton
     />
   );
   return (
