@@ -15,6 +15,7 @@ export default function DelBtn({ id }) {
 
   const [delVenta, { loading }] = useMutation(DelVenta, {
     update(cache, { data: { delVenta } }) {
+      console.log("update");
       cache.modify({
         fields: {
           ventas(existingVentas = [], { readField }) {
@@ -27,6 +28,7 @@ export default function DelBtn({ id }) {
       });
     },
     onCompleted(data) {
+      console.log("onComplete");
       const { id } = data.delVenta;
       toggleIsOpen();
       enqueueSnackbar(`Venta ${id} eliminado`, {
