@@ -46,7 +46,7 @@ async function items(parent, args, ctx, info) {
   console.log("where: ", where);
   const query = await ctx.prisma.item.findMany({
     orderBy: {
-      marcaId: "asc",
+      descripcion: "asc",
     },
     where,
     include: {
