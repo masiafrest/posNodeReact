@@ -57,28 +57,28 @@ export default function VentaAccordion({ data }) {
         id="panel1a-header"
       >
         <Grid container spacing={1}>
-          <Grid item sm={6}>
+          <Grid item xs={6}>
             <BoldTypography title="N° Recibo" body={id} />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item xs={6}>
             <BoldTypography
               title="Fecha"
               body={dayjs(fecha * 1).format("DD-MMM-YYYY")}
             />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item xs={6}>
             <BoldTypography title="Vendedor" body={usuarioNombre} />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item xs={6}>
             <BoldTypography title="Cliente" body={clienteNombre} />
           </Grid>
           <Grid item xs={6}>
-            <BoldTypography title={`Total: ${total}`} colon={false} />
+            <BoldTypography title="Total" body={`${total}`} />
           </Grid>
           <Grid item xs={6}>
             <BoldTypography
-              title={`Estado: ${credito ? "no pago" : "pagado"}`}
-              colon={false}
+              title="Estado"
+              body={`${credito ? "no pago" : "pagado"}`}
             />
           </Grid>
         </Grid>
