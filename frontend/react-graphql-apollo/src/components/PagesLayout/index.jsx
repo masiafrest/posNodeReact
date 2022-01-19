@@ -50,6 +50,7 @@ export default function PagesLayout({
 
   const { data, loading, error } = useQuery(getQuery, {
     variables,
+    pollInterval: 30000,
   });
 
   if (error) {
