@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useReducer } from "react";
 import { useQuery } from "@apollo/client";
 
 import FilterBar from "./components/FilterBar";
@@ -15,41 +15,76 @@ export default function PagesLayout({
   CreateDialog,
   viewComp,
 }) {
-  const filterState = useState("");
-  const takeState = useState(20);
-  const viewState = useState(false);
-  const pageState = useState(1);
-  const lteState = useState(null);
-  const isCreditoState = useState(true);
-  const categoriaState = useState("todos");
-
-  const filterBarState = {
-    filterState,
-    takeState,
-    viewState,
-    pageState,
-    lteState,
-    isCreditoState,
-    categoriaState,
+  const initialState = {
+    filter: "",
+    take: 20,
+    view: false,
+    page: 1,
+    lte: null,
+    isCredito: true,
+    categoria: "todos",
   };
 
-  const [filter, setFilter] = filterState;
-  const [page, setPage] = pageState;
-  const [take, setTake] = takeState;
-  const [view, setView] = viewState;
-  const [lte, setLte] = lteState;
-  const [isCredito, setIsCredito] = isCreditoState;
-  const [categoria, setCategoria] = categoriaState;
+  const barReducer = (state, action) => {
+    switch (action.type) {
+      case "filter":
+        return { ...initialState, filter: action.payload };
+      case "take":
+        return { ...initialState, take: action.payload };
+      case "view":
+        return { ...initialState, view: action.payload };
+      case "page":
+        return { ...initialState, page: action.payload };
+      case "lte":
+        return { ...initialState, lte: action.payload };
+      case "isCredito":
+        return { ...initialState, isCredito: action.payload };
+      case "categoria":
+        return { ...initialState, categoria: action.payload };
+    }
+  };
+
+  const [barState, dispatch] = useReducer(barReducer, initialState);
+  console.log("barState", barState);
+
+  // const filterState = useState("");
+  // const takeState = useState(20);
+  // const viewState = useState(false);
+  // const pageState = useState(1);
+  // const lteState = useState(null);
+  // const isCreditoState = useState(true);
+  // const categoriaState = useState("todos");
+
+  const filterBarState = {
+    barState,
+    dispatch,
+    // filterState,
+    // takeState,
+    // viewState,
+    // pageState,
+    // lteState,
+    // isCreditoState,
+    // categoriaState,
+  };
+
+  // const [filter, setFilter] = filterState;
+  // const [page, setPage] = pageState;
+  // const [take, setTake] = takeState;
+  // const [view, setView] = viewState;
+  // const [lte, setLte] = lteState;
+  // const [isCredito, setIsCredito] = isCreditoState;
+  // const [categoria, setCategoria] = categoriaState;
+  const { page, take, view } = barState;
 
   const skip = page === 1 ? 0 : (page - 1) * take;
-  const variables = { filter, take, skip };
+  // const variables = { filter, take, skip };
 
-  title === "items" && (variables.lte = lte);
-  title === "items" && (variables.categoria = categoria);
-  title === "ventas" && (variables.isCredito = isCredito);
+  // title === "items" && (variables.lte = lte);
+  // title === "items" && (variables.categoria = categoria);
+  // title === "ventas" && (variables.isCredito = isCredito);
 
   const { data, loading, error } = useQuery(getQuery, {
-    variables,
+    variables: { ...barState, skip },
     pollInterval: 30000,
   });
 
@@ -96,7 +131,8 @@ export default function PagesLayout({
                 count={pages}
                 page={page}
                 onChange={(e, p) => {
-                  setPage(p);
+                  dispatch({ type: "page", payload: p });
+                  // setPage(p);
                 }}
               />
             </Grid>
@@ -112,7 +148,8 @@ export default function PagesLayout({
                 count={pages}
                 page={page}
                 onChange={(e, p) => {
-                  setPage(p);
+                  dispatch({ type: "page", payload: p });
+                  // setPage(p);
                 }}
               />
             </Grid>

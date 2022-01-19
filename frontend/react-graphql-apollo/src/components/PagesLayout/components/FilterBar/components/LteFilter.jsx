@@ -1,7 +1,7 @@
 import { TextField } from "@material-ui/core";
 
 export default function LteFilter({ lteState }) {
-  const [lte, setLte] = lteState;
+  const [lte, dispatch] = lteState;
 
   return (
     <TextField
@@ -12,7 +12,7 @@ export default function LteFilter({ lteState }) {
         inputMode: "numeric",
       }}
       onChange={(e) => {
-        setLte(e.target.value * 1);
+        dispatch({ type: "lte", payload: e.target.value * 1 });
       }}
     />
   );

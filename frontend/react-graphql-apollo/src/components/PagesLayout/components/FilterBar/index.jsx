@@ -16,33 +16,34 @@ export default function FilterBar({
   queryType,
   hasViews = true,
 }) {
+  const { barState, dispatch } = useContext(context);
   const Context = useContext(context);
-  let page,
-    setPage,
-    setTake,
-    view,
-    setView,
-    lteState,
-    isCreditoState,
-    categoriaState;
+  // let page,
+  //   setPage,
+  //   setTake,
+  //   view,
+  //   setView,
+  //   lteState,
+  //   isCreditoState,
+  //   categoriaState;
 
-  let take = 5;
+  // let take = 5;
 
-  if (!recibo) {
-    ({
-      pageState: [page, setPage],
-      takeState: [take, setTake],
-      viewState: [view, setView],
-      lteState,
-      isCreditoState,
-      categoriaState,
-    } = Context);
-  }
+  // if (!recibo) {
+  //   ({
+  //     pageState: [page, setPage],
+  //     takeState: [take, setTake],
+  //     viewState: [view, setView],
+  //     lteState,
+  //     isCreditoState,
+  //     categoriaState,
+  //   } = Context);
+  // }
 
-  const {
-    filterState: [filter, setFilter],
-  } = Context;
-
+  // const {
+  //   filterState: [filter, setFilter],
+  // } = Context;
+  const { filter, take, view, page, lte, isCredito, categoria } = barState;
   return (
     <Grid
       container
@@ -53,21 +54,17 @@ export default function FilterBar({
       // style={{ textAlign: "center" }}
     >
       <Grid item xs={12} md={3}>
-        <SearchOnSubmit filterState={[filter, setFilter]} setPage={setPage} />
+        <SearchOnSubmit filterState={[filter, dispatch]} />
       </Grid>
       {queryType === "items" && !recibo && (
         <Grid item xs={3} sm={2}>
-          <CategoriaFilter categoriaState={categoriaState} />
+          <CategoriaFilter categoriaState={[categoria, dispatch]} />
         </Grid>
       )}
       {!recibo && (
         <>
           <Grid item xs={3} sm={3}>
-            <SelectItemPerPage
-              take={take}
-              setTake={setTake}
-              setPage={setPage}
-            />
+            <SelectItemPerPage take={take} dispatch={dispatch} />
           </Grid>
           {/* {hasViews && (
             <Grid item xs={3} sm={3}>
@@ -78,12 +75,12 @@ export default function FilterBar({
       )}
       {queryType === "items" && !recibo && (
         <Grid item xs={3} sm={2}>
-          <LteFilter lteState={lteState} />
+          <LteFilter lteState={[lte, dispatch]} />
         </Grid>
       )}
       {queryType === "ventas" && (
         <Grid item xs={2} sm={2}>
-          <IsPagadoCheck isCreditoState={isCreditoState} />
+          <IsPagadoCheck isCreditoState={[isCredito, dispatch]} />
         </Grid>
       )}
     </Grid>

@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 export default function CategoriaFilter({ categoriaState }) {
-  const [categoria, setCategoria] = categoriaState;
+  const [categoria, dispatch] = categoriaState;
   const { data, loading, error } = useQuery(GET_CATEGORIAS, {
     variables: { filter: "", skip: 0 },
   });
@@ -17,7 +17,7 @@ export default function CategoriaFilter({ categoriaState }) {
   ));
 
   const handleChange = (e) => {
-    setCategoria(e.target.value);
+    dispatch({ type: "categoria", payload: e.target.value });
   };
 
   return (

@@ -3,9 +3,9 @@ import { useState, useRef } from "react";
 import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-export default function SearchOnSubmit({ filterState, setPage }) {
+export default function SearchOnSubmit({ filterState }) {
   let textInput = useRef(null);
-  const [filter, setFilter] = filterState;
+  const [filter, dispatch] = filterState;
   const [term, setTerm] = useState(filter);
 
   const handleChange = (event) => {
@@ -14,8 +14,8 @@ export default function SearchOnSubmit({ filterState, setPage }) {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    setFilter(term);
-    setPage(1);
+    dispatch({ type: "filter", payload: term });
+    dispatch({ type: "page", payload: 1 });
     textInput.current.blur();
   };
 

@@ -1,14 +1,14 @@
 import { NativeSelect, Typography, Grid } from "@material-ui/core";
 
-export default function SelectItemPerPage({ take, setTake, setPage }) {
+export default function SelectItemPerPage({ take, dispatch }) {
   return (
     <>
       <Typography>items por pagina</Typography>
       <NativeSelect
         value={take}
         onChange={(e) => {
-          setTake(e.target.value * 1);
-          setPage(1);
+          dispatch({ type: "take", payload: e.target.value * 1 });
+          dispatch({ type: "page", payload: 1 });
         }}
       >
         <option value={5}>5</option>
