@@ -12,9 +12,9 @@ import CategoriaFilter from "./components/CategoriaFilter";
 export default function FilterBar({
   context,
   recibo = false,
-  getQuery,
+  // getQuery,
   queryType,
-  hasViews = true,
+  // hasViews = true,
 }) {
   const { barState, dispatch } = useContext(context);
   const { filter, take, lte, isCredito, categoria } = barState;
@@ -23,21 +23,21 @@ export default function FilterBar({
       container
       item
       spacing={2}
-      justifyContent="flex-start"
+      justifyContent="center"
       alignItems="center"
       // style={{ textAlign: "center" }}
     >
-      <Grid item xs={12} md={3}>
+      <Grid item xs={12}>
         <SearchOnSubmit filterState={[filter, dispatch]} />
       </Grid>
       {queryType === "items" && !recibo && (
-        <Grid item xs={3} sm={2}>
+        <Grid item xs={4}>
           <CategoriaFilter categoriaState={[categoria, dispatch]} />
         </Grid>
       )}
       {!recibo && (
         <>
-          <Grid item xs={3} sm={3}>
+          <Grid item xs={queryType === "ventas" ? 6 : 4}>
             <SelectItemPerPage take={take} dispatch={dispatch} />
           </Grid>
           {/* {hasViews && (
@@ -48,12 +48,12 @@ export default function FilterBar({
         </>
       )}
       {queryType === "items" && !recibo && (
-        <Grid item xs={3} sm={2}>
+        <Grid item xs={4}>
           <LteFilter lteState={[lte, dispatch]} />
         </Grid>
       )}
       {queryType === "ventas" && (
-        <Grid item xs={2} sm={2}>
+        <Grid item xs={6} sm={2}>
           <IsPagadoCheck isCreditoState={[isCredito, dispatch]} />
         </Grid>
       )}

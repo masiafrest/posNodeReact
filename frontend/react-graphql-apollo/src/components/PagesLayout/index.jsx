@@ -1,4 +1,4 @@
-import { useState, createContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { useQuery } from "@apollo/client";
 
 import FilterBar from "./components/FilterBar";
@@ -88,6 +88,16 @@ export default function PagesLayout({
   const hasData = loading ? false : data[title].query?.length > 0;
   const pages = loading ? 1 : Math.ceil(dataRes.count / take);
 
+  const CustomPagination = () => (
+    <Pagination
+      size="large"
+      count={pages}
+      page={page}
+      onChange={(e, p) => {
+        dispatch({ type: "page", payload: p });
+      }}
+    />
+  );
   return (
     <Grid
       container
@@ -104,9 +114,9 @@ export default function PagesLayout({
           <FilterBar
             context={FilterBarState}
             SearchField={SearchField}
-            getQuery={getQuery}
+            // getQuery={getQuery}
             queryType={title}
-            hasViews={viewComp.Accordion ? true : false}
+            // hasViews={viewComp.Accordion ? true : false}
           />
         </Grid>
         <Grid item xs={12}>
@@ -118,14 +128,7 @@ export default function PagesLayout({
         ) : hasData ? (
           <>
             <Grid item xs={12}>
-              <Pagination
-                count={pages}
-                page={page}
-                onChange={(e, p) => {
-                  dispatch({ type: "page", payload: p });
-                  // setPage(p);
-                }}
-              />
+              <CustomPagination />
             </Grid>
             <Grid container item sm={12} alignItems="center" spacing={2}>
               <List
@@ -135,14 +138,7 @@ export default function PagesLayout({
               />
             </Grid>
             <Grid item xs={12}>
-              <Pagination
-                count={pages}
-                page={page}
-                onChange={(e, p) => {
-                  dispatch({ type: "page", payload: p });
-                  // setPage(p);
-                }}
-              />
+              <CustomPagination />
             </Grid>
           </>
         ) : (
