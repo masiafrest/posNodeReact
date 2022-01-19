@@ -1,6 +1,5 @@
 import { NavLink, useHistory } from "react-router-dom";
 import { Drawer, List, ListItem, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { signOut, signoutSucess } from "../../redux/features/userSlice";
