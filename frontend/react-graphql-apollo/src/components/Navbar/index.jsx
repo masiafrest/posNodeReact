@@ -64,7 +64,7 @@ function NavBar() {
           </NavLink>
           <div className={classes.void} />
           <IconButton onClick={() => dispatch(toggleDarkMode())}>
-            {darkMode ? <SunIcon /> : <MoonIcon />}
+            {darkMode ? <span role="img">🌞</span> : <span role="img">🌛</span>}
           </IconButton>
         </Toolbar>
       </AppBar>
