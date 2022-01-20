@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
-import SelectInput from "./SelectInput";
+// import SelectInput from "./SelectInput";
+import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
+import { GET_MODELOS } from "../../graphql/query";
+import { GET_CARACTERISTICAS } from "../../graphql/query";
+import { GET_MARCAS } from "../../graphql/query";
+import { GET_COLORS } from "../../graphql/query";
+import SelectInput from "../../../../components/SelectInput";
+
 import { useSnackbar } from "notistack";
 import useToggle from "../../../../hooks/useToggle";
 
@@ -218,33 +225,38 @@ export default function ItemEditDialogIcon({ item = null }) {
             <Grid item xs={12}>
               <SelectInput
                 type="modelos"
-                multiple={true}
+                GET_QUERY={GET_MODELOS}
                 defaultValue={newItem.modelos}
-                setNewItem={setNewItem}
+                setDefaultValue={setNewItem}
+                multiple={true}
               />
               <SelectInput
                 type="categorias"
-                multiple={true}
+                GET_QUERY={GET_CATEGORIAS}
                 defaultValue={newItem.categorias}
-                setNewItem={setNewItem}
+                setDefaultValue={setNewItem}
+                multiple={true}
               />
               <SelectInput
                 type="caracteristicas"
-                multiple={true}
+                GET_QUERY={GET_CARACTERISTICAS}
                 defaultValue={newItem.caracteristicas}
-                setNewItem={setNewItem}
+                setDefaultValue={setNewItem}
+                multiple={true}
               />
             </Grid>
             <Grid item xs={12}>
               <SelectInput
                 type="marcas"
+                GET_QUERY={GET_MARCAS}
                 defaultValue={newItem.marca}
-                setNewItem={setNewItem}
+                setDefaultValue={setNewItem}
               />
               <SelectInput
                 type="colors"
+                GET_QUERY={GET_COLORS}
                 defaultValue={newItem.color}
-                setNewItem={setNewItem}
+                setDefaultValue={setNewItem}
               />
             </Grid>
           </Grid>

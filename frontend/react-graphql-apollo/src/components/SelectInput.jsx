@@ -1,16 +1,8 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
-import { GET_MODELOS } from "../../graphql/query";
-import { GET_CARACTERISTICAS } from "../../graphql/query";
-import { GET_MARCAS } from "../../graphql/query";
-import { GET_COLORS } from "../../graphql/query";
 
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
-
-let GET_QUERY;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,26 +14,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SelectInput({
+  type = "categorias",
+  GET_QUERY,
   defaultValue = [],
   setNewItem,
-  type = "categorias",
   multiple = false,
 }) {
-  if (type === "categorias") {
-    GET_QUERY = GET_CATEGORIAS;
-  }
-  if (type === "modelos") {
-    GET_QUERY = GET_MODELOS;
-  }
-  if (type === "caracteristicas") {
-    GET_QUERY = GET_CARACTERISTICAS;
-  }
-  if (type === "colors") {
-    GET_QUERY = GET_COLORS;
-  }
-  if (type === "marcas") {
-    GET_QUERY = GET_MARCAS;
-  }
   const { data, loading } = useQuery(GET_QUERY, {
     variables: { filter: "", skip: 0 },
   });
