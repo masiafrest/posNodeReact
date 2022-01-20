@@ -41,6 +41,7 @@ model Item {
   lineaVenta      VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
+  invItemInconstencia InvItemInconsitencia[]
 }
 
 model Caracteristica {
@@ -55,6 +56,7 @@ model Marca {
   nombre    String   @unique
   items     Item[]
   createdAt DateTime @default(now())
+  invStarted InvStarted[]
 }
 
 model Modelo {
@@ -77,6 +79,7 @@ model Categoria {
   nombre    String   @unique
   items     Item[]
   createdAt DateTime @default(now())
+  invStarted InvStarted[]
 }
 
 model Precio {
@@ -87,6 +90,7 @@ model Precio {
   item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
   itemId    Int      @unique
   createdAt DateTime @default(now())
+
 }
 
 model Ubicacion {
@@ -117,6 +121,7 @@ model Usuario {
   reciboVenta      Venta[]
   reciboDevolucion Devolucion[]
   createdAt        DateTime     @default(now())
+  invStarted InvStarted?  
 }
 
 model Venta {
@@ -166,4 +171,28 @@ model DevolucionLinea {
   descripcion       String
   esItemDevolvuelto Boolean
   razon             String
+}
+
+model InvStarted {
+  id Int @id @default(autoincrement())
+  marca           Marca?           @relation(fields: [marcaId], references: [id])
+  marcaId         Int?
+  // marca           Marca?           @relation(fields: [marcaNombre], references: [nombre])
+  // marcaNombre String
+  categoria Categoria?  @relation(fields: [categoriaId], references: [id])
+  categoriaId Int?
+  itemSkiped Int?
+  //encargado de hacer inventario, si no hay nadie cualquiera puede ser
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
+  createdAt        DateTime     @default(now())
+  completed Boolean
+  deleted Boolean
+}
+
+model InvItemInconsitencia {
+  id Int @id @default(autoincrement())
+  item Item @relation(fields: [itemId], references: [id])
+  itemId Int
+  diferencia Int
 }
