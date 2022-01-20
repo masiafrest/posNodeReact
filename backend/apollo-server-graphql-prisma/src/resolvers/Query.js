@@ -10,6 +10,8 @@ const { caracteristicas } = require("./controllers/caracteristica");
 const { colors } = require("./controllers/color");
 const { marcas } = require("./controllers/marca");
 
+const { invStarteds } = require("./controllers/invStarted");
+
 const { authenticated } = require("./authUtil");
 
 const queries = {
@@ -25,6 +27,7 @@ const queries = {
   caracteristicas,
   colors,
   marcas,
+  invStarteds,
 };
 
 let authQueries = {};

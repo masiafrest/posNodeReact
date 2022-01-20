@@ -20,7 +20,7 @@ type Query {
   colors(filter: String, skip: Int, take: Int): ColorQuery
 
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
-  invStarteds(filter: String, skip: Int, take: Int): InvStartedsQuery 
+  invStarteds(filter: String, skip: Int, take: Int): InvStartedsQuery
 }
 
 type ItemQuery {
@@ -30,6 +30,7 @@ type ItemQuery {
 type VentasQuery {
   query: [Venta]
   count: Int
+}
 
 type CategoriasQuery {
   query: [Categoria]
@@ -164,7 +165,7 @@ type Mutation {
   postColor(nombre: String!): Color
   updateColor(id: Int, nombre: String): Color
   delColor(id: Int): Color
-  
+
   postInvStarted(
     marcaId: Int
     categoriaId: Int
@@ -172,8 +173,9 @@ type Mutation {
     usuarioId: Int
     completed: Boolean
     deleted: Boolean
-  ): InvStarted 
-  updateInvStarted(id: Int
+  ): InvStarted
+  updateInvStarted(
+    id: Int
     marcaId: Int
     categoriaId: Int
     itemSkiped: Int
