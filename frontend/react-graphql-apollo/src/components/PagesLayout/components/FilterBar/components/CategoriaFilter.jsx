@@ -11,7 +11,7 @@ export default function CategoriaFilter({ categoriaState }) {
   if (error) return `error: ${error}`;
 
   const categoriasList = data.categorias.query.map(({ id, nombre }) => (
-    <MenuItem value={nombre} key={nombre}>
+    <MenuItem value={nombre} key={nombre + id}>
       {nombre}
     </MenuItem>
   ));
@@ -29,7 +29,7 @@ export default function CategoriaFilter({ categoriaState }) {
         value={categoria}
         onChange={handleChange}
       >
-        <MenuItem value={"todos"}>todos</MenuItem>
+        <MenuItem value={"TODOS"}>TODOS</MenuItem>
         {categoriasList}
       </Select>
     </FormControl>

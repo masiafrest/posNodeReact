@@ -9,41 +9,30 @@ const updateItem = require("./updateItem");
  * @param {{ prisma: Prisma }} ctx
  */
 async function items(parent, args, ctx, info) {
-  const { filter, skip, take, lte, categoria } = args;
-  let where = new Object();
-
-  where.deleted = false;
-
-  console.log("lte", lte);
-  if (lte !== null && lte >= 0) {
-    where.qty = {
-      lte,
-    };
-  }
+  const { filter, skip, take, lte, categoria, deleted } = args;
+  console.log("args: ", args);
 
   const trimWord = filter?.trim();
   const splitWord = trimWord.split(" ");
   const noSpaceInWords = splitWord.filter((word) => word !== "");
 
-  console.log("query items categoria:", categoria);
-  if (categoria !== undefined) {
-    if (categoria !== "todos") {
-      where.categorias = {
-        some: { nombre: { contains: categoria.trim() } },
-      };
-    }
-  }
-
-  where.AND = noSpaceInWords.map((e) => ({
-    descripcion: {
-      contains: e,
+  const where = {
+    deleted: deleted ? true : false,
+    AND: noSpaceInWords.map((e) => ({
+      descripcion: {
+        contains: e,
+      },
+    })),
+    categorias: {
+      some: {
+        nombre: { contains: categoria === "TODOS" ? "" : categoria.trim() },
+      },
     },
-  }));
+    qty: {
+      lte: lte ? lte : undefined,
+    },
+  };
 
-  // lte && (where.qty.lte = lte);
-  // gte && (where.qty.gte = gte);
-  console.log("args: ", args);
-  console.log("where: ", where);
   const query = await ctx.prisma.item.findMany({
     orderBy: {
       descripcion: "asc",

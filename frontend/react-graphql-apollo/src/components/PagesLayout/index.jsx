@@ -20,50 +20,45 @@ export default function PagesLayout({
     take: 20,
     view: false,
     page: 1,
-    lte: null,
+    lte: undefined,
     isCredito: true,
-    categoria: "todos",
+    categoria: "TODOS",
   };
 
   const barReducer = (state, action) => {
     switch (action.type) {
       case "searchOnSubmit":
         return {
-          ...initialState,
+          ...state,
           filter: action.payload.filter,
           page: action.payload.page,
         };
       case "selectItemPerPage":
         return {
-          ...initialState,
+          ...state,
           take: action.payload.take,
           page: action.payload.page,
         };
       case "filter":
-        return { ...initialState, filter: action.payload };
+        return { ...state, filter: action.payload };
       case "take":
-        return { ...initialState, take: action.payload };
+        return { ...state, take: action.payload };
       case "view":
-        return { ...initialState, view: action.payload };
+        return { ...state, view: action.payload };
       case "page":
-        return { ...initialState, page: action.payload };
+        return { ...state, page: action.payload };
       case "lte":
-        return { ...initialState, lte: action.payload };
+        return { ...state, lte: action.payload };
       case "isCredito":
-        return { ...initialState, isCredito: action.payload };
+        return { ...state, isCredito: action.payload };
       case "categoria":
-        return { ...initialState, categoria: action.payload };
+        return { ...state, categoria: action.payload };
       default:
         return state;
     }
   };
 
   const [barState, dispatch] = useReducer(barReducer, initialState);
-
-  const filterBarState = {
-    barState,
-    dispatch,
-  };
 
   const { page, take, view } = barState;
 
@@ -110,7 +105,12 @@ export default function PagesLayout({
       spacing={2}
       // style={{ textAlign: 'center' }}
     >
-      <FilterBarState.Provider value={filterBarState}>
+      <FilterBarState.Provider
+        value={{
+          barState,
+          dispatch,
+        }}
+      >
         <Grid item xs={12}>
           <h1>{title.toUpperCase()}</h1>
         </Grid>
