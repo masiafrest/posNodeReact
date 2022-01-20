@@ -41,7 +41,7 @@ model Item {
   lineaVenta      VentaLinea[]
   lineaDevolucion DevolucionLinea[]
 
-  invItemInconstencia InvItemInconsitencia[]
+  lineaConteInv LineaConteoInv[]
 }
 
 model Caracteristica {
@@ -56,7 +56,7 @@ model Marca {
   nombre    String   @unique
   items     Item[]
   createdAt DateTime @default(now())
-  invStarted InvStarted[]
+  conteoInv ConteoInv[]  
 }
 
 model Modelo {
@@ -79,7 +79,7 @@ model Categoria {
   nombre    String   @unique
   items     Item[]
   createdAt DateTime @default(now())
-  invStarted InvStarted[]
+  conteoInv ConteoInv[]  
 }
 
 model Precio {
@@ -121,7 +121,7 @@ model Usuario {
   reciboVenta      Venta[]
   reciboDevolucion Devolucion[]
   createdAt        DateTime     @default(now())
-  invStarted InvStarted?  
+  conteoInv ConteoInv?  
 }
 
 model Venta {
@@ -173,7 +173,7 @@ model DevolucionLinea {
   razon             String
 }
 
-model InvStarted {
+model ConteoInv{
   id Int @id @default(autoincrement())
   marca           Marca?           @relation(fields: [marcaId], references: [id])
   marcaId         Int?
@@ -188,9 +188,12 @@ model InvStarted {
   createdAt        DateTime     @default(now())
   completed Boolean
   deleted Boolean
+  lineasConteoInvs LineaConteoInv[]
 }
 
-model InvItemInconsitencia {
+model LineaConteoInv{
+  conteoInv ConteoInv @relation(fields: [conteoInvId], references: [id])
+  conteoInvId Int 
   id Int @id @default(autoincrement())
   item Item @relation(fields: [itemId], references: [id])
   itemId Int

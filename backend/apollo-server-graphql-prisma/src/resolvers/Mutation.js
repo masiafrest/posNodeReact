@@ -24,7 +24,7 @@ const {
 } = require("./controllers/usuario");
 const { postModelo, delModelo, updateModelo } = require("./controllers/modelo");
 
-const { postInvStarted } = require("./controllers/invStarted");
+const { postConteoInv } = require("./controllers/conteoInv");
 const { authenticated } = require("./authUtil");
 
 const mutations = {
@@ -49,7 +49,7 @@ const mutations = {
   postModelo,
   delModelo,
   updateModelo,
-  postInvStarted,
+  postConteoInv,
 };
 
 let authMutations = { ...mutations };

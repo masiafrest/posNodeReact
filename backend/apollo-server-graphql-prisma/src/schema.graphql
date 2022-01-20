@@ -20,7 +20,7 @@ type Query {
   colors(filter: String, skip: Int, take: Int): ColorQuery
 
   devoluciones(filter: String, skip: Int, take: Int): DevolucionesQuery
-  invStarteds(filter: String, skip: Int, take: Int): InvStartedsQuery
+  conteoInvs(filter: String, skip: Int, take: Int): ConteoInvsQuery
 }
 
 type ItemQuery {
@@ -77,8 +77,8 @@ type DevolucionesQuery {
   count: Int
 }
 
-type InvStartedsQuery {
-  query: [InvStarted]
+type ConteoInvsQuery {
+  query: [ConteoInv]
   count: Int
 }
 
@@ -166,15 +166,15 @@ type Mutation {
   updateColor(id: Int, nombre: String): Color
   delColor(id: Int): Color
 
-  postInvStarted(
+  postConteoInv(
     marcaId: Int
     categoriaId: Int
     itemSkiped: Int
     usuarioId: Int
     completed: Boolean
     deleted: Boolean
-  ): InvStarted
-  updateInvStarted(
+  ): ConteoInv
+  updateConteoInv(
     id: Int
     marcaId: Int
     categoriaId: Int
@@ -182,8 +182,8 @@ type Mutation {
     usuarioId: Int
     completed: Boolean
     deleted: Boolean
-  ): InvStarted
-  delInvStarted(id: Int): InvStarted
+  ): ConteoInv
+  delConteoInv(id: Int): ConteoInv
 }
 
 type File {
@@ -351,7 +351,7 @@ type DevolucionLinea {
   esItemDevolvuelto: Boolean
 }
 
-type InvStarted {
+type ConteoInv {
   id: ID!
   marca: Marca
   marcaId: Int

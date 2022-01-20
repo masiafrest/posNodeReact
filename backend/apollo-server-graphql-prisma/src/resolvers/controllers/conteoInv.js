@@ -4,9 +4,9 @@
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function invStarteds(_, { filter, skip, take }, ctx, __) {
-  const query = ctx.prisma.invStarted.findMany({ skip, take });
-  const count = ctx.prisma.invStarted.count();
+function conteoInvs(_, { filter, skip, take }, ctx, __) {
+  const query = ctx.prisma.conteoInv.findMany({ skip, take });
+  const count = ctx.prisma.conteoInv.count();
 
   return { query, count };
 }
@@ -17,10 +17,11 @@ function invStarteds(_, { filter, skip, take }, ctx, __) {
  * @param {{ searchString: string }} args
  * @param {{ prisma: Prisma }} ctx
  */
-function postInvStarted(_, args, ctx, __) {
+function postConteoInv(_, args, ctx, __) {
   const { marcaId, categoriaId, itemSkiped, usuarioId, completed, deleted } =
     args;
-  const res = ctx.prisma.invStarted.create({
+
+  const res = ctx.prisma.conteoInv.create({
     data: {
       itemSkiped,
       marca: { connect: { id: marcaId * 1 } },
@@ -34,4 +35,4 @@ function postInvStarted(_, args, ctx, __) {
   return res;
 }
 
-module.exports = { postInvStarted, invStarteds };
+module.exports = { postConteoInv, conteoInvs };

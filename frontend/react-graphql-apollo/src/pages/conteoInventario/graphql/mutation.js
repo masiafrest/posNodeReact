@@ -1,8 +1,8 @@
-import { INV_STARTED_DATA } from "../graphql/query";
+import { CONTEO_INV_DATA } from "./query";
 import { gql } from "@apollo/client";
 
-export const POST_INV_STARTED = gql`
-  mutation PostInvStarted(
+export const POST_CONTEO_INV = gql`
+  mutation PostConteoInv(
     $categoriaId: Int
     $marcaId: Int
     $itemSkiped: Int
@@ -10,7 +10,7 @@ export const POST_INV_STARTED = gql`
     $completed: Boolean
     $deleted: Boolean
   ) {
-    postInvStarted(
+    postConteoInv(
       categoriaId: $categoriaId
       marcaId: $marcaId
       itemSkiped: $itemSkiped
@@ -18,16 +18,16 @@ export const POST_INV_STARTED = gql`
       completed: $completed
       deleted: $deleted
     ) {
-      ...invStarteds
+      ...conteoInvs
     }
   }
-  ${INV_STARTED_DATA}
+  ${CONTEO_INV_DATA}
 `;
 
-export const UPDATE_INV_STARTED = gql`
-  mutation UpdateInvStarted(
+export const UPDATE_CONTEO_INV = gql`
+  mutation UpdateConteoInv(
   ) {
-    updateInvStarted(
+    updateConteoInv(
     $categoriaId: Int
     $marcaId: Int
     $itemSkiped: Int
@@ -35,10 +35,10 @@ export const UPDATE_INV_STARTED = gql`
     $completed: Boolean
     $deleted: Boolean
     ) {
-      ...invStarteds
+      ...conteoInvs
     }
   }
-  ${INV_STARTED_DATA}
+  ${CONTEO_INV_DATA}
 `;
 
 export const DEL_ITEM = gql`
