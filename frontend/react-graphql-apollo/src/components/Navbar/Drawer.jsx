@@ -18,7 +18,13 @@ export default function ({ isDrawerOpen, toggleDrawer }) {
 
   const history = useHistory();
 
-  const links = ["item", "venta", "cliente", "categoria"];
+  const links = [
+    "item",
+    "venta",
+    "cliente",
+    "categoria",
+    "conteo de inventario",
+  ];
 
   rol === "ADMIN" && links.push("usuario");
 
@@ -39,7 +45,11 @@ export default function ({ isDrawerOpen, toggleDrawer }) {
       <List>
         {links.map((text, index) => (
           <ListItem button key={text}>
-            <NavLinkOnClick to={"/" + text}>{text}</NavLinkOnClick>
+            <NavLinkOnClick
+              to={`/${text === "conteo de inventario" ? "conteoInv" : text}`}
+            >
+              {text}
+            </NavLinkOnClick>
           </ListItem>
         ))}
         {authenticated && (
