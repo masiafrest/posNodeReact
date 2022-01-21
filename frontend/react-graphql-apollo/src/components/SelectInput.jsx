@@ -17,7 +17,7 @@ export default function SelectInput({
   type = "categorias",
   GET_QUERY,
   defaultValue = [],
-  setNewItem,
+  setDefaultValue,
   multiple = false,
 }) {
   const { data, loading } = useQuery(GET_QUERY, {
@@ -34,7 +34,7 @@ export default function SelectInput({
       ? newValue.toUpperCase()
       : undefined;
     // console.log("handle change value", value);
-    setNewItem((item) => ({
+    setDefaultValue((item) => ({
       ...item,
       [key]: value,
     }));
