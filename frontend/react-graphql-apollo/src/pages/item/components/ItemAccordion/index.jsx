@@ -47,15 +47,13 @@ export default function ItemAccordion({ data }) {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
       >
-        <div>
-          <Typography>
-            <Typography style={{ fontWeight: 600 }}>
-              {getDescription(marca, modelos, color)}
-            </Typography>
-            {chips(caracteristicas, "small", "outline")}
-            {chips(categorias, "small")}
+        <Typography>
+          <Typography style={{ fontWeight: 600 }}>
+            {getDescription(marca, modelos, color)}
           </Typography>
-        </div>
+          {chips(caracteristicas, "small", "outline")}
+          {chips(categorias, "small")}
+        </Typography>
       </AccordionSummary>
       <Divider variant="middle" />
       <AccordionDetails>

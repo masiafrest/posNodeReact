@@ -134,7 +134,7 @@ export default function PagesLayout({
             <Grid item xs={12}>
               <CustomPagination />
             </Grid>
-            <Grid container item sm={12} alignItems="center" spacing={2}>
+            <Grid container item sm={12} spacing={2}>
               <List
                 view={view}
                 data={loading ? [] : dataRes.query}
