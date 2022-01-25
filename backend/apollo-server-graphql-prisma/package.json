@@ -7,7 +7,8 @@
     "start": "node src/index.js",
     "dev": "dotenv -e .env.dev nodemon src/testServer.js",
     "migrate:dev": "dotenv -e .env.dev prisma migrate dev",
-    "migrate:prod": "prisma migrate dev"
+    "migrate:prod": "prisma migrate dev",
+    "test": "dotenv -e .env.dev jest"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,9 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "jest": "^27.4.7",
     "nodemon": "^2.0.7",
-    "prisma": "^2.26.0"
+    "prisma": "^2.26.0",
+    "supertest": "^6.2.2"
   }
 }

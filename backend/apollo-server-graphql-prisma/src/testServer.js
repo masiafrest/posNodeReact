@@ -20,21 +20,21 @@ const resolvers = {
   Upload: GraphQLUpload,
 };
 
-async function startServer() {
-  const server = new ApolloServer({
-    introspection: true,
-    typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf-8"),
-    resolvers,
-    context: ({ req }) => {
-      const authToken = req.headers.authorization;
-      return {
-        ...req,
-        prisma,
-        currentUser: authToken ? tradeTokenForUser(authToken) : null,
-      };
-    },
-  });
+const server = new ApolloServer({
+  introspection: true,
+  typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf-8"),
+  resolvers,
+  context: ({ req }) => {
+    const authToken = req.headers.authorization;
+    return {
+      ...req,
+      prisma,
+      currentUser: authToken ? tradeTokenForUser(authToken) : null,
+    };
+  },
+});
 
+async function startServer() {
   await server.start();
 
   const app = express();
@@ -57,9 +57,8 @@ async function startServer() {
   });
 
   server.applyMiddleware({ app });
-  console.log(process.env)
-  console.log(process.env.PORT)
-  console.log(process.env.NODE_ENV)
+  console.log(process.env.PORT);
+  console.log(process.env.NODE_ENV);
   const PORT = process.env.PORT || 8888;
   await new Promise((resolve) => app.listen({ port: PORT }, resolve));
 
@@ -76,4 +75,4 @@ async function startServer() {
 }
 
 startServer();
-module.exports = startServer;
+module.exports = { startServer, server };
