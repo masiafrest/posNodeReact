@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "migrate-dev": "dotenv -e .env.dev prisma migrate dev",
-    "migrate-prod": "prisma migrate"
+    "dev": "dotenv -e .env.dev nodemon src/testServer.js",
+    "migrate:dev": "dotenv -e .env.dev prisma migrate dev",
+    "migrate:prod": "prisma migrate dev"
   },
   "keywords": [],
   "author": "",
