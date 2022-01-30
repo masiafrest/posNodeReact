@@ -1,8 +1,10 @@
 const url = `http://localhost:${process.env.PORT}`;
 const supertest = require("supertest");
 // const request = require("supertest");
-const app = require("../src/testServer");
-const { server } = require("../src/testServer");
+const { server, startServer } = require("../src/server");
+
+process.env.NODE_ENV = "development";
+process.env.PORT = 3888;
 
 afterAll(async () => {
   await server.stop();
@@ -10,7 +12,7 @@ afterAll(async () => {
 
 describe("usuario Graphql", (done) => {
   it("return users", (done) => {
-    const res = supertest(app).get("/graphql");
+    const res = supertest(startServer()).get("/graphql");
     console.log(res);
     done();
   });

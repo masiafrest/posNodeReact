@@ -17,14 +17,17 @@ const server = new ApolloServer({
 async function startServer() {
   await server.start();
   server.applyMiddleware({ app });
-  const PORT = process.env.PORT || 8888;
+  const PORT = process.env.PORT || 4000;
   console.log(process.env.PORT);
   console.log(process.env.NODE_ENV);
-  await new Promise((resolve) => app.listen({ port: PORT }, resolve));
-
-  console.log(`🚀 Serve React build files ready at http://localhost:${PORT}`);
-  console.log(
-    `🚀 Grahql Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  // await new Promise((resolve) => app.listen({ port: PORT }, resolve));
+  app.listen(
+    { port: PORT },
+    console.log(
+      `🚀 Serve React build files ready at http://localhost:${PORT}`,
+      "\n",
+      `🚀 Grahql Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    )
   );
 }
 
