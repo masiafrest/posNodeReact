@@ -17,7 +17,6 @@ export default function CategoriaFilter({ categoriaState }) {
   ));
 
   const handleChange = (e) => {
-    console.log("handlechange isVenta", isVenta);
     if (isVenta) {
       console.log("isVenta value:", e.target.value);
       dispatch(e.target.value);
