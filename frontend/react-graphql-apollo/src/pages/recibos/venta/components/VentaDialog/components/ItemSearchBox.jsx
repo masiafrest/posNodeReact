@@ -5,7 +5,7 @@ import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
 import { GET_ITEMS } from "../../../../../item/graphql/query";
 
 export default function ItemSearchBox() {
-  const [categoria, setCategoria] = useState("todos");
+  const [categoria, setCategoria] = useState("TODOS");
   return (
     <div
       style={{
@@ -24,7 +24,9 @@ export default function ItemSearchBox() {
           categoriaFilter={categoria}
         />
       </div>
-      <CategoriaFilterSelect categoriaState={[categoria, setCategoria]} />
+      <CategoriaFilterSelect
+        categoriaState={[categoria, setCategoria, "venta"]}
+      />
     </div>
   );
 }
