@@ -35,6 +35,9 @@ async function categorias(parent, args, ctx, info) {
   };
 
   const query = await ctx.prisma.categoria.findMany({
+    orderBy: {
+      nombre: "asc",
+    },
     where,
     skip: skip || 0,
     take: take || undefined,
