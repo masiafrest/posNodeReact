@@ -1,5 +1,5 @@
 import ReciboVenta from "./components/ReciboVenta";
-import useToggle from "../../../../../hooks/useToggle";
+import useToggle from "../../../../../utils/hooks/useToggle";
 
 import { Dialog, DialogContent, DialogTitle, Button } from "@material-ui/core";
 

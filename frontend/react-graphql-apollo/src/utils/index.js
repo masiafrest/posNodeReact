@@ -3,7 +3,7 @@ import {
   signOut,
   setAuthenticated,
   setUserCredential,
-} from "./redux/features/userSlice";
+} from "../redux/features/userSlice";
 
 export function getViewComp(Card, Accordion) {
   return {

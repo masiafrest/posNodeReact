@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import SunIcon from "@material-ui/icons/Brightness5";
 import MoonIcon from "@material-ui/icons/Brightness2";
 
-import useToggle from "../../hooks/useToggle";
+import useToggle from "../../utils/hooks/useToggle";
 
 //MUI
 import { makeStyles } from "@material-ui/core/styles";

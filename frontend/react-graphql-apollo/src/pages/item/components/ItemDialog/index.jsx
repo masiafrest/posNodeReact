@@ -11,7 +11,7 @@ import { GET_COLORS } from "../../graphql/query";
 import SelectInput from "../../../../components/SelectInput";
 
 import { useSnackbar } from "notistack";
-import useToggle from "../../../../hooks/useToggle";
+import useToggle from "../../../../utils/hooks/useToggle";
 
 import {
   Dialog,

@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { DEL_ITEM } from "../graphql/mutation";
 
-import useToggle from "../../../hooks/useToggle";
+import useToggle from "../../../utils/hooks/useToggle";
 import DeleteModal from "../../../components/DeleteModal";
 
 import { IconButton } from "@material-ui/core";
