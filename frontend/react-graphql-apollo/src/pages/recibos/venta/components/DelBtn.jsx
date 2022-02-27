@@ -18,7 +18,6 @@ export default function DelBtn({ id }) {
       modifyCacheOnDelete(cache, id, "ventas");
     },
     onCompleted(data) {
-      console.log("onComplete");
       const { id } = data.delVenta;
       toggleIsOpen();
       enqueueSnackbar(`Venta ${id} eliminado`, {
