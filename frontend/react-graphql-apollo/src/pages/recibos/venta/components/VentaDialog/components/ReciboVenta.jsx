@@ -2,7 +2,7 @@ import TableRecibo from "./TablaContainer/VentaTable";
 import ItemSearchBox from "./ItemSearchBox";
 import SearchOnAutoComplete from "../../../../components/SearchOnAutoComplete";
 import PrintBtn from "../../PrintBtn";
-
+import { modifyCacheOnPost } from "../../../../../../utils/apollo";
 import { useSnackbar } from "notistack";
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -23,29 +23,8 @@ export default function ReciboVenta({ toggleOpen }) {
   const { enqueueSnackbar } = useSnackbar();
   const [postVenta] = useMutation(PostVenta, {
     update(cache, { data: { postVenta } }) {
-      console.log("post venta: ", postVenta);
-      cache.modify({
-        fields: {
-          ventas(existingDatas = []) {
-            const newItemRef = cache.writeFragment({
-              data: postVenta,
-              fragment: VENTA_DATA,
-            });
-            console.log("post venta field: ", [
-              ...existingDatas.query,
-              newItemRef,
-            ]);
-            return [...existingDatas.query, newItemRef];
-          },
-        },
-      });
+      modifyCacheOnPost(cache, postVenta, VENTA_DATA, "ventas");
     },
-    // refetchQueries: [VENTA_DATA, "getVentas"],
-    // onQueryUpdated(observableQuery){
-    //   if(shouldRefetchQuery(observableQuery)){
-    //     return observableQuery.refetch();
-    //   }
-    // },
     onCompleted(data) {
       enqueueSnackbar(`recibo añadido`, {
         variant: "success",

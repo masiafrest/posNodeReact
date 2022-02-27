@@ -71,7 +71,7 @@ export default function PagesLayout({
 
   const { data, loading, error } = useQuery(getQuery, {
     variables: { ...barState, skip },
-    pollInterval: 30000,
+    // pollInterval: 30000,
   });
 
   if (error) {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_ITEM, POST_ITEM } from "../../graphql/mutation";
 import { ITEM_DATA } from "../../graphql/query";
+import { modifyCacheOnPost } from "../../../../utils/apollo";
 // import SelectInput from "./SelectInput";
 import { GET_CATEGORIAS } from "../../../categoria/graphql/query";
 import { GET_MODELOS } from "../../graphql/query";
@@ -75,20 +76,9 @@ export default function ItemEditDialogIcon({ item = null }) {
   });
 
   const [postItem] = useMutation(POST_ITEM, {
-    update(cache, { data }) {
-      cache.modify({
-        fields: {
-          items(existingData = []) {
-            const newDataRef = cache.writeFragment({
-              data: data.postItem,
-              fragment: ITEM_DATA,
-            });
-            return existingData?.query
-              ? [...existingData.query, newDataRef]
-              : [newDataRef];
-          },
-        },
-      });
+    // refetchQueries: [GET_ITEMS],
+    update(cache, { data: { postItem } }) {
+      modifyCacheOnPost(cache, postItem, ITEM_DATA, "items");
     },
     onCompleted,
     onError,

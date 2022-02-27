@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { DelVenta } from "../grapql/mutation";
-
+import { modifyCacheOnDelete } from "../../../../utils/apollo";
 import useToggle from "../../../../utils/hooks/useToggle";
 import DeleteModal from "../../../../components/DeleteModal";
 
@@ -14,18 +14,8 @@ export default function DelBtn({ id }) {
   const [isOpen, toggleIsOpen] = useToggle(false);
 
   const [delVenta, { loading }] = useMutation(DelVenta, {
-    update(cache, { data: { delVenta } }) {
-      console.log("update");
-      cache.modify({
-        fields: {
-          ventas(existingVentas = [], { readField }) {
-            const filteredVentas = existingVentas.query.filter((ventaRef) => {
-              return id !== readField("id", ventaRef);
-            });
-            return filteredVentas;
-          },
-        },
-      });
+    update(cache) {
+      modifyCacheOnDelete(cache, id, "ventas");
     },
     onCompleted(data) {
       console.log("onComplete");
