@@ -1,3 +1,4 @@
+const { PORT } = require("../utils/config");
 const { ApolloServer } = require("apollo-server-express");
 const fs = require("fs");
 
@@ -14,15 +15,21 @@ const server = new ApolloServer({
   context,
 });
 
-async function startServer() {
+async function startServer(http) {
   await server.start();
   server.applyMiddleware({ app });
-  const PORT = process.env.PORT || 4000;
-  console.log(process.env.PORT);
-  console.log(process.env.NODE_ENV);
   // await new Promise((resolve) => app.listen({ port: PORT }, resolve));
-  app.listen(
-    { port: PORT },
+  // app.listen(
+  //   { port: PORT },
+  //   console.log(
+  //     `🚀 Serve React build files ready at http://localhost:${PORT}`,
+  //     "\n",
+  //     `🚀 Grahql Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  //   )
+  // );
+  const httpServer = http.createServer(app);
+  httpServer.listen(
+    PORT,
     console.log(
       `🚀 Serve React build files ready at http://localhost:${PORT}`,
       "\n",

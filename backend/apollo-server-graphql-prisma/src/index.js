@@ -1,3 +1,4 @@
+const http = require("http");
 const { startServer } = require("./server");
 
-startServer();
+startServer(http);

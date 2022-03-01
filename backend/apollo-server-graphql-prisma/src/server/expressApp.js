@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const { graphqlUploadExpress } = require("graphql-upload");
-
-const { localIp } = require("../utils/getLocalIp");
 const path = require("path");
 
+const { localIp } = require("../utils/getLocalIp");
+console.log(localIp);
+
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 // This middleware should be added before calling `applyMiddleware`.
@@ -20,7 +22,6 @@ app.use(
     )
   )
 );
-console.log(localIp);
 
 app.get("/upload/item/:image", (req, res, next) => {
   const { image } = req.params;

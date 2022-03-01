@@ -1,0 +1,13 @@
+POST http://192.168.1.104:4001/graphql
+Content-Type: application/json
+
+{
+	"query":{
+		"items(filter: ""
+		take: 1
+		skip: 1
+		){
+			id
+			}"
+	}
+}
