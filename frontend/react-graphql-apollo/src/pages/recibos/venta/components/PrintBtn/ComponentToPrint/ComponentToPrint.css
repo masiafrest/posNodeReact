@@ -68,7 +68,7 @@
 
   html {
     font: 16px/1 "Open Sans", sans-serif;
-    overflow: auto;
+    /* overflow: auto; */
     padding: 0.5in;
   }
   html {
