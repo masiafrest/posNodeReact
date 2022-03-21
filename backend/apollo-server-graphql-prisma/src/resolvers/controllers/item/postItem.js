@@ -8,25 +8,20 @@ const { connectOrCreateFactory, connectOrCreateArr } = require("./utils");
  * @param {{ prisma: Prisma }} ctx
  */
 async function postItem(parent, args, ctx, info) {
-  const {
-    barcode,
-    categorias,
-    precio,
-    precioMin,
-    ubicacion,
-    qty,
-    images,
-    marca,
-    modelos,
-    color,
-    caracteristicas,
-  } = args;
+  const { barcode, precio, precioMin, ubicacion, qty, images, marca, color } =
+    args;
   console.log("args post item: ", args);
   // console.log("save item");
+  const sortedArr = (arr) => [...arr].sort();
+  const caracteristicas = sortedArr(args.caracteristicas);
+  const modelos = sortedArr(args.modelos);
+  const categorias = sortedArr(args.categorias);
 
   const getDescription = `${marca} ${modelos?.join(
     " "
   )} ${color} ${caracteristicas?.join(" ")} ${categorias?.join(" ")}`;
+
+  console.log(getDescription);
   try {
     const itemCreated = await ctx.prisma.item.create({
       data: {
@@ -61,10 +56,10 @@ async function postItem(parent, args, ctx, info) {
       },
       include: {
         marca: true,
-        modelos: true,
-        caracteristicas: true,
+        modelos: { orderBy: { nombre: "asc" } },
+        caracteristicas: { orderBy: { nombre: "asc" } },
+        categorias: { orderBy: { nombre: "asc" } },
         color: true,
-        categorias: true,
         precio: true,
         ubicacion: true,
       },
